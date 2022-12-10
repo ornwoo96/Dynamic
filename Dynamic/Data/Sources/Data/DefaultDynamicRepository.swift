@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Domain
+
 public final class DefaultDynamicRepository: DynamicRepository {
     public func fetchSomething() {
         print("fetch start")

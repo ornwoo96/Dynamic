@@ -19,9 +19,8 @@ public final class DomainDIContainer: Containable {
     }
     
     private func registerUseCases() {
-        guard let dynamicRepository: DynamicRepository = container.resolveValue("DynamicRepository"),
-              let dynamicUseCase = DefaultD else { return }
-        
-        container.registerValue("DynamicUseCase", <#T##value: Service##Service#>)
+        guard let dynamicRepository: DynamicRepository = container.resolveValue(RepoKeys.DynamicRepo.rawValue) else { return }
+        let dynamicUseCase = DefaultDynamicUseCase(dynamicRepository: dynamicRepository)
+        container.registerValue(UCKeys.DynamicUC.rawValue, dynamicUseCase)
     }
 }

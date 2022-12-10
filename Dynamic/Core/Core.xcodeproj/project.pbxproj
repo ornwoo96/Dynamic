@@ -14,6 +14,7 @@
 		0B19C88D2942446400909F8D /* BMOInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C88C2942446400909F8D /* BMOInject.swift */; };
 		0B19C8912943665C00909F8D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8902943665C00909F8D /* TestViewController.swift */; };
 		0B19C893294391D800909F8D /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C892294391D800909F8D /* DIContainer.swift */; };
+		0BE3D460294472CC006B354E /* RegisterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3D45F294472CC006B354E /* RegisterKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		0B19C88C2942446400909F8D /* BMOInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMOInject.swift; sourceTree = "<group>"; };
 		0B19C8902943665C00909F8D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0B19C892294391D800909F8D /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		0BE3D45F294472CC006B354E /* RegisterKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +61,8 @@
 		0B19C8352942358900909F8D = {
 			isa = PBXGroup;
 			children = (
-				0B19C8412942358900909F8D /* Core */,
+				0BE3D4632944A9C7006B354E /* Resources */,
+				0BE3D4642944A9CD006B354E /* Sources */,
 				0B19C84D2942358900909F8D /* CoreTests */,
 				0B19C8402942358900909F8D /* Products */,
 			);
@@ -79,8 +82,6 @@
 			children = (
 				0B19C8942943924500909F8D /* DIContainer */,
 				0B19C88B2942444800909F8D /* inject */,
-				0B19C8422942358900909F8D /* Core.h */,
-				0B19C8432942358900909F8D /* Core.docc */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -106,8 +107,26 @@
 			isa = PBXGroup;
 			children = (
 				0B19C892294391D800909F8D /* DIContainer.swift */,
+				0BE3D45F294472CC006B354E /* RegisterKeys.swift */,
 			);
 			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		0BE3D4632944A9C7006B354E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C8422942358900909F8D /* Core.h */,
+				0B19C8432942358900909F8D /* Core.docc */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0BE3D4642944A9CD006B354E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C8412942358900909F8D /* Core */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +240,7 @@
 			files = (
 				0B19C8442942358900909F8D /* Core.docc in Sources */,
 				0B19C893294391D800909F8D /* DIContainer.swift in Sources */,
+				0BE3D460294472CC006B354E /* RegisterKeys.swift in Sources */,
 				0B19C88D2942446400909F8D /* BMOInject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

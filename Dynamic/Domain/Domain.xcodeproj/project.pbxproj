@@ -17,6 +17,8 @@
 		0B19C87329423F0000909F8D /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87129423F0000909F8D /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B19C89B29439A2A00909F8D /* DomainDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C89A29439A2A00909F8D /* DomainDIContainer.swift */; };
 		0B19C8A229439F3000909F8D /* DynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8A129439F3000909F8D /* DynamicRepository.swift */; };
+		0BE3D45029444DCA006B354E /* DynamicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3D44F29444DCA006B354E /* DynamicUseCase.swift */; };
+		0BE3D45329444E19006B354E /* DynamicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3D45229444E19006B354E /* DynamicUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		0B19C87129423F0000909F8D /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B19C89A29439A2A00909F8D /* DomainDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDIContainer.swift; sourceTree = "<group>"; };
 		0B19C8A129439F3000909F8D /* DynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRepository.swift; sourceTree = "<group>"; };
+		0BE3D44F29444DCA006B354E /* DynamicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUseCase.swift; sourceTree = "<group>"; };
+		0BE3D45229444E19006B354E /* DynamicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +103,8 @@
 		0B19C7E7294234B100909F8D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				0B19C8A029439F1500909F8D /* Repositories */,
-				0B19C895294399DB00909F8D /* DIContainer */,
-				0B19C7E8294234B100909F8D /* Domain.h */,
-				0B19C7E9294234B100909F8D /* Domain.docc */,
+				0BE3D44C29444D51006B354E /* Resources */,
+				0BE3D44D29444D6E006B354E /* Sources */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -132,12 +134,48 @@
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		0B19C8A029439F1500909F8D /* Repositories */ = {
+		0B19C8A029439F1500909F8D /* Inferfaces */ = {
 			isa = PBXGroup;
 			children = (
 				0B19C8A129439F3000909F8D /* DynamicRepository.swift */,
 			);
-			path = Repositories;
+			path = Inferfaces;
+			sourceTree = "<group>";
+		};
+		0BE3D44C29444D51006B354E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C7E8294234B100909F8D /* Domain.h */,
+				0B19C7E9294234B100909F8D /* Domain.docc */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0BE3D44D29444D6E006B354E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C895294399DB00909F8D /* DIContainer */,
+				0B19C8A029439F1500909F8D /* Inferfaces */,
+				0BE3D45129444DF4006B354E /* Protocols */,
+				0BE3D44E29444DA6006B354E /* UseCases */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		0BE3D44E29444DA6006B354E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				0BE3D44F29444DCA006B354E /* DynamicUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		0BE3D45129444DF4006B354E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0BE3D45229444E19006B354E /* DynamicUseCase.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +288,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE3D45329444E19006B354E /* DynamicUseCase.swift in Sources */,
 				0B19C7EA294234B100909F8D /* Domain.docc in Sources */,
+				0BE3D45029444DCA006B354E /* DynamicUseCase.swift in Sources */,
 				0B19C89B29439A2A00909F8D /* DomainDIContainer.swift in Sources */,
 				0B19C8A229439F3000909F8D /* DynamicRepository.swift in Sources */,
 			);

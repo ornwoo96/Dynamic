@@ -75,8 +75,8 @@
 		0B19C808294234E000909F8D = {
 			isa = PBXGroup;
 			children = (
-				0B19C896294399E900909F8D /* DIContainer */,
-				0B19C814294234E000909F8D /* Data */,
+				0BE3D4612944A955006B354E /* Resources */,
+				0BE3D4622944A95D006B354E /* Sources */,
 				0B19C820294234E000909F8D /* DataTests */,
 				0B19C813294234E000909F8D /* Products */,
 				0B19C87C29423F1A00909F8D /* Frameworks */,
@@ -96,8 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				0B19C89E29439EA700909F8D /* DefaultDynamicRepository.swift */,
-				0B19C815294234E000909F8D /* Data.h */,
-				0B19C816294234E000909F8D /* Data.docc */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -124,6 +122,24 @@
 				0B19C89829439A1400909F8D /* DataDIContainer.swift */,
 			);
 			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		0BE3D4612944A955006B354E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C815294234E000909F8D /* Data.h */,
+				0B19C816294234E000909F8D /* Data.docc */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0BE3D4622944A95D006B354E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C896294399E900909F8D /* DIContainer */,
+				0B19C814294234E000909F8D /* Data */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

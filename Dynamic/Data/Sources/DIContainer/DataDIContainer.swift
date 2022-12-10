@@ -16,8 +16,12 @@ public final class DataDIContainer: Containable {
     public init() {}
     
     public func register() {
-        <#code#>
+        registerRepositories()
     }
     
-    
+    private func registerRepositories() {
+        let repository = DefaultDynamicRepository()
+        
+        container.registerValue(RepoKeys.DynamicRepo.rawValue, repository)
+    }
 }

@@ -50,8 +50,8 @@ private extension SceneDelegate {
     func register() {
         guard let navigationController = navigationController else { return }
         
-        
+        DataDIContainer().register()
+        DomainDIContainer().register()
+        PresentationDIContainer(navigationController: navigationController).register()
     }
-    
-    
 }

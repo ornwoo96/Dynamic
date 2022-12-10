@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0B19C77C294232A700909F8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C77B294232A700909F8D /* AppDelegate.swift */; };
 		0B19C77E294232A700909F8D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C77D294232A700909F8D /* SceneDelegate.swift */; };
-		0B19C780294232A700909F8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C77F294232A700909F8D /* ViewController.swift */; };
 		0B19C786294232A700909F8D /* Dynamic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C784294232A700909F8D /* Dynamic.xcdatamodeld */; };
 		0B19C788294232A900909F8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B19C787294232A900909F8D /* Assets.xcassets */; };
 		0B19C78B294232A900909F8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B19C789294232A900909F8D /* LaunchScreen.storyboard */; };
@@ -120,7 +119,6 @@
 		0B19C778294232A700909F8D /* Dynamic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dynamic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B19C77B294232A700909F8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B19C77D294232A700909F8D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0B19C77F294232A700909F8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0B19C785294232A700909F8D /* Dynamic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dynamic.xcdatamodel; sourceTree = "<group>"; };
 		0B19C787294232A900909F8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B19C78A294232A900909F8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -168,11 +166,11 @@
 		0B19C76F294232A700909F8D = {
 			isa = PBXGroup;
 			children = (
+				0B19C77A294232A700909F8D /* Dynamic */,
 				0B19C8592942358900909F8D /* Core.xcodeproj */,
 				0B19C82C294234E000909F8D /* Data.xcodeproj */,
 				0B19C7FF294234B100909F8D /* Domain.xcodeproj */,
 				0B19C7D22942333800909F8D /* Presentation.xcodeproj */,
-				0B19C77A294232A700909F8D /* Dynamic */,
 				0B19C794294232AA00909F8D /* DynamicTests */,
 				0B19C79E294232AA00909F8D /* DynamicUITests */,
 				0B19C779294232A700909F8D /* Products */,
@@ -193,13 +191,8 @@
 		0B19C77A294232A700909F8D /* Dynamic */ = {
 			isa = PBXGroup;
 			children = (
-				0B19C77B294232A700909F8D /* AppDelegate.swift */,
-				0B19C77D294232A700909F8D /* SceneDelegate.swift */,
-				0B19C77F294232A700909F8D /* ViewController.swift */,
-				0B19C787294232A900909F8D /* Assets.xcassets */,
-				0B19C789294232A900909F8D /* LaunchScreen.storyboard */,
-				0B19C78C294232A900909F8D /* Info.plist */,
-				0B19C784294232A700909F8D /* Dynamic.xcdatamodeld */,
+				0BE3D43E29444C10006B354E /* Resources */,
+				0BE3D44729444C1A006B354E /* Sources */,
 			);
 			path = Dynamic;
 			sourceTree = "<group>";
@@ -262,6 +255,26 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0BE3D43E29444C10006B354E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C78C294232A900909F8D /* Info.plist */,
+				0B19C784294232A700909F8D /* Dynamic.xcdatamodeld */,
+				0B19C787294232A900909F8D /* Assets.xcassets */,
+				0B19C789294232A900909F8D /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0BE3D44729444C1A006B354E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C77B294232A700909F8D /* AppDelegate.swift */,
+				0B19C77D294232A700909F8D /* SceneDelegate.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,7 +485,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B19C780294232A700909F8D /* ViewController.swift in Sources */,
 				0B19C786294232A700909F8D /* Dynamic.xcdatamodeld in Sources */,
 				0B19C77C294232A700909F8D /* AppDelegate.swift in Sources */,
 				0B19C77E294232A700909F8D /* SceneDelegate.swift in Sources */,
