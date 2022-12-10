@@ -7,19 +7,34 @@
 
 import UIKit
 
+import Core
+import Presentation
+import Domain
+import Data
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    var coordinator: MainCoordinator?
+    var navigationController: UINavigationController?
+    
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        self.navigationController = UINavigationController()
         
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
+        register()
+        
+        guard let mainCoordinator: MainCoordinator = DIContainer.shared.resolveValue("MainCoordinator") else { return }
+        
+        mainCoordinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}
@@ -31,3 +46,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+private extension SceneDelegate {
+    func register() {
+        guard let navigationController = navigationController else { return }
+        
+        
+    }
+    
+    
+}

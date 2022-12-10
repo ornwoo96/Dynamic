@@ -13,6 +13,8 @@
 		0B19C823294234E000909F8D /* Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B19C815294234E000909F8D /* Data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B19C87E29423F1B00909F8D /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87D29423F1A00909F8D /* Core.framework */; };
 		0B19C87F29423F1B00909F8D /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87D29423F1A00909F8D /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0B19C89929439A1400909F8D /* DataDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C89829439A1400909F8D /* DataDIContainer.swift */; };
+		0B19C89F29439EA700909F8D /* DefaultDynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C89E29439EA700909F8D /* DefaultDynamicRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		0B19C81C294234E000909F8D /* DataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B19C821294234E000909F8D /* DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTests.swift; sourceTree = "<group>"; };
 		0B19C87D29423F1A00909F8D /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B19C89829439A1400909F8D /* DataDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDIContainer.swift; sourceTree = "<group>"; };
+		0B19C89E29439EA700909F8D /* DefaultDynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDynamicRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 		0B19C808294234E000909F8D = {
 			isa = PBXGroup;
 			children = (
+				0B19C896294399E900909F8D /* DIContainer */,
 				0B19C814294234E000909F8D /* Data */,
 				0B19C820294234E000909F8D /* DataTests */,
 				0B19C813294234E000909F8D /* Products */,
@@ -90,6 +95,7 @@
 		0B19C814294234E000909F8D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0B19C89E29439EA700909F8D /* DefaultDynamicRepository.swift */,
 				0B19C815294234E000909F8D /* Data.h */,
 				0B19C816294234E000909F8D /* Data.docc */,
 			);
@@ -110,6 +116,14 @@
 				0B19C87D29423F1A00909F8D /* Core.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0B19C896294399E900909F8D /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C89829439A1400909F8D /* DataDIContainer.swift */,
+			);
+			path = DIContainer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +236,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B19C89929439A1400909F8D /* DataDIContainer.swift in Sources */,
+				0B19C89F29439EA700909F8D /* DefaultDynamicRepository.swift in Sources */,
 				0B19C817294234E000909F8D /* Data.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +446,7 @@
 		0B19C82A294234E000909F8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;
@@ -446,6 +463,7 @@
 		0B19C82B294234E000909F8D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;

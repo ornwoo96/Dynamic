@@ -7,8 +7,6 @@
 
 import Foundation
 
-import UIKit
-
 public final class BMOInject {
     private var storage: Dictionary<String, AnyObject> = [:]
     
@@ -27,7 +25,7 @@ public final class BMOInject {
         return value
     }
     
-    public func removeValue() {
+    public func removeAllValue() {
         storage.removeAll()
     }
 }

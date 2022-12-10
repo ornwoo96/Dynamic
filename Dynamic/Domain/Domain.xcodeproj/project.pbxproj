@@ -15,9 +15,8 @@
 		0B19C86F29423EF100909F8D /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C86D29423EF100909F8D /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B19C87229423F0000909F8D /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87129423F0000909F8D /* Core.framework */; };
 		0B19C87329423F0000909F8D /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87129423F0000909F8D /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0B19C88329423FC300909F8D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C88229423FC300909F8D /* MainViewController.swift */; };
-		0B19C8882942403A00909F8D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8872942403A00909F8D /* MainViewModel.swift */; };
-		0B19C88A2942404600909F8D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8892942404600909F8D /* MainCoordinator.swift */; };
+		0B19C89B29439A2A00909F8D /* DomainDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C89A29439A2A00909F8D /* DomainDIContainer.swift */; };
+		0B19C8A229439F3000909F8D /* DynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8A129439F3000909F8D /* DynamicRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +52,8 @@
 		0B19C7F4294234B100909F8D /* DomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainTests.swift; sourceTree = "<group>"; };
 		0B19C86D29423EF100909F8D /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B19C87129423F0000909F8D /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B19C88229423FC300909F8D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		0B19C8872942403A00909F8D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		0B19C8892942404600909F8D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		0B19C89A29439A2A00909F8D /* DomainDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDIContainer.swift; sourceTree = "<group>"; };
+		0B19C8A129439F3000909F8D /* DynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +99,8 @@
 		0B19C7E7294234B100909F8D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				0B19C88129423FB000909F8D /* Main */,
+				0B19C8A029439F1500909F8D /* Repositories */,
+				0B19C895294399DB00909F8D /* DIContainer */,
 				0B19C7E8294234B100909F8D /* Domain.h */,
 				0B19C7E9294234B100909F8D /* Domain.docc */,
 			);
@@ -125,38 +124,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0B19C88129423FB000909F8D /* Main */ = {
+		0B19C895294399DB00909F8D /* DIContainer */ = {
 			isa = PBXGroup;
 			children = (
-				0B19C8862942400200909F8D /* Coordinator */,
-				0B19C88529423FFC00909F8D /* ViewModel */,
-				0B19C88429423FF100909F8D /* View */,
+				0B19C89A29439A2A00909F8D /* DomainDIContainer.swift */,
 			);
-			path = Main;
+			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		0B19C88429423FF100909F8D /* View */ = {
+		0B19C8A029439F1500909F8D /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0B19C88229423FC300909F8D /* MainViewController.swift */,
+				0B19C8A129439F3000909F8D /* DynamicRepository.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0B19C88529423FFC00909F8D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				0B19C8872942403A00909F8D /* MainViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		0B19C8862942400200909F8D /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				0B19C8892942404600909F8D /* MainCoordinator.swift */,
-			);
-			path = Coordinator;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,9 +251,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B19C7EA294234B100909F8D /* Domain.docc in Sources */,
-				0B19C88A2942404600909F8D /* MainCoordinator.swift in Sources */,
-				0B19C88329423FC300909F8D /* MainViewController.swift in Sources */,
-				0B19C8882942403A00909F8D /* MainViewModel.swift in Sources */,
+				0B19C89B29439A2A00909F8D /* DomainDIContainer.swift in Sources */,
+				0B19C8A229439F3000909F8D /* DynamicRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@
 		0B19C87729423F0C00909F8D /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87529423F0C00909F8D /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B19C87A29423F1300909F8D /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87929423F1300909F8D /* Core.framework */; };
 		0B19C87B29423F1300909F8D /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B19C87929423F1300909F8D /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0B19C89D29439A4100909F8D /* PresentationDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C89C29439A4100909F8D /* PresentationDIContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		0B19C7C72942333800909F8D /* PresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTests.swift; sourceTree = "<group>"; };
 		0B19C87529423F0C00909F8D /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B19C87929423F1300909F8D /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B19C89C29439A4100909F8D /* PresentationDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDIContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		0B19C7AE2942333700909F8D = {
 			isa = PBXGroup;
 			children = (
+				0B19C897294399FB00909F8D /* DIContainer */,
 				0B19C7BA2942333700909F8D /* Presentation */,
 				0B19C7C62942333800909F8D /* PresentationTests */,
 				0B19C7B92942333700909F8D /* Products */,
@@ -116,6 +119,14 @@
 				0B19C87529423F0C00909F8D /* Domain.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0B19C897294399FB00909F8D /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C89C29439A4100909F8D /* PresentationDIContainer.swift */,
+			);
+			path = DIContainer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B19C89D29439A4100909F8D /* PresentationDIContainer.swift in Sources */,
 				0B19C7BD2942333700909F8D /* Presentation.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +448,7 @@
 		0B19C7D02942333800909F8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;
@@ -452,6 +465,7 @@
 		0B19C7D12942333800909F8D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;

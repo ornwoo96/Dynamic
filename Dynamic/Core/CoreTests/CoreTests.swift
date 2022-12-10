@@ -16,20 +16,16 @@ final class CoreTests: XCTestCase {
     override func tearDownWithError() throws {
     }
 
-    func testExample() throws {
+    func testBMOInject() throws {
+        // given
         let Bmo = BMOInject()
         var viewController: UIViewController = TestViewController()
         Bmo.registerValue("dd", viewController)
         
-        
+        // when
         guard let testData: TestViewController = Bmo.resolveValue("dd") else { return }
         
-        print(testData)
+        // then
+        XCTAssertEqual(viewController, testData)
     }
-
-    func testPerformanceExample() throws {
-        self.measure {
-        }
-    }
-
 }
