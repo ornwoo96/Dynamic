@@ -8,8 +8,6 @@
 import UIKit
 
 import Core
-import Presentation
-import Domain
 import Data
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
