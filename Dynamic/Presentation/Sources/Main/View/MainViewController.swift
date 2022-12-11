@@ -23,5 +23,7 @@ final class MainViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        mainViewModel.viewDidLoad()
+        view.backgroundColor = .white
     }
 }
