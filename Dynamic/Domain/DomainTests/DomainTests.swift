@@ -2,7 +2,7 @@
 //  DomainTests.swift
 //  DomainTests
 //
-//  Created by 김동우 on 2022/12/09.
+//  Created by 김동우 on 2022/12/11.
 //
 
 import XCTest

@@ -1,14 +1,14 @@
 //
-//  DataTests.swift
-//  DataTests
+//  DynamicDomainTests.swift
+//  DynamicDomainTests
 //
 //  Created by 김동우 on 2022/12/11.
 //
 
 import XCTest
-@testable import Data
+@testable import DynamicDomain
 
-final class DataTests: XCTestCase {
+final class DynamicDomainTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

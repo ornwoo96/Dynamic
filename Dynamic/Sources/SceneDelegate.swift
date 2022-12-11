@@ -7,8 +7,10 @@
 
 import UIKit
 
-import Core
-import Data
+import DynamicCore
+import DynamicData
+import DynamicDomain
+import DynamicPresentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

@@ -2,12 +2,12 @@
 //  DefaultDynamicRepository.swift
 //  Data
 //
-//  Created by 김동우 on 2022/12/10.
+//  Created by 김동우 on 2022/12/11.
 //
 
 import Foundation
 
-import Domain
+import DynamicDomain
 
 public final class DefaultDynamicRepository: DynamicRepository {
     public func fetchSomething() {

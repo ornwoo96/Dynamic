@@ -2,16 +2,15 @@
 //  DataDIContainer.swift
 //  Data
 //
-//  Created by 김동우 on 2022/12/10.
+//  Created by 김동우 on 2022/12/11.
 //
 
 import Foundation
 
-import Core
-import Domain
+import DynamicCore
 
 public final class DataDIContainer: Containable {
-    public var container: Core.BMOInject = DIContainer.shared
+    public var container: BMOInject = DIContainer.shared
     
     public init() {}
     
