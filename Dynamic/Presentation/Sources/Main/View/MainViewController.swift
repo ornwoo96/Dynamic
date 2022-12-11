@@ -10,7 +10,7 @@ import UIKit
 final class MainViewController: UIViewController {
     
     
-    let mainViewModel: MainViewModelProtocol
+    private let mainViewModel: MainViewModelProtocol
     
     init(mainViewModel: MainViewModelProtocol) {
         self.mainViewModel = mainViewModel

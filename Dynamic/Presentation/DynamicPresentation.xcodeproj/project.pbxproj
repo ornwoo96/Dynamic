@@ -56,8 +56,6 @@
 		0BB52AA92945AEEB005FC30F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0BB52AAB2945AF26005FC30F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		0BB52AAD2945AF42005FC30F /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		0BB52AD52945B364005FC30F /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB52AD92945B377005FC30F /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B192945B4FA005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B1A2945B4FA005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B2D2945C3A2005FC30F /* PresentationDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDIContainer.swift; sourceTree = "<group>"; };
@@ -171,8 +169,6 @@
 			children = (
 				0BB52B192945B4FA005FC30F /* DynamicCore.framework */,
 				0BB52B1A2945B4FA005FC30F /* DynamicDomain.framework */,
-				0BB52AD92945B377005FC30F /* Domain.framework */,
-				0BB52AD52945B364005FC30F /* Core.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
