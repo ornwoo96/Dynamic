@@ -15,8 +15,6 @@
 		0BB52AC02945B221005FC30F /* DataDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52ABF2945B221005FC30F /* DataDIContainer.swift */; };
 		0BB52B462945C5CE005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B452945C5CE005FC30F /* DynamicCore.framework */; };
 		0BB52B472945C5CE005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B452945C5CE005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BB52B4A2945C643005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B492945C643005FC30F /* DynamicDomain.framework */; };
-		0BB52B4B2945C643005FC30F /* DynamicDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B492945C643005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +34,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0BB52B4B2945C643005FC30F /* DynamicDomain.framework in Embed Frameworks */,
 				0BB52B472945C5CE005FC30F /* DynamicCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -61,7 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB52B4A2945C643005FC30F /* DynamicDomain.framework in Frameworks */,
 				0BB52B462945C5CE005FC30F /* DynamicCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
