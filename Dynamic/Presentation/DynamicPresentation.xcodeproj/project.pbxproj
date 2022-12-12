@@ -18,6 +18,9 @@
 		0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72322E29475014009D3EDF /* TabBarItem.swift */; };
 		0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723232294761E4009D3EDF /* UIView+Ratio.swift */; };
 		0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323429476220009D3EDF /* UIView+Radius.swift */; };
+		0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */; };
+		0B72323E29476E37009D3EDF /* UIView+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323D29476E37009D3EDF /* UIView+Color.swift */; };
+		0B723240294793C6009D3EDF /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323F294793C6009D3EDF /* UIImage.swift */; };
 		0BB52A152945AC90005FC30F /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A142945AC90005FC30F /* Presentation.docc */; };
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
@@ -70,6 +73,9 @@
 		0B72322E29475014009D3EDF /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		0B723232294761E4009D3EDF /* UIView+Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ratio.swift"; sourceTree = "<group>"; };
 		0B72323429476220009D3EDF /* UIView+Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Radius.swift"; sourceTree = "<group>"; };
+		0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ratio.swift"; sourceTree = "<group>"; };
+		0B72323D29476E37009D3EDF /* UIView+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Color.swift"; sourceTree = "<group>"; };
+		0B72323F294793C6009D3EDF /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		0BB52A102945AC90005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52A132945AC90005FC30F /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		0BB52A142945AC90005FC30F /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -247,6 +253,9 @@
 			children = (
 				0B723232294761E4009D3EDF /* UIView+Ratio.swift */,
 				0B72323429476220009D3EDF /* UIView+Radius.swift */,
+				0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */,
+				0B72323D29476E37009D3EDF /* UIView+Color.swift */,
+				0B72323F294793C6009D3EDF /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -437,7 +446,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB52A152945AC90005FC30F /* Presentation.docc in Sources */,
+				0B723240294793C6009D3EDF /* UIImage.swift in Sources */,
 				0BB52BEC2946098C005FC30F /* SwiftUIViewController.swift in Sources */,
+				0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */,
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
 				0B72322D29473531009D3EDF /* TarBarController.swift in Sources */,
@@ -453,6 +464,7 @@
 				0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */,
 				0B72322329470627009D3EDF /* CustomViewModel.swift in Sources */,
 				0B72321B2946FED6009D3EDF /* CompositionalViewModel.swift in Sources */,
+				0B72323E29476E37009D3EDF /* UIView+Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

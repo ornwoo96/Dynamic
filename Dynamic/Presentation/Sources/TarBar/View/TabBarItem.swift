@@ -8,15 +8,16 @@
 import UIKit
 
 final class TabBarItem: UIButton {
-    private(set) lazy var itemImageView: UIImageView = {
-        let imageView = UIImageView()
-        
-        return imageView
+    private(set) lazy var textLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: xValueRatio(45), weight: .bold)
+        label.textAlignment = .center
+        return label
     }()
     
     private(set) lazy var DotView: UIView = {
         let view = UIView()
-        
+        view.viewRadius(cornerRadius: xValueRatio(4))
         return view
     }()
     
@@ -35,19 +36,24 @@ final class TabBarItem: UIButton {
     }
     
     private func setupItemImageView() {
-        addSubview(itemImageView)
-        itemImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(textLabel)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            itemImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            itemImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            itemImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            itemImageView.heightAnchor.constraint(equalToConstant: )
+            textLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            textLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            textLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
     
     private func setupDotView() {
         addSubview(DotView)
         DotView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            DotView.topAnchor.constraint(equalTo: textLabel.bottomAnchor),
+            DotView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            DotView.widthAnchor.constraint(equalToConstant: xValueRatio(8)),
+            DotView.heightAnchor.constraint(equalToConstant: yValueRatio(8))
+        ])
     }
     
 }

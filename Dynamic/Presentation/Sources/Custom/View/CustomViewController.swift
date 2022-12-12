@@ -23,6 +23,6 @@ final class CustomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewCOntroller")
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .white
     }
 }
