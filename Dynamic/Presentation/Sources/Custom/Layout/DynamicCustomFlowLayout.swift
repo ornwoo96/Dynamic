@@ -12,7 +12,7 @@ protocol WaterFallCollectionViewHeightLayoutDelegate: AnyObject {
                         _ heightForImageAtIndexPath: IndexPath) -> CGFloat
 }
 
-class WaterfallCustomFlowLayout: UICollectionViewLayout {
+final class WaterfallCustomFlowLayout: UICollectionViewLayout {
     weak var delegate: WaterFallCollectionViewHeightLayoutDelegate?
     private var columnCount: Int = 2
     private var cache: [UICollectionViewLayoutAttributes] = []

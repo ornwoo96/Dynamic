@@ -15,7 +15,6 @@ import DynamicPresentation
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var coordinator: MainCoordinator?
     var navigationController: UINavigationController?
     
     func scene(_ scene: UIScene,
@@ -32,9 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         register()
         
-        guard let mainCoordinator: MainCoordinator = DIContainer.shared.resolveValue("MainCoordinator") else { return }
+        guard let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else { return }
         
-        mainCoordinator.start()
+        tabBarCoordinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}
@@ -48,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 private extension SceneDelegate {
     func register() {
-        guard let navigationController = navigationController else { return }
+        guard let navigationController = self.navigationController else { return }
         
         DataDIContainer().register()
         DomainDIContainer().register()

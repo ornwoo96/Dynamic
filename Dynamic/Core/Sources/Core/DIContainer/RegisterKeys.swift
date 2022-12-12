@@ -9,10 +9,17 @@ import Foundation
 
 public enum VMKeys: String {
     case MainVM = "MainViewModel"
+    case CompoVM = "CompositionalViewModel"
+    case CustomVM = "CustomViewModel"
+    case SwiftUIVM = "SwiftUIViewModel"
 }
 
 public enum VCKeys: String {
     case MainVC = "MainViewController"
+    case CompoVC = "CompositionalViewController"
+    case CustomVC = "CustomViewController"
+    case SwiftUI = "SwiftUIViewController"
+    case TabBar = "TabBarController"
 }
 
 public enum UCKeys: String {
@@ -24,5 +31,9 @@ public enum RepoKeys: String {
 }
 
 public enum CodiKeys: String {
+    case tabBar = "TabBarCoordinator"
+    case custom = "CustomCoordinator"
+    case swift = "SwiftUICoordinator"
+    case compo = "CompositionalCoordinator"
     case MainCodi = "MainCoordinator"
 }
