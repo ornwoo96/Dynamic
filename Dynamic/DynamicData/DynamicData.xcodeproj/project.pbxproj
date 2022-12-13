@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B723244294857B0009D3EDF /* FetchDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723243294857B0009D3EDF /* FetchDataService.swift */; };
+		0B723246294858B2009D3EDF /* GiphyEntityFromAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723245294858B2009D3EDF /* GiphyEntityFromAPI.swift */; };
 		0BB52BA429460367005FC30F /* DynamicData.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BA329460367005FC30F /* DynamicData.docc */; };
 		0BB52BAA29460367005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9F29460367005FC30F /* DynamicData.framework */; };
 		0BB52BAF29460367005FC30F /* DynamicDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BAE29460367005FC30F /* DynamicDataTests.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B723243294857B0009D3EDF /* FetchDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDataService.swift; sourceTree = "<group>"; };
+		0B723245294858B2009D3EDF /* GiphyEntityFromAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyEntityFromAPI.swift; sourceTree = "<group>"; };
 		0BB52B9F29460367005FC30F /* DynamicData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52BA229460367005FC30F /* DynamicData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicData.h; sourceTree = "<group>"; };
 		0BB52BA329460367005FC30F /* DynamicData.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicData.docc; sourceTree = "<group>"; };
@@ -77,6 +81,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B72324129485140009D3EDF /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				0B723245294858B2009D3EDF /* GiphyEntityFromAPI.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		0B7232422948514A009D3EDF /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				0B723243294857B0009D3EDF /* FetchDataService.swift */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
 		0BB52B9529460367005FC30F = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				0BB52BE129460528005FC30F /* DIContainer */,
-				0BB52BE029460516005FC30F /* Data */,
+				0B72324129485140009D3EDF /* Entities */,
+				0B7232422948514A009D3EDF /* NetWork */,
+				0BB52BE029460516005FC30F /* Repositories */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -132,12 +154,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0BB52BE029460516005FC30F /* Data */ = {
+		0BB52BE029460516005FC30F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
 				0BB52BE22946053F005FC30F /* DefaultDynamicRepository.swift */,
 			);
-			path = Data;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		0BB52BE129460528005FC30F /* DIContainer */ = {
@@ -260,6 +282,8 @@
 			files = (
 				0BB52BE529460573005FC30F /* DataDIContainer.swift in Sources */,
 				0BB52BA429460367005FC30F /* DynamicData.docc in Sources */,
+				0B723246294858B2009D3EDF /* GiphyEntityFromAPI.swift in Sources */,
+				0B723244294857B0009D3EDF /* FetchDataService.swift in Sources */,
 				0BB52BE32946053F005FC30F /* DefaultDynamicRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
