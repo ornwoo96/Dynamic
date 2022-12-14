@@ -8,14 +8,13 @@
 import Foundation
 
 public final class DefaultDynamicUseCase: DynamicUseCase {
-    public var dynamicRepository: DynamicRepository
+    public var dynamicRepository: DynamicImageDataRepository
     
-    init(dynamicRepository: DynamicRepository) {
+    init(dynamicRepository: DynamicImageDataRepository) {
         self.dynamicRepository = dynamicRepository
     }
     
-    public func doSomething() {
-        print("dynamicUseCase start")
-        dynamicRepository.fetchSomething()
+    public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
+        return try await dynamicRepository.retrieveGIPHYDatas()
     }
 }

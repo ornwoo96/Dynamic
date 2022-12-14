@@ -1,0 +1,44 @@
+//
+//  CustomViewModel + Event.swift
+//  DynamicPresentation
+//
+//  Created by 김동우 on 2022/12/14.
+//
+
+import Foundation
+
+extension CustomViewModel {
+    public enum Event: Equatable {
+        public static func == (lhs: CustomViewModel.Event, rhs: CustomViewModel.Event) -> Bool {
+            switch (lhs, rhs) {
+                
+            case (.none, .none):
+                return true
+                
+//            case (.reloadData, .reloadData):
+//                return true
+//                
+//            case (.invalidateLayout, .invalidateLayout):
+//                return true
+//                
+//            case (.showDetailView, .showDetailView):
+//                return true
+//                
+//            case (.showLoading, .showLoading):
+//                return true
+                
+            default:
+                return false
+                
+            }
+        }
+        
+        
+        case none
+//        case reloadData(sections: [Section])
+//        case invalidateLayout
+//        case showDetailView(selectedIndex: Int, contents: [CustomViewModel.Content])
+//        case showLoading
+//        case hideLoading
+    }
+}

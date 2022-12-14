@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol DynamicUseCase {
-    var dynamicRepository: DynamicRepository { get }
+    var dynamicRepository: DynamicImageDataRepository { get }
     
-    func doSomething()
+    func retrieveGIPHYDatas() async throws -> GIPHYDomainModel
 }

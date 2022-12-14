@@ -7,13 +7,15 @@
 
 import UIKit
 
-protocol WaterFallCollectionViewHeightLayoutDelegate: AnyObject {
-    func collectionView(_ collectionView: UICollectionView,
-                        _ heightForImageAtIndexPath: IndexPath) -> CGFloat
+protocol DynamicCollectionViewHeightLayoutDelegate: AnyObject {
+    func collectionViewImageHeight(_ collectionView: UICollectionView,
+                                   _ heightForImageAtIndexPath: IndexPath) -> CGFloat
+    func collectionViewImageWidth(_ collectionView: UICollectionView,
+                                  _ widthForImageAtIndexPath: IndexPath) -> CGFloat
 }
 
-final class WaterfallCustomFlowLayout: UICollectionViewLayout {
-    weak var delegate: WaterFallCollectionViewHeightLayoutDelegate?
+final class DynamicCustomFlowLayout: UICollectionViewLayout {
+    weak var delegate: DynamicCollectionViewHeightLayoutDelegate?
     private var columnCount: Int = 2
     private var cache: [UICollectionViewLayoutAttributes] = []
     
@@ -50,31 +52,31 @@ final class WaterfallCustomFlowLayout: UICollectionViewLayout {
             let offset = CGFloat(column) * columnWidth
             xOffset += [offset]
         }
-        print("빼엠")
         return xOffset
     }
     
     private func calculateYOffsetValue(_ collectionView: UICollectionView,
                                        _ xOffset: [CGFloat]) {
         let columnWidth: CGFloat = contentWidth / CGFloat(columnCount)
-        let cellPadding: CGFloat = 6.0
+        let cellPadding: CGFloat = 5.0
         var column = 0
         var yOffset = [CGFloat](repeating: 0, count: columnCount)
-        let maxHeightValue: CGFloat = 3000
         var allHeightValue: CGFloat = 0.0
 
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
-            let imageHeight = delegate?.collectionView(collectionView, indexPath) ?? 0
+            let imageHeight = delegate?.collectionViewImageHeight(collectionView, indexPath) ?? 0
             
             allHeightValue = allHeightValue + imageHeight
         }
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
-            let imageHeight = delegate?.collectionView(collectionView, indexPath) ?? 0
-            let heightPercentValue = imageHeight/allHeightValue*100
-            let heightResult = maxHeightValue*heightPercentValue/100
+            
+            let imageHeight = delegate?.collectionViewImageHeight(collectionView, indexPath) ?? 0
+            let imageWidth = delegate?.collectionViewImageWidth(collectionView, indexPath) ?? 0
+            let heightResult = setupImageResize(imageWidth, imageHeight)
+            
             let height = cellPadding * 2 + heightResult
             
             let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
@@ -93,5 +95,14 @@ final class WaterfallCustomFlowLayout: UICollectionViewLayout {
             
             column = column < (columnCount - 1) ? (column + 1) : 0
         }
+    }
+    
+    
+    //MARK:  height resize = (width resize * original height size) / original width size
+    private func setupImageResize(_ width: CGFloat,
+                                  _ height: CGFloat) -> CGFloat {
+        let resizeHeight = (181.5 * height)/width
+        
+        return CGFloat(resizeHeight)
     }
 }

@@ -9,15 +9,39 @@ import Foundation
 
 import DynamicDomain
 
-public final class DefaultDynamicRepository: DynamicRepository {
-    private let fetchDataService: FetchDataService
+public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository {
+    private let manager: NetworkManager
     
-    init(fetchDataService: FetchDataService) {
-        self.fetchDataService = fetchDataService
+    init(manager: NetworkManager) {
+        self.manager = manager
     }
     
-    public func fetchSomething() {
-        print("fetch start")
-        fetchDataService.fetchImageEntity()
+    public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
+        let data = try await manager.fetchGIPHYDatas()
+        
+        return convertToDomainModel(data)
+    }
+    
+    public func retrieveImageData(_ url: String) async throws -> Data {
+        return try await manager.fetchImageData(url)
+    }
+    
+    private func convertToDomainModel(_ data: GiphyImageEntity) -> GIPHYDomainModel {
+        var previews: [PreviewDomainModel] = []
+        var originals: [OriginalDomainModel] = []
+        for i in 0..<data.originalImages.count {
+            let preview: PreviewDomainModel = .init(id: data.previewImages[i].id,
+                                                    height: data.previewImages[i].height,
+                                                    width: data.previewImages[i].width,
+                                                    url: data.previewImages[i].url)
+            let original: OriginalDomainModel = .init(id: data.originalImages[i].id,
+                                                      height: data.originalImages[i].height,
+                                                      width: data.originalImages[i].width,
+                                                      url: data.originalImages[i].url)
+            previews.append(preview)
+            originals.append(original)
+        }
+        
+        return GIPHYDomainModel.init(previewImages: previews, originalImages: originals)
     }
 }

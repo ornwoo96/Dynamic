@@ -20,14 +20,14 @@ public final class DataDIContainer: Containable {
     }
     
     private func registerFetchDataService() {
-        let fetchDataService = FetchDataService()
+        let networkManager = NetworkManager()
         
-        container.registerValue(RepoKeys.fetchService.rawValue, fetchDataService)
+        container.registerValue(RepoKeys.network.rawValue, networkManager)
     }
     
     private func registerRepositories() {
-        guard let service: FetchDataService = container.resolveValue(RepoKeys.fetchService.rawValue) else { return }
-        let repository = DefaultDynamicRepository(fetchDataService: service)
+        guard let manager: NetworkManager = container.resolveValue(RepoKeys.network.rawValue) else { return }
+        let repository = DefaultDynamicImageDataRepository(manager: manager)
         
         container.registerValue(RepoKeys.DynamicRepo.rawValue, repository)
     }

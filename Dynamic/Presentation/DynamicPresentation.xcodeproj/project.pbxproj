@@ -21,6 +21,10 @@
 		0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */; };
 		0B72323E29476E37009D3EDF /* UIView+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323D29476E37009D3EDF /* UIView+Color.swift */; };
 		0B723240294793C6009D3EDF /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323F294793C6009D3EDF /* UIImage.swift */; };
+		0B72325A2949E032009D3EDF /* CustomViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */; };
+		0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */; };
+		0B72325F2949E135009D3EDF /* CustomPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72325E2949E135009D3EDF /* CustomPresentationModel.swift */; };
+		0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */; };
 		0BB52A152945AC90005FC30F /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A142945AC90005FC30F /* Presentation.docc */; };
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
@@ -76,6 +80,10 @@
 		0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ratio.swift"; sourceTree = "<group>"; };
 		0B72323D29476E37009D3EDF /* UIView+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Color.swift"; sourceTree = "<group>"; };
 		0B72323F294793C6009D3EDF /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + Event.swift"; sourceTree = "<group>"; };
+		0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + Action.swift"; sourceTree = "<group>"; };
+		0B72325E2949E135009D3EDF /* CustomPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationModel.swift; sourceTree = "<group>"; };
+		0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		0BB52A102945AC90005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52A132945AC90005FC30F /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		0BB52A142945AC90005FC30F /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -114,10 +122,12 @@
 		0B72320A29463EAF009D3EDF /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				0B72325D2949E0F6009D3EDF /* Model */,
 				0B72321229463EF3009D3EDF /* Coordinator */,
 				0B72321129463EED009D3EDF /* ViewModel */,
 				0B72321029463EE9009D3EDF /* View */,
 				0BB52B522945F817005FC30F /* Layout */,
+				0B723260294A08E1009D3EDF /* Cell */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -154,6 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				0B72322229470627009D3EDF /* CustomViewModel.swift */,
+				0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */,
+				0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -258,6 +270,22 @@
 				0B72323F294793C6009D3EDF /* UIImage.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0B72325D2949E0F6009D3EDF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B72325E2949E135009D3EDF /* CustomPresentationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0B723260294A08E1009D3EDF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		0BB52A062945AC90005FC30F = {
@@ -448,10 +476,13 @@
 				0BB52A152945AC90005FC30F /* Presentation.docc in Sources */,
 				0B723240294793C6009D3EDF /* UIImage.swift in Sources */,
 				0BB52BEC2946098C005FC30F /* SwiftUIViewController.swift in Sources */,
+				0B72325A2949E032009D3EDF /* CustomViewModel + Event.swift in Sources */,
 				0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */,
+				0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */,
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
 				0B72322D29473531009D3EDF /* TarBarController.swift in Sources */,
+				0B72325F2949E135009D3EDF /* CustomPresentationModel.swift in Sources */,
 				0BB52BE82946095D005FC30F /* CustomViewController.swift in Sources */,
 				0BB52B2E2945C3A2005FC30F /* PresentationDIContainer.swift in Sources */,
 				0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */,
@@ -461,6 +492,7 @@
 				0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */,
 				0B72322529470635009D3EDF /* CustomCoordinator.swift in Sources */,
 				0B7232212947041A009D3EDF /* SwiftUIViewModel.swift in Sources */,
+				0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */,
 				0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */,
 				0B72322329470627009D3EDF /* CustomViewModel.swift in Sources */,
 				0B72321B2946FED6009D3EDF /* CompositionalViewModel.swift in Sources */,

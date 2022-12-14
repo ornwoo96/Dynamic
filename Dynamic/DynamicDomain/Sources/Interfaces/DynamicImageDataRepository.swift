@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol DynamicRepository {
-    func fetchSomething()
+public protocol DynamicImageDataRepository {
+    func retrieveGIPHYDatas() async throws -> GIPHYDomainModel
 }

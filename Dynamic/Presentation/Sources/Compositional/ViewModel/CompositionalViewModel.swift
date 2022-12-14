@@ -31,6 +31,6 @@ final class CompositionalViewModel {
     }
     
     func viewDidLoad() {
-        dynamicUseCase.doSomething()
+        
     }
 }

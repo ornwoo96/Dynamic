@@ -22,8 +22,6 @@ final class DynamicDataTests: XCTestCase {
     
 
     func checkFetchData() throws {
-        let fetchDataService = FetchDataService()
         
-        fetchDataService.fetchImageEntity()
     }
 }

@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */; };
 		0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B7629460353005FC30F /* DynamicDomain.docc */; };
 		0BB52B7D29460354005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B7229460353005FC30F /* DynamicDomain.framework */; };
 		0BB52B8229460354005FC30F /* DynamicDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* DynamicDomainTests.swift */; };
 		0BB52B8329460354005FC30F /* DynamicDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52B7529460353005FC30F /* DynamicDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BB52BCC2946041B005FC30F /* DefaultDynamicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCB2946041B005FC30F /* DefaultDynamicUseCase.swift */; };
 		0BB52BCE29460461005FC30F /* DynamicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCD29460461005FC30F /* DynamicUseCase.swift */; };
-		0BB52BD02946048D005FC30F /* DynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCF2946048D005FC30F /* DynamicRepository.swift */; };
+		0BB52BD02946048D005FC30F /* DynamicImageDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */; };
 		0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */; };
 		0BB52BD5294604BF005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; };
 		0BB52BD6294604C0005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -44,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIPHYDomainModel.swift; sourceTree = "<group>"; };
 		0BB52B7229460353005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B7529460353005FC30F /* DynamicDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicDomain.h; sourceTree = "<group>"; };
 		0BB52B7629460353005FC30F /* DynamicDomain.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicDomain.docc; sourceTree = "<group>"; };
@@ -51,7 +53,7 @@
 		0BB52B8129460354005FC30F /* DynamicDomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDomainTests.swift; sourceTree = "<group>"; };
 		0BB52BCB2946041B005FC30F /* DefaultDynamicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDynamicUseCase.swift; sourceTree = "<group>"; };
 		0BB52BCD29460461005FC30F /* DynamicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUseCase.swift; sourceTree = "<group>"; };
-		0BB52BCF2946048D005FC30F /* DynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRepository.swift; sourceTree = "<group>"; };
+		0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicImageDataRepository.swift; sourceTree = "<group>"; };
 		0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDIContainer.swift; sourceTree = "<group>"; };
 		0BB52BD4294604BF005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -79,6 +81,7 @@
 		0B72324B29489D75009D3EDF /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -151,7 +154,7 @@
 		0BB52BC8294603F7005FC30F /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52BCF2946048D005FC30F /* DynamicRepository.swift */,
+				0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -283,10 +286,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB52BCE29460461005FC30F /* DynamicUseCase.swift in Sources */,
+				0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */,
 				0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */,
 				0BB52BCC2946041B005FC30F /* DefaultDynamicUseCase.swift in Sources */,
 				0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */,
-				0BB52BD02946048D005FC30F /* DynamicRepository.swift in Sources */,
+				0BB52BD02946048D005FC30F /* DynamicImageDataRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
