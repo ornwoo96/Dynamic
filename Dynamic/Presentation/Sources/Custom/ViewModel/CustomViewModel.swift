@@ -20,6 +20,7 @@ protocol CustomViewModelOutputProtocol: AnyObject {
 
 protocol CustomViewModelProtocol: CustomViewModelInputProtocol, CustomViewModelOutputProtocol {
     var previewImageDataSubject: CurrentValueSubject<CustomPresentationModel, Never> { get }
+    func retrieveImageData(_ indexPath: IndexPath) async throws -> Data
 }
 
 final class CustomViewModel: CustomViewModelProtocol {
@@ -53,5 +54,12 @@ final class CustomViewModel: CustomViewModelProtocol {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
         }
+    }
+    
+    public func retrieveImageData(_ indexPath: IndexPath) async throws -> Data {
+        let urlString = self.previewImageDataSubject.value.contents.originalImages[indexPath.item].url
+        let data = try await dynamicUseCase.retrieveGIFImage(urlString)
+        
+        return data
     }
 }

@@ -17,4 +17,8 @@ public final class DefaultDynamicUseCase: DynamicUseCase {
     public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
         return try await dynamicRepository.retrieveGIPHYDatas()
     }
+    
+    public func retrieveGIFImage(_ url: String) async throws -> Data {
+        return try await dynamicRepository.retrieveImageData(url)
+    }
 }

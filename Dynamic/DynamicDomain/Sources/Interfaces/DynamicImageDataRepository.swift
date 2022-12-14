@@ -9,4 +9,5 @@ import Foundation
 
 public protocol DynamicImageDataRepository {
     func retrieveGIPHYDatas() async throws -> GIPHYDomainModel
+    func retrieveImageData(_ url: String) async throws -> Data
 }
