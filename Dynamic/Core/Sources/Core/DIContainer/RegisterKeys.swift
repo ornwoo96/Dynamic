@@ -28,6 +28,7 @@ public enum UCKeys: String {
 
 public enum RepoKeys: String {
     case DynamicRepo = "DynamicRepository"
+    case fetchService = "FetchDataService"
 }
 
 public enum CodiKeys: String {

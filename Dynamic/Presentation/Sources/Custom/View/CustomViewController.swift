@@ -24,5 +24,6 @@ final class CustomViewController: UIViewController {
         super.viewDidLoad()
         print("viewCOntroller")
         view.backgroundColor = .white
+        
     }
 }

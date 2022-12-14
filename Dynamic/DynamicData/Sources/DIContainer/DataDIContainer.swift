@@ -15,11 +15,19 @@ public final class DataDIContainer: Containable {
     public init() {}
     
     public func register() {
+        registerFetchDataService()
         registerRepositories()
     }
     
+    private func registerFetchDataService() {
+        let fetchDataService = FetchDataService()
+        
+        container.registerValue(RepoKeys.fetchService.rawValue, fetchDataService)
+    }
+    
     private func registerRepositories() {
-        let repository = DefaultDynamicRepository()
+        guard let service: FetchDataService = container.resolveValue(RepoKeys.fetchService.rawValue) else { return }
+        let repository = DefaultDynamicRepository(fetchDataService: service)
         
         container.registerValue(RepoKeys.DynamicRepo.rawValue, repository)
     }

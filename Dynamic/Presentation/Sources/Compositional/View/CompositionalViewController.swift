@@ -23,5 +23,6 @@ final class CompositionalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemCyan
+        viewModel.viewDidLoad()
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import DynamicDomain
 
 protocol CompositionalViewModelInputProtocol: AnyObject {
-    
+    func viewDidLoad()
 }
 
 protocol CompositionalViewModelOutputProtocol: AnyObject {
@@ -28,5 +28,9 @@ final class CompositionalViewModel {
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
+    }
+    
+    func viewDidLoad() {
+        dynamicUseCase.doSomething()
     }
 }

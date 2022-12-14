@@ -10,7 +10,14 @@ import Foundation
 import DynamicDomain
 
 public final class DefaultDynamicRepository: DynamicRepository {
+    private let fetchDataService: FetchDataService
+    
+    init(fetchDataService: FetchDataService) {
+        self.fetchDataService = fetchDataService
+    }
+    
     public func fetchSomething() {
         print("fetch start")
+        fetchDataService.fetchImageEntity()
     }
 }

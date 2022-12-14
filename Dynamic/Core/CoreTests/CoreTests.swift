@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Core
+@testable import DynamicCore
 
 final class CoreTests: XCTestCase {
 

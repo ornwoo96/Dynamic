@@ -76,6 +76,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B72324B29489D75009D3EDF /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		0BB52B6829460353005FC30F = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +114,7 @@
 		0BB52BC4294603AF005FC30F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0B72324B29489D75009D3EDF /* Entities */,
 				0BB52BC6294603EB005FC30F /* DIContainer */,
 				0BB52BC8294603F7005FC30F /* Interfaces */,
 				0BB52BC9294603FD005FC30F /* Protocols */,
