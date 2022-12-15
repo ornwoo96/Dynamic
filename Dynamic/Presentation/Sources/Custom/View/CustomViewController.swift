@@ -21,9 +21,11 @@ final class CustomViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.backgroundColor = .black
-        collectionView.contentInset = UIEdgeInsets(top: 23, left: 5, bottom: 10, right: 5)
+        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35), left: xValueRatio(5), bottom: xValueRatio(10), right: xValueRatio(5))
         return collectionView
     }()
+    
+    private var customNavigationBar = CustomNavigationBar()
     
     init(viewModel: CustomViewModel) {
         self.viewModel = viewModel
@@ -50,6 +52,7 @@ final class CustomViewController: UIViewController {
     private func setupUI() {
         setupCollectionView()
         setupViewController()
+        setupCustomNavigationBar()
     }
     
     private func setupViewController() {
@@ -64,6 +67,17 @@ final class CustomViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func setupCustomNavigationBar() {
+        view.addSubview(customNavigationBar)
+        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            customNavigationBar.heightAnchor.constraint(equalToConstant: yValueRatio(100)),
+            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customNavigationBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: yValueRatio(30))
         ])
     }
     

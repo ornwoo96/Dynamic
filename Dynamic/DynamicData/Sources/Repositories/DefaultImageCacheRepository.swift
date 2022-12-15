@@ -8,10 +8,6 @@
 import Foundation
 import DynamicDomain
 
-// MARK: 이미지 캐싱 알고리즘 이미지 요청 -> 이미지 cache에서 같은 이미지 데이터 찾기
-// MARK: 있을시 ->
-// MARK: 없을시 ->
-
 public class DefaultImageCacheRepository: ImageCacheRepository {
     private let manager: NetworkManager
     
