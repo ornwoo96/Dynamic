@@ -26,6 +26,7 @@
 		0B72325F2949E135009D3EDF /* CustomPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72325E2949E135009D3EDF /* CustomPresentationModel.swift */; };
 		0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */; };
 		0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723264294A2B67009D3EDF /* UIImage + GIF.swift */; };
+		0B72326E294B0EA6009D3EDF /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */; };
 		0BB52A152945AC90005FC30F /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A142945AC90005FC30F /* Presentation.docc */; };
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
@@ -86,6 +87,7 @@
 		0B72325E2949E135009D3EDF /* CustomPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationModel.swift; sourceTree = "<group>"; };
 		0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		0B723264294A2B67009D3EDF /* UIImage + GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + GIF.swift"; sourceTree = "<group>"; };
+		0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		0BB52A102945AC90005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52A132945AC90005FC30F /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		0BB52A142945AC90005FC30F /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		0B723263294A2B3A009D3EDF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				0BB52BEA2946097D005FC30F /* CompositionalViewController.swift in Sources */,
 				0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */,
 				0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */,
+				0B72326E294B0EA6009D3EDF /* CustomNavigationBar.swift in Sources */,
 				0B72322529470635009D3EDF /* CustomCoordinator.swift in Sources */,
 				0B7232212947041A009D3EDF /* SwiftUIViewModel.swift in Sources */,
 				0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */,

@@ -20,7 +20,7 @@ final class CustomViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .black
         collectionView.contentInset = UIEdgeInsets(top: 23, left: 5, bottom: 10, right: 5)
         return collectionView
     }()
@@ -36,13 +36,24 @@ final class CustomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         setupUI()
         bindViewModel()
         viewModel.action(.viewDidLoad)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     private func setupUI() {
         setupCollectionView()
+        setupViewController()
+    }
+    
+    private func setupViewController() {
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func setupCollectionView() {
