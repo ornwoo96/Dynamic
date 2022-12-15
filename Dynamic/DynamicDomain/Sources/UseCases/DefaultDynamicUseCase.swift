@@ -9,9 +9,12 @@ import Foundation
 
 public final class DefaultDynamicUseCase: DynamicUseCase {
     public var dynamicRepository: DynamicImageDataRepository
+    public var imageCacheRepository: ImageCacheRepository
     
-    init(dynamicRepository: DynamicImageDataRepository) {
+    init(dynamicRepository: DynamicImageDataRepository,
+         imageCacheRepository: ImageCacheRepository) {
         self.dynamicRepository = dynamicRepository
+        self.imageCacheRepository = imageCacheRepository
     }
     
     public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
@@ -19,6 +22,6 @@ public final class DefaultDynamicUseCase: DynamicUseCase {
     }
     
     public func retrieveGIFImage(_ url: String) async throws -> Data {
-        return try await dynamicRepository.retrieveImageData(url)
+        return try await imageCacheRepository.imageLoad(url)
     }
 }

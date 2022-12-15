@@ -29,6 +29,7 @@ public enum UCKeys: String {
 public enum RepoKeys: String {
     case DynamicRepo = "DynamicRepository"
     case network = "NetworkManager"
+    case ImageCache = "ImageCacheRepository"
 }
 
 public enum CodiKeys: String {

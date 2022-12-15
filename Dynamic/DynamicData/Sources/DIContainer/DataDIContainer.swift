@@ -26,9 +26,23 @@ public final class DataDIContainer: Containable {
     }
     
     private func registerRepositories() {
+        registerDynamicImageDataRepository()
+        registerImageCacheRepository()
+    }
+}
+
+extension DataDIContainer {
+    private func registerDynamicImageDataRepository() {
         guard let manager: NetworkManager = container.resolveValue(RepoKeys.network.rawValue) else { return }
         let repository = DefaultDynamicImageDataRepository(manager: manager)
         
         container.registerValue(RepoKeys.DynamicRepo.rawValue, repository)
+    }
+    
+    private func registerImageCacheRepository() {
+        guard let manager: NetworkManager = container.resolveValue(RepoKeys.network.rawValue) else { return }
+        let repository = DefaultImageCacheRepository(manager: manager)
+        
+        container.registerValue(RepoKeys.ImageCache.rawValue, repository)
     }
 }

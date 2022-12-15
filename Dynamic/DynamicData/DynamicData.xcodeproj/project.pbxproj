@@ -10,6 +10,8 @@
 		0B723244294857B0009D3EDF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723243294857B0009D3EDF /* NetworkManager.swift */; };
 		0B723246294858B2009D3EDF /* GIPHYFromAPIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723245294858B2009D3EDF /* GIPHYFromAPIEntity.swift */; };
 		0B7232522949D8F0009D3EDF /* DTO+Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232512949D8F0009D3EDF /* DTO+Repository.swift */; };
+		0B723268294AD837009D3EDF /* DefaultImageCacheRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723267294AD837009D3EDF /* DefaultImageCacheRepository.swift */; };
+		0B72326A294B027B009D3EDF /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723269294B027B009D3EDF /* ImageCacheManager.swift */; };
 		0BB52BA429460367005FC30F /* DynamicData.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BA329460367005FC30F /* DynamicData.docc */; };
 		0BB52BAA29460367005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9F29460367005FC30F /* DynamicData.framework */; };
 		0BB52BAF29460367005FC30F /* DynamicDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BAE29460367005FC30F /* DynamicDataTests.swift */; };
@@ -51,6 +53,8 @@
 		0B723243294857B0009D3EDF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0B723245294858B2009D3EDF /* GIPHYFromAPIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIPHYFromAPIEntity.swift; sourceTree = "<group>"; };
 		0B7232512949D8F0009D3EDF /* DTO+Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTO+Repository.swift"; sourceTree = "<group>"; };
+		0B723267294AD837009D3EDF /* DefaultImageCacheRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImageCacheRepository.swift; sourceTree = "<group>"; };
+		0B723269294B027B009D3EDF /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		0BB52B9F29460367005FC30F /* DynamicData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52BA229460367005FC30F /* DynamicData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicData.h; sourceTree = "<group>"; };
 		0BB52BA329460367005FC30F /* DynamicData.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicData.docc; sourceTree = "<group>"; };
@@ -106,6 +110,14 @@
 				0B7232512949D8F0009D3EDF /* DTO+Repository.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		0B723266294AD821009D3EDF /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				0B723269294B027B009D3EDF /* ImageCacheManager.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		0BB52B9529460367005FC30F = {
@@ -168,7 +180,9 @@
 		0BB52BE029460516005FC30F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0B723266294AD821009D3EDF /* Cache */,
 				0BB52BE22946053F005FC30F /* DefaultDynamicRepository.swift */,
+				0B723267294AD837009D3EDF /* DefaultImageCacheRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -295,7 +309,9 @@
 				0BB52BE529460573005FC30F /* DataDIContainer.swift in Sources */,
 				0BB52BA429460367005FC30F /* DynamicData.docc in Sources */,
 				0B723246294858B2009D3EDF /* GIPHYFromAPIEntity.swift in Sources */,
+				0B72326A294B027B009D3EDF /* ImageCacheManager.swift in Sources */,
 				0B723244294857B0009D3EDF /* NetworkManager.swift in Sources */,
+				0B723268294AD837009D3EDF /* DefaultImageCacheRepository.swift in Sources */,
 				0BB52BE32946053F005FC30F /* DefaultDynamicRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

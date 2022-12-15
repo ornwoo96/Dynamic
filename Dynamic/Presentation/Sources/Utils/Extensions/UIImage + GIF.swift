@@ -19,7 +19,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     }
 }
 
-
 extension UIImage {
     
     public class func gifImageWithData(_ data: Data) -> UIImage? {

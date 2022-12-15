@@ -20,6 +20,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupCell()
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +39,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ viewModel: CustomViewModel,
-                   _ cellIndexPath: IndexPath) {
+                          _ cellIndexPath: IndexPath) {
         Task { [weak self] in
             do {
                 let imageData = try await viewModel.retrieveImageData(cellIndexPath)
@@ -51,6 +52,16 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(imageView)
-        imageView.frame = contentView.bounds
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+    
+    private func setupCell() {
+        self.viewRadius(cornerRadius: 10)
     }
 }

@@ -22,10 +22,6 @@ public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository
         return convertToDomainModel(data)
     }
     
-    public func retrieveImageData(_ url: String) async throws -> Data {
-        return try await manager.fetchImageData(url)
-    }
-    
     private func convertToDomainModel(_ data: GiphyImageEntity) -> GIPHYDomainModel {
         var previews: [PreviewDomainModel] = []
         var originals: [OriginalDomainModel] = []

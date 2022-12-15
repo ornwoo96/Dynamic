@@ -19,8 +19,10 @@ public final class DomainDIContainer: Containable {
     }
     
     private func registerUseCases() {
-        guard let dynamicRepository: DynamicImageDataRepository = container.resolveValue(RepoKeys.DynamicRepo.rawValue) else { return }
-        let dynamicUseCase = DefaultDynamicUseCase(dynamicRepository: dynamicRepository)
+        guard let dynamicRepository: DynamicImageDataRepository = container.resolveValue(RepoKeys.DynamicRepo.rawValue),
+              let imageCacheRepository: ImageCacheRepository = container.resolveValue(RepoKeys.ImageCache.rawValue) else { return }
+        let dynamicUseCase = DefaultDynamicUseCase(dynamicRepository: dynamicRepository,
+                                                   imageCacheRepository: imageCacheRepository)
         container.registerValue(UCKeys.DynamicUC.rawValue, dynamicUseCase)
     }
 }
