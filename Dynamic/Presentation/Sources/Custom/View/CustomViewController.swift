@@ -9,9 +9,10 @@ import UIKit
 
 import Combine
 
-final class CustomViewController: UIViewController {
+class CustomViewController: UIViewController, HasCoordinatable {
     private var viewModel: CustomViewModel
-    weak var coordinator: CustomCoordinator?
+    weak var coordinator: Coordinator?
+    private var castedCoordinator: CustomCoordinator? { coordinator as? CustomCoordinator }
     private var cancellable = Set<AnyCancellable>()
     private lazy var collectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
@@ -40,13 +41,14 @@ final class CustomViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         setupUI()
-        bindViewModel()
+        bind()
         viewModel.action(.viewDidLoad)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.isNavigationBarHidden = true
+
     }
     
     private func setupUI() {
@@ -71,6 +73,7 @@ final class CustomViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
+        customNavigationBar.delegate = self
         view.addSubview(customNavigationBar)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -81,13 +84,39 @@ final class CustomViewController: UIViewController {
         ])
     }
     
-    private func bindViewModel() {
+    private func bind() {
+        bindPreviewData()
+        bindEvent()
+    }
+    
+    private func bindPreviewData() {
         viewModel.previewImageDataSubject
             .receive(on: DispatchQueue.main)
             .sink { _ in
             self.collectionView.reloadData()
         }
         .store(in: &cancellable)
+    }
+    
+    private func bindEvent() {
+        viewModel.event
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] in
+                switch $0 {
+                case .showDetailView(let data):
+                    self?.showDetailView(data)
+                case .showLoading:
+                    print("ShowLoading")
+                case .hideLoading:
+                    print("hideLoading")
+                case .none: break
+                }
+            })
+            .store(in: &cancellable)
+    }
+    
+    private func showDetailView(_ data: DetailModel) {
+        castedCoordinator?.presentDetailView(data)
     }
 }
 
@@ -121,5 +150,17 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.backgroundColor = .blue
         cell.configure(self.viewModel, indexPath)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        //MARK: 아직
+        viewModel.action(.didSelectItemAt(indexPath: indexPath))
+    }
+}
+
+extension CustomViewController: CustomNavigationBarDelegate {
+    func favoritesButtonTapped() {
+        castedCoordinator?.pushPickListView()
     }
 }

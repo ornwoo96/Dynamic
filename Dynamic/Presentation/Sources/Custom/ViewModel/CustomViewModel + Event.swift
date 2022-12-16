@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DynamicDomain
 
 extension CustomViewModel {
     public enum Event: Equatable {
@@ -21,11 +22,11 @@ extension CustomViewModel {
 //            case (.invalidateLayout, .invalidateLayout):
 //                return true
 //                
-//            case (.showDetailView, .showDetailView):
-//                return true
-//                
-//            case (.showLoading, .showLoading):
-//                return true
+            case (.showDetailView, .showDetailView):
+                return true
+                
+            case (.showLoading, .showLoading):
+                return true
                 
             default:
                 return false
@@ -37,8 +38,8 @@ extension CustomViewModel {
         case none
 //        case reloadData(sections: [Section])
 //        case invalidateLayout
-//        case showDetailView(selectedIndex: Int, contents: [CustomViewModel.Content])
-//        case showLoading
-//        case hideLoading
+        case showDetailView(_ data: DetailModel)
+        case showLoading
+        case hideLoading
     }
 }

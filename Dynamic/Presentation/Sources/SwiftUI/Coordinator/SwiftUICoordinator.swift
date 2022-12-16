@@ -9,17 +9,13 @@ import UIKit
 
 import DynamicCore
 
-public final class SwiftUICoordinator: Coordinator {
-    public var childCoordinators: [Coordinator] = []
-    public var navigationController: UINavigationController
-    
-    public init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-    
-    public func start() {
-        guard let viewController: SwiftUIViewController = DIContainer.shared.resolveValue(VCKeys.SwiftUI.rawValue) else { return }
-        viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: false)
+public class SwiftUICoordinator: Coordinator {
+    override func start() {
+        guard let viewController = viewController,
+              let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else {
+            return
+        }
+        parentCoordinator = tabBarCoordinator
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

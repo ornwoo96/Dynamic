@@ -15,23 +15,28 @@ import DynamicPresentation
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var navigationController: UINavigationController?
+    private var initCoordinator: Coordinator?
     
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        
+        DIContainer.shared.removeAllValue()
+        register()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        self.navigationController = UINavigationController()
         
+        guard let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else { return }
+        initCoordinator = tabBarCoordinator
+        
+//        guard let viewController = initCoordinator?.viewController else { return }
+        
+        let navigationController = UINavigationController()
+        navigationController.navigationBar.isHidden = true
+        navigationController.delegate = initCoordinator
+        self.initCoordinator?.navigationController = navigationController
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
-        register()
-        
-        guard let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else { return }
         
         tabBarCoordinator.start()
     }
@@ -47,10 +52,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 private extension SceneDelegate {
     func register() {
-        guard let navigationController = self.navigationController else { return }
-        
         DataDIContainer().register()
+        
         DomainDIContainer().register()
-        PresentationDIContainer(navigationController: navigationController).register()
+        
+        PresentationDIContainer().register()
+        
     }
 }

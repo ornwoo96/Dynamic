@@ -8,10 +8,11 @@
 import UIKit
 
 protocol CustomNavigationBarDelegate {
-    
+    func favoritesButtonTapped()
 }
 
-final class CustomNavigationBar: UINavigationBar {
+final class CustomNavigationBar: UIView {
+    var delegate: CustomNavigationBarDelegate?
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -28,7 +29,11 @@ final class CustomNavigationBar: UINavigationBar {
         return label
     }()
     
-    private var pickListButton = PickListButton()
+    private lazy var pickListButton: PickListButton = {
+        let button = PickListButton()
+        button.addTarget(self, action: #selector(favoritesButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,5 +79,9 @@ final class CustomNavigationBar: UINavigationBar {
             pickListButton.widthAnchor.constraint(equalToConstant: xValueRatio(110)),
             pickListButton.heightAnchor.constraint(equalToConstant: xValueRatio(40))
         ])
+    }
+    
+    @objc private func favoritesButtonTapped(_ sender: UIButton) {
+        delegate?.favoritesButtonTapped()
     }
 }

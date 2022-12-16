@@ -9,17 +9,24 @@ import UIKit
 
 import DynamicCore
 
-public final class CustomCoordinator: Coordinator {
-    public var childCoordinators: [Coordinator] = []
-    public var navigationController: UINavigationController
-    
-    public init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+public class CustomCoordinator: Coordinator {
+    override func start() {
+        guard let viewController = viewController,
+              let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else {
+            return
+        }
+        parentCoordinator = tabBarCoordinator
+        navigationController?.pushViewController(viewController, animated: false)
     }
     
-    public func start() {
-        guard let viewController: CustomViewController = DIContainer.shared.resolveValue(VCKeys.CustomVC.rawValue) else { return }
-        viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: false)
+    public func pushPickListView() {
+        guard let coordinator: PickListCoordinator = DIContainer.shared.resolveValue(CodiKeys.pickList.rawValue) else { return }
+        coordinator.start()
+    }
+    
+    public func presentDetailView(_ detailData: DetailModel) {
+        guard let coordinator: DetailCoordinator = DIContainer.shared.resolveValue(CodiKeys.detail.rawValue) else { return }
+        coordinator.detailData = detailData
+        coordinator.start()
     }
 }

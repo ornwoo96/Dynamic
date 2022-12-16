@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,16 @@
 		0B72326E294B0EA6009D3EDF /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */; };
 		0B723270294B21E2009D3EDF /* PickListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72326F294B21E2009D3EDF /* PickListButton.swift */; };
 		0B723276294B2BB3009D3EDF /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723275294B2BB3009D3EDF /* DetailCoordinator.swift */; };
+		0B723278294B2C1D009D3EDF /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723277294B2C1D009D3EDF /* DetailViewModel.swift */; };
+		0B72327A294B2C2D009D3EDF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723279294B2C2D009D3EDF /* DetailViewController.swift */; };
+		0B723281294B2C82009D3EDF /* PickListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723280294B2C82009D3EDF /* PickListViewController.swift */; };
+		0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723282294B2C8E009D3EDF /* PickListViewModel.swift */; };
+		0B723285294B2C9D009D3EDF /* PickListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723284294B2C9D009D3EDF /* PickListCoordinator.swift */; };
+		0B8F0757294B9EA100F5B591 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0756294B9EA100F5B591 /* DetailModel.swift */; };
+		0B8F0759294BA27600F5B591 /* CGFloat + Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0758294BA27600F5B591 /* CGFloat + Resize.swift */; };
+		0B8F075C294C6C0200F5B591 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075B294C6C0200F5B591 /* Coordinatable.swift */; };
+		0B8F075E294C6C4700F5B591 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075D294C6C4700F5B591 /* Coordinator.swift */; };
+		0B8F0760294C6C6200F5B591 /* HasCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */; };
 		0BB52A152945AC90005FC30F /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A142945AC90005FC30F /* Presentation.docc */; };
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
@@ -92,6 +102,16 @@
 		0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		0B72326F294B21E2009D3EDF /* PickListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListButton.swift; sourceTree = "<group>"; };
 		0B723275294B2BB3009D3EDF /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
+		0B723277294B2C1D009D3EDF /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		0B723279294B2C2D009D3EDF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0B723280294B2C82009D3EDF /* PickListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListViewController.swift; sourceTree = "<group>"; };
+		0B723282294B2C8E009D3EDF /* PickListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListViewModel.swift; sourceTree = "<group>"; };
+		0B723284294B2C9D009D3EDF /* PickListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListCoordinator.swift; sourceTree = "<group>"; };
+		0B8F0756294B9EA100F5B591 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		0B8F0758294BA27600F5B591 /* CGFloat + Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat + Resize.swift"; sourceTree = "<group>"; };
+		0B8F075B294C6C0200F5B591 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
+		0B8F075D294C6C4700F5B591 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCoordinatable.swift; sourceTree = "<group>"; };
 		0BB52A102945AC90005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52A132945AC90005FC30F /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		0BB52A142945AC90005FC30F /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -277,6 +297,7 @@
 				0B72323D29476E37009D3EDF /* UIView+Color.swift */,
 				0B72323F294793C6009D3EDF /* UIImage.swift */,
 				0B723264294A2B67009D3EDF /* UIImage + GIF.swift */,
+				0B8F0758294BA27600F5B591 /* CGFloat + Resize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -309,6 +330,7 @@
 		0B723271294B2B59009D3EDF /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				0B8F0755294B9E9600F5B591 /* Model */,
 				0B723274294B2B86009D3EDF /* Coordinator */,
 				0B723273294B2B76009D3EDF /* ViewModel */,
 				0B723272294B2B6E009D3EDF /* View */,
@@ -319,6 +341,7 @@
 		0B723272294B2B6E009D3EDF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0B723279294B2C2D009D3EDF /* DetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -326,6 +349,7 @@
 		0B723273294B2B76009D3EDF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0B723277294B2C1D009D3EDF /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -336,6 +360,58 @@
 				0B723275294B2BB3009D3EDF /* DetailCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		0B72327B294B2C36009D3EDF /* PickList */ = {
+			isa = PBXGroup;
+			children = (
+				0B72327F294B2C66009D3EDF /* Coordinator */,
+				0B72327D294B2C5B009D3EDF /* ViewModel */,
+				0B72327C294B2C55009D3EDF /* View */,
+			);
+			path = PickList;
+			sourceTree = "<group>";
+		};
+		0B72327C294B2C55009D3EDF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0B723280294B2C82009D3EDF /* PickListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0B72327D294B2C5B009D3EDF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0B723282294B2C8E009D3EDF /* PickListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0B72327F294B2C66009D3EDF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0B723284294B2C9D009D3EDF /* PickListCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		0B8F0755294B9E9600F5B591 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B8F0756294B9EA100F5B591 /* DetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0B8F075A294C6BF200F5B591 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0B8F075B294C6C0200F5B591 /* Coordinatable.swift */,
+				0B8F075D294C6C4700F5B591 /* Coordinator.swift */,
+				0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		0BB52A062945AC90005FC30F = {
@@ -378,6 +454,7 @@
 		0BB52A362945ACDB005FC30F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0B8F075A294C6BF200F5B591 /* Base */,
 				0B723263294A2B3A009D3EDF /* Common */,
 				0BB52B2C2945C37E005FC30F /* DIContainer */,
 				0B723226294734C6009D3EDF /* TarBar */,
@@ -385,6 +462,7 @@
 				0B72320B29463EB6009D3EDF /* SwiftUI */,
 				0B72320A29463EAF009D3EDF /* Custom */,
 				0B723271294B2B59009D3EDF /* Detail */,
+				0B72327B294B2C36009D3EDF /* PickList */,
 				0B723230294761B1009D3EDF /* Utils */,
 			);
 			path = Sources;
@@ -485,7 +563,7 @@
 				};
 			};
 			buildConfigurationList = 0BB52A0A2945AC90005FC30F /* Build configuration list for PBXProject "DynamicPresentation" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -526,8 +604,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB52A152945AC90005FC30F /* Presentation.docc in Sources */,
+				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
 				0B723240294793C6009D3EDF /* UIImage.swift in Sources */,
+				0B723278294B2C1D009D3EDF /* DetailViewModel.swift in Sources */,
 				0BB52BEC2946098C005FC30F /* SwiftUIViewController.swift in Sources */,
+				0B8F075C294C6C0200F5B591 /* Coordinatable.swift in Sources */,
 				0B72325A2949E032009D3EDF /* CustomViewModel + Event.swift in Sources */,
 				0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */,
 				0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */,
@@ -537,20 +618,27 @@
 				0B72322D29473531009D3EDF /* TarBarController.swift in Sources */,
 				0B72325F2949E135009D3EDF /* CustomPresentationModel.swift in Sources */,
 				0BB52BE82946095D005FC30F /* CustomViewController.swift in Sources */,
+				0B8F075E294C6C4700F5B591 /* Coordinator.swift in Sources */,
+				0B8F0757294B9EA100F5B591 /* DetailModel.swift in Sources */,
 				0BB52B2E2945C3A2005FC30F /* PresentationDIContainer.swift in Sources */,
 				0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */,
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,
 				0BB52BEA2946097D005FC30F /* CompositionalViewController.swift in Sources */,
+				0B8F0759294BA27600F5B591 /* CGFloat + Resize.swift in Sources */,
 				0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */,
 				0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */,
 				0B72326E294B0EA6009D3EDF /* CustomNavigationBar.swift in Sources */,
+				0B723281294B2C82009D3EDF /* PickListViewController.swift in Sources */,
 				0B72322529470635009D3EDF /* CustomCoordinator.swift in Sources */,
 				0B723270294B21E2009D3EDF /* PickListButton.swift in Sources */,
+				0B723285294B2C9D009D3EDF /* PickListCoordinator.swift in Sources */,
 				0B723276294B2BB3009D3EDF /* DetailCoordinator.swift in Sources */,
+				0B8F0760294C6C6200F5B591 /* HasCoordinatable.swift in Sources */,
 				0B7232212947041A009D3EDF /* SwiftUIViewModel.swift in Sources */,
 				0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */,
 				0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */,
 				0B72322329470627009D3EDF /* CustomViewModel.swift in Sources */,
+				0B72327A294B2C2D009D3EDF /* DetailViewController.swift in Sources */,
 				0B72321B2946FED6009D3EDF /* CompositionalViewModel.swift in Sources */,
 				0B72323E29476E37009D3EDF /* UIView+Color.swift in Sources */,
 			);

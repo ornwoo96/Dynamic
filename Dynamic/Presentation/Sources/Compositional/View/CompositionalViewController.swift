@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class CompositionalViewController: UIViewController {
+final class CompositionalViewController: UIViewController, HasCoordinatable {
     private let viewModel: CompositionalViewModel
-    var coordinator: CompositionalCoordinator?
+    var coordinator: Coordinator?
     
     init(viewModel: CompositionalViewModel) {
         self.viewModel = viewModel

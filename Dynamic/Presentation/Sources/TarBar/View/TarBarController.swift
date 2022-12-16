@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class TabBarController: UITabBarController {
-    var coordinator: Coordinator?
+public final class TabBarController: UITabBarController, HasCoordinatable {
+    public var coordinator: Coordinator?
     private let customTab: UINavigationController
     private let compoTab: UINavigationController
     private let swiftTab: UINavigationController
@@ -70,9 +70,9 @@ final class TabBarController: UITabBarController {
         return button
     }()
     
-    init(customTab: UINavigationController,
-         compoTab: UINavigationController,
-         swiftTab: UINavigationController) {
+    public init(customTab: UINavigationController,
+                compoTab: UINavigationController,
+                swiftTab: UINavigationController) {
         self.customTab = customTab
         self.compoTab = compoTab
         self.swiftTab = swiftTab
@@ -83,12 +83,12 @@ final class TabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }

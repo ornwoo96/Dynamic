@@ -8,28 +8,32 @@
 import Foundation
 
 public enum VMKeys: String {
-    case MainVM = "MainViewModel"
-    case CompoVM = "CompositionalViewModel"
-    case CustomVM = "CustomViewModel"
-    case SwiftUIVM = "SwiftUIViewModel"
+    case mainVM = "MainViewModel"
+    case compoVM = "CompositionalViewModel"
+    case customVM = "CustomViewModel"
+    case swiftUIVM = "SwiftUIViewModel"
+    case detail = "DetailViewModel"
+    case pickList = "PickListViewModel"
 }
 
 public enum VCKeys: String {
-    case MainVC = "MainViewController"
-    case CompoVC = "CompositionalViewController"
-    case CustomVC = "CustomViewController"
-    case SwiftUI = "SwiftUIViewController"
-    case TabBar = "TabBarController"
+    case mainVC = "MainViewController"
+    case compoVC = "CompositionalViewController"
+    case customVC = "CustomViewController"
+    case swiftUI = "SwiftUIViewController"
+    case tabBar = "TabBarController"
+    case detail = "DetailViewController"
+    case pickList = "PickListViewController"
 }
 
 public enum UCKeys: String {
-    case DynamicUC = "DynamicUseCase"
+    case dynamicUC = "DynamicUseCase"
 }
 
 public enum RepoKeys: String {
-    case DynamicRepo = "DynamicRepository"
+    case dynamicRepo = "DynamicRepository"
     case network = "NetworkManager"
-    case ImageCache = "ImageCacheRepository"
+    case imageCache = "ImageCacheRepository"
 }
 
 public enum CodiKeys: String {
@@ -37,5 +41,7 @@ public enum CodiKeys: String {
     case custom = "CustomCoordinator"
     case swift = "SwiftUICoordinator"
     case compo = "CompositionalCoordinator"
-    case MainCodi = "MainCoordinator"
+    case mainCodi = "MainCoordinator"
+    case detail = "DetailCoordinator"
+    case pickList = "PickListCoordinator"
 }

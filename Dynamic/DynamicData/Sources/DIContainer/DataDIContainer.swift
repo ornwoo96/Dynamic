@@ -36,13 +36,13 @@ extension DataDIContainer {
         guard let manager: NetworkManager = container.resolveValue(RepoKeys.network.rawValue) else { return }
         let repository = DefaultDynamicImageDataRepository(manager: manager)
         
-        container.registerValue(RepoKeys.DynamicRepo.rawValue, repository)
+        container.registerValue(RepoKeys.dynamicRepo.rawValue, repository)
     }
     
     private func registerImageCacheRepository() {
         guard let manager: NetworkManager = container.resolveValue(RepoKeys.network.rawValue) else { return }
         let repository = DefaultImageCacheRepository(manager: manager)
         
-        container.registerValue(RepoKeys.ImageCache.rawValue, repository)
+        container.registerValue(RepoKeys.imageCache.rawValue, repository)
     }
 }

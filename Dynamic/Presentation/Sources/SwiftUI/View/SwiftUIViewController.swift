@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class SwiftUIViewController: UIViewController {
+final class SwiftUIViewController: UIViewController, HasCoordinatable {
     private let viewModel: SwiftUIViewModel
-    var coordinator: SwiftUICoordinator?
+    var coordinator: Coordinator?
     
     init(viewModel: SwiftUIViewModel) {
         self.viewModel = viewModel
