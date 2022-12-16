@@ -27,12 +27,12 @@ public struct GiphyData: Codable {
 }
 
 public struct GIFImages: Codable {
-    public let previewGIF: Preview
     public let original: Original
+    public let previewGIF: Preview
     
     enum CodingKeys: String, CodingKey {
+        case original = "original"
         case previewGIF = "preview_gif"
-        case original
     }
 }
 

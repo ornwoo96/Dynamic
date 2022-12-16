@@ -116,7 +116,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     }
     
     private func showDetailView(_ data: DetailModel) {
-        castedCoordinator?.presentDetailView(data)
+        castedCoordinator?.presentDetailView(self, data)
     }
 }
 

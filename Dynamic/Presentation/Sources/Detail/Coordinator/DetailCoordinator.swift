@@ -12,7 +12,14 @@ class DetailCoordinator: Coordinator {
     var detailData: DetailModel?
     
     override func start() {
-        guard let viewController: DetailViewController = DIContainer.shared.resolveValue(VCKeys.detail.rawValue) else { return }
+        guard let viewController: DetailViewController = viewController as? DetailViewController else {
+            return
+            
+        }
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    public func viewDismiss(_ viewController: UIViewController) {
+        viewController.dismiss(animated: true)
     }
 }

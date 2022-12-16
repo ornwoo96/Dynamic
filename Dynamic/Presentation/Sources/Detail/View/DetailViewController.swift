@@ -6,15 +6,17 @@
 //
 
 import UIKit
+import AVFoundation
+import Combine
 
-final class DetailViewController: UIViewController, HasCoordinatable {
+class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: DetailCoordinator? { coordinator as? DetailCoordinator }
+    private var cancellables: Set<AnyCancellable> = .init()
     let viewModel: DetailViewModel
-    private lazy var detailImageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        guard let imageData = castedCoordinator?.detailData?.detailImage else { return UIImageView() }
-        imageView.image = UIImage(data: imageData)
+        imageView.contentMode = .center
         return imageView
     }()
     
@@ -29,33 +31,47 @@ final class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupImageData()
         setupUI()
+        bind()
     }
     
     private func setupUI() {
         setupImageView()
+        setupViewController()
+    }
+    
+    private func setupViewController() {
+        
     }
     
     private func setupImageView() {
-        let castedWidth: CGFloat = CGFloat(Int(castedCoordinator?.detailData?.width ?? "0") ?? 0)
-        let castedHeight: CGFloat = CGFloat(Int(castedCoordinator?.detailData?.height ?? "0") ?? 0)
-        
-        let resizeWidth: CGFloat = CGFloat.ImageResizeHeight(castedWidth,
-                                                             castedHeight,
-                                                             calculateXMax(),
-                                                             calculateYMax())
-        let resizeHeight: CGFloat = CGFloat.ImageResizeHeight(castedWidth,
-                                                              castedHeight,
-                                                              calculateXMax(),
-                                                              calculateYMax())
-        
-        view.addSubview(detailImageView)
-        detailImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            detailImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            detailImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detailImageView.widthAnchor.constraint(equalToConstant: resizeWidth),
-            detailImageView.heightAnchor.constraint(equalToConstant: resizeHeight)
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func bind() {
+        bindImageData()
+    }
+    
+    private func bindImageData() {
+        viewModel.imageDataSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] in
+                self?.imageView.image = UIImage.gifImageWithData($0)
+            })
+            .store(in: &cancellables)
+    }
+    
+    
+    private func setupImageData() {
+        guard let url = castedCoordinator?.detailData?.url else { return }
+        viewModel.action(.viewDidLoad(url))
     }
 }

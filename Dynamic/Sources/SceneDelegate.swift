@@ -23,13 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DIContainer.shared.removeAllValue()
         register()
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        
         guard let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else { return }
         initCoordinator = tabBarCoordinator
-        
-//        guard let viewController = initCoordinator?.viewController else { return }
-        
         let navigationController = UINavigationController()
         navigationController.navigationBar.isHidden = true
         navigationController.delegate = initCoordinator

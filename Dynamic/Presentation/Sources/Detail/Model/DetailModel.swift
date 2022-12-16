@@ -8,14 +8,14 @@
 import Foundation
 
 public struct DetailModel {
-    public let detailImage: Data
+    public let url: String
     public let width: String
     public let height: String
     
-    public init(detailImage: Data,
+    public init(url: String,
                 width: String,
                 height: String) {
-        self.detailImage = detailImage
+        self.url = url
         self.width = width
         self.height = height
     }

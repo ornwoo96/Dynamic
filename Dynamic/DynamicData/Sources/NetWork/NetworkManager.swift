@@ -16,6 +16,7 @@ public class NetworkManager {
             return GiphyImageEntity.empty
         }
         let (data, _ ) = try await URLSession.shared.data(from: stringToURL)
+        
         let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
         
         return decodeData.convertGiphyImageEntity()

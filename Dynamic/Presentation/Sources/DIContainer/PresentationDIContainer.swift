@@ -17,13 +17,9 @@ public final class PresentationDIContainer: Containable {
     
     public func register() {
         registerViewModels()
-        
         registerViewControllers()
-        
         registerCoordinators()
-        
         registerTabBar()
-        
     }
     
     private func registerViewModels() {
@@ -90,6 +86,7 @@ extension PresentationDIContainer {
               let parentCoordinator: Coordinatable = DIContainer.shared.resolveValue(CodiKeys.custom.rawValue) else { return }
         let coordinator = PickListCoordinator(parentCoordinator: parentCoordinator,
                                               viewController: viewController)
+        
         container.registerValue(CodiKeys.pickList.rawValue, coordinator)
     }
 }
@@ -148,7 +145,8 @@ extension PresentationDIContainer {
     }
     
     private func registerDetailViewModel() {
-        let viewModel = DetailViewModel()
+        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
+        let viewModel = DetailViewModel(dynamicUseCase: dynamicUseCase)
         container.registerValue(VMKeys.detail.rawValue, viewModel)
     }
     

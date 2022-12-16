@@ -26,6 +26,7 @@ public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository
         var previews: [PreviewDomainModel] = []
         var originals: [OriginalDomainModel] = []
         for i in 0..<data.originalImages.count {
+            
             let preview: PreviewDomainModel = .init(id: data.previewImages[i].id,
                                                     height: data.previewImages[i].height,
                                                     width: data.previewImages[i].width,

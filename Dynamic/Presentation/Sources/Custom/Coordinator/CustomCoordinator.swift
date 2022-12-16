@@ -21,12 +21,14 @@ public class CustomCoordinator: Coordinator {
     
     public func pushPickListView() {
         guard let coordinator: PickListCoordinator = DIContainer.shared.resolveValue(CodiKeys.pickList.rawValue) else { return }
+        coordinator.navigationController = parentCoordinator?.navigationController
         coordinator.start()
     }
     
-    public func presentDetailView(_ detailData: DetailModel) {
+    public func presentDetailView(_ viewController: UIViewController,
+                                  _ detailData: DetailModel) {
         guard let coordinator: DetailCoordinator = DIContainer.shared.resolveValue(CodiKeys.detail.rawValue) else { return }
         coordinator.detailData = detailData
-        coordinator.start()
+        viewController.present(coordinator.viewController ?? UIViewController(), animated: true)
     }
 }

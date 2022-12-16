@@ -10,7 +10,8 @@ import DynamicCore
 
 class PickListCoordinator: Coordinator {
     override func start() {
-        guard let viewController: PickListViewController = DIContainer.shared.resolveValue(VCKeys.pickList.rawValue) else { return }
+        guard let viewController = viewController else { return }
+        
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

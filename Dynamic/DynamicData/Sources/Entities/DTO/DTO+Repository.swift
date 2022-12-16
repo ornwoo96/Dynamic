@@ -30,9 +30,9 @@ extension GIPHYFromAPIEntity {
         var originalData: [OriginalAddIDEntity] = []
         for i in 0..<data.count {
             let result = OriginalAddIDEntity(id: data[i].id,
-                                            height: data[i].images.previewGIF.height,
-                                            width: data[i].images.previewGIF.width,
-                                            url: data[i].images.previewGIF.url)
+                                             height: data[i].images.original.height,
+                                             width: data[i].images.original.width,
+                                             url: data[i].images.original.url)
             originalData.append(result)
         }
         
