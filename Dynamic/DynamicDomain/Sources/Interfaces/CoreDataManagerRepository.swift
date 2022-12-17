@@ -8,7 +8,10 @@
 import Foundation
 
 public protocol CoreDataManagerRepository {
-    func createGIFImageData(_ data: OriginalDomainModel)
-    func removeGIFImageData(_ data: OriginalDomainModel)
-    func checkGIFImageDataIsExist() async throws -> Bool
+    func createGIFImageData(_ height: String,
+                            _ width: String,
+                            _ id: String,
+                            _ image: Data)
+    func removeGIFImageData(_ id: String)
+    func checkGIFImageDataIsExist(_ id: String) async throws -> Bool
 }

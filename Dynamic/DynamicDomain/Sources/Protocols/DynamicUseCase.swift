@@ -11,5 +11,7 @@ public protocol DynamicUseCase {
     var dynamicRepository: DynamicImageDataRepository { get }
     
     func retrieveGIPHYDatas() async throws -> GIPHYDomainModel
-    func retrieveGIFImage(_ url: String) async throws -> Data
+    func retrieveGIFImage(_ url: String, _ id: String) async throws -> (Data, Bool)
+    func requestCoreDataManagerForCreateImageData(_ data: OriginalDomainModel)
+    func requestRemoveImageDataFromCoreData(_ id: String)
 }

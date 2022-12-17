@@ -39,10 +39,10 @@ public class DetailViewModel: DetailViewModelProtocol {
     private func retrieveOriginalImage(_ url: String) {
         Task { [weak self] in
             do {
-                guard let imageData = try await self?.dynamicUseCase.retrieveGIFImage(url) else {
+                guard let imageData = try await self?.dynamicUseCase.retrieveGIFImage(url, "") else {
                     return
                 }
-                self?.imageDataSubject.send(imageData)
+                self?.imageDataSubject.send(imageData.0)
             } catch {
                 print("OriginalImage Retrieve - 실패")
             }

@@ -49,7 +49,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         Task { [weak self] in
             do {
                 let imageData = try await viewModel.retrieveImageData(cellIndexPath)
-                self?.imageView.image = UIImage.gifImageWithData(imageData)
+                self?.animateHeartView(imageData.1)
+                self?.imageView.image = UIImage.gifImageWithData(imageData.0)
             } catch {
                 print("Cell 이미지불러오기 - 실패")
             }
@@ -87,11 +88,27 @@ class CustomCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    public func animateHeartView() {
-        if heartView.isHidden == false {
-            heartView.isHidden = true
+    private func animateHeartView(_ bool: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            if bool == false {
+                self?.heartView.isHidden = true
+            } else {
+                self?.heartView.isHidden = false
+            }
+        }
+    }
+    
+    public func checkHeartViewIsHidden() -> Bool {
+        if heartView.isHidden == true {
+            DispatchQueue.main.async { [weak self] in
+                self?.heartView.isHidden = false
+            }
+            return true
         } else {
-            heartView.isHidden = false
+            DispatchQueue.main.async { [weak self] in
+                self?.heartView.isHidden = true
+            }
+            return false
         }
     }
 }

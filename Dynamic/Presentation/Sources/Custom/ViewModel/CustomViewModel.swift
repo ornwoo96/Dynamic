@@ -21,7 +21,7 @@ protocol CustomViewModelOutputProtocol: AnyObject {
 protocol CustomViewModelProtocol: CustomViewModelInputProtocol, CustomViewModelOutputProtocol {
     func action(_ action: CustomViewModel.Action)
     var previewImageDataSubject: CurrentValueSubject<CustomPresentationModel, Never> { get }
-    func retrieveImageData(_ indexPath: IndexPath) async throws -> Data
+    func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
 }
 
 class CustomViewModel: CustomViewModelProtocol {
@@ -50,10 +50,30 @@ class CustomViewModel: CustomViewModelProtocol {
         }
     }
     
-    public func retrieveImageData(_ indexPath: IndexPath) async throws -> Data {
+    public func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data,Bool) {
         let urlString = self.previewImageDataSubject.value.contents.previewImages[indexPath.item].url
-        let previewData = try await dynamicUseCase.retrieveGIFImage(urlString)
+        let id = self.previewImageDataSubject.value.contents.previewImages[indexPath.item].id
+        let previewData = try await dynamicUseCase.retrieveGIFImage(urlString, id)
         return previewData
+    }
+    
+    public func checkFavoriteButtonTapped(_ bool: Bool,
+                                          _ indexPath: Int) {
+        if bool {
+            requestCreateImageDataFromCoreData(indexPath)
+        } else {
+            requestRemoveImageDataFromCoreData(indexPath)
+        }
+    }
+    
+    private func requestCreateImageDataFromCoreData(_ indexPath: Int) {
+        let imageData: OriginalDomainModel = previewImageDataSubject.value.contents.originalImages[indexPath]
+        dynamicUseCase.requestCoreDataManagerForCreateImageData(imageData)
+    }
+    
+    private func requestRemoveImageDataFromCoreData(_ indexPath: Int) {
+        let id = previewImageDataSubject.value.contents.originalImages[indexPath].id
+        dynamicUseCase.requestRemoveImageDataFromCoreData(id)
     }
     
     private func createDetailData(_ indexPath: Int) -> DetailModel {

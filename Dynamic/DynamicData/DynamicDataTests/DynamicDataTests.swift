@@ -24,4 +24,8 @@ final class DynamicDataTests: XCTestCase {
     func checkFetchData() throws {
         
     }
+    
+    func testCoreDataCreateEntity() throws {
+        
+    }
 }

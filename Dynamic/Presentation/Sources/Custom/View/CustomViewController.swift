@@ -193,6 +193,6 @@ extension CustomViewController: UIGestureRecognizerDelegate {
     
     private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
-        cell.animateHeartView()
+        viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
     }
 }

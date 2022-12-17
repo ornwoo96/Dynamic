@@ -47,15 +47,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 private extension SceneDelegate {
     func register() {
-        registerAppDelegate()
         DataDIContainer().register()
         DomainDIContainer().register()
         PresentationDIContainer().register()
-    }
-    
-    private func registerAppDelegate() {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        var context = appDelegate?.persistentContainer.viewContext
-        DIContainer.shared.registerValue(RepoKeys.coreContext.rawValue, context)
     }
 }
