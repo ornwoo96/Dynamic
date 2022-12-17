@@ -19,8 +19,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private lazy var heartView: UIImageView = {
         let view = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.contentMode = .center
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
+        view.isHidden = true
         return view
     }()
     
@@ -58,6 +59,15 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        setupImageView()
+        setupHeartView()
+    }
+    
+    private func setupCell() {
+        self.viewRadius(cornerRadius: 10)
+    }
+    
+    private func setupImageView() {
         contentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -68,12 +78,21 @@ class CustomCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func setupCell() {
-        self.viewRadius(cornerRadius: 10)
+    private func setupHeartView() {
+        guard let imageData = NSDataAsset(name: "heart_gif")?.data else { return }
+        heartView.image = UIImage.gifImageWithData(imageData)
+        imageView.addSubview(heartView)
+        heartView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heartView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            heartView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            heartView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            heartView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
     
     public func animateHeartView() {
+        heartView.isHidden = false
         
     }
-    
 }
