@@ -16,10 +16,6 @@ public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository
         self.manager = manager
     }
     
-    public func retrieveGIPHTDatasFromCoreData() async throws -> OriginalDomainModel {
-        
-    }
-    
     public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
         let data = try await manager.fetchGIPHYDatas()
         

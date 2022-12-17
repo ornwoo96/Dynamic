@@ -14,4 +14,5 @@ public protocol DynamicUseCase {
     func retrieveGIFImage(_ url: String, _ id: String) async throws -> (Data, Bool)
     func requestCoreDataManagerForCreateImageData(_ data: OriginalDomainModel)
     func requestRemoveImageDataFromCoreData(_ id: String)
+    func retrieveGIPHYDataFromCoreData() async throws -> [FavoriteDomainModel]
 }

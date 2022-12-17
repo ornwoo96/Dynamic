@@ -46,4 +46,8 @@ public final class DefaultDynamicUseCase: DynamicUseCase {
     public func requestRemoveImageDataFromCoreData(_ id: String) {
         coreDataManager.removeGIFImageData(id)
     }
+    
+    public func retrieveGIPHYDataFromCoreData() async throws -> [FavoriteDomainModel] {
+        return try await coreDataManager.requestFavoritesDatas()
+    }
 }

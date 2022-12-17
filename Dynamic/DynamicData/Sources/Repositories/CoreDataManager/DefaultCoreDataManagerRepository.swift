@@ -42,8 +42,6 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         
     }()
     
-    
-    
     public func createGIFImageData(_ height: String,
                                    _ width: String,
                                    _ id: String,
@@ -107,7 +105,59 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
-    public func requestFavoritesDatas() async throws -> [Favorites] {
+    public func requestFavoriteData(_ id: String) async throws -> FavoriteDomainModel {
+        let request = Favorites.fetchRequest()
+        let context = persistentContainer.viewContext
         
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        
+        do {
+            let data = try context.fetch(request)
+            
+            if data.count == 0 {
+                return FavoriteDomainModel.empty
+            } else {
+                let domainModel = FavoriteDomainModel(data: data[0].image ?? Data(),
+                                                      width: data[0].width ?? "",
+                                                      height: data[0].height ?? "",
+                                                      id: data[0].id ?? "")
+                return domainModel
+            }
+        } catch {
+            print(error.localizedDescription)
+            return FavoriteDomainModel.empty
+        }
+    }
+    
+    public func requestFavoritesDatas() async throws -> [FavoriteDomainModel] {
+        let request = Favorites.fetchRequest()
+        let context = persistentContainer.viewContext
+
+        do {
+            let data = try context.fetch(request)
+            
+            if data.count == 0 {
+                print("코어데이터에 아무것도 없습니다")
+                return []
+            } else {
+                return convertFavoritesToDomainModel(data)
+            }
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    private func convertFavoritesToDomainModel(_ data: [Favorites]) -> [FavoriteDomainModel] {
+        var dataArray: [FavoriteDomainModel] = []
+        for i in data {
+            let domainModel: FavoriteDomainModel = .init(data: i.image ?? Data(),
+                                                         width: i.width ?? "",
+                                                         height: i.height ?? "",
+                                                         id: i.id ?? "")
+            dataArray.append(domainModel)
+        }
+        
+        return dataArray
     }
 }

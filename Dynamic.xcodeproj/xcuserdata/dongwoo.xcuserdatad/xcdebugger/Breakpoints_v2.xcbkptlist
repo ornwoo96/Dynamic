@@ -100,53 +100,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "386BA786-56BD-43E4-B3B4-139AF8F65F69"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Dynamic/Presentation/Sources/Base/Coordinator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "navigationController(_:didShow:animated:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "386BA786-56BD-43E4-B3B4-139AF8F65F69 - f810d313a290dd1c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DynamicPresentation.Coordinator.navigationController(_: __C.UINavigationController, didShow: __C.UIViewController, animated: Swift.Bool) -&gt; ()"
-                  moduleName = "DynamicPresentation"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/Presentation/Sources/Base/Coordinator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "1207">
-               </Location>
-               <Location
-                  uuid = "386BA786-56BD-43E4-B3B4-139AF8F65F69 - f810d313a290dd1c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DynamicPresentation.Coordinator.navigationController(_: __C.UINavigationController, didShow: __C.UIViewController, animated: Swift.Bool) -&gt; ()"
-                  moduleName = "DynamicPresentation"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/Presentation/Sources/Base/Coordinator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "1062">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
