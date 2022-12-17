@@ -17,10 +17,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var heartView: UIImageView = {
-        let view = UIImageView()
-        view.clipsToBounds = true
-        view.contentMode = .scaleAspectFill
+    private lazy var heartView: HeartView = {
+        let view = HeartView()
         view.isHidden = true
         return view
     }()
@@ -79,8 +77,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupHeartView() {
-        guard let imageData = NSDataAsset(name: "heart_gif")?.data else { return }
-        heartView.image = UIImage.gifImageWithData(imageData)
         imageView.addSubview(heartView)
         heartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -92,7 +88,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func animateHeartView() {
-        heartView.isHidden = false
-        
+        if heartView.isHidden == false {
+            heartView.isHidden = true
+        } else {
+            heartView.isHidden = false
+        }
     }
 }

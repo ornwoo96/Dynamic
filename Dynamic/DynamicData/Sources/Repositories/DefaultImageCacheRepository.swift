@@ -29,6 +29,12 @@ public class DefaultImageCacheRepository: ImageCacheRepository {
     }
     
     public func imageLoad(_ url: String) async throws -> Data {
+        // MARK: 코어 데이터에 이미지가 있을 경우 -> true
+        // MARK: 코어 데이터에 이미지가 없을 경우 -> false
+        
+        
+        
+        
         // MARK: 저장된 이미지가 있을경우
         if let cachedImage = matchImage(url) {
             return cachedImage

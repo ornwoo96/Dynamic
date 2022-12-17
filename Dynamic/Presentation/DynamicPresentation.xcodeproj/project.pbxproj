@@ -39,6 +39,7 @@
 		0B8F075E294C6C4700F5B591 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075D294C6C4700F5B591 /* Coordinator.swift */; };
 		0B8F0760294C6C6200F5B591 /* HasCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */; };
 		0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0761294CC10300F5B591 /* DetailViewModel + Action.swift */; };
+		0B8F0764294DAFB600F5B591 /* HeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0763294DAFB600F5B591 /* HeartView.swift */; };
 		0BB52A152945AC90005FC30F /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A142945AC90005FC30F /* Presentation.docc */; };
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
@@ -112,6 +113,7 @@
 		0B8F075D294C6C4700F5B591 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCoordinatable.swift; sourceTree = "<group>"; };
 		0B8F0761294CC10300F5B591 /* DetailViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewModel + Action.swift"; sourceTree = "<group>"; };
+		0B8F0763294DAFB600F5B591 /* HeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartView.swift; sourceTree = "<group>"; };
 		0BB52A102945AC90005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52A132945AC90005FC30F /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		0BB52A142945AC90005FC30F /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				0BB52BE72946095D005FC30F /* CustomViewController.swift */,
+				0B8F0763294DAFB600F5B591 /* HeartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */,
 				0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */,
 				0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */,
+				0B8F0764294DAFB600F5B591 /* HeartView.swift in Sources */,
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
 				0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,

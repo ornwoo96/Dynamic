@@ -180,7 +180,9 @@ extension CustomViewController: UIGestureRecognizerDelegate {
     }
     
     @objc private func LongPressCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        viewModel.action(.didSelectedItemAtLongPressed(indexPath: findLongPressCellIndexPath(gestureRecognizer)))
+        if gestureRecognizer.state == .began {
+            viewModel.action(.didSelectedItemAtLongPressed(indexPath: findLongPressCellIndexPath(gestureRecognizer)))
+        }
     }
     
     private func findLongPressCellIndexPath(_ gestureRecognizer: UILongPressGestureRecognizer) -> IndexPath {

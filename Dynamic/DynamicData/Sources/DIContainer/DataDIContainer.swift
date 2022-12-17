@@ -8,6 +8,7 @@
 import Foundation
 
 import DynamicCore
+import CoreData
 
 public final class DataDIContainer: Containable {
     public var container: BMOInject = DIContainer.shared
@@ -28,6 +29,7 @@ public final class DataDIContainer: Containable {
     private func registerRepositories() {
         registerDynamicImageDataRepository()
         registerImageCacheRepository()
+        registerCoreDataManager()
     }
 }
 
@@ -44,5 +46,12 @@ extension DataDIContainer {
         let repository = DefaultImageCacheRepository(manager: manager)
         
         container.registerValue(RepoKeys.imageCache.rawValue, repository)
+    }
+    
+    private func registerCoreDataManager() {
+        guard let context: NSManagedObjectContext = DIContainer.shared.resolveValue(RepoKeys.coreContext.rawValue) else { return }
+        let manager = DefaultCoreDataManagerRepository(context: context)
+        
+        container.registerValue(RepoKeys.coreManager.rawValue, manager)
     }
 }

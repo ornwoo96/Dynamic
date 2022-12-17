@@ -243,6 +243,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0B8F076A294DCAD600F5B591 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0B19C784294232A700909F8D /* Dynamic.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		0BB52B8D29460354005FC30F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,7 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				0B19C78C294232A900909F8D /* Info.plist */,
-				0B19C784294232A700909F8D /* Dynamic.xcdatamodeld */,
 				0B19C787294232A900909F8D /* Assets.xcassets */,
 				0B19C789294232A900909F8D /* LaunchScreen.storyboard */,
 			);
@@ -275,6 +282,7 @@
 		0BE3D44729444C1A006B354E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0B8F076A294DCAD600F5B591 /* CoreData */,
 				0B19C77B294232A700909F8D /* AppDelegate.swift */,
 				0B19C77D294232A700909F8D /* SceneDelegate.swift */,
 			);
