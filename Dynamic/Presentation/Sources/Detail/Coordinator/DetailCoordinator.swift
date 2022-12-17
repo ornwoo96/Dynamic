@@ -14,7 +14,6 @@ class DetailCoordinator: Coordinator {
     override func start() {
         guard let viewController: DetailViewController = viewController as? DetailViewController else {
             return
-            
         }
         navigationController?.pushViewController(viewController, animated: true)
     }

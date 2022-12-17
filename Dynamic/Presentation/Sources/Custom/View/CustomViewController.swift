@@ -14,6 +14,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: CustomCoordinator? { coordinator as? CustomCoordinator }
     private var cancellable = Set<AnyCancellable>()
+    
     private lazy var collectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
         layout.delegate = self
@@ -55,6 +56,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
         setupCollectionView()
         setupViewController()
         setupCustomNavigationBar()
+        setupLongGestureRecognizerOnCollection()
     }
     
     private func setupViewController() {
@@ -109,6 +111,8 @@ class CustomViewController: UIViewController, HasCoordinatable {
                     print("ShowLoading")
                 case .hideLoading:
                     print("hideLoading")
+                case .showHeartView(let indexPath):
+                    self?.setupCellWhenCellLongPressed(indexPath)
                 case .none: break
                 }
             })
@@ -149,12 +153,12 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
         cell.backgroundColor = .blue
         cell.configure(self.viewModel, indexPath)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        //MARK: 아직
         viewModel.action(.didSelectItemAt(indexPath: indexPath))
     }
 }
@@ -162,5 +166,31 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension CustomViewController: CustomNavigationBarDelegate {
     func favoritesButtonTapped() {
         castedCoordinator?.pushPickListView()
+    }
+}
+
+extension CustomViewController: UIGestureRecognizerDelegate {
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self,
+                                                              action: #selector(LongPressCell(_:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        collectionView.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc private func LongPressCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        viewModel.action(.didSelectedItemAtLongPressed(indexPath: findLongPressCellIndexPath(gestureRecognizer)))
+    }
+    
+    private func findLongPressCellIndexPath(_ gestureRecognizer: UILongPressGestureRecognizer) -> IndexPath {
+        let location = gestureRecognizer.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: location) else { return IndexPath() }
+        return indexPath
+    }
+    
+    private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
+        cell.animateHeartView()
     }
 }

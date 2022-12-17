@@ -17,6 +17,13 @@ class CustomCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var heartView: UIImageView = {
+        let view = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.contentMode = .center
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -64,4 +71,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     private func setupCell() {
         self.viewRadius(cornerRadius: 10)
     }
+    
+    public func animateHeartView() {
+        
+    }
+    
 }

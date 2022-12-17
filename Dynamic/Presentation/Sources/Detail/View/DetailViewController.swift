@@ -31,18 +31,22 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupImageData()
         setupUI()
         bind()
     }
     
-    private func setupUI() {
-        setupImageView()
-        setupViewController()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupImageData()
     }
     
-    private func setupViewController() {
-        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        imageView.image = nil
+    }
+    
+    private func setupUI() {
+        setupImageView()
     }
     
     private func setupImageView() {
@@ -72,6 +76,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
+        
         viewModel.action(.viewDidLoad(url))
     }
 }

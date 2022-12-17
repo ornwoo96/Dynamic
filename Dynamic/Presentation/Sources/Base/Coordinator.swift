@@ -48,7 +48,9 @@ public class Coordinator: NSObject, Coordinatable {
 }
 
 extension Coordinator: UINavigationControllerDelegate {
-    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController,
+                                     didShow viewController: UIViewController,
+                                     animated: Bool) {
         
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
             return

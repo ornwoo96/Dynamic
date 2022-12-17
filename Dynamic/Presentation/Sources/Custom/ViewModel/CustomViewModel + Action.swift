@@ -13,5 +13,6 @@ extension CustomViewModel {
         case viewNeededCalculateLayout
         case didSelectItemAt(indexPath: IndexPath)
         case willDisplay(indexPath: IndexPath)
+        case didSelectedItemAtLongPressed(indexPath: IndexPath)
     }
 }

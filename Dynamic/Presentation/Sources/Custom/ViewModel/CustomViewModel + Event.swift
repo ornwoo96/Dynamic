@@ -28,6 +28,9 @@ extension CustomViewModel {
             case (.showLoading, .showLoading):
                 return true
                 
+            case (.showHeartView, .showHeartView):
+                return true
+                
             default:
                 return false
                 
@@ -41,5 +44,6 @@ extension CustomViewModel {
         case showDetailView(_ data: DetailModel)
         case showLoading
         case hideLoading
+        case showHeartView(_ indexPath: IndexPath)
     }
 }

@@ -45,15 +45,23 @@ class CustomViewModel: CustomViewModelProtocol {
             event.send(.showDetailView(createDetailData(indexPath.item)))
         case .willDisplay(indexPath: _): break
             
+        case .didSelectedItemAtLongPressed(indexPath: let indexPath):
+            event.send(.showHeartView(indexPath))
         }
     }
     
+    public func retrieveImageData(_ indexPath: IndexPath) async throws -> Data {
+        let urlString = self.previewImageDataSubject.value.contents.previewImages[indexPath.item].url
+        let previewData = try await dynamicUseCase.retrieveGIFImage(urlString)
+        return previewData
+    }
+    
     private func createDetailData(_ indexPath: Int) -> DetailModel {
-        let url = previewImageDataSubject.value.contents.originalImages[indexPath].url
+        let data = previewImageDataSubject.value.contents.originalImages[indexPath].url
         let width = previewImageDataSubject.value.contents.originalImages[indexPath].width
         let height = previewImageDataSubject.value.contents.originalImages[indexPath].height
         
-        return DetailModel(url: url, width: width, height: height)
+        return DetailModel(url: data, width: width, height: height)
     }
     
     private func retrieveGIPHYData() {
@@ -65,11 +73,5 @@ class CustomViewModel: CustomViewModelProtocol {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
         }
-    }
-    
-    public func retrieveImageData(_ indexPath: IndexPath) async throws -> Data {
-        let urlString = self.previewImageDataSubject.value.contents.previewImages[indexPath.item].url
-        let previewData = try await dynamicUseCase.retrieveGIFImage(urlString)
-        return previewData
     }
 }
