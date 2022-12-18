@@ -39,6 +39,9 @@
 		0B8F0760294C6C6200F5B591 /* HasCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */; };
 		0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0761294CC10300F5B591 /* DetailViewModel + Action.swift */; };
 		0B8F0764294DAFB600F5B591 /* HeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0763294DAFB600F5B591 /* HeartView.swift */; };
+		0B99232B294F448200913288 /* PickListViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99232A294F448200913288 /* PickListViewModel + Action.swift */; };
+		0B99232D294F44A200913288 /* PickListViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99232C294F44A200913288 /* PickListViewModel + Event.swift */; };
+		0B992330294F479700913288 /* PickListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99232F294F479700913288 /* PickListCollectionViewCell.swift */; };
 		0BB52A152945AC90005FC30F /* Presentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A142945AC90005FC30F /* Presentation.docc */; };
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
@@ -112,6 +115,9 @@
 		0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCoordinatable.swift; sourceTree = "<group>"; };
 		0B8F0761294CC10300F5B591 /* DetailViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewModel + Action.swift"; sourceTree = "<group>"; };
 		0B8F0763294DAFB600F5B591 /* HeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartView.swift; sourceTree = "<group>"; };
+		0B99232A294F448200913288 /* PickListViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PickListViewModel + Action.swift"; sourceTree = "<group>"; };
+		0B99232C294F44A200913288 /* PickListViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PickListViewModel + Event.swift"; sourceTree = "<group>"; };
+		0B99232F294F479700913288 /* PickListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0BB52A102945AC90005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52A132945AC90005FC30F /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		0BB52A142945AC90005FC30F /* Presentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Presentation.docc; sourceTree = "<group>"; };
@@ -368,6 +374,7 @@
 				0B72327F294B2C66009D3EDF /* Coordinator */,
 				0B72327D294B2C5B009D3EDF /* ViewModel */,
 				0B72327C294B2C55009D3EDF /* View */,
+				0B99232E294F477D00913288 /* Cell */,
 			);
 			path = PickList;
 			sourceTree = "<group>";
@@ -384,6 +391,8 @@
 			isa = PBXGroup;
 			children = (
 				0B723282294B2C8E009D3EDF /* PickListViewModel.swift */,
+				0B99232A294F448200913288 /* PickListViewModel + Action.swift */,
+				0B99232C294F44A200913288 /* PickListViewModel + Event.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -412,6 +421,14 @@
 				0B8F075F294C6C6200F5B591 /* HasCoordinatable.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		0B99232E294F477D00913288 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0B99232F294F479700913288 /* PickListCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		0BB52A062945AC90005FC30F = {
@@ -604,6 +621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB52A152945AC90005FC30F /* Presentation.docc in Sources */,
+				0B992330294F479700913288 /* PickListCollectionViewCell.swift in Sources */,
 				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
 				0B723240294793C6009D3EDF /* UIImage.swift in Sources */,
 				0B723278294B2C1D009D3EDF /* DetailViewModel.swift in Sources */,
@@ -617,6 +635,7 @@
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
 				0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
+				0B99232D294F44A200913288 /* PickListViewModel + Event.swift in Sources */,
 				0B72322D29473531009D3EDF /* TarBarController.swift in Sources */,
 				0BB52BE82946095D005FC30F /* CustomViewController.swift in Sources */,
 				0B8F075E294C6C4700F5B591 /* Coordinator.swift in Sources */,
@@ -624,6 +643,7 @@
 				0BB52B2E2945C3A2005FC30F /* PresentationDIContainer.swift in Sources */,
 				0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */,
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,
+				0B99232B294F448200913288 /* PickListViewModel + Action.swift in Sources */,
 				0BB52BEA2946097D005FC30F /* CompositionalViewController.swift in Sources */,
 				0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */,
 				0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */,

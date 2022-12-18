@@ -151,7 +151,8 @@ extension PresentationDIContainer {
     }
     
     private func registerPickListViewModel() {
-        let viewModel = PickListViewModel()
+        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
+        let viewModel = PickListViewModel(dynamicUseCase: dynamicUseCase)
         container.registerValue(VMKeys.pickList.rawValue, viewModel)
     }
 }

@@ -20,13 +20,13 @@ protocol CustomViewModelOutputProtocol: AnyObject {
 
 protocol CustomViewModelProtocol: CustomViewModelInputProtocol, CustomViewModelOutputProtocol {
     var contents: GIPHYDomainModel { get }
-
+    var event: CurrentValueSubject<CustomViewModel.Event, Never> { get set }
     func action(_ action: CustomViewModel.Action)
     func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
 }
 
 class CustomViewModel: CustomViewModelProtocol {
-    var dynamicUseCase: DynamicUseCase
+    private var dynamicUseCase: DynamicUseCase
     
     var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var contents = GIPHYDomainModel.empty

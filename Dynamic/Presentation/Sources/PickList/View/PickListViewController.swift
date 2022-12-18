@@ -11,8 +11,24 @@ import Combine
 class PickListViewController: UIViewController, HasCoordinatable {
     let viewModel: PickListViewModel
     weak var coordinator: Coordinator?
-    
-    
+    private var castedCoordinator: PickListCoordinator? { coordinator as? PickListCoordinator }
+    private var cancellable = Set<AnyCancellable>()
+
+    private lazy var pickListCollectionView: UICollectionView = {
+        let layout = DynamicCustomFlowLayout()
+        layout.delegate = self
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(PickListCollectionViewCell.self, forCellWithReuseIdentifier: PickListCollectionViewCell.identifier)
+        collectionView.backgroundColor = .black
+        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35),
+                                                   left: xValueRatio(5),
+                                                   bottom: xValueRatio(10),
+                                                   right: xValueRatio(5))
+        collectionView.alwaysBounceVertical = true
+        return collectionView
+    }()
     
     init(viewModel: PickListViewModel) {
         self.viewModel = viewModel
@@ -25,13 +41,123 @@ class PickListViewController: UIViewController, HasCoordinatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .black
+        setupUI()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        viewModel.action(.viewDidLoad)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.action(.viewDidDisappear)
+    }
     
+    private func setupUI() {
+        setupLongGestureRecognizerOnCollection()
+        setupCollectionView()
+    }
+    
+    private func setupCollectionView() {
+        view.addSubview(pickListCollectionView)
+        pickListCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pickListCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            pickListCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pickListCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pickListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func bind() {
+        bindEvent()
+    }
+    
+    private func bindEvent() {
+        viewModel.event
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: {[weak self] in
+                switch $0 {
+                case .none:
+                    break
+                case .invalidateLayout:
+                    self?.pickListCollectionView.reloadData()
+                case .deleteItem(let indexPath):
+                    self?.setupCellWhenCellLongPressed(indexPath)
+                }
+            })
+            .store(in: &cancellable)
+    }
+    
+}
+
+extension PickListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return viewModel.contents.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickListCollectionViewCell.identifier, for: indexPath) as? PickListCollectionViewCell else { return UICollectionViewCell() }
+        cell.imageView.image = nil
+        cell.configure(viewModel.contents[indexPath.item].data)
+        cell.backgroundColor = .blue
+        return cell
+    }
+}
+
+extension PickListViewController: DynamicCollectionViewHeightLayoutDelegate {
+    func collectionViewImageHeight(_ collectionView: UICollectionView,
+                                   _ heightForImageAtIndexPath: IndexPath) -> CGFloat {
+        let string = viewModel.contents[heightForImageAtIndexPath.item].height
+        let height: CGFloat = CGFloat(Int(string) ?? 0)
+        
+        return height
+    }
+    
+    func collectionViewImageWidth(_ collectionView: UICollectionView,
+                                  _ widthForImageAtIndexPath: IndexPath) -> CGFloat {
+        
+        let string = viewModel.contents[widthForImageAtIndexPath.item].width
+        let width: CGFloat = CGFloat(Int(string) ?? 0)
+        
+        return width
+    }
+}
+
+extension PickListViewController: UIGestureRecognizerDelegate {
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self,
+                                                              action: #selector(LongPressCell(_:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        pickListCollectionView.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc private func LongPressCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            
+            viewModel.action(.didSelectedItemAtLongPressed(indexPath: findLongPressCellIndexPath(gestureRecognizer)))
+        }
+    }
+    
+    private func findLongPressCellIndexPath(_ gestureRecognizer: UILongPressGestureRecognizer) -> IndexPath {
+        let location = gestureRecognizer.location(in: pickListCollectionView)
+        guard let indexPath = pickListCollectionView.indexPathForItem(at: location) else { return IndexPath() }
+        return indexPath
+    }
+    
+    private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
+        
+        
+        viewModel.contents.remove(at: indexPath.item)
+        
+        pickListCollectionView.deleteItems(at: [indexPath])
+    }
 }

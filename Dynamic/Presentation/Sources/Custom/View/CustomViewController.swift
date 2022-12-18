@@ -150,10 +150,10 @@ extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if viewModel.event.value == .showLoading {
-            customCollectionView.reloadData()
-        }
-        viewModel.event.send(.hideLoading)
+//        if viewModel.event.value == .showLoading {
+//            customCollectionView.reloadData()
+//        }
+//        viewModel.event.send(.hideLoading)
     }
 }
 
