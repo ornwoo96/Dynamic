@@ -31,6 +31,9 @@ extension CustomViewModel {
             case (.showHeartView, .showHeartView):
                 return true
                 
+            case (.showRetrievedCells, showRetrievedCells):
+                return true
+                
             default:
                 return false
                 
@@ -44,5 +47,6 @@ extension CustomViewModel {
         case showLoading
         case hideLoading
         case showHeartView(_ indexPath: IndexPath)
+        case showRetrievedCells(_ indexPaths: [IndexPath])
     }
 }

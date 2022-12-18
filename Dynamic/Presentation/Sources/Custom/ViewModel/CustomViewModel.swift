@@ -86,13 +86,11 @@ class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func checkLastCell(_ indexPath: Int) {
-        // MARK: 마지막 데이터가 맞냐?
         if contents.previewImages.count - 1 == indexPath,
            event.value != .showLoading {
             event.send(.showLoading)
             retrieveGIPHYData()
         }
-        
     }
     
     private func retrieveGIPHYData() {
@@ -108,5 +106,39 @@ class CustomViewModel: CustomViewModelProtocol {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
         }
+    }
+    
+    private func createIndexPaths() -> [IndexPath] {
+        var indexPaths: [IndexPath] = []
+        for i in contents.previewImages.count-15..<contents.previewImages.count {
+            let indexPath = IndexPath(item: i, section: 0)
+            indexPaths.append(indexPath)
+        }
+        return indexPaths
+    }
+}
+
+extension CustomViewModel {
+    public func scrollViewDidEndDecelerating() {
+        if event.value == .showLoading {
+            event.send(.showRetrievedCells(createIndexPaths()))
+        }
+        event.send(.hideLoading)
+    }
+    
+    public func collectionViewImageHeight(_ indexPath: IndexPath) -> CGFloat {
+        return CGFloat()
+    }
+    
+    public func collectionViewImageWidth(_ indexPath: IndexPath) -> CGFloat {
+        return CGFloat()
+    }
+    
+    public func collectionViewNumberOfItemsInSection() -> Int {
+        return Int()
+    }
+    
+    public func collectionViewCellForItemAt() -> CustomCollectionViewCell {
+        return CustomCollectionViewCell(frame: .zero)
     }
 }

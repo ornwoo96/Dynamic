@@ -154,10 +154,7 @@ extension PickListViewController: UIGestureRecognizerDelegate {
     }
     
     private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
-        
-        
         viewModel.contents.remove(at: indexPath.item)
-        
         pickListCollectionView.deleteItems(at: [indexPath])
     }
 }

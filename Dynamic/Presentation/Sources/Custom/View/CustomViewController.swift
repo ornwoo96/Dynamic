@@ -48,17 +48,16 @@ class CustomViewController: UIViewController, HasCoordinatable {
         view.backgroundColor = .black
         setupUI()
         bind()
-        viewModel.action(.viewDidLoad)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        setupViewController()
+        viewModel.action(.viewDidLoad)
     }
     
     private func setupUI() {
         setupCollectionView()
-        setupViewController()
         setupCustomNavigationBar()
         setupLongGestureRecognizerOnCollection()
     }
@@ -109,6 +108,8 @@ class CustomViewController: UIViewController, HasCoordinatable {
                     print("hideLoading")
                 case .showHeartView(let indexPath):
                     self?.setupCellWhenCellLongPressed(indexPath)
+                case .showRetrievedCells(let indexPaths):
+                    self?.insertItemInCollectionView(indexPaths)
                 case .none: break
                 }
             })
@@ -119,7 +120,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
         if let visibleIndexPaths = customCollectionView.indexPathsForVisibleItems.min(by: { $0.item < $1.item }),
            visibleIndexPaths.isEmpty == false {
             viewModel.event.send(.showLoading)
-            
         } else{
             customCollectionView.reloadData()
         }
@@ -127,6 +127,10 @@ class CustomViewController: UIViewController, HasCoordinatable {
     
     private func showDetailView(_ data: DetailModel) {
         castedCoordinator?.presentDetailView(self, data)
+    }
+    
+    private func insertItemInCollectionView(_ indexPaths: [IndexPath]) {
+        customCollectionView.insertItems(at:indexPaths)
     }
 }
 
@@ -150,10 +154,7 @@ extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if viewModel.event.value == .showLoading {
-//            customCollectionView.reloadData()
-//        }
-//        viewModel.event.send(.hideLoading)
+        viewModel.scrollViewDidEndDecelerating()
     }
 }
 
@@ -165,7 +166,7 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        print(indexPath)
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier,
                                                             for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
         cell.backgroundColor = .blue
