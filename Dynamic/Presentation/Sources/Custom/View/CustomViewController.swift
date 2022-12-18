@@ -15,7 +15,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     private var castedCoordinator: CustomCoordinator? { coordinator as? CustomCoordinator }
     private var cancellable = Set<AnyCancellable>()
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var customCollectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
         layout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -23,7 +23,12 @@ class CustomViewController: UIViewController, HasCoordinatable {
         collectionView.dataSource = self
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.backgroundColor = .black
-        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35), left: xValueRatio(5), bottom: xValueRatio(10), right: xValueRatio(5))
+        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35),
+                                                   left: xValueRatio(5),
+                                                   bottom: xValueRatio(10),
+                                                   right: xValueRatio(5))
+        collectionView.isPrefetchingEnabled = true
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
     
@@ -49,7 +54,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-
     }
     
     private func setupUI() {
@@ -64,13 +68,13 @@ class CustomViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(customCollectionView)
+        customCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            customCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            customCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -87,17 +91,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     }
     
     private func bind() {
-        bindPreviewData()
         bindEvent()
-    }
-    
-    private func bindPreviewData() {
-        viewModel.previewImageDataSubject
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            self.collectionView.reloadData()
-        }
-        .store(in: &cancellable)
     }
     
     private func bindEvent() {
@@ -105,6 +99,8 @@ class CustomViewController: UIViewController, HasCoordinatable {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] in
                 switch $0 {
+                case .invalidateLayout:
+                    self?.invalidateLayout()
                 case .showDetailView(let data):
                     self?.showDetailView(data)
                 case .showLoading:
@@ -119,6 +115,16 @@ class CustomViewController: UIViewController, HasCoordinatable {
             .store(in: &cancellable)
     }
     
+    private func invalidateLayout() {
+        if let visibleIndexPaths = customCollectionView.indexPathsForVisibleItems.min(by: { $0.item < $1.item }),
+           visibleIndexPaths.isEmpty == false {
+            viewModel.event.send(.showLoading)
+            
+        } else{
+            customCollectionView.reloadData()
+        }
+    }
+    
     private func showDetailView(_ data: DetailModel) {
         castedCoordinator?.presentDetailView(self, data)
     }
@@ -127,7 +133,8 @@ class CustomViewController: UIViewController, HasCoordinatable {
 extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
     func collectionViewImageHeight(_ collectionView: UICollectionView,
                                    _ heightForImageAtIndexPath: IndexPath) -> CGFloat {
-        let string = viewModel.previewImageDataSubject.value.contents.previewImages[heightForImageAtIndexPath.item].height
+        
+        let string = viewModel.contents.previewImages[heightForImageAtIndexPath.item].height
         let height: CGFloat = CGFloat(Int(string) ?? 0)
         
         return height
@@ -135,22 +142,32 @@ extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
     
     func collectionViewImageWidth(_ collectionView: UICollectionView,
                                   _ widthForImageAtIndexPath: IndexPath) -> CGFloat {
-        let string = viewModel.previewImageDataSubject.value.contents.previewImages[widthForImageAtIndexPath.item].width
+        
+        let string = viewModel.contents.previewImages[widthForImageAtIndexPath.item].width
         let width: CGFloat = CGFloat(Int(string) ?? 0)
         
         return width
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if viewModel.event.value == .showLoading {
+            customCollectionView.reloadData()
+        }
+        viewModel.event.send(.hideLoading)
     }
 }
 
 extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.previewImageDataSubject.value.contents.originalImages.count
+        return viewModel.contents.originalImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier,
+                                                            for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
         cell.backgroundColor = .blue
         cell.configure(self.viewModel, indexPath)
         
@@ -160,6 +177,12 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         viewModel.action(.didSelectItemAt(indexPath: indexPath))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        viewModel.action(.willDisplay(indexPath: indexPath))
     }
 }
 
@@ -176,7 +199,7 @@ extension CustomViewController: UIGestureRecognizerDelegate {
         longPressedGesture.minimumPressDuration = 0.5
         longPressedGesture.delegate = self
         longPressedGesture.delaysTouchesBegan = true
-        collectionView.addGestureRecognizer(longPressedGesture)
+        customCollectionView.addGestureRecognizer(longPressedGesture)
     }
     
     @objc private func LongPressCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -186,13 +209,13 @@ extension CustomViewController: UIGestureRecognizerDelegate {
     }
     
     private func findLongPressCellIndexPath(_ gestureRecognizer: UILongPressGestureRecognizer) -> IndexPath {
-        let location = gestureRecognizer.location(in: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: location) else { return IndexPath() }
+        let location = gestureRecognizer.location(in: customCollectionView)
+        guard let indexPath = customCollectionView.indexPathForItem(at: location) else { return IndexPath() }
         return indexPath
     }
     
     private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
+        guard let cell = customCollectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
     }
 }

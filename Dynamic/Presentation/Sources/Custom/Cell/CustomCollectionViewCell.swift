@@ -47,12 +47,11 @@ class CustomCollectionViewCell: UICollectionViewCell {
     public func configure(_ viewModel: CustomViewModel,
                           _ cellIndexPath: IndexPath) {
         Task { [weak self] in
-            do {
-                let imageData = try await viewModel.retrieveImageData(cellIndexPath)
+            self?.imageView.image = nil
+            let imageData = try await viewModel.retrieveImageData(cellIndexPath)
+            DispatchQueue.main.async { [weak self] in
                 self?.animateHeartView(imageData.1)
                 self?.imageView.image = UIImage.gifImageWithData(imageData.0)
-            } catch {
-                print("Cell 이미지불러오기 - 실패")
             }
         }
     }

@@ -19,8 +19,9 @@ protocol CustomViewModelOutputProtocol: AnyObject {
 }
 
 protocol CustomViewModelProtocol: CustomViewModelInputProtocol, CustomViewModelOutputProtocol {
+    var contents: GIPHYDomainModel { get }
+
     func action(_ action: CustomViewModel.Action)
-    var previewImageDataSubject: CurrentValueSubject<CustomPresentationModel, Never> { get }
     func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
 }
 
@@ -28,7 +29,7 @@ class CustomViewModel: CustomViewModelProtocol {
     var dynamicUseCase: DynamicUseCase
     
     var event: CurrentValueSubject<Event, Never> = .init(.none)
-    public let previewImageDataSubject = CurrentValueSubject<CustomPresentationModel, Never>(CustomPresentationModel.empty)
+    public var contents = GIPHYDomainModel.empty
     private var originalImageDataArray: [String] = []
     
     init(dynamicUseCase: DynamicUseCase) {
@@ -39,20 +40,20 @@ class CustomViewModel: CustomViewModelProtocol {
         switch action {
         case .viewDidLoad:
             retrieveGIPHYData()
-        case .viewNeededCalculateLayout: break
-            
+        case .viewNeededCalculateLayout:
+            event.send(.invalidateLayout)
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(createDetailData(indexPath.item)))
-        case .willDisplay(indexPath: _): break
-            
+        case .willDisplay(indexPath: let indexPath):
+            checkLastCell(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath))
         }
     }
     
     public func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data,Bool) {
-        let urlString = self.previewImageDataSubject.value.contents.previewImages[indexPath.item].url
-        let id = self.previewImageDataSubject.value.contents.previewImages[indexPath.item].id
+        let urlString = self.contents.previewImages[indexPath.item].url
+        let id = self.contents.previewImages[indexPath.item].id
         let previewData = try await dynamicUseCase.retrieveGIFImage(urlString, id)
         return previewData
     }
@@ -67,28 +68,42 @@ class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func requestCreateImageDataFromCoreData(_ indexPath: Int) {
-        let imageData: OriginalDomainModel = previewImageDataSubject.value.contents.originalImages[indexPath]
+        let imageData: OriginalDomainModel = contents.originalImages[indexPath]
         dynamicUseCase.requestCoreDataManagerForCreateImageData(imageData)
     }
     
     private func requestRemoveImageDataFromCoreData(_ indexPath: Int) {
-        let id = previewImageDataSubject.value.contents.originalImages[indexPath].id
+        let id = contents.originalImages[indexPath].id
         dynamicUseCase.requestRemoveImageDataFromCoreData(id)
     }
     
     private func createDetailData(_ indexPath: Int) -> DetailModel {
-        let data = previewImageDataSubject.value.contents.originalImages[indexPath].url
-        let width = previewImageDataSubject.value.contents.originalImages[indexPath].width
-        let height = previewImageDataSubject.value.contents.originalImages[indexPath].height
+        let data = contents.originalImages[indexPath].url
+        let width = contents.originalImages[indexPath].width
+        let height = contents.originalImages[indexPath].height
         
         return DetailModel(url: data, width: width, height: height)
+    }
+    
+    private func checkLastCell(_ indexPath: Int) {
+        // MARK: 마지막 데이터가 맞냐?
+        if contents.previewImages.count - 1 == indexPath,
+           event.value != .showLoading {
+            event.send(.showLoading)
+            retrieveGIPHYData()
+        }
+        
     }
     
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
                 let model = try await dynamicUseCase.retrieveGIPHYDatas()
-                self?.previewImageDataSubject.send(CustomPresentationModel.init(domainModel: model))
+                self?.contents.previewImages.append(contentsOf: model.previewImages)
+                self?.contents.originalImages.append(contentsOf: model.originalImages)
+                
+                event.send(.invalidateLayout)
+                event.send(.hideLoading)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }

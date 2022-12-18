@@ -38,20 +38,12 @@ public class DefaultImageCacheRepository: ImageCacheRepository {
         if let cachedImage = matchImage(url) {
             return (cachedImage, bool)
         }
+        let data = try await manager.fetchImageData(url)
         
-        if bool {
-            let data = try await coreDataManager.requestFavoriteData(id)
-            return (data.data, true)
-        } else {
-            let data = try await manager.fetchImageData(url)
-            
-            guard let nsUrl = NSURL(string: url) else { return (Data(), false) }
-            let nsData = NSData(data: data)
-            ImageCacheManager.shared.setObject(nsData, forKey: nsUrl)
-            
-            return (data, bool)
-        }
+        guard let nsUrl = NSURL(string: url) else { return (Data(), false) }
+        let nsData = NSData(data: data)
+        ImageCacheManager.shared.setObject(nsData, forKey: nsUrl)
         
-        
+        return (data, bool)
     }
 }

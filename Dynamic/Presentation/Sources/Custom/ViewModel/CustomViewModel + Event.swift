@@ -19,9 +19,9 @@ extension CustomViewModel {
 //            case (.reloadData, .reloadData):
 //                return true
 //                
-//            case (.invalidateLayout, .invalidateLayout):
-//                return true
-//                
+            case (.invalidateLayout, .invalidateLayout):
+                return true
+                
             case (.showDetailView, .showDetailView):
                 return true
                 
@@ -40,7 +40,7 @@ extension CustomViewModel {
         
         case none
 //        case reloadData(sections: [Section])
-//        case invalidateLayout
+        case invalidateLayout
         case showDetailView(_ data: DetailModel)
         case showLoading
         case hideLoading
