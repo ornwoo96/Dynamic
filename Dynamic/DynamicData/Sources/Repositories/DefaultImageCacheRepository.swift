@@ -10,10 +10,12 @@ import DynamicDomain
 
 public class DefaultImageCacheRepository: ImageCacheRepository {
     private let manager: NetworkManager
+    private let coreDataManager: CoreDataManagerRepository
     
-    
-    init(manager: NetworkManager) {
+    init(manager: NetworkManager,
+         coreDataManager: CoreDataManagerRepository) {
         self.manager = manager
+        self.coreDataManager = coreDataManager
     }
     
     private func matchImage(_ url: String) -> Data? {
@@ -28,19 +30,20 @@ public class DefaultImageCacheRepository: ImageCacheRepository {
         return Data(referencing: nsData)
     }
     
-    public func imageLoad(_ url: String) async throws -> Data {
-        // MARK: 저장된 이미지가 있을경우
-        if let cachedImage = matchImage(url) {
-            return cachedImage
-        }
+    public func imageLoad(_ url: String,
+                          _ id: String) async throws -> (Data, Bool) {
         
-        // MARK: 저장된 이미지가 없을 경우
+        let bool = try await coreDataManager.checkGIFImageDataIsExist(id)
+        
+        if let cachedImage = matchImage(url) {
+            return (cachedImage, bool)
+        }
         let data = try await manager.fetchImageData(url)
         
-        guard let nsUrl = NSURL(string: url) else { return Data() }
+        guard let nsUrl = NSURL(string: url) else { return (Data(), false) }
         let nsData = NSData(data: data)
         ImageCacheManager.shared.setObject(nsData, forKey: nsUrl)
         
-        return data
+        return (data, bool)
     }
 }

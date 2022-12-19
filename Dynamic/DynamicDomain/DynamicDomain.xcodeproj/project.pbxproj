@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */; };
 		0B72326C294B08CF009D3EDF /* ImageCacheRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72326B294B08CF009D3EDF /* ImageCacheRepository.swift */; };
+		0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */; };
+		0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B992325294E075C00913288 /* FavoritesDomainModel.swift */; };
 		0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B7629460353005FC30F /* DynamicDomain.docc */; };
 		0BB52B7D29460354005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B7229460353005FC30F /* DynamicDomain.framework */; };
 		0BB52B8229460354005FC30F /* DynamicDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* DynamicDomainTests.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIPHYDomainModel.swift; sourceTree = "<group>"; };
 		0B72326B294B08CF009D3EDF /* ImageCacheRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheRepository.swift; sourceTree = "<group>"; };
+		0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerRepository.swift; sourceTree = "<group>"; };
+		0B992325294E075C00913288 /* FavoritesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDomainModel.swift; sourceTree = "<group>"; };
 		0BB52B7229460353005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B7529460353005FC30F /* DynamicDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicDomain.h; sourceTree = "<group>"; };
 		0BB52B7629460353005FC30F /* DynamicDomain.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicDomain.docc; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */,
+				0B992325294E075C00913288 /* FavoritesDomainModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 			children = (
 				0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */,
 				0B72326B294B08CF009D3EDF /* ImageCacheRepository.swift */,
+				0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -288,10 +294,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */,
 				0BB52BCE29460461005FC30F /* DynamicUseCase.swift in Sources */,
 				0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */,
 				0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */,
 				0BB52BCC2946041B005FC30F /* DefaultDynamicUseCase.swift in Sources */,
+				0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */,
 				0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */,
 				0B72326C294B08CF009D3EDF /* ImageCacheRepository.swift in Sources */,
 				0BB52BD02946048D005FC30F /* DynamicImageDataRepository.swift in Sources */,

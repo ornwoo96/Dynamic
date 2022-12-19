@@ -48,10 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 private extension SceneDelegate {
     func register() {
         DataDIContainer().register()
-        
         DomainDIContainer().register()
-        
         PresentationDIContainer().register()
-        
     }
 }

@@ -41,6 +41,10 @@ extension UIColor {
         return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
     }
     
+    static var heartViewBackgroundBlackColor: UIColor {
+        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+    }
+    
     static var tabItemBlueRight: UIColor {
         return UIColor.init(red: 24/255, green: 193/255, blue: 253/255, alpha: 1)
     }

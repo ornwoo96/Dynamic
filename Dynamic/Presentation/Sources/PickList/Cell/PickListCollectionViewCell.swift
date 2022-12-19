@@ -1,17 +1,18 @@
 //
-//  CustomCollectionViewCell.swift
+//  PickListCollectionViewCell.swift
 //  DynamicPresentation
 //
-//  Created by 김동우 on 2022/12/14.
+//  Created by 김동우 on 2022/12/18.
 //
 
 import UIKit
 
-class CustomCollectionViewCell: UICollectionViewCell {
-    static let identifier = "CustomCollectionViewCell"
+class PickListCollectionViewCell: UICollectionViewCell {
+    static let identifier = "PickListCollectionViewCell"
     
     public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = nil
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -19,7 +20,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private lazy var heartView: HeartView = {
         let view = HeartView()
-        view.isHidden = true
+        view.isHidden = false
         return view
     }()
     
@@ -44,15 +45,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func configure(_ viewModel: CustomViewModel,
-                          _ cellIndexPath: IndexPath) {
-        Task { [weak self] in
-            self?.imageView.image = nil
-            let imageData = try await viewModel.retrieveImageData(cellIndexPath)
-            DispatchQueue.main.async { [weak self] in
-                self?.animateHeartView(imageData.1)
-                self?.imageView.image = UIImage.gifImageWithData(imageData.0)
-            }
+    public func configure(_ imageData: Data) {
+        DispatchQueue.main.async { [weak self] in
+            self?.imageView.image = UIImage.gifImageWithData(imageData)
         }
     }
     

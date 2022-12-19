@@ -16,20 +16,25 @@ extension CustomViewModel {
             case (.none, .none):
                 return true
                 
-//            case (.reloadData, .reloadData):
-//                return true
-//                
-//            case (.invalidateLayout, .invalidateLayout):
-//                return true
-//                
+            case (.invalidateLayout, .invalidateLayout):
+                return true
+                
             case (.showDetailView, .showDetailView):
                 return true
                 
             case (.showLoading, .showLoading):
                 return true
                 
+            case (.hideLoading, hideLoading):
+                return true
+                
             case (.showHeartView, .showHeartView):
                 return true
+                
+            case (.showRetrievedCells, showRetrievedCells):
+                return true
+                
+                
                 
             default:
                 return false
@@ -39,11 +44,11 @@ extension CustomViewModel {
         
         
         case none
-//        case reloadData(sections: [Section])
-//        case invalidateLayout
+        case invalidateLayout
         case showDetailView(_ data: DetailModel)
         case showLoading
         case hideLoading
         case showHeartView(_ indexPath: IndexPath)
+        case showRetrievedCells(_ indexPaths: [IndexPath])
     }
 }

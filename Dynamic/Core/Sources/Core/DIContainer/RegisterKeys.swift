@@ -34,6 +34,8 @@ public enum RepoKeys: String {
     case dynamicRepo = "DynamicRepository"
     case network = "NetworkManager"
     case imageCache = "ImageCacheRepository"
+    case coreContext = "CoreDataContext"
+    case coreManager = "CoreDataManager"
 }
 
 public enum CodiKeys: String {

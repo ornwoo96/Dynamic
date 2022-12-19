@@ -11,8 +11,8 @@ public struct GIPHYDomainModel {
     public static let empty: Self = .init(previewImages: [],
                                    originalImages: [])
     
-    public let previewImages: [PreviewDomainModel]
-    public let originalImages: [OriginalDomainModel]
+    public var previewImages: [PreviewDomainModel]
+    public var originalImages: [OriginalDomainModel]
     
     public init(previewImages: [PreviewDomainModel],
                 originalImages: [OriginalDomainModel]) {
@@ -22,10 +22,10 @@ public struct GIPHYDomainModel {
 }
 
 public struct PreviewDomainModel {
-    public let id: String
-    public let height: String
-    public let width: String
-    public let url: String
+    public var id: String
+    public var height: String
+    public var width: String
+    public var url: String
     
     public init(id: String, height: String, width: String, url: String) {
         self.id = id
@@ -36,10 +36,10 @@ public struct PreviewDomainModel {
 }
 
 public struct OriginalDomainModel {
-    public let id: String
-    public let height: String
-    public let width: String
-    public let url: String
+    public var id: String
+    public var height: String
+    public var width: String
+    public var url: String
     
     public init(id: String, height: String, width: String, url: String) {
         self.id = id

@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol ImageCacheRepository {
-    func imageLoad(_ url: String) async throws -> Data
+    func imageLoad(_ url: String, _ id: String) async throws -> (Data, Bool)
 }
