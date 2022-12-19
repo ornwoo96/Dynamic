@@ -11,6 +11,7 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     private let viewModel: CompositionalViewModel
     var coordinator: Coordinator?
     
+    
     init(viewModel: CompositionalViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -23,6 +24,14 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemCyan
-        viewModel.viewDidLoad()
     }
+    
+    private func setDataSource() {
+        
+    }
+    
+}
+
+extension CompositionalViewController {
+    
 }

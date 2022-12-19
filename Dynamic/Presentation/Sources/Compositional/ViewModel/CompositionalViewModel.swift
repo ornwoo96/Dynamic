@@ -6,31 +6,31 @@
 //
 
 import Foundation
-
+import Combine
 import DynamicDomain
 
-protocol CompositionalViewModelInputProtocol: AnyObject {
-    func viewDidLoad()
+public protocol CompositionalViewModelInputProtocol: AnyObject {
 }
 
-protocol CompositionalViewModelOutputProtocol: AnyObject {
+public protocol CompositionalViewModelOutputProtocol: AnyObject {
     
 }
 
-protocol CompositionalViewModelProtocol: CompositionalViewModelInputProtocol, CompositionalViewModelOutputProtocol {
+public protocol CompositionalViewModelProtocol: CompositionalViewModelInputProtocol, CompositionalViewModelOutputProtocol {
     
 }
 
 
 
-final class CompositionalViewModel {
+public class CompositionalViewModel {
     private let dynamicUseCase: DynamicUseCase
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
     }
     
-    func viewDidLoad() {
+    
+    public func action(_ action: Action) {
         
     }
 }

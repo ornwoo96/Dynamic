@@ -7,25 +7,11 @@
 
 import Foundation
 import Combine
-
 import DynamicDomain
 
-protocol CustomViewModelInputProtocol: AnyObject {
-    func action(_ action: CustomViewModel.Action)
-}
-
-protocol CustomViewModelOutputProtocol: AnyObject {
-    var contents: GIPHYDomainModel { get }
-    func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
-}
-
-protocol CustomViewModelProtocol: CustomViewModelInputProtocol, CustomViewModelOutputProtocol {
-    var event: CurrentValueSubject<CustomViewModel.Event, Never> { get set }
-}
-
-class CustomViewModel: CustomViewModelProtocol {
+public class CustomViewModel: CustomViewModelProtocol {
     private var dynamicUseCase: DynamicUseCase
-    var event: CurrentValueSubject<Event, Never> = .init(.none)
+    public var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var contents = GIPHYDomainModel.empty
     private var originalImageDataArray: [String] = []
     

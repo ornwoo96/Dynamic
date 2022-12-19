@@ -94,7 +94,7 @@ extension PresentationDIContainer {
 // MARK: Register - ViewController
 extension PresentationDIContainer {
     private func registerCustomViewController() {
-        guard let viewModel: CustomViewModel = container.resolveValue(VMKeys.customVM.rawValue) else { return }
+        guard let viewModel: CustomViewModelProtocol = container.resolveValue(VMKeys.customVM.rawValue) else { return }
         let viewController = CustomViewController(viewModel: viewModel)
         container.registerValue(VCKeys.customVC.rawValue, viewController)
     }

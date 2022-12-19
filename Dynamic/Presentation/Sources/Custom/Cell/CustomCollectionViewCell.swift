@@ -44,7 +44,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func configure(_ viewModel: CustomViewModel,
+    public func configure(_ viewModel: CustomViewModelProtocol,
                           _ cellIndexPath: IndexPath) {
         Task { [weak self] in
             self?.imageView.image = nil

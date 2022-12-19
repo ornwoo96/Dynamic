@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 class CustomViewController: UIViewController, HasCoordinatable {
-    private var viewModel: CustomViewModel
+    private var viewModel: CustomViewModelProtocol
     weak var coordinator: Coordinator?
     private var castedCoordinator: CustomCoordinator? { coordinator as? CustomCoordinator }
     private var cancellable = Set<AnyCancellable>()
@@ -34,7 +34,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     
     private var customNavigationBar = CustomNavigationBar()
     
-    init(viewModel: CustomViewModel) {
+    init(viewModel: CustomViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
