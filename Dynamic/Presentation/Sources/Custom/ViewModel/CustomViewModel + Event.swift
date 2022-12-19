@@ -34,6 +34,8 @@ extension CustomViewModel {
             case (.showRetrievedCells, showRetrievedCells):
                 return true
                 
+                
+                
             default:
                 return false
                 

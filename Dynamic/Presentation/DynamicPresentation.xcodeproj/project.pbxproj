@@ -156,7 +156,6 @@
 		0B72320A29463EAF009D3EDF /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				0B72325D2949E0F6009D3EDF /* Model */,
 				0B72321229463EF3009D3EDF /* Coordinator */,
 				0B72321129463EED009D3EDF /* ViewModel */,
 				0B72321029463EE9009D3EDF /* View */,
@@ -189,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				0BB52BE72946095D005FC30F /* CustomViewController.swift */,
-				0B8F0763294DAFB600F5B591 /* HeartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,9 +323,8 @@
 		0B723263294A2B3A009D3EDF /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52B522945F817005FC30F /* Layout */,
-				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
-				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
+				0B72325D2949E0F6009D3EDF /* Model */,
+				0B9923342950318500913288 /* View */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -431,6 +428,38 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		0B9923312950285A00913288 /* CustomFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				0BB52B532945F836005FC30F /* DynamicCustomFlowLayout.swift */,
+			);
+			path = CustomFlowLayout;
+			sourceTree = "<group>";
+		};
+		0B9923322950286800913288 /* Compositional */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Compositional;
+			sourceTree = "<group>";
+		};
+		0B9923332950287700913288 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		0B9923342950318500913288 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0B8F0763294DAFB600F5B591 /* HeartView.swift */,
+				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
+				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0BB52A062945AC90005FC30F = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +500,7 @@
 		0BB52A362945ACDB005FC30F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0BB52B522945F817005FC30F /* CollectionViewLayout */,
 				0B8F075A294C6BF200F5B591 /* Base */,
 				0B723263294A2B3A009D3EDF /* Common */,
 				0BB52B2C2945C37E005FC30F /* DIContainer */,
@@ -502,12 +532,14 @@
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		0BB52B522945F817005FC30F /* Layout */ = {
+		0BB52B522945F817005FC30F /* CollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52B532945F836005FC30F /* DynamicCustomFlowLayout.swift */,
+				0B9923332950287700913288 /* SwiftUI */,
+				0B9923322950286800913288 /* Compositional */,
+				0B9923312950285A00913288 /* CustomFlowLayout */,
 			);
-			path = Layout;
+			path = CollectionViewLayout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

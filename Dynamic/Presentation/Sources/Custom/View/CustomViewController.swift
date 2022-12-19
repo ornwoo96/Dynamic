@@ -137,20 +137,12 @@ class CustomViewController: UIViewController, HasCoordinatable {
 extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
     func collectionViewImageHeight(_ collectionView: UICollectionView,
                                    _ heightForImageAtIndexPath: IndexPath) -> CGFloat {
-        
-        let string = viewModel.contents.previewImages[heightForImageAtIndexPath.item].height
-        let height: CGFloat = CGFloat(Int(string) ?? 0)
-        
-        return height
+        return viewModel.collectionViewImageHeight(heightForImageAtIndexPath)
     }
     
     func collectionViewImageWidth(_ collectionView: UICollectionView,
                                   _ widthForImageAtIndexPath: IndexPath) -> CGFloat {
-        
-        let string = viewModel.contents.previewImages[widthForImageAtIndexPath.item].width
-        let width: CGFloat = CGFloat(Int(string) ?? 0)
-        
-        return width
+        return viewModel.collectionViewImageWidth(widthForImageAtIndexPath)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -161,14 +153,17 @@ extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
 extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.contents.originalImages.count
+        return viewModel.numberOfItemsInSection()
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath)
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier,
-                                                            for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CustomCollectionViewCell.identifier,
+            for: indexPath) as? CustomCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
         cell.backgroundColor = .blue
         cell.configure(self.viewModel, indexPath)
         

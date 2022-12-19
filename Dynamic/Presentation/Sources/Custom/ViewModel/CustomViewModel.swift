@@ -11,23 +11,20 @@ import Combine
 import DynamicDomain
 
 protocol CustomViewModelInputProtocol: AnyObject {
-    
+    func action(_ action: CustomViewModel.Action)
 }
 
 protocol CustomViewModelOutputProtocol: AnyObject {
-    
+    var contents: GIPHYDomainModel { get }
+    func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
 }
 
 protocol CustomViewModelProtocol: CustomViewModelInputProtocol, CustomViewModelOutputProtocol {
-    var contents: GIPHYDomainModel { get }
     var event: CurrentValueSubject<CustomViewModel.Event, Never> { get set }
-    func action(_ action: CustomViewModel.Action)
-    func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
 }
 
 class CustomViewModel: CustomViewModelProtocol {
     private var dynamicUseCase: DynamicUseCase
-    
     var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var contents = GIPHYDomainModel.empty
     private var originalImageDataArray: [String] = []
@@ -127,18 +124,20 @@ extension CustomViewModel {
     }
     
     public func collectionViewImageHeight(_ indexPath: IndexPath) -> CGFloat {
-        return CGFloat()
+        let string = contents.previewImages[indexPath.item].height
+        let height: CGFloat = CGFloat(Int(string) ?? 0)
+        
+        return height
     }
     
     public func collectionViewImageWidth(_ indexPath: IndexPath) -> CGFloat {
-        return CGFloat()
+        let string = contents.previewImages[indexPath.item].width
+        let width: CGFloat = CGFloat(Int(string) ?? 0)
+        
+        return width
     }
     
-    public func collectionViewNumberOfItemsInSection() -> Int {
-        return Int()
-    }
-    
-    public func collectionViewCellForItemAt() -> CustomCollectionViewCell {
-        return CustomCollectionViewCell(frame: .zero)
+    public func numberOfItemsInSection() -> Int {
+        return contents.originalImages.count
     }
 }
