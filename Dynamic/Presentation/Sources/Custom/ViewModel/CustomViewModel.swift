@@ -12,7 +12,8 @@ import DynamicDomain
 public class CustomViewModel: CustomViewModelProtocol {
     private var dynamicUseCase: DynamicUseCase
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
-    public var contents = GIPHYDomainModel.empty
+    private var previewContents = GIPHYDomainModel.empty
+    private var originalContents =
     private var originalImageDataArray: [String] = []
     
     init(dynamicUseCase: DynamicUseCase) {

@@ -24,19 +24,21 @@ public final class DefaultDynamicUseCase: DynamicUseCase {
         return try await dynamicRepository.retrieveGIPHYDatas()
     }
     
-    public func retrieveGIFImage(_ url: String,
-                                 _ id: String) async throws -> (Data, Bool) {
-        return try await imageCacheRepository.imageLoad(url, id)
+    public func retrieveGIFImage(_ url: String) async throws -> Data {
+        return try await imageCacheRepository.imageLoad(url)
     }
     
     public func requestCoreDataManagerForCreateImageData(_ data: OriginalDomainModel) {
         Task { [weak self] in
             do {
-                guard let imageData = try await self?.retrieveGIFImage(data.url, data.id) else {
+                guard let imageData = try await self?.retrieveGIFImage(data.url) else {
                     print("request imageData 실패")
                     return
                 }
-                self?.coreDataManager.createGIFImageData(data.height, data.width, data.id, imageData.0)
+                self?.coreDataManager.createGIFImageData(data.height,
+                                                         data.width,
+                                                         data.id,
+                                                         imageData)
             } catch {
                 print("DefaultDynamicUseCase request Create CoreDataEntity - 실패")
             }

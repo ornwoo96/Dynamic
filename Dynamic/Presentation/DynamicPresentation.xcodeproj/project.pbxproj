@@ -11,6 +11,7 @@
 		0B38D2832951CD0900E6C98A /* CompoPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B38D2822951CD0900E6C98A /* CompoPresentationModel.swift */; };
 		0B38D2862951D7FA00E6C98A /* CompostionalCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B38D2852951D7FA00E6C98A /* CompostionalCellModel.swift */; };
 		0B38D2882951DA2800E6C98A /* CompositionalViewModel + DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B38D2872951DA2800E6C98A /* CompositionalViewModel + DTO.swift */; };
+		0B38D28A2951E14900E6C98A /* CustomViewModel + DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B38D2892951E14900E6C98A /* CustomViewModel + DTO.swift */; };
 		0B72321B2946FED6009D3EDF /* CompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* CompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* CompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -100,6 +101,7 @@
 		0B38D2822951CD0900E6C98A /* CompoPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoPresentationModel.swift; sourceTree = "<group>"; };
 		0B38D2852951D7FA00E6C98A /* CompostionalCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompostionalCellModel.swift; sourceTree = "<group>"; };
 		0B38D2872951DA2800E6C98A /* CompositionalViewModel + DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompositionalViewModel + DTO.swift"; sourceTree = "<group>"; };
+		0B38D2892951E14900E6C98A /* CustomViewModel + DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + DTO.swift"; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* CompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* CompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				0B72322229470627009D3EDF /* CustomViewModel.swift */,
 				0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */,
 				0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */,
+				0B38D2892951E14900E6C98A /* CustomViewModel + DTO.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				0B992330294F479700913288 /* PickListCollectionViewCell.swift in Sources */,
 				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
 				0B38D2862951D7FA00E6C98A /* CompostionalCellModel.swift in Sources */,
+				0B38D28A2951E14900E6C98A /* CustomViewModel + DTO.swift in Sources */,
 				0B723240294793C6009D3EDF /* UIImage.swift in Sources */,
 				0B723278294B2C1D009D3EDF /* DetailViewModel.swift in Sources */,
 				0BB52BEC2946098C005FC30F /* SwiftUIViewController.swift in Sources */,

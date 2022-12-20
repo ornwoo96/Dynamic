@@ -60,7 +60,6 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
         event.send(.reloadData(sections: sections))
         event.send(.hideLoading)
     }
-    
 }
 
 extension CompositionalViewModel {
