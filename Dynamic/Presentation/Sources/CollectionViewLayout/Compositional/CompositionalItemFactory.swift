@@ -17,7 +17,7 @@ public class CompositionalItemFactory {
     private var columnHeights: [CGFloat] = []
     private let columnCount: CGFloat
     private let itemPadding: CGFloat
-    private let contentWidth: CGSize
+    private let contentWidth: CGFloat
     private let itemSize: CGSize
     
     init(factoryItems: FactoryItems,
@@ -28,13 +28,13 @@ public class CompositionalItemFactory {
         self.itemSize = factoryItems.itemSize
     }
     
-    public func getItem(_ indexPath: IndexPath) -> NSCollectionLayoutGroupCustomItem {
-        let frame = itemFrame(indexPath)
+    public func getItem() -> NSCollectionLayoutGroupCustomItem {
+        let frame = itemFrame()
         columnHeights[columnIndex()] = frame.maxY + itemPadding
         return NSCollectionLayoutGroupCustomItem(frame: frame)
     }
     
-    private func itemFrame(_ indexPath: IndexPath) -> CGRect {
+    private func itemFrame() -> CGRect {
         let itemOrigin = itemOrigin(itemWidth())
         let itemSize = itemSizeAspect()
         return CGRect(origin: itemOrigin, size: itemSize)

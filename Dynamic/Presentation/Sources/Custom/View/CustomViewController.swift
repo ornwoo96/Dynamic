@@ -215,3 +215,5 @@ extension CustomViewController: UIGestureRecognizerDelegate {
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
     }
 }
+
+

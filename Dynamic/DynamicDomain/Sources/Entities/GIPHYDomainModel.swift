@@ -9,7 +9,7 @@ import Foundation
 
 public struct GIPHYDomainModel {
     public static let empty: Self = .init(previewImages: [],
-                                   originalImages: [])
+                                          originalImages: [])
     
     public var previewImages: [PreviewDomainModel]
     public var originalImages: [OriginalDomainModel]
@@ -26,12 +26,18 @@ public struct PreviewDomainModel {
     public var height: String
     public var width: String
     public var url: String
+    public var favorite: Bool
     
-    public init(id: String, height: String, width: String, url: String) {
+    public init(id: String,
+                height: String,
+                width: String,
+                url: String,
+                favorite: Bool = false) {
         self.id = id
         self.height = height
         self.width = width
         self.url = url
+        self.favorite = favorite
     }
 }
 
@@ -40,11 +46,17 @@ public struct OriginalDomainModel {
     public var height: String
     public var width: String
     public var url: String
+    public var favorite: Bool
     
-    public init(id: String, height: String, width: String, url: String) {
+    public init(id: String,
+                height: String,
+                width: String,
+                url: String,
+                favorite: Bool = false) {
         self.id = id
         self.height = height
         self.width = width
         self.url = url
+        self.favorite = favorite
     }
 }

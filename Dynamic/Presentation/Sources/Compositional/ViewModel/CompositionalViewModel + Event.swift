@@ -18,9 +18,6 @@ extension CompositionalViewModel {
             case (.reloadData, .reloadData):
                 return true
                 
-            case (.invalidateLayout, .invalidateLayout):
-                return true
-                
             case (.showDetailView, .showDetailView):
                 return true
                 
@@ -36,8 +33,8 @@ extension CompositionalViewModel {
         
         case none
         case reloadData(sections: [Section])
-        case invalidateLayout
-        case showDetailView(selectedIndex: Int, contents: [CustomPresentationModel.Preview])
+        case showDetailView(selectedIndex: Int,
+                            contents: [PresentationOriginal])
         case showLoading
         case hideLoading
     }

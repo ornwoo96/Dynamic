@@ -7,25 +7,36 @@
 
 import UIKit
 
-extension UICollectionViewCompositionalLayout {
-    
-//    public func getDynamicLayoutSection(_ columnCount: Int = 2,
-//                                        _ itemPadding: CGFloat,
-//                                        _ contentWidth: CGFloat,
-//                                        _ numberOfItems: Int,
-//                                        _ sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
-//
-//        guard let self = self,
-//              let items = sectionItem.items as? [CustomPresentationModel.Preview] else { return }
-//
-//        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth,
-//                                                      heightDimension: <#T##NSCollectionLayoutDimension#>)
-//
-//        let group = NSCollectionLayoutGroup.custom(layoutSize: <#T##NSCollectionLayoutSize#>) { environment in
-//            return (0..<numberOfItems).map {
-//
-//            }
-//        }
-//
-//    }
+public class CompositionalLayoutFactory {
+    public func getDynamicLayoutSection(_ columnCount: Int = 2,
+                                        _ itemPadding: CGFloat,
+                                        _ contentWidth: CGFloat,
+                                        _ numberOfItems: Int,
+                                        _ sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
+        
+        guard let items: [PresentationPreview] = sectionItem.items as? [PresentationPreview] else {
+            return .init(group: .init(layoutSize: .init(widthDimension: .absolute(0),
+                                                        heightDimension: .absolute(0))))
+        }
+        
+        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1),
+                                                      heightDimension: .estimated(contentWidth))
+        
+        let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { environment in
+            var customGroupItems = [NSCollectionLayoutGroupCustomItem]()
+            
+            for i in 0..<numberOfItems {
+                let itemFactory = CompositionalItemFactory(
+                    factoryItems: .init(itemPadding: itemPadding,
+                                        itemSize: CGSize(width: items[i].width,
+                                                         height: items[i].height)),
+                    contentWidth: environment.container.effectiveContentSize.width
+                )
+                let item = itemFactory.getItem()
+                customGroupItems.append(item)
+            }
+            return customGroupItems
+        }
+        return .init(group: group)
+    }
 }
