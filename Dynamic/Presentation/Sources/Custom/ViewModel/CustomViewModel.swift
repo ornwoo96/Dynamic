@@ -12,8 +12,8 @@ import DynamicDomain
 public class CustomViewModel: CustomViewModelProtocol {
     private var dynamicUseCase: DynamicUseCase
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
-    private var previewContents = GIPHYDomainModel.empty
-    private var originalContents =
+    private var previewContents: [CustomPresentationModel.PresentationPreview] = []
+    private var originalContents: [CustomPresentationModel.PresentationOriginal] = []
     private var originalImageDataArray: [String] = []
     
     init(dynamicUseCase: DynamicUseCase) {
@@ -35,42 +35,35 @@ public class CustomViewModel: CustomViewModelProtocol {
         }
     }
     
-    public func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data,Bool) {
-        let urlString = self.contents.previewImages[indexPath.item].url
-        let id = self.contents.previewImages[indexPath.item].id
-        let previewData = try await dynamicUseCase.retrieveGIFImage(urlString, id)
-        return previewData
+    public func retrieveCustomCellItem(_ indexPath: IndexPath) -> CustomCellItem {
+        let urlString = self.previewContents[indexPath.item].url
+        let favorite = self.previewContents[indexPath.item].favorite
+        return CustomCellItem.init(favorite: favorite, imageUrl: urlString)
     }
     
     public func checkFavoriteButtonTapped(_ bool: Bool,
                                           _ indexPath: Int) {
         if bool {
-            requestCreateImageDataFromCoreData(indexPath)
+            requestCreateImageDataToCoreData(indexPath)
         } else {
-            requestRemoveImageDataFromCoreData(indexPath)
+            requestRemoveImageDataToCoreData(indexPath)
         }
     }
     
-    private func requestCreateImageDataFromCoreData(_ indexPath: Int) {
-        let imageData: OriginalDomainModel = contents.originalImages[indexPath]
-        dynamicUseCase.requestCoreDataManagerForCreateImageData(imageData)
+    private func requestCreateImageDataToCoreData(_ indexPath: Int) {
+        dynamicUseCase.requestCoreDataCreateImageData(convert(originalContents[indexPath]))
     }
     
-    private func requestRemoveImageDataFromCoreData(_ indexPath: Int) {
-        let id = contents.originalImages[indexPath].id
-        dynamicUseCase.requestRemoveImageDataFromCoreData(id)
+    private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
+        dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
     }
     
     private func createDetailData(_ indexPath: Int) -> DetailModel {
-        let data = contents.originalImages[indexPath].url
-        let width = contents.originalImages[indexPath].width
-        let height = contents.originalImages[indexPath].height
-        
-        return DetailModel(url: data, width: width, height: height)
+        return convert(indexPath, originalContents)
     }
     
     private func checkLastCell(_ indexPath: Int) {
-        if contents.previewImages.count - 1 == indexPath,
+        if previewContents.count - 1 == indexPath,
            event.value != .showLoading {
             event.send(.showLoading)
             retrieveGIPHYData()
@@ -81,8 +74,8 @@ public class CustomViewModel: CustomViewModelProtocol {
         Task { [weak self] in
             do {
                 let model = try await dynamicUseCase.retrieveGIPHYDatas()
-                self?.contents.previewImages.append(contentsOf: model.previewImages)
-                self?.contents.originalImages.append(contentsOf: model.originalImages)
+                self?.previewContents.append(contentsOf: convert(model.previewImages))
+                self?.originalContents.append(contentsOf: convert(model.originalImages))
                 
                 event.send(.invalidateLayout)
                 event.send(.hideLoading)
@@ -94,7 +87,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     
     private func createIndexPaths() -> [IndexPath] {
         var indexPaths: [IndexPath] = []
-        for i in contents.previewImages.count-15..<contents.previewImages.count {
+        for i in previewContents.count-15..<previewContents.count {
             let indexPath = IndexPath(item: i, section: 0)
             indexPaths.append(indexPath)
         }
@@ -111,20 +104,21 @@ extension CustomViewModel {
     }
     
     public func collectionViewImageHeight(_ indexPath: IndexPath) -> CGFloat {
-        let string = contents.previewImages[indexPath.item].height
-        let height: CGFloat = CGFloat(Int(string) ?? 0)
+        let string = previewContents[indexPath.item].height
+        let height: CGFloat = CGFloat(Int(string))
         
         return height
     }
     
     public func collectionViewImageWidth(_ indexPath: IndexPath) -> CGFloat {
-        let string = contents.previewImages[indexPath.item].width
-        let width: CGFloat = CGFloat(Int(string) ?? 0)
+        let string = previewContents[indexPath.item].width
+        let width: CGFloat = CGFloat(Int(string))
         
         return width
     }
     
     public func numberOfItemsInSection() -> Int {
-        return contents.originalImages.count
+        return previewContents.count
     }
 }
+

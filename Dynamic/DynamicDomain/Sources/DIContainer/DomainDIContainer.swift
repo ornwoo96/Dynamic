@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import DynamicCore
 
 public final class DomainDIContainer: Containable {
@@ -20,10 +19,8 @@ public final class DomainDIContainer: Containable {
     
     private func registerUseCases() {
         guard let dynamicRepository: DynamicImageDataRepository = container.resolveValue(RepoKeys.dynamicRepo.rawValue),
-              let imageCacheRepository: ImageCacheRepository = container.resolveValue(RepoKeys.imageCache.rawValue),
               let coreDataManager: CoreDataManagerRepository = container.resolveValue(RepoKeys.coreManager.rawValue) else { return }
         let dynamicUseCase = DefaultDynamicUseCase(dynamicRepository: dynamicRepository,
-                                                   imageCacheRepository: imageCacheRepository,
                                                    coreDataManager: coreDataManager)
         container.registerValue(UCKeys.dynamicUC.rawValue, dynamicUseCase)
     }

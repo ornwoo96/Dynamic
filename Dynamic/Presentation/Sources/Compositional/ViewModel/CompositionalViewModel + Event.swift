@@ -34,7 +34,7 @@ extension CompositionalViewModel {
         case none
         case reloadData(sections: [Section])
         case showDetailView(selectedIndex: Int,
-                            contents: [PresentationOriginal])
+                            contents: CompositionalPresentationModel.OriginalModel)
         case showLoading
         case hideLoading
     }

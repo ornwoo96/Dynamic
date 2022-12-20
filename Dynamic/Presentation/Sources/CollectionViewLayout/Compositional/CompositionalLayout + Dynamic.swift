@@ -14,7 +14,7 @@ public class CompositionalLayoutFactory {
                                         _ numberOfItems: Int,
                                         _ sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
         
-        guard let items: [PresentationPreview] = sectionItem.items as? [PresentationPreview] else {
+        guard let items: [CompositionalPresentationModel.PreviewModel] = sectionItem.items as? [CompositionalPresentationModel.PreviewModel] else {
             return .init(group: .init(layoutSize: .init(widthDimension: .absolute(0),
                                                         heightDimension: .absolute(0))))
         }

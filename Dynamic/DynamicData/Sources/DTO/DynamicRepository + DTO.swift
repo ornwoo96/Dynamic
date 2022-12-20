@@ -1,37 +1,17 @@
 //
-//  DefaultDynamicRepository.swift
+//  DefaultImageCacheRepository + DTO.swift
 //  DynamicData
 //
-//  Created by 김동우 on 2022/12/11.
+//  Created by 김동우 on 2022/12/20.
 //
 
 import Foundation
-
 import DynamicDomain
 
-public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository {
-    private let manager: NetworkManager
-    private let coreDataManager: CoreDataManagerRepository
-    
-    init(manager: NetworkManager,
-         coreDataManager: CoreDataManagerRepository) {
-        self.manager = manager
-        self.coreDataManager = coreDataManager
-    }
-    
-    public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
-        let data = try await manager.fetchGIPHYDatas()
-        let boolArray = try await coreDataManager.checkGIFImageArrayDataIsExist(createIdArray(data.previewImages))
-        
-        return convert(data, boolArray)
-    }
-}
-
-//MARK: DTO
 extension DefaultDynamicImageDataRepository {
-    private func createIdArray(_ previewAddIDEntity: [PreviewAddIDEntity]) -> [String] {
+    public func createIdArray(_ previewAddIDEntity: [PreviewAddIDEntity]) -> [String] {
         var idArray: [String] = []
-
+        
         (0..<previewAddIDEntity.count).forEach {
             idArray.append(previewAddIDEntity[$0].id)
         }
@@ -39,8 +19,8 @@ extension DefaultDynamicImageDataRepository {
         return idArray
     }
     
-    private func convert(_ data: GiphyImageEntity,
-                         _ boolArray: [Bool]) -> GIPHYDomainModel {
+    public func convert(_ data: GiphyImageEntity,
+                        _ boolArray: [Bool]) -> GIPHYDomainModel {
         var previews: [PreviewDomainModel] = []
         var originals: [OriginalDomainModel] = []
         

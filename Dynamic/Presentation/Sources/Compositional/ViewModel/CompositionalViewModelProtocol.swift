@@ -16,7 +16,6 @@ public protocol CompositionalViewModelOutputProtocol: AnyObject {
     var event: CurrentValueSubject<CompositionalViewModel.Event, Never> { get }
 
     func getSectionItem(_ sectionIndex: Int) -> CompositionalViewModel.Section
-    func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
 }
 
 public protocol CompositionalViewModelProtocol: CompositionalViewModelInputProtocol, CompositionalViewModelOutputProtocol {

@@ -14,6 +14,7 @@
 		0B19C88D2942446400909F8D /* BMOInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C88C2942446400909F8D /* BMOInject.swift */; };
 		0B19C8912943665C00909F8D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8902943665C00909F8D /* TestViewController.swift */; };
 		0B19C893294391D800909F8D /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C892294391D800909F8D /* DIContainer.swift */; };
+		0B38D291295209A600E6C98A /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B38D290295209A600E6C98A /* ImageCacheManager.swift */; };
 		0BE3D460294472CC006B354E /* RegisterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3D45F294472CC006B354E /* RegisterKeys.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		0B19C88C2942446400909F8D /* BMOInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMOInject.swift; sourceTree = "<group>"; };
 		0B19C8902943665C00909F8D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0B19C892294391D800909F8D /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		0B38D290295209A600E6C98A /* ImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		0BE3D45F294472CC006B354E /* RegisterKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 		0B19C8412942358900909F8D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0B38D28F2952099800E6C98A /* Cache */,
 				0B19C8942943924500909F8D /* DIContainer */,
 				0B19C88B2942444800909F8D /* inject */,
 			);
@@ -110,6 +113,14 @@
 				0BE3D45F294472CC006B354E /* RegisterKeys.swift */,
 			);
 			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		0B38D28F2952099800E6C98A /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				0B38D290295209A600E6C98A /* ImageCacheManager.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		0BE3D4632944A9C7006B354E /* Resources */ = {
@@ -240,6 +251,7 @@
 			files = (
 				0B19C8442942358900909F8D /* Core.docc in Sources */,
 				0B19C893294391D800909F8D /* DIContainer.swift in Sources */,
+				0B38D291295209A600E6C98A /* ImageCacheManager.swift in Sources */,
 				0BE3D460294472CC006B354E /* RegisterKeys.swift in Sources */,
 				0B19C88D2942446400909F8D /* BMOInject.swift in Sources */,
 			);

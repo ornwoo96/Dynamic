@@ -16,8 +16,7 @@ public protocol CustomViewModelInputProtocol: AnyObject {
 }
 
 public protocol CustomViewModelOutputProtocol: AnyObject {
-    var contents: GIPHYDomainModel { get }
-    func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool)
+    func retrieveCustomCellItem(_ indexPath: IndexPath) -> CustomCellItem
     func collectionViewImageHeight(_ indexPath: IndexPath) -> CGFloat
     func collectionViewImageWidth(_ indexPath: IndexPath) -> CGFloat
     func numberOfItemsInSection() -> Int

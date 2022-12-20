@@ -7,6 +7,8 @@
 
 import UIKit
 
+import DynamicCore
+
 class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
     
@@ -45,9 +47,13 @@ class PickListCollectionViewCell: UICollectionViewCell {
         
     }
     
-    public func configure(_ imageData: Data) {
-        DispatchQueue.main.async { [weak self] in
-            self?.imageView.image = UIImage.gifImageWithData(imageData)
+    public func configure(_ url: String) {
+        Task {
+            let image = try await ImageCacheManager.shared.imageLoad(url)
+            await MainActor.run { [weak self] in
+                self?.imageView.image = nil
+                self?.imageView.image = UIImage.gifImageWithData(image)
+            }
         }
     }
     

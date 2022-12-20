@@ -163,9 +163,8 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
             for: indexPath) as? CustomCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         cell.backgroundColor = .blue
-        cell.configure(self.viewModel, indexPath)
+        cell.configure(viewModel.retrieveCustomCellItem(indexPath))
         
         return cell
     }

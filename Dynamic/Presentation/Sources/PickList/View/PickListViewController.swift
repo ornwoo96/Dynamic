@@ -105,7 +105,7 @@ extension PickListViewController: UICollectionViewDelegate, UICollectionViewData
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickListCollectionViewCell.identifier, for: indexPath) as? PickListCollectionViewCell else { return UICollectionViewCell() }
         cell.imageView.image = nil
-        cell.configure(viewModel.contents[indexPath.item].data)
+        cell.configure(viewModel.contents[indexPath.item].url)
         cell.backgroundColor = .blue
         return cell
     }

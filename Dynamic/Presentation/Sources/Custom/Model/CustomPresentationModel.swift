@@ -18,38 +18,49 @@ public struct CustomPresentationModel {
         self.previewImageData = previewImageData
         self.originalImageData = originalImageData
     }
+    
+    public struct PresentationPreview {
+        let id: String
+        let height: CGFloat
+        let width: CGFloat
+        let url: String
+        let favorite: Bool
+        
+        init(height: String,
+             width: String,
+             url: String,
+             id: String,
+             favorite: Bool = false) {
+            self.height = CGFloat(Int(height) ?? 0)
+            self.width = CGFloat(Int(width) ?? 0)
+            self.url = url
+            self.id = id
+            self.favorite = favorite
+        }
+    }
+    
+    public struct PresentationOriginal {
+        let id: String
+        let height: CGFloat
+        let width: CGFloat
+        let url: String
+        let favorite: Bool
+        
+        init(height: String,
+             width: String,
+             url: String,
+             id: String,
+             favorite: Bool = false) {
+            self.height = CGFloat(Int(height) ?? 0)
+            self.width = CGFloat(Int(width) ?? 0)
+            self.url = url
+            self.id = id
+            self.favorite = favorite
+        }
+    }
+
+    
 }
 
-public struct PresentationPreview {
-    let id: String
-    let height: CGFloat
-    let width: CGFloat
-    let url: String
-    
-    init(height: String,
-         width: String,
-         url: String,
-         id: String) {
-        self.height = CGFloat(Int(height) ?? 0)
-        self.width = CGFloat(Int(width) ?? 0)
-        self.url = url
-        self.id = id
-    }
-}
 
-public struct PresentationOriginal {
-    let id: String
-    let height: CGFloat
-    let width: CGFloat
-    let url: String
-    
-    init(height: String,
-         width: String,
-         url: String,
-         id: String) {
-        self.height = CGFloat(Int(height) ?? 0)
-        self.width = CGFloat(Int(width) ?? 0)
-        self.url = url
-        self.id = id
-    }
-}
+

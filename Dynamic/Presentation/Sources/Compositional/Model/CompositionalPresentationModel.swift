@@ -8,7 +8,7 @@
 import Foundation
 import DynamicDomain
 
-public struct CompoPresentationModel {
+public struct CompositionalPresentationModel {
     public static let empty: Self = .init(previewModel: [],
                                           originalModel: [])
     

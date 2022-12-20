@@ -73,8 +73,8 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
                     break
                 case .reloadData(sections: let sections):
                     self?.reloadData(sections)
-                case .showDetailView(selectedIndex: let selectedIndex,
-                                     contents: let contents):
+                case .showDetailView(selectedIndex: _,
+                                     contents: _):
                     break
                 case .showLoading:
                     break
@@ -102,12 +102,12 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CompositionalCollectionViewCell.identifier,
                 for: indexPath
-            ) as? CompositionalCollectionViewCell else {
+            ) as? CompositionalCollectionViewCell,
+                  let item = itemIdentifier as? CompositionalCellItem else {
                 return UICollectionViewCell()
             }
             
-//            cell.configure(self.viewModel as! CustomViewModelProtocol, )
-            
+            cell.configure(item)
             
             return cell
         })

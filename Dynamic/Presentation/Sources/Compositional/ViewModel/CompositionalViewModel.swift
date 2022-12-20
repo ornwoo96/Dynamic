@@ -12,8 +12,8 @@ import DynamicDomain
 public class CompositionalViewModel: CompositionalViewModelProtocol {
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     private let dynamicUseCase: DynamicUseCase
-    private var previewContents: [CompoPresentationModel.PreviewModel] = []
-    private var originalContents: [CompoPresentationModel.OriginalModel] = []
+    private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
+    private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
     
     init(dynamicUseCase: DynamicUseCase) {
@@ -31,13 +31,6 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
         }
     }
     
-    public func retrieveImageData(_ indexPath: IndexPath) async throws -> (Data, Bool) {
-        return try await dynamicUseCase.retrieveGIFImage(
-            previewContents[indexPath.item].url,
-            previewContents[indexPath.item].id
-        )
-    }
-    
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
@@ -51,7 +44,7 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
         }
     }
     
-    private func setupSections(_ data: [CompoPresentationModel.PreviewModel]) {
+    private func setupSections(_ data: [CompositionalPresentationModel.PreviewModel]) {
         if sections.isEmpty {
             sections.append(.init(type: .content, items: convert(data)))
         } else {
@@ -60,6 +53,8 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
         event.send(.reloadData(sections: sections))
         event.send(.hideLoading)
     }
+    
+    
 }
 
 extension CompositionalViewModel {

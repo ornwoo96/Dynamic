@@ -3,7 +3,7 @@
     <entity name="Favorites" representedClassName=".Favorites" syncable="YES">
         <attribute name="height" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="width" optional="YES" attributeType="String"/>
     </entity>
 </model>
