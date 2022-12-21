@@ -26,8 +26,8 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
             self.retrieveGIPHYData()
         case .didSelectItemAt(_):
             break
-        case .willDisplay(_):
-            break
+        case .willDisplay(let indexPath):
+            self.retrieveNextData(indexPath.item)
         }
     }
     
@@ -37,6 +37,7 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
                 let model = try await dynamicUseCase.retrieveGIPHYDatas()
                 self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
                 self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
+                
                 setupSections(convertPresentationModel(model).previewModel)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
@@ -56,7 +57,13 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
         event.send(.hideLoading)
     }
     
-    
+    private func retrieveNextData(_ indexPath: Int) {
+        if previewContents.count - 1 == indexPath,
+           event.value != .showLoading {
+            event.send(.showLoading)
+            retrieveGIPHYData()
+        }
+    }
 }
 
 extension CompositionalViewModel {

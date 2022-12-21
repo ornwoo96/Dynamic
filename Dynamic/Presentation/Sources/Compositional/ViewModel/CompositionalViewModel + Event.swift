@@ -24,6 +24,9 @@ extension CompositionalViewModel {
             case (.showLoading, .showLoading):
                 return true
                 
+            case (.invalidateLayout, .invalidateLayout):
+                return true
+                
             default:
                 return false
                 
@@ -37,6 +40,7 @@ extension CompositionalViewModel {
                             contents: CompositionalPresentationModel.OriginalModel)
         case showLoading
         case hideLoading
+        case invalidateLayout
     }
     
 }

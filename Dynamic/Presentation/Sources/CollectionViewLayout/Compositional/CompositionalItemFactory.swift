@@ -45,6 +45,10 @@ public class CompositionalItemFactory {
         return NSCollectionLayoutGroupCustomItem(frame: frame)
     }
     
+    public func getTotalHeight() -> CGFloat {
+        return columnHeights[columnIndex()]
+    }
+    
     private func setupColumnHeights(_ frame: CGRect) {
         if columnHeights.isEmpty {
             columnHeights = [frame.maxY + itemPadding]

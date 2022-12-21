@@ -77,21 +77,19 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
                     break
                 case .hideLoading:
                     break
+                case .invalidateLayout:
+                    self?.invalidateLayout()
                 }
             }
             .store(in: &cancellable)
     }
     
     private func reloadData(_ sections: [CompositionalViewModel.Section]) {
-        
         var snapShot = NSDiffableDataSourceSnapshot<CompositionalViewModel.Section, BaseCellItem>()
 
         sections.forEach {
-            
             snapShot.appendSections([$0])
-            
             snapShot.appendItems($0.items)
-            
         }
         
         dataSource?.apply(snapShot)
@@ -105,7 +103,6 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
                 return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
             }
             
-            
             if let cell = $0.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier, for: $1) as? CompositionalCollectionViewCell,
                let item = $2 as? CompositionalCellItem {
                 
@@ -113,8 +110,21 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
                 return cell
             }
             
-            
+
             return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
+        }
+    }
+    
+    private func invalidateLayout() {
+        if let visibleIndexPaths = compositionalCollectionView.indexPathsForVisibleItems.min(by: { $0.item < $1.item }),
+              visibleIndexPaths.isEmpty == false {
+            
+            compositionalCollectionView.reloadData()
+            
+            
+            compositionalCollectionView.scrollToItem(at: visibleIndexPaths, at: .top, animated: false)
+        } else{
+            compositionalCollectionView.reloadData()
         }
     }
     
@@ -152,6 +162,6 @@ extension CompositionalViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
-        
+        viewModel.action(.willDisplay(indexPath))
     }
 }

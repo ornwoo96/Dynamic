@@ -19,21 +19,22 @@ public class CompositionalLayoutFactory {
                                                         heightDimension: .absolute(0))))
         }
         
-        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .estimated(contentWidth))
+        var itemFactory = CompositionalItemFactory(
+            factoryItems: FactoryItems(columnCount: columnCount,
+                                       itemPadding: itemPadding),
+            contentWidth: contentWidth)
+        var customGroupItems: [NSCollectionLayoutGroupCustomItem] = []
         
-        let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { environment in
-            var itemFactory = CompositionalItemFactory(factoryItems: FactoryItems(columnCount: columnCount,
-                                                                                  itemPadding: itemPadding),
-                                                       contentWidth: environment.container.effectiveContentSize.width)
-            var customGroupItems: [NSCollectionLayoutGroupCustomItem] = []
-            
-            for i in 0..<numberOfItems {
-                itemFactory.setItemSize(CGSize(width: items[i].width, height: items[i].height))
-                let item = itemFactory.getItem()
-                customGroupItems.append(item)
-            }
-            
+        for i in 0..<numberOfItems {
+            itemFactory.setItemSize(CGSize(width: items[i].width, height: items[i].height))
+            let item = itemFactory.getItem()
+            customGroupItems.append(item)
+        }
+        
+        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1),
+                                                      heightDimension: .absolute(itemFactory.getTotalHeight()))
+        
+        let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { _ in
             return customGroupItems
         }
         
