@@ -6,31 +6,59 @@
 //
 
 import Foundation
-
+import Combine
 import DynamicDomain
 
-protocol CompositionalViewModelInputProtocol: AnyObject {
-    func viewDidLoad()
-}
-
-protocol CompositionalViewModelOutputProtocol: AnyObject {
-    
-}
-
-protocol CompositionalViewModelProtocol: CompositionalViewModelInputProtocol, CompositionalViewModelOutputProtocol {
-    
-}
-
-
-
-final class CompositionalViewModel {
+public class CompositionalViewModel: CompositionalViewModelProtocol {
+    public var event: CurrentValueSubject<Event, Never> = .init(.none)
     private let dynamicUseCase: DynamicUseCase
+    private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
+    private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
+    private var sections: [Section] = []
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
     }
     
-    func viewDidLoad() {
-        
+    public func action(_ action: Action) {
+        switch action {
+        case .viewDidLoad:
+            self.retrieveGIPHYData()
+        case .didSelectItemAt(_):
+            break
+        case .willDisplay(_):
+            break
+        }
+    }
+    
+    private func retrieveGIPHYData() {
+        Task { [weak self] in
+            do {
+                let model = try await dynamicUseCase.retrieveGIPHYDatas()
+                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
+                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
+                setupSections(convertPresentationModel(model).previewModel)
+            } catch {
+                print("viewModel PreviewImage - 가져오기 실패")
+            }
+        }
+    }
+    
+    private func setupSections(_ data: [CompositionalPresentationModel.PreviewModel]) {
+        if sections.isEmpty {
+            sections.append(.init(type: .content, items: convertCellModel(data)))
+        } else {
+            sections.first?.items.append(contentsOf: convertCellModel(data))
+        }
+        event.send(.reloadData(sections: sections))
+        event.send(.hideLoading)
+    }
+    
+    
+}
+
+extension CompositionalViewModel {
+    public func getSectionItem(_ sectionIndex: Int) -> CompositionalViewModel.Section {
+        return sections[sectionIndex]
     }
 }

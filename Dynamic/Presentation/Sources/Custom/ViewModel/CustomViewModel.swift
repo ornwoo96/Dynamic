@@ -121,5 +121,3 @@ extension CustomViewModel {
         return previewContents.count
     }
 }
-
-Footer

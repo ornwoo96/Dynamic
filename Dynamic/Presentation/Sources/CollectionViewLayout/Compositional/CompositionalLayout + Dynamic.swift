@@ -40,4 +40,18 @@ public class CompositionalLayoutFactory {
         }
         return .init(group: group)
     }
+    
+    public func getEmptySection() -> NSCollectionLayoutSection {
+        let item: NSCollectionLayoutItem = .init(
+            layoutSize: .init(widthDimension: .absolute(0),
+                              heightDimension: .absolute(0))
+        )
+        
+        let group: NSCollectionLayoutGroup = .vertical(
+            layoutSize: .init(widthDimension: .absolute(0),
+                              heightDimension: .absolute(0)),
+            subitems: [item])
+        
+        return .init(group: group)
+    }
 }
