@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import DynamicDomain
+import DynamicCore
 
 protocol DetailViewModelInputProtocol: AnyObject {
     
@@ -39,10 +40,8 @@ public class DetailViewModel: DetailViewModelProtocol {
     private func retrieveOriginalImage(_ url: String) {
         Task { [weak self] in
             do {
-                guard let imageData = try await self?.dynamicUseCase.retrieveGIFImage(url, "") else {
-                    return
-                }
-                self?.imageDataSubject.send(imageData.0)
+                let imageData = try await ImageCacheManager.shared.imageLoad(url)
+                self?.imageDataSubject.send(imageData)
             } catch {
                 print("OriginalImage Retrieve - 실패")
             }
