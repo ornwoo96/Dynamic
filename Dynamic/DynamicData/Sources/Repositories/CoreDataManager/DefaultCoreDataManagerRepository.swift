@@ -84,6 +84,32 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
+    public func checkGIFImageArrayDataIsExist(_ array: [String]) async throws -> [Bool] {
+        let request = Favorites.fetchRequest()
+        let context = persistentContainer.viewContext
+        
+        var boolArray: [Bool] = []
+        
+        (0..<array.count).forEach {
+            request.predicate = NSPredicate(format: "id == %@", array[$0] as CVarArg)
+
+            do {
+                let data = try context.fetch(request)
+
+                if data.count == 0 {
+                    boolArray.append(false)
+                } else {
+                    boolArray.append(true)
+                }
+
+            } catch {
+                print("check 실패")
+            }
+        }
+        
+        return boolArray
+    }
+    
     public func checkGIFImageDataIsExist(_ id: String) async throws -> Bool {
         let request = Favorites.fetchRequest()
         let context = persistentContainer.viewContext
