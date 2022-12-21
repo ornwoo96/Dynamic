@@ -58,6 +58,8 @@
 		0BB7E0432952D27900C0AA83 /* BaseCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0422952D27900C0AA83 /* BaseCellItem.swift */; };
 		0BB7E0462952D2E500C0AA83 /* CompositionalItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0452952D2E500C0AA83 /* CompositionalItemFactory.swift */; };
 		0BB7E0482952D31000C0AA83 /* CompositionalLayout + Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0472952D31000C0AA83 /* CompositionalLayout + Dynamic.swift */; };
+		0BB7E04A2952D46000C0AA83 /* CustomViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0492952D46000C0AA83 /* CustomViewModelProtocol.swift */; };
+		0BB7E04C2952D4BB00C0AA83 /* CustomViewModel + DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E04B2952D4BB00C0AA83 /* CustomViewModel + DTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +138,8 @@
 		0BB7E0422952D27900C0AA83 /* BaseCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCellItem.swift; sourceTree = "<group>"; };
 		0BB7E0452952D2E500C0AA83 /* CompositionalItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalItemFactory.swift; sourceTree = "<group>"; };
 		0BB7E0472952D31000C0AA83 /* CompositionalLayout + Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompositionalLayout + Dynamic.swift"; sourceTree = "<group>"; };
+		0BB7E0492952D46000C0AA83 /* CustomViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewModelProtocol.swift; sourceTree = "<group>"; };
+		0BB7E04B2952D4BB00C0AA83 /* CustomViewModel + DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + DTO.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +208,8 @@
 				0B72322229470627009D3EDF /* CustomViewModel.swift */,
 				0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */,
 				0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */,
+				0BB7E0492952D46000C0AA83 /* CustomViewModelProtocol.swift */,
+				0BB7E04B2952D4BB00C0AA83 /* CustomViewModel + DTO.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -672,6 +678,7 @@
 				0B8F075C294C6C0200F5B591 /* Coordinatable.swift in Sources */,
 				0B72325A2949E032009D3EDF /* CustomViewModel + Event.swift in Sources */,
 				0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */,
+				0BB7E04C2952D4BB00C0AA83 /* CustomViewModel + DTO.swift in Sources */,
 				0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */,
 				0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */,
 				0B8F0764294DAFB600F5B591 /* HeartView.swift in Sources */,
@@ -689,6 +696,7 @@
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,
 				0B99232B294F448200913288 /* PickListViewModel + Action.swift in Sources */,
 				0BB52BEA2946097D005FC30F /* CompositionalViewController.swift in Sources */,
+				0BB7E04A2952D46000C0AA83 /* CustomViewModelProtocol.swift in Sources */,
 				0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */,
 				0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */,
 				0B72326E294B0EA6009D3EDF /* CustomNavigationBar.swift in Sources */,
