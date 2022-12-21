@@ -16,4 +16,5 @@ public protocol CoreDataManagerRepository {
     func checkGIFImageDataIsExist(_ id: String) async throws -> Bool
     func requestFavoriteData(_ id: String) async throws -> FavoriteDomainModel
     func requestFavoritesDatas() async throws -> [FavoriteDomainModel]
+    func checkGIFImageArrayDataIsExist(_ array: [String]) async throws -> [Bool]
 }
