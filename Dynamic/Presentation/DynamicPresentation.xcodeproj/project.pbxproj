@@ -68,7 +68,6 @@
 		0BB7E05A2952D77200C0AA83 /* CompositionalViewModel + Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0592952D77200C0AA83 /* CompositionalViewModel + Section.swift */; };
 		0BB7E05C2952D7C500C0AA83 /* CompositionalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E05B2952D7C500C0AA83 /* CompositionalViewModelProtocol.swift */; };
 		0BB7E05E2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E05D2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift */; };
-		0BB7E0602952D86C00C0AA83 /* CompositionalCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E05F2952D86C00C0AA83 /* CompositionalCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,7 +156,6 @@
 		0BB7E0592952D77200C0AA83 /* CompositionalViewModel + Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompositionalViewModel + Section.swift"; sourceTree = "<group>"; };
 		0BB7E05B2952D7C500C0AA83 /* CompositionalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalViewModelProtocol.swift; sourceTree = "<group>"; };
 		0BB7E05D2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalCollectionViewCell.swift; sourceTree = "<group>"; };
-		0BB7E05F2952D86C00C0AA83 /* CompositionalCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalCellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,7 +269,6 @@
 			children = (
 				0BB52BE92946097D005FC30F /* CompositionalViewController.swift */,
 				0BB7E05D2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift */,
-				0BB7E05F2952D86C00C0AA83 /* CompositionalCellModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -739,7 +736,6 @@
 				0B8F0757294B9EA100F5B591 /* DetailModel.swift in Sources */,
 				0BB52B2E2945C3A2005FC30F /* PresentationDIContainer.swift in Sources */,
 				0BB7E0582952D75900C0AA83 /* CompositionalViewModel + Event.swift in Sources */,
-				0BB7E0602952D86C00C0AA83 /* CompositionalCellModel.swift in Sources */,
 				0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */,
 				0BB7E05E2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift in Sources */,
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,

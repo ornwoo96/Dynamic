@@ -14,8 +14,7 @@ public class CompositionalLayoutFactory {
                                         _ contentWidth: CGFloat,
                                         _ numberOfItems: Int,
                                         _ sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
-        
-        guard let items: [CompositionalPresentationModel.PreviewModel] = sectionItem.items as? [CompositionalPresentationModel.PreviewModel] else {
+        guard let items = sectionItem.items as? [CompositionalCellItem] else {
             return .init(group: .init(layoutSize: .init(widthDimension: .absolute(0),
                                                         heightDimension: .absolute(0))))
         }
@@ -24,20 +23,20 @@ public class CompositionalLayoutFactory {
                                                       heightDimension: .estimated(contentWidth))
         
         let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { environment in
-            var customGroupItems = [NSCollectionLayoutGroupCustomItem]()
+            var itemFactory = CompositionalItemFactory(factoryItems: FactoryItems(columnCount: columnCount,
+                                                                                  itemPadding: itemPadding),
+                                                       contentWidth: environment.container.effectiveContentSize.width)
+            var customGroupItems: [NSCollectionLayoutGroupCustomItem] = []
             
             for i in 0..<numberOfItems {
-                let itemFactory = CompositionalItemFactory(
-                    factoryItems: .init(itemPadding: itemPadding,
-                                        itemSize: CGSize(width: items[i].width,
-                                                         height: items[i].height)),
-                    contentWidth: environment.container.effectiveContentSize.width
-                )
+                itemFactory.setItemSize(CGSize(width: items[i].width, height: items[i].height))
                 let item = itemFactory.getItem()
                 customGroupItems.append(item)
             }
+            
             return customGroupItems
         }
+        
         return .init(group: group)
     }
     

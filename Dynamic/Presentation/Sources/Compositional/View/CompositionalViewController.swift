@@ -13,15 +13,7 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     var coordinator: Coordinator?
     private var layoutFactory = CompositionalLayoutFactory()
     private var cancellable: Set<AnyCancellable> = .init()
-
-    private lazy var compositionalCollectionView: UICollectionView = {
-        let layout: UICollectionViewCompositionalLayout = makeCompositionalLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.register(CompositionalCollectionViewCell.self,
-                                forCellWithReuseIdentifier: CompositionalCollectionViewCell.identifier)
-        return collectionView
-    }()
+    private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
     private var dataSource: UICollectionViewDiffableDataSource<CompositionalViewModel.Section, BaseCellItem>?
     
     init(viewModel: CompositionalViewModelProtocol) {
@@ -51,6 +43,9 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupCollectionView() {
+        compositionalCollectionView.delegate = self
+        compositionalCollectionView.register(CompositionalCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CompositionalCollectionViewCell.identifier)
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -73,6 +68,7 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
                 case .none:
                     break
                 case .reloadData(sections: let sections):
+                    
                     self?.reloadData(sections)
                 case .showDetailView(selectedIndex: _,
                                      contents: _):
@@ -87,13 +83,17 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func reloadData(_ sections: [CompositionalViewModel.Section]) {
+        
         var snapShot = NSDiffableDataSourceSnapshot<CompositionalViewModel.Section, BaseCellItem>()
 
         sections.forEach {
+            
             snapShot.appendSections([$0])
+            
             snapShot.appendItems($0.items)
+            
         }
-
+        
         dataSource?.apply(snapShot)
     }
     
@@ -104,6 +104,7 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
             guard let strongSelf = self else {
                 return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
             }
+            
             
             if let cell = $0.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier, for: $1) as? CompositionalCollectionViewCell,
                let item = $2 as? CompositionalCellItem {
@@ -116,15 +117,18 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
             return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
         }
     }
+    
 }
 
 extension CompositionalViewController {
     private func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return .init { [weak self] sectionIndex, environment in
-            guard let sectionItem = self?.viewModel.getSectionItem(sectionIndex),
-                  let numberOfItem = self?.compositionalCollectionView.numberOfItems(inSection: sectionIndex) else {
+            
+            guard let sectionItem = self?.viewModel.getSectionItem(sectionIndex) else {
                 return self?.layoutFactory.getEmptySection()
             }
+            
+            let numberOfItem = sectionItem.items.count
 
             let section = self?.layoutFactory.getDynamicLayoutSection(
                 2,

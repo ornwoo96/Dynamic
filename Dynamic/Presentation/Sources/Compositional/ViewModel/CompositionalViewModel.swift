@@ -46,10 +46,12 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
     
     private func setupSections(_ data: [CompositionalPresentationModel.PreviewModel]) {
         if sections.isEmpty {
+            
             sections.append(.init(type: .content, items: convertCellModel(data)))
         } else {
             sections.first?.items.append(contentsOf: convertCellModel(data))
         }
+        
         event.send(.reloadData(sections: sections))
         event.send(.hideLoading)
     }
@@ -58,7 +60,7 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
 }
 
 extension CompositionalViewModel {
-    public func getSectionItem(_ sectionIndex: Int) -> CompositionalViewModel.Section {
+    public func getSectionItem(_ sectionIndex: Int) -> Section {
         return sections[sectionIndex]
     }
 }

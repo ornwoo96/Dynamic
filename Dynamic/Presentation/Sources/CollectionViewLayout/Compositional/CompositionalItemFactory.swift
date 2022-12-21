@@ -8,9 +8,16 @@
 import UIKit
 
 public struct FactoryItems {
-    var columnCount: Int = 2
+    static let empty: Self = .init(columnCount: 0, itemPadding: 0)
+    
+    let columnCount: Int
     let itemPadding: CGFloat
-    let itemSize: CGSize
+    
+    init(columnCount: Int,
+         itemPadding: CGFloat) {
+        self.columnCount = columnCount
+        self.itemPadding = itemPadding
+    }
 }
 
 public class CompositionalItemFactory {
@@ -18,20 +25,36 @@ public class CompositionalItemFactory {
     private let columnCount: CGFloat
     private let itemPadding: CGFloat
     private let contentWidth: CGFloat
-    private let itemSize: CGSize
+    private var itemSize: CGSize = .zero
     
     init(factoryItems: FactoryItems,
          contentWidth: CGFloat) {
         self.columnCount = CGFloat(factoryItems.columnCount)
         self.itemPadding = factoryItems.itemPadding
         self.contentWidth = contentWidth
-        self.itemSize = factoryItems.itemSize
+    }
+    
+    public func setItemSize(_ itemSize: CGSize) {
+        self.itemSize = itemSize
     }
     
     public func getItem() -> NSCollectionLayoutGroupCustomItem {
         let frame = itemFrame()
-        columnHeights[columnIndex()] = frame.maxY + itemPadding
+        setupColumnHeights(frame)
+        
         return NSCollectionLayoutGroupCustomItem(frame: frame)
+    }
+    
+    private func setupColumnHeights(_ frame: CGRect) {
+        if columnHeights.isEmpty {
+            columnHeights = [frame.maxY + itemPadding]
+            for _ in 0..<Int(columnCount)-1 {
+                columnHeights.append(CGFloat(0))
+            }
+            return
+        }
+        
+        columnHeights[columnIndex()] = frame.maxY + itemPadding
     }
     
     private func itemFrame() -> CGRect {
@@ -41,9 +64,16 @@ public class CompositionalItemFactory {
     }
     
     private func itemOrigin(_ width: CGFloat) -> CGPoint {
-        let y = columnHeights[columnIndex()]
+        let y = checkColumnHeights()
         let x = (width + itemPadding) * CGFloat(columnIndex())
         return CGPoint(x: x, y: y)
+    }
+    
+    private func checkColumnHeights() -> CGFloat {
+        if columnHeights.isEmpty {
+            return 0
+        }
+        return columnHeights[columnIndex()]
     }
     
     private func itemSizeAspect() -> CGSize {
@@ -61,7 +91,13 @@ public class CompositionalItemFactory {
         return (itemWidth()*itemSize.height)/itemSize.width
     }
     
+    
+    // MARK: 더 작은쪽으로 index 알려주기
     private func columnIndex() -> Int {
-        return columnHeights.enumerated().min(by: { $0.element < $1.element })?.offset ?? 0
+        
+        
+        return columnHeights.enumerated()
+            .min(by: { $0.element < $1.element })?
+            .offset ?? 0
     }
 }

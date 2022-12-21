@@ -23,7 +23,8 @@ extension CompositionalViewModel {
             lhs.identifier ==  rhs.identifier
         }
         
-        init(type: SectionType, items: [BaseCellItem]) {
+        init(type: SectionType,
+             items: [BaseCellItem]) {
             self.type = type
             self.items = items
         }

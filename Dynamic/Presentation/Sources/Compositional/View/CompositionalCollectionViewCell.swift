@@ -11,10 +11,17 @@ import DynamicCore
 public class CompositionalCellItem: BaseCellItem {
     let url: String
     let favorite: Bool
+    let width: CGFloat
+    let height: CGFloat
     
-    init(url: String, favorite: Bool) {
+    init(url: String,
+         favorite: Bool,
+         width: CGFloat,
+         height: CGFloat) {
         self.url = url
         self.favorite = favorite
+        self.width = width
+        self.height = height
     }
 }
 

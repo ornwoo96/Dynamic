@@ -9,11 +9,12 @@ import Foundation
 import DynamicDomain
 
 extension CompositionalViewModel {
-    public func convertCellModel(_ compositionalPresentationModel: [CompositionalPresentationModel.PreviewModel]) -> [CompositionalCellModel] {
+    public func convertCellModel(_ compositionalPresentationModel: [CompositionalPresentationModel.PreviewModel]) -> [CompositionalCellItem] {
         return compositionalPresentationModel.map {
-            CompositionalCellModel.init(imageURL: $0.url,
-                                        imageId: $0.id,
-                                        favorite: $0.favorite)
+            CompositionalCellItem.init(url: $0.url,
+                                       favorite: $0.favorite,
+                                       width: $0.width,
+                                       height: $0.height)
         }
     }
     
