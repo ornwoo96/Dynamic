@@ -56,6 +56,8 @@
 		0BB52BEA2946097D005FC30F /* CompositionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BE92946097D005FC30F /* CompositionalViewController.swift */; };
 		0BB52BEC2946098C005FC30F /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BEB2946098C005FC30F /* SwiftUIViewController.swift */; };
 		0BB7E0432952D27900C0AA83 /* BaseCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0422952D27900C0AA83 /* BaseCellItem.swift */; };
+		0BB7E0462952D2E500C0AA83 /* CompositionalItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0452952D2E500C0AA83 /* CompositionalItemFactory.swift */; };
+		0BB7E0482952D31000C0AA83 /* CompositionalLayout + Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0472952D31000C0AA83 /* CompositionalLayout + Dynamic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,8 @@
 		0BB52BE92946097D005FC30F /* CompositionalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalViewController.swift; sourceTree = "<group>"; };
 		0BB52BEB2946098C005FC30F /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
 		0BB7E0422952D27900C0AA83 /* BaseCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCellItem.swift; sourceTree = "<group>"; };
+		0BB7E0452952D2E500C0AA83 /* CompositionalItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalItemFactory.swift; sourceTree = "<group>"; };
+		0BB7E0472952D31000C0AA83 /* CompositionalLayout + Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompositionalLayout + Dynamic.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,13 +311,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		0B72325D2949E0F6009D3EDF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		0B723260294A08E1009D3EDF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,7 +322,6 @@
 		0B723263294A2B3A009D3EDF /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0B72325D2949E0F6009D3EDF /* Model */,
 				0B9923342950318500913288 /* View */,
 			);
 			path = Common;
@@ -438,13 +434,6 @@
 			path = CustomFlowLayout;
 			sourceTree = "<group>";
 		};
-		0B9923322950286800913288 /* Compositional */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Compositional;
-			sourceTree = "<group>";
-		};
 		0B9923332950287700913288 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,8 +527,8 @@
 		0BB52B522945F817005FC30F /* CollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
+				0BB7E0442952D2C900C0AA83 /* Compositional */,
 				0B9923332950287700913288 /* SwiftUI */,
-				0B9923322950286800913288 /* Compositional */,
 				0B9923312950285A00913288 /* CustomFlowLayout */,
 			);
 			path = CollectionViewLayout;
@@ -551,6 +540,15 @@
 				0BB7E0422952D27900C0AA83 /* BaseCellItem.swift */,
 			);
 			path = CellItemBase;
+			sourceTree = "<group>";
+		};
+		0BB7E0442952D2C900C0AA83 /* Compositional */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7E0452952D2E500C0AA83 /* CompositionalItemFactory.swift */,
+				0BB7E0472952D31000C0AA83 /* CompositionalLayout + Dynamic.swift */,
+			);
+			path = Compositional;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -663,6 +661,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BB7E0462952D2E500C0AA83 /* CompositionalItemFactory.swift in Sources */,
 				0BB52A152945AC90005FC30F /* Presentation.docc in Sources */,
 				0B992330294F479700913288 /* PickListCollectionViewCell.swift in Sources */,
 				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
@@ -679,6 +678,7 @@
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
 				0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
+				0BB7E0482952D31000C0AA83 /* CompositionalLayout + Dynamic.swift in Sources */,
 				0B99232D294F44A200913288 /* PickListViewModel + Event.swift in Sources */,
 				0B72322D29473531009D3EDF /* TarBarController.swift in Sources */,
 				0BB52BE82946095D005FC30F /* CustomViewController.swift in Sources */,
