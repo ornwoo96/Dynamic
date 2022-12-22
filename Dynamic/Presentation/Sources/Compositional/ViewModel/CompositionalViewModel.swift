@@ -24,11 +24,30 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
         switch action {
         case .viewDidLoad:
             self.retrieveGIPHYData()
-        case .didSelectItemAt(_):
-            break
+        case .didSelectItemAt(let indexPath):
+            event.send(.showDetailView(content: convert(originalContents[indexPath.item])))
         case .willDisplay(let indexPath):
             self.retrieveNextData(indexPath.item)
+        case .didSelectedItemAtLongPressed(indexPath: let indexPath):
+            event.send(.showHeartView(indexPath: indexPath))
         }
+    }
+    
+    public func checkFavoriteButtonTapped(_ bool: Bool,
+                                          _ indexPath: Int) {
+        if bool {
+            requestCreateImageDataToCoreData(indexPath)
+        } else {
+            requestRemoveImageDataToCoreData(indexPath)
+        }
+    }
+    
+    private func requestCreateImageDataToCoreData(_ indexPath: Int) {
+        dynamicUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
+    }
+    
+    private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
+        dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
     }
     
     private func retrieveGIPHYData() {
@@ -37,7 +56,6 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
                 let model = try await dynamicUseCase.retrieveGIPHYDatas()
                 self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
                 self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
-                
                 setupSections(convertPresentationModel(model).previewModel)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")

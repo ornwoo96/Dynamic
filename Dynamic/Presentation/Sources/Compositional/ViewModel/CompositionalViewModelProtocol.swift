@@ -10,6 +10,7 @@ import Combine
 
 public protocol CompositionalViewModelInputProtocol: AnyObject {
     func action(_ action: CompositionalViewModel.Action)
+    func checkFavoriteButtonTapped(_ bool: Bool, _ indexPath: Int)
 }
 
 public protocol CompositionalViewModelOutputProtocol: AnyObject {

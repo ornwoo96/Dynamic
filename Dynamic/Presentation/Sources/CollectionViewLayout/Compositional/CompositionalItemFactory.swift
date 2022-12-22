@@ -57,7 +57,6 @@ public class CompositionalItemFactory {
             }
             return
         }
-        
         columnHeights[columnIndex()] = frame.maxY + itemPadding
     }
     
@@ -69,8 +68,18 @@ public class CompositionalItemFactory {
     
     private func itemOrigin(_ width: CGFloat) -> CGPoint {
         let y = checkColumnHeights()
-        let x = (width + itemPadding) * CGFloat(columnIndex())
+        let x = xValue(width)
         return CGPoint(x: x, y: y)
+    }
+    
+    private func xValue(_ width: CGFloat) -> CGFloat {
+        if columnIndex() == 0 {
+            return itemPadding
+        } else if columnIndex() == Int(columnCount) {
+            return (width*CGFloat(columnIndex())) + (itemPadding*2)
+        } else {
+            return (width*CGFloat(columnIndex())) + (itemPadding*2)
+        }
     }
     
     private func checkColumnHeights() -> CGFloat {
@@ -83,25 +92,32 @@ public class CompositionalItemFactory {
     private func itemSizeAspect() -> CGSize {
         let height = itemHeight()
         let width = itemWidth()
+        
         return CGSize(width: width, height: height)
     }
     
     private func itemWidth() -> CGFloat {
-        let itemPadding = (columnCount - 1) * itemPadding
-        return (contentWidth - itemPadding) / columnCount
+        return (contentWidth/columnCount) - minusPadding()
+    }
+    
+    private func minusPadding() -> CGFloat {
+        if columnIndex() == 0 {
+            return (itemPadding/2)*3
+        } else if columnIndex() == Int(columnCount)-1 {
+            return (itemPadding/2)*3
+        } else {
+            return itemPadding
+        }
     }
     
     private func itemHeight() -> CGFloat {
         return (itemWidth()*itemSize.height)/itemSize.width
     }
     
-    
-    // MARK: 더 작은쪽으로 index 알려주기
     private func columnIndex() -> Int {
-        
-        
         return columnHeights.enumerated()
             .min(by: { $0.element < $1.element })?
             .offset ?? 0
     }
+    
 }

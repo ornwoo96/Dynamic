@@ -9,11 +9,11 @@
 import UIKit
 
 public class CompositionalLayoutFactory {
-    public func getDynamicLayoutSection(_ columnCount: Int = 2,
-                                        _ itemPadding: CGFloat,
-                                        _ contentWidth: CGFloat,
-                                        _ numberOfItems: Int,
-                                        _ sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
+    public func getDynamicLayoutSection(columnCount: Int = 2,
+                                        itemPadding: CGFloat,
+                                        contentWidth: CGFloat,
+                                        numberOfItems: Int,
+                                        sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
         guard let items = sectionItem.items as? [CompositionalCellItem] else {
             return .init(group: .init(layoutSize: .init(widthDimension: .absolute(0),
                                                         heightDimension: .absolute(0))))
@@ -31,7 +31,7 @@ public class CompositionalLayoutFactory {
             customGroupItems.append(item)
         }
         
-        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1),
+        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .absolute(contentWidth),
                                                       heightDimension: .absolute(itemFactory.getTotalHeight()))
         
         let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { _ in

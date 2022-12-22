@@ -9,6 +9,20 @@ import Foundation
 import DynamicDomain
 
 extension CompositionalViewModel {
+    public func convert(_ data: CompositionalPresentationModel.OriginalModel) -> DetailModel {
+        return DetailModel(url: data.url,
+                           width: String(Int(data.width)),
+                           height: String(Int(data.height)))
+    }
+    
+    public func convertOriginalDomain(_ data: CompositionalPresentationModel.OriginalModel) -> OriginalDomainModel {
+        return OriginalDomainModel.init(id: data.id,
+                                        height: String(Int(data.height)),
+                                        width: String(Int(data.width)),
+                                        url: data.url,
+                                        favorite: data.favorite)
+    }
+    
     public func convertCellModel(_ compositionalPresentationModel: [CompositionalPresentationModel.PreviewModel]) -> [CompositionalCellItem] {
         return compositionalPresentationModel.map {
             CompositionalCellItem.init(url: $0.url,

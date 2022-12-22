@@ -12,6 +12,6 @@ extension CompositionalViewModel {
         case viewDidLoad
         case didSelectItemAt(_ indexPath: IndexPath)
         case willDisplay(_ indexPath: IndexPath)
+        case didSelectedItemAtLongPressed(indexPath: IndexPath)
     }
-    
 }
