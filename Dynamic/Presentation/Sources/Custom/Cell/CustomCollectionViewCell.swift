@@ -7,6 +7,13 @@
 
 import UIKit
 
+import DynamicCore
+
+public struct CustomCellItem {
+    let favorite: Bool
+    let imageUrl: String
+}
+
 class CustomCollectionViewCell: UICollectionViewCell {
     static let identifier = "CustomCollectionViewCell"
     
@@ -41,17 +48,15 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
     }
     
-    public func configure(_ viewModel: CustomViewModel,
-                          _ cellIndexPath: IndexPath) {
-        Task { [weak self] in
-            self?.imageView.image = nil
-            let imageData = try await viewModel.retrieveImageData(cellIndexPath)
-            DispatchQueue.main.async { [weak self] in
-                self?.animateHeartView(imageData.1)
-                self?.imageView.image = UIImage.gifImageWithData(imageData.0)
+    public func configure(_ item: CustomCellItem) {
+        Task {
+            let image = try await ImageCacheManager.shared.imageLoad(item.imageUrl)
+            await MainActor.run { [weak self] in
+                self?.imageView.image = nil
+                self?.imageView.image = UIImage.gifImageWithData(image)
+                self?.animateHeartView(item.favorite)
             }
         }
     }

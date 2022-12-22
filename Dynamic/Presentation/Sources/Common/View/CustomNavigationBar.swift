@@ -32,6 +32,8 @@ final class CustomNavigationBar: UIView {
     private lazy var pickListButton: PickListButton = {
         let button = PickListButton()
         button.addTarget(self, action: #selector(favoritesButtonTapped(_:)), for: .touchUpInside)
+        button.viewRadius(cornerRadius: xValueRatio(13.5))
+        button.backgroundColor = .systemRed
         return button
     }()
     
@@ -74,10 +76,10 @@ final class CustomNavigationBar: UIView {
         backgroundView.addSubview(pickListButton)
         pickListButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pickListButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            pickListButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: yValueRatio(5)),
             pickListButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -xValueRatio(10)),
-            pickListButton.widthAnchor.constraint(equalToConstant: xValueRatio(110)),
-            pickListButton.heightAnchor.constraint(equalToConstant: xValueRatio(40))
+            pickListButton.widthAnchor.constraint(equalToConstant: xValueRatio(100)),
+            pickListButton.heightAnchor.constraint(equalToConstant: xValueRatio(27))
         ])
     }
     

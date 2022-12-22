@@ -20,7 +20,8 @@ class PickListViewController: UIViewController, HasCoordinatable {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(PickListCollectionViewCell.self, forCellWithReuseIdentifier: PickListCollectionViewCell.identifier)
+        collectionView.register(PickListCollectionViewCell.self,
+                                forCellWithReuseIdentifier: PickListCollectionViewCell.identifier)
         collectionView.backgroundColor = .black
         collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35),
                                                    left: xValueRatio(5),
@@ -105,7 +106,7 @@ extension PickListViewController: UICollectionViewDelegate, UICollectionViewData
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickListCollectionViewCell.identifier, for: indexPath) as? PickListCollectionViewCell else { return UICollectionViewCell() }
         cell.imageView.image = nil
-        cell.configure(viewModel.contents[indexPath.item].data)
+        cell.configure(viewModel.contents[indexPath.item].url)
         cell.backgroundColor = .blue
         return cell
     }

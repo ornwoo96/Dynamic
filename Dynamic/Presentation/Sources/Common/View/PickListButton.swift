@@ -16,13 +16,6 @@ final class PickListButton: UIButton {
         return label
     }()
     
-    private lazy var heartImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart")
-        imageView.tintColor = .systemRed
-        return imageView
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -34,26 +27,15 @@ final class PickListButton: UIButton {
     
     private func setupUI() {
         setupTitleLabel()
-        setupHeartImageView()
     }
     
     private func setupTitleLabel() {
         self.addSubview(pickListLabel)
         pickListLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pickListLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            pickListLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             pickListLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
     
-    private func setupHeartImageView() {
-        self.addSubview(heartImageView)
-        heartImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            heartImageView.leadingAnchor.constraint(equalTo: pickListLabel.trailingAnchor, constant: xValueRatio(5)),
-            heartImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: yValueRatio(1)),
-            heartImageView.heightAnchor.constraint(equalToConstant: xValueRatio(25)),
-            heartImageView.widthAnchor.constraint(equalToConstant: xValueRatio(25))
-        ])
-    }
 }

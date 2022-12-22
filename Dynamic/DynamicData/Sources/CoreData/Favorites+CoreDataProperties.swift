@@ -19,6 +19,6 @@ extension Favorites {
     @NSManaged public var id: String?
     @NSManaged public var width: String?
     @NSManaged public var height: String?
-    @NSManaged public var image: Data?
+    @NSManaged public var url: String?
 
 }

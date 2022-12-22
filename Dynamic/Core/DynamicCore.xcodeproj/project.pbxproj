@@ -14,6 +14,7 @@
 		0B19C88D2942446400909F8D /* BMOInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C88C2942446400909F8D /* BMOInject.swift */; };
 		0B19C8912943665C00909F8D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C8902943665C00909F8D /* TestViewController.swift */; };
 		0B19C893294391D800909F8D /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C892294391D800909F8D /* DIContainer.swift */; };
+		0BB7E03B2952CB0900C0AA83 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E03A2952CB0900C0AA83 /* ImageCacheManager.swift */; };
 		0BE3D460294472CC006B354E /* RegisterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3D45F294472CC006B354E /* RegisterKeys.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		0B19C88C2942446400909F8D /* BMOInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMOInject.swift; sourceTree = "<group>"; };
 		0B19C8902943665C00909F8D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0B19C892294391D800909F8D /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		0BB7E03A2952CB0900C0AA83 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		0BE3D45F294472CC006B354E /* RegisterKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,14 @@
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
+		0BB7E0392952CAE300C0AA83 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7E03A2952CB0900C0AA83 /* ImageCacheManager.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		0BE3D4632944A9C7006B354E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +134,7 @@
 		0BE3D4642944A9CD006B354E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0BB7E0392952CAE300C0AA83 /* Cache */,
 				0B19C8412942358900909F8D /* Core */,
 			);
 			path = Sources;
@@ -240,6 +251,7 @@
 			files = (
 				0B19C8442942358900909F8D /* Core.docc in Sources */,
 				0B19C893294391D800909F8D /* DIContainer.swift in Sources */,
+				0BB7E03B2952CB0900C0AA83 /* ImageCacheManager.swift in Sources */,
 				0BE3D460294472CC006B354E /* RegisterKeys.swift in Sources */,
 				0B19C88D2942446400909F8D /* BMOInject.swift in Sources */,
 			);

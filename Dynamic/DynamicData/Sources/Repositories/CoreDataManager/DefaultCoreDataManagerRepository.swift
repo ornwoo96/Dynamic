@@ -45,14 +45,14 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     public func createGIFImageData(_ height: String,
                                    _ width: String,
                                    _ id: String,
-                                   _ image: Data) {
+                                   _ url: String) {
         let context = persistentContainer.viewContext
         guard let entity: Favorites = NSEntityDescription.insertNewObject(forEntityName: CoreDataEntityName.favorites.rawValue, into: context) as? Favorites else { return }
         
         entity.height = height
         entity.width = width
         entity.id = id
-        entity.image = image
+        entity.url = url
         
         do {
             try context.save()
@@ -82,6 +82,32 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
             print(error.localizedDescription)
             return
         }
+    }
+    
+    public func checkGIFImageArrayDataIsExist(_ array: [String]) async throws -> [Bool] {
+        let request = Favorites.fetchRequest()
+        let context = persistentContainer.viewContext
+        
+        var boolArray: [Bool] = []
+        
+        (0..<array.count).forEach {
+            request.predicate = NSPredicate(format: "id == %@", array[$0] as CVarArg)
+
+            do {
+                let data = try context.fetch(request)
+
+                if data.count == 0 {
+                    boolArray.append(false)
+                } else {
+                    boolArray.append(true)
+                }
+
+            } catch {
+                print("check 실패")
+            }
+        }
+        
+        return boolArray
     }
     
     public func checkGIFImageDataIsExist(_ id: String) async throws -> Bool {
@@ -117,7 +143,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
             if data.count == 0 {
                 return FavoriteDomainModel.empty
             } else {
-                let domainModel = FavoriteDomainModel(data: data[0].image ?? Data(),
+                let domainModel = FavoriteDomainModel(url: data[0].url ?? "",
                                                       width: data[0].width ?? "",
                                                       height: data[0].height ?? "",
                                                       id: data[0].id ?? "")
@@ -151,7 +177,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     private func convertFavoritesToDomainModel(_ data: [Favorites]) -> [FavoriteDomainModel] {
         var dataArray: [FavoriteDomainModel] = []
         for i in data {
-            let domainModel: FavoriteDomainModel = .init(data: i.image ?? Data(),
+            let domainModel: FavoriteDomainModel = .init(url: i.url ?? "",
                                                          width: i.width ?? "",
                                                          height: i.height ?? "",
                                                          id: i.id ?? "")
