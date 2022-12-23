@@ -29,6 +29,13 @@ extension CompositionalViewModel {
                 
             case (.showHeartView, .showHeartView):
                 return true
+                
+            case (.showNavigationBar, showNavigationBar):
+                return true
+                
+            case (.hideNavigationBar, hideNavigationBar):
+                return true
+                
             default:
                 return false
                 
@@ -43,6 +50,8 @@ extension CompositionalViewModel {
         case showHeartView(indexPath: IndexPath)
         case hideLoading
         case invalidateLayout
+        case hideNavigationBar
+        case showNavigationBar
     }
     
 }

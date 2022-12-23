@@ -15,9 +15,9 @@ public protocol CompositionalViewModelInputProtocol: AnyObject {
 
 public protocol CompositionalViewModelOutputProtocol: AnyObject {
     var event: CurrentValueSubject<CompositionalViewModel.Event, Never> { get }
-
     func getSectionItem(_ sectionIndex: Int) -> CompositionalViewModel.Section
 }
 
 public protocol CompositionalViewModelProtocol: CompositionalViewModelInputProtocol, CompositionalViewModelOutputProtocol {
+    var isCustomNavigationBarAnimationFirst: Bool { get set }
 }

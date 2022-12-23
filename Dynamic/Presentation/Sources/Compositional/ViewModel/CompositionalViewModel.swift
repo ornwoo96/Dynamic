@@ -15,6 +15,7 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
+    public var isCustomNavigationBarAnimationFirst = false
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
@@ -30,6 +31,10 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
             self.retrieveNextData(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath: indexPath))
+        case .didUpScrollView:
+            event.send(.showNavigationBar)
+        case .didDownScrollView:
+            event.send(.hideNavigationBar)
         }
     }
     

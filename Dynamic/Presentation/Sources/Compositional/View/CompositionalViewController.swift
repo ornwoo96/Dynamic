@@ -43,9 +43,9 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupUI() {
+        setupCustomNavigationBar()
         setupViewController()
         setupCollectionView()
-        setupCustomNavigationBar()
     }
     
     private func setupViewController() {
@@ -60,7 +60,7 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            compositionalCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            compositionalCollectionView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
             compositionalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             compositionalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             compositionalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -71,13 +71,15 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
         customNavigationBar.backgroundColor = .blue
         customNavigationBar.delegate = self
         view.addSubview(customNavigationBar)
+        
+        customNavigationBarTopConstraint = customNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customNavigationBar.heightAnchor.constraint(equalToConstant: yValueRatio(90)),
             customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+        customNavigationBarTopConstraint?.isActive = true
     }
     
     private func bind() {
@@ -103,6 +105,10 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
                     self?.invalidateLayout()
                 case .showHeartView(indexPath: let indexPath):
                     self?.setupCellWhenCellLongPressed(indexPath)
+                case .hideNavigationBar:
+                    self?.animateHideBar()
+                case .showNavigationBar:
+                    self?.animateShowBar()
                 }
             }
             .store(in: &cancellable)
@@ -121,9 +127,6 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     
     private func setDataSource() {
         dataSource = .init(collectionView: compositionalCollectionView) { [weak self] in
-            guard let strongSelf = self else {
-                return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
-            }
             
             if let cell = $0.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier,
                                                  for: $1) as? CompositionalCollectionViewCell,
@@ -156,9 +159,6 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     }
     
 }
-
-// MARK: Tab 변경시 Repository에 있는 cache 값도 바꿔주는 코드 하나 추가
-// MARK: navigation animation
 
 extension CompositionalViewController {
     private func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -233,21 +233,42 @@ extension CompositionalViewController: UIGestureRecognizerDelegate {
 }
 
 extension CompositionalViewController {
-    // MARK: NavigationBar Animation
-    private enum Action {
-        case hideBar
-        case showBar
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 1 {
+            animateHideBar()
+        } else {
+            animateShowBar()
+        }
     }
+}
+
+extension CompositionalViewController {
     
     private func animateHideBar() {
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            if self.viewModel.isCustomNavigationBarAnimationFirst == false {
+                self.customNavigationBarTopConstraint?.constant = -100
+                
+                UIView.animate(withDuration: 0.25) {
+                    self.view.layoutIfNeeded()
+                }
+                
+                self.viewModel.isCustomNavigationBarAnimationFirst = true
+            }
         }
     }
     
     private func animateShowBar() {
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            if self.viewModel.isCustomNavigationBarAnimationFirst {
+                self.customNavigationBarTopConstraint?.constant = 0
+
+
+                UIView.animate(withDuration: 0.25) {
+                    self.view.layoutIfNeeded()
+                }
+                self.viewModel.isCustomNavigationBarAnimationFirst = false
+            }
         }
     }
 }
