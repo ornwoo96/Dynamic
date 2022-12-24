@@ -14,6 +14,7 @@ public enum VMKeys: String {
     case swiftUIVM = "SwiftUIViewModel"
     case detail = "DetailViewModel"
     case pickList = "PickListViewModel"
+    case parentCompo = "ParentCompositionalViewModel"
 }
 
 public enum VCKeys: String {
@@ -24,6 +25,7 @@ public enum VCKeys: String {
     case tabBar = "TabBarController"
     case detail = "DetailViewController"
     case pickList = "PickListViewController"
+    case parentCompo = "ParentCompositionalViewController"
 }
 
 public enum UCKeys: String {
@@ -43,6 +45,7 @@ public enum CodiKeys: String {
     case custom = "CustomCoordinator"
     case swift = "SwiftUICoordinator"
     case compo = "CompositionalCoordinator"
+    case parentCompo = "ParentCompositionalCoordinator"
     case mainCodi = "MainCoordinator"
     case detail = "DetailCoordinator"
     case pickList = "PickListCoordinator"

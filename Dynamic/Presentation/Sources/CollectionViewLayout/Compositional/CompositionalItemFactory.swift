@@ -8,15 +8,24 @@
 import UIKit
 
 public struct FactoryItems {
-    static let empty: Self = .init(columnCount: 0, itemPadding: 0)
+    static let empty: Self = .init(columnCount: 0,
+                                   itemPadding: 0,
+                                   contentWidth: 0,
+                                   sectionIndex: 0)
     
     let columnCount: Int
     let itemPadding: CGFloat
+    let contentWidth: CGFloat
+    let sectionIndex: Int
     
     init(columnCount: Int,
-         itemPadding: CGFloat) {
+         itemPadding: CGFloat,
+         contentWidth: CGFloat,
+         sectionIndex: Int) {
         self.columnCount = columnCount
         self.itemPadding = itemPadding
+        self.contentWidth = contentWidth
+        self.sectionIndex = sectionIndex
     }
 }
 
@@ -26,12 +35,13 @@ public class CompositionalItemFactory {
     private let itemPadding: CGFloat
     private let contentWidth: CGFloat
     private var itemSize: CGSize = .zero
+    private var sectionIndex: CGFloat
     
-    init(factoryItems: FactoryItems,
-         contentWidth: CGFloat) {
+    init(factoryItems: FactoryItems) {
         self.columnCount = CGFloat(factoryItems.columnCount)
+        self.contentWidth = factoryItems.contentWidth
         self.itemPadding = factoryItems.itemPadding
-        self.contentWidth = contentWidth
+        self.sectionIndex = CGFloat(factoryItems.sectionIndex)
     }
     
     public func setItemSize(_ itemSize: CGSize) {
@@ -68,7 +78,8 @@ public class CompositionalItemFactory {
     
     private func itemOrigin(_ width: CGFloat) -> CGPoint {
         let y = checkColumnHeights()
-        let x = xValue(width)
+        let x = xValue(width) + addSectionIndexXPoint()
+        
         return CGPoint(x: x, y: y)
     }
     
@@ -94,6 +105,10 @@ public class CompositionalItemFactory {
         let width = itemWidth()
         
         return CGSize(width: width, height: height)
+    }
+    
+    private func addSectionIndexXPoint() -> CGFloat {
+        return contentWidth * sectionIndex
     }
     
     private func itemWidth() -> CGFloat {

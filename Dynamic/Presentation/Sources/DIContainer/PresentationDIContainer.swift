@@ -40,7 +40,7 @@ public final class PresentationDIContainer: Containable {
     
     private func registerCoordinators() {
         registerCustomCoordinator()
-        registerCompositionalCoordinator()
+        registerParentCompositionalCoordinator()
         registerSwiftCoordinator()
         registerDetailCoordinator()
         registerPickListCoordinator()
@@ -57,12 +57,12 @@ extension PresentationDIContainer {
         container.registerValue(CodiKeys.custom.rawValue, coordinator)
     }
     
-    private func registerCompositionalCoordinator() {
-        guard let viewController: CompositionalViewController = container.resolveValue(VCKeys.compoVC.rawValue) else { return }
-        let coordinator = CompositionalCoordinator(parentCoordinator: nil,
-                                                   viewController: viewController)
+    private func registerParentCompositionalCoordinator() {
+        guard let viewController: ParentCompositionalViewController = container.resolveValue(VCKeys.parentCompo.rawValue) else { return }
+        let coordinator = ParentCompositionalCoordinator(parentCoordinator: nil,
+                                                         viewController: viewController)
         coordinator.navigationController = UINavigationController()
-        container.registerValue(CodiKeys.compo.rawValue, coordinator)
+        container.registerValue(CodiKeys.parentCompo.rawValue, coordinator)
     }
     
     private func registerSwiftCoordinator() {
@@ -100,9 +100,12 @@ extension PresentationDIContainer {
     }
     
     private func registerCompositionalViewController() {
-        guard let viewModel: CompositionalViewModel = container.resolveValue(VMKeys.compoVM.rawValue) else { return }
-        let viewController = CompositionalViewController(viewModel: viewModel)
-        container.registerValue(VCKeys.compoVC.rawValue, viewController)
+        guard let viewModel: ChildCompositionalViewModel = container.resolveValue(VMKeys.compoVM.rawValue),
+              let parentViewModel: ParentCompositionalViewModel = container.resolveValue(VMKeys.parentCompo.rawValue) else { return }
+        let viewControllers = createCategoryViewControllers(viewModel)
+        let parentCompositionalViewController = ParentCompositionalViewController(viewModel: parentViewModel,
+                                                                                  viewControllers: viewControllers)
+        container.registerValue(VCKeys.parentCompo.rawValue, parentCompositionalViewController)
     }
     
     private func registerSwiftUIViewController() {
@@ -122,6 +125,30 @@ extension PresentationDIContainer {
         let viewController = PickListViewController(viewModel: viewModel)
         container.registerValue(VCKeys.pickList.rawValue, viewController)
     }
+    
+    private func createCategoryViewControllers(_ viewModel: ChildCompositionalViewModel) -> [ChildCompositionalViewController] {
+        let categorys: [ChildCompositionalViewModel.Category] = [.Coding, .Cats, .Christmas, .Dogs, .Memes, .Oops]
+        var categoryViewControllers: [ChildCompositionalViewController] = []
+        categorys.forEach {
+            let viewController = ChildCompositionalViewController(viewModel: viewModel,
+                                                                  category: $0)
+            categoryViewControllers.append(viewController)
+        }
+        return setupViewControllerContainCoordinator(categoryViewControllers)
+    }
+    
+    private func setupViewControllerContainCoordinator(_ viewControllers: [ChildCompositionalViewController]) -> [ChildCompositionalViewController] {
+        var viewControllerArray: [ChildCompositionalViewController] = []
+        viewControllers.forEach {
+            let coordinator = ChildCompositionalCoordinator(parentCoordinator: nil,
+                                                            viewController: $0)
+            $0.coordinator = coordinator
+            coordinator.navigationController = UINavigationController()
+            viewControllerArray.append($0)
+        }
+        
+        return viewControllerArray
+    }
 }
 
 // MARK: Register - ViewModel
@@ -134,8 +161,10 @@ extension PresentationDIContainer {
     
     private func registerCompositionalViewModel() {
         guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
-        let viewModel = CompositionalViewModel(dynamicUseCase: dynamicUseCase)
-        container.registerValue(VMKeys.compoVM.rawValue, viewModel)
+        let childViewModel = ChildCompositionalViewModel(dynamicUseCase: dynamicUseCase)
+        let parentViewModel = ParentCompositionalViewModel()
+        container.registerValue(VMKeys.compoVM.rawValue, childViewModel)
+        container.registerValue(VMKeys.parentCompo.rawValue, parentViewModel)
     }
     
     private func registerSwiftUIViewModel() {
@@ -161,7 +190,7 @@ extension PresentationDIContainer {
     private func registerTabBar() {
         
         guard let customCoordinator: CustomCoordinator = container.resolveValue(CodiKeys.custom.rawValue),
-              let compositionalCoordinator: CompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.compo.rawValue),
+              let compositionalCoordinator: ParentCompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCompo.rawValue),
               let swiftCoordinator: SwiftUICoordinator = container.resolveValue(CodiKeys.swift.rawValue) else { return }
         
         customCoordinator.navigationController = UINavigationController()

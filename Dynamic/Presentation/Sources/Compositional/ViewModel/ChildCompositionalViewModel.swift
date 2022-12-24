@@ -9,13 +9,13 @@ import Foundation
 import Combine
 import DynamicDomain
 
-public class CompositionalViewModel: CompositionalViewModelProtocol {
+public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     private let dynamicUseCase: DynamicUseCase
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
-    public var isCustomNavigationBarAnimationFirst = false
+    public var category: Category = .Coding
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
@@ -31,10 +31,6 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
             self.retrieveNextData(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath: indexPath))
-        case .didUpScrollView:
-            event.send(.showNavigationBar)
-        case .didDownScrollView:
-            event.send(.hideNavigationBar)
         }
     }
     
@@ -70,12 +66,11 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
     
     private func setupSections(_ data: [CompositionalPresentationModel.PreviewModel]) {
         if sections.isEmpty {
-            
+            sections.append(.init(type: .content, items: convertCellModel(data)))
             sections.append(.init(type: .content, items: convertCellModel(data)))
         } else {
             sections.first?.items.append(contentsOf: convertCellModel(data))
         }
-        
         event.send(.reloadData(sections: sections))
         event.send(.hideLoading)
     }
@@ -89,7 +84,7 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
     }
 }
 
-extension CompositionalViewModel {
+extension ChildCompositionalViewModel {
     public func getSectionItem(_ sectionIndex: Int) -> Section {
         return sections[sectionIndex]
     }

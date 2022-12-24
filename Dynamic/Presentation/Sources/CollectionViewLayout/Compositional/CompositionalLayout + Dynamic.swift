@@ -12,33 +12,48 @@ public class CompositionalLayoutFactory {
     public func getDynamicLayoutSection(columnCount: Int = 2,
                                         itemPadding: CGFloat,
                                         contentWidth: CGFloat,
+                                        sectionIndex: Int,
                                         numberOfItems: Int,
-                                        sectionItem: CompositionalViewModel.Section) -> NSCollectionLayoutSection {
+                                        sectionItem: ChildCompositionalViewModel.Section) -> NSCollectionLayoutSection {
         guard let items = sectionItem.items as? [CompositionalCellItem] else {
             return .init(group: .init(layoutSize: .init(widthDimension: .absolute(0),
                                                         heightDimension: .absolute(0))))
         }
         
-        var itemFactory = CompositionalItemFactory(
-            factoryItems: FactoryItems(columnCount: columnCount,
-                                       itemPadding: itemPadding),
-            contentWidth: contentWidth)
+        let itemFactory = CompositionalItemFactory(factoryItems: .init(columnCount: columnCount,
+                                                                       itemPadding: itemPadding,
+                                                                       contentWidth: contentWidth,
+                                                                       sectionIndex: sectionIndex))
         var customGroupItems: [NSCollectionLayoutGroupCustomItem] = []
         
         for i in 0..<numberOfItems {
             itemFactory.setItemSize(CGSize(width: items[i].width, height: items[i].height))
             let item = itemFactory.getItem()
+            
             customGroupItems.append(item)
         }
         
-        let groupSize: NSCollectionLayoutSize = .init(widthDimension: .absolute(contentWidth),
-                                                      heightDimension: .absolute(itemFactory.getTotalHeight()))
+        let groupSize: NSCollectionLayoutSize = .init(
+            widthDimension: .absolute(contentWidth),
+            heightDimension: .absolute(itemFactory.getTotalHeight()+200)
+        )
         
         let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { _ in
             return customGroupItems
         }
         
-        return .init(group: group)
+        let section: NSCollectionLayoutSection = .init(group: group)
+        
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize.init(widthDimension: .absolute(contentWidth),
+                                                    heightDimension: .absolute(100)),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
+        section.boundarySupplementaryItems = [header]
+        
+        return section
     }
     
     public func getEmptySection() -> NSCollectionLayoutSection {
@@ -53,5 +68,11 @@ public class CompositionalLayoutFactory {
             subitems: [item])
         
         return .init(group: group)
+    }
+    
+    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .estimated(50))
+        return .init(layoutSize: layoutSize, elementKind: CategoryView.identifier, alignment: .top)
     }
 }
