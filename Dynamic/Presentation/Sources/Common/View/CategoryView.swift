@@ -40,7 +40,7 @@ class CategoryView: UIView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: .zero, left: xValueRatio(20), bottom: .zero, right: .zero)
         scrollView.addSubview(stackView)
-        scrollView.contentSize = CGSize(width: xValueRatio(673), height: yValueRatio(60))
+        scrollView.contentSize = CGSize(width: xValueRatio(690), height: yValueRatio(60))
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -49,6 +49,8 @@ class CategoryView: UIView {
     }
     
     private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
         self.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -95,6 +97,10 @@ class CategoryView: UIView {
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         return button
+    }
+    
+    @objc private func buttonGestureTapped(_ sender: UITapGestureRecognizer) {
+        print(sender.location(in: self.scrollView))
     }
     
     @objc private func buttonTapped(_ sender: UIButton) {

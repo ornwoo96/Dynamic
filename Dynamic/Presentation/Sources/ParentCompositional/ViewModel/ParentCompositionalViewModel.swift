@@ -9,11 +9,9 @@ import Foundation
 
 protocol ParentCompositionalViewModelProtocol {
     var isCustomNavigationBarAnimationFirst: Bool { get set }
-    var viewControllers: [ChildCompositionalViewController] { get set }
 }
 
 class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
     public var isCustomNavigationBarAnimationFirst = false
-    public var viewControllers: [ChildCompositionalViewController] = []
     
 }

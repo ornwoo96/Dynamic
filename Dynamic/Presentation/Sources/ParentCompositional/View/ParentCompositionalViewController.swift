@@ -18,10 +18,8 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
                                                           navigationOrientation: .horizontal)
     private var categoryView = CategoryView()
     
-    init(viewModel: ParentCompositionalViewModelProtocol,
-         viewControllers: [ChildCompositionalViewController]) {
+    init(viewModel: ParentCompositionalViewModelProtocol) {
         self.viewModel = viewModel
-        self.viewModel.viewControllers = viewControllers
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -79,7 +77,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     private func setupPageViewController() {
         pageViewController.delegate = self
         pageViewController.dataSource = self
-        if let firstViewController = viewModel.viewControllers.first {
+        if let firstViewController = castedCoordinator?.childViewControllers.first {
             pageViewController.setViewControllers([firstViewController],
                                                   direction: .forward,
                                                   animated: false)
@@ -148,21 +146,21 @@ extension ParentCompositionalViewController: UIPageViewControllerDataSource, UIP
 
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = viewModel.viewControllers.firstIndex(of: viewController as! ChildCompositionalViewController) else { return nil }
+        guard let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController as! ChildCompositionalViewController) else { return nil }
         let previousIndex = index - 1
         if previousIndex < 0 {
             return nil
         }
-        return viewModel.viewControllers[previousIndex]
+        return castedCoordinator?.childViewControllers[previousIndex]
     }
 
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = viewModel.viewControllers.firstIndex(of: viewController as! ChildCompositionalViewController) else { return nil }
+        guard let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController as! ChildCompositionalViewController) else { return nil }
         let nextIndex = index + 1
-        if nextIndex == viewModel.viewControllers.count {
+        if nextIndex == castedCoordinator?.childViewControllers.count {
             return nil
         }
-        return viewModel.viewControllers[nextIndex]
+        return castedCoordinator?.childViewControllers[nextIndex]
     }
 }

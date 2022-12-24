@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
-		0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* CompositionalCoordinator.swift */; };
+		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
 		0B7232212947041A009D3EDF /* SwiftUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232202947041A009D3EDF /* SwiftUIViewModel.swift */; };
 		0B72322329470627009D3EDF /* CustomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72322229470627009D3EDF /* CustomViewModel.swift */; };
@@ -74,7 +74,6 @@
 		0BB7E0802957160F00C0AA83 /* ParentCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */; };
 		0BB7E08229571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E08129571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift */; };
 		0BB7E0842957238200C0AA83 /* ParentCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0832957238200C0AA83 /* ParentCompositionalCoordinator.swift */; };
-		0BB7E086295743A100C0AA83 /* CategoryVIewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E085295743A100C0AA83 /* CategoryVIewItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +103,7 @@
 
 /* Begin PBXFileReference section */
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
-		0B72321C2946FEE5009D3EDF /* CompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalCoordinator.swift; sourceTree = "<group>"; };
+		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
 		0B7232202947041A009D3EDF /* SwiftUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewModel.swift; sourceTree = "<group>"; };
 		0B72322229470627009D3EDF /* CustomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewModel.swift; sourceTree = "<group>"; };
@@ -169,7 +168,6 @@
 		0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0BB7E08129571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildCompositionalViewModel + Category.swift"; sourceTree = "<group>"; };
 		0BB7E0832957238200C0AA83 /* ParentCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCompositionalCoordinator.swift; sourceTree = "<group>"; };
-		0BB7E085295743A100C0AA83 /* CategoryVIewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVIewItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,7 +303,7 @@
 		0B72321829463F17009D3EDF /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				0B72321C2946FEE5009D3EDF /* CompositionalCoordinator.swift */,
+				0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -494,7 +492,6 @@
 				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
 				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
 				0BB7E06B2955C49300C0AA83 /* CategoryView.swift */,
-				0BB7E085295743A100C0AA83 /* CategoryVIewItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -794,12 +791,11 @@
 				0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */,
 				0BB7E05E2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift in Sources */,
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,
-				0BB7E086295743A100C0AA83 /* CategoryVIewItem.swift in Sources */,
 				0B99232B294F448200913288 /* PickListViewModel + Action.swift in Sources */,
 				0BB52BEA2946097D005FC30F /* ParentCompositionalViewController.swift in Sources */,
 				0BB7E04A2952D46000C0AA83 /* CustomViewModelProtocol.swift in Sources */,
 				0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */,
-				0B72321D2946FEE5009D3EDF /* CompositionalCoordinator.swift in Sources */,
+				0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */,
 				0B72326E294B0EA6009D3EDF /* CustomNavigationBar.swift in Sources */,
 				0BB7E0562952D72E00C0AA83 /* ChildCompositionalViewModel + DTO.swift in Sources */,
 				0B723281294B2C82009D3EDF /* PickListViewController.swift in Sources */,
