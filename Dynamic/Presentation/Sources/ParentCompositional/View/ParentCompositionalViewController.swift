@@ -16,6 +16,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     private var customNavigationBarTopConstraint: NSLayoutConstraint?
     private var pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                           navigationOrientation: .horizontal)
+    private var categoryView = CategoryView()
     
     init(viewModel: ParentCompositionalViewModelProtocol,
          viewControllers: [ChildCompositionalViewController]) {
@@ -40,31 +41,13 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     
     private func setupUI() {
         setupCustomNavigationBar()
+        setupCategoryView()
         setupViewController()
         setupPageViewController()
     }
     
     private func setupViewController() {
         view.backgroundColor = .black
-    }
-    
-    private func setupPageViewController() {
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
-        if let firstViewController = viewModel.viewControllers.first {
-            pageViewController.setViewControllers([firstViewController],
-                                                  direction: .forward,
-                                                  animated: false)
-        }
-        
-        view.addSubview(pageViewController.view)
-        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
-            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
     
     private func setupCustomNavigationBar() {
@@ -82,6 +65,36 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
         customNavigationBarTopConstraint?.isActive = true
     }
     
+    private func setupCategoryView() {
+        view.addSubview(categoryView)
+        categoryView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            categoryView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
+            categoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoryView.heightAnchor.constraint(equalToConstant: yValueRatio(45))
+        ])
+    }
+    
+    private func setupPageViewController() {
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
+        if let firstViewController = viewModel.viewControllers.first {
+            pageViewController.setViewControllers([firstViewController],
+                                                  direction: .forward,
+                                                  animated: false)
+        }
+        
+        view.addSubview(pageViewController.view)
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pageViewController.view.topAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: yValueRatio(10)),
+            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        view.bringSubviewToFront(categoryView)
+    }
 }
 
 extension ParentCompositionalViewController: CustomNavigationBarDelegate {

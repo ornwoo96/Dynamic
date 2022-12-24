@@ -35,7 +35,7 @@ public class CompositionalLayoutFactory {
         
         let groupSize: NSCollectionLayoutSize = .init(
             widthDimension: .absolute(contentWidth),
-            heightDimension: .absolute(itemFactory.getTotalHeight()+200)
+            heightDimension: .absolute(itemFactory.getTotalHeight())
         )
         
         let group = NSCollectionLayoutGroup.custom(layoutSize: groupSize) { _ in
@@ -44,14 +44,14 @@ public class CompositionalLayoutFactory {
         
         let section: NSCollectionLayoutSection = .init(group: group)
         
-        let header = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: NSCollectionLayoutSize.init(widthDimension: .absolute(contentWidth),
-                                                    heightDimension: .absolute(100)),
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top
-        )
-        
-        section.boundarySupplementaryItems = [header]
+//        let header = NSCollectionLayoutBoundarySupplementaryItem(
+//            layoutSize: NSCollectionLayoutSize.init(widthDimension: .absolute(contentWidth),
+//                                                    heightDimension: .absolute(100)),
+//            elementKind: UICollectionView.elementKindSectionHeader,
+//            alignment: .top
+//        )
+//
+//        section.boundarySupplementaryItems = [header]
         
         return section
     }
@@ -70,9 +70,9 @@ public class CompositionalLayoutFactory {
         return .init(group: group)
     }
     
-    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .estimated(50))
-        return .init(layoutSize: layoutSize, elementKind: CategoryView.identifier, alignment: .top)
-    }
+//    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+//        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                                heightDimension: .estimated(50))
+//        return .init(layoutSize: layoutSize, elementKind: CategoryView.identifier, alignment: .top)
+//    }
 }

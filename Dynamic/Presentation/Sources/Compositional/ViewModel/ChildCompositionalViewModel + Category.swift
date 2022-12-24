@@ -15,5 +15,7 @@ extension ChildCompositionalViewModel {
         case Dogs
         case Christmas
         case Oops
+        case Reactions
+        case Emoji
     }
 }

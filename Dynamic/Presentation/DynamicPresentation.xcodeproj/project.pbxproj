@@ -74,6 +74,7 @@
 		0BB7E0802957160F00C0AA83 /* ParentCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */; };
 		0BB7E08229571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E08129571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift */; };
 		0BB7E0842957238200C0AA83 /* ParentCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0832957238200C0AA83 /* ParentCompositionalCoordinator.swift */; };
+		0BB7E086295743A100C0AA83 /* CategoryVIewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E085295743A100C0AA83 /* CategoryVIewItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +169,7 @@
 		0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0BB7E08129571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildCompositionalViewModel + Category.swift"; sourceTree = "<group>"; };
 		0BB7E0832957238200C0AA83 /* ParentCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCompositionalCoordinator.swift; sourceTree = "<group>"; };
+		0BB7E085295743A100C0AA83 /* CategoryVIewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVIewItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,6 +494,7 @@
 				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
 				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
 				0BB7E06B2955C49300C0AA83 /* CategoryView.swift */,
+				0BB7E085295743A100C0AA83 /* CategoryVIewItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */,
 				0BB7E05E2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift in Sources */,
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,
+				0BB7E086295743A100C0AA83 /* CategoryVIewItem.swift in Sources */,
 				0B99232B294F448200913288 /* PickListViewModel + Action.swift in Sources */,
 				0BB52BEA2946097D005FC30F /* ParentCompositionalViewController.swift in Sources */,
 				0BB7E04A2952D46000C0AA83 /* CustomViewModelProtocol.swift in Sources */,

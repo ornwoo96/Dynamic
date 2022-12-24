@@ -36,7 +36,7 @@ final class CustomNavigationBar: UIView {
         button.backgroundColor = .systemRed
         return button
     }()
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
