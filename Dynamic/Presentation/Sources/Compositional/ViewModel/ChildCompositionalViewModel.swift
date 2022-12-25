@@ -15,6 +15,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
+    private var isCustomNavigationBarAnimationFirst: Bool = false
     public var category: Category = .Coding
     
     init(dynamicUseCase: DynamicUseCase) {
@@ -31,7 +32,13 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             self.retrieveNextData(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath: indexPath))
+        case .scrollViewDidScroll(let yValue):
+            self.branchNavigationAnimationForHideORShow(yValue)
         }
+    }
+    
+    public func changeIsNavigationBarAnimation(_ bool: Bool) {
+        self.isCustomNavigationBarAnimationFirst = bool
     }
     
     public func checkFavoriteButtonTapped(_ bool: Bool,
@@ -82,10 +89,29 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             retrieveGIPHYData()
         }
     }
+    
+    private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
+        if yValue > 1 {
+            if self.isCustomNavigationBarAnimationFirst == false {
+                self.isCustomNavigationBarAnimationFirst = true
+                event.send(.animateHideBar)
+            }
+        } else {
+            if self.isCustomNavigationBarAnimationFirst {
+                self.isCustomNavigationBarAnimationFirst = false
+                event.send(.animateShowBar)
+            }
+        }
+    }
 }
 
 extension ChildCompositionalViewModel {
     public func getSectionItem(_ sectionIndex: Int) -> Section {
         return sections[sectionIndex]
     }
+    
+    public func getIsNavigationBarAnimation() -> Bool {
+        return self.isCustomNavigationBarAnimationFirst
+    }
+    
 }

@@ -10,13 +10,15 @@ import Combine
 
 final class ParentCompositionalViewController: UIViewController, HasCoordinatable {
     private var viewModel: ParentCompositionalViewModelProtocol
-    var coordinator: Coordinator?
+    weak var coordinator: Coordinator?
+    private var cancellable: Set<AnyCancellable> = .init()
     private var castedCoordinator: ParentCompositionalCoordinator? { coordinator as? ParentCompositionalCoordinator }
     private var customNavigationBar = CustomNavigationBar()
     private var customNavigationBarTopConstraint: NSLayoutConstraint?
     private var pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                           navigationOrientation: .horizontal)
     private var categoryView = CategoryView()
+    private var categoryViewTopConstraint: NSLayoutConstraint?
     
     init(viewModel: ParentCompositionalViewModelProtocol) {
         self.viewModel = viewModel
@@ -30,6 +32,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,14 +67,16 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     }
     
     private func setupCategoryView() {
+        categoryView.delegate = self
         view.addSubview(categoryView)
         categoryView.translatesAutoresizingMaskIntoConstraints = false
+        categoryViewTopConstraint = categoryView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor)
         NSLayoutConstraint.activate([
-            categoryView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
             categoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoryView.heightAnchor.constraint(equalToConstant: yValueRatio(45))
         ])
+        categoryViewTopConstraint?.isActive = true
     }
     
     private func setupPageViewController() {
@@ -82,16 +87,71 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
                                                   direction: .forward,
                                                   animated: false)
         }
-        
+            
         view.addSubview(pageViewController.view)
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: yValueRatio(10)),
+            pageViewController.view.topAnchor.constraint(equalTo: categoryView.bottomAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         view.bringSubviewToFront(categoryView)
+    }
+    
+    private func bind() {
+        viewModel.event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let strongSelf = self else { return }
+                switch $0 {
+                case .none: break
+                case .setViewControllersToForward(let viewController):
+                    strongSelf.setViewControllerToForward(viewController)
+                case .setViewControllersToReverse(let viewController):
+                    strongSelf.setViewControllersToReverse(viewController)
+                }
+            }
+            .store(in: &cancellable)
+    }
+}
+
+extension ParentCompositionalViewController {
+    func animateHideNavigationBar() {
+        customNavigationBarTopConstraint?.constant = -yValueRatio(100)
+        categoryViewTopConstraint?.constant = yValueRatio(70)
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func animateShowNavigationBar() {
+        customNavigationBarTopConstraint?.constant = 0
+        categoryViewTopConstraint?.constant = 0
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+extension ParentCompositionalViewController: CategoryViewProtocol {
+    func buttonDidTap(_ tag: Int) {
+        if let childViewController = castedCoordinator?.childViewControllers[tag] {
+            viewModel.action(.categoryButtonDidTap(tag, childViewController))
+        }
+    }
+    
+    private func setViewControllerToForward(_ viewController: ChildCompositionalViewController) {
+        pageViewController.setViewControllers([viewController],
+                                              direction: .forward,
+                                              animated: true)
+    }
+    
+    private func setViewControllersToReverse(_ viewController: ChildCompositionalViewController) {
+        pageViewController.setViewControllers([viewController],
+                                              direction: .reverse,
+                                              animated: true)
     }
 }
 
@@ -101,66 +161,39 @@ extension ParentCompositionalViewController: CustomNavigationBarDelegate {
     }
 }
 
-extension ParentCompositionalViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 1 {
-            animateHideBar()
-        } else {
-            animateShowBar()
-        }
-    }
-}
-
-extension ParentCompositionalViewController {
-    
-    private func animateHideBar() {
-        DispatchQueue.main.async {
-            if self.viewModel.isCustomNavigationBarAnimationFirst == false {
-                self.customNavigationBarTopConstraint?.constant = -100
-                
-                UIView.animate(withDuration: 0.25) {
-                    self.view.layoutIfNeeded()
-                }
-                
-                self.viewModel.isCustomNavigationBarAnimationFirst = true
-            }
-        }
-    }
-    
-    private func animateShowBar() {
-        DispatchQueue.main.async {
-            if self.viewModel.isCustomNavigationBarAnimationFirst {
-                self.customNavigationBarTopConstraint?.constant = 0
-
-
-                UIView.animate(withDuration: 0.25) {
-                    self.view.layoutIfNeeded()
-                }
-                self.viewModel.isCustomNavigationBarAnimationFirst = false
-            }
-        }
-    }
-}
-
 extension ParentCompositionalViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController as! ChildCompositionalViewController) else { return nil }
+        guard let viewController = viewController as? ChildCompositionalViewController,
+              let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController) else { return nil }
         let previousIndex = index - 1
         if previousIndex < 0 {
             return nil
         }
+        
         return castedCoordinator?.childViewControllers[previousIndex]
     }
 
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController as! ChildCompositionalViewController) else { return nil }
+        guard let viewController = viewController as? ChildCompositionalViewController,
+              let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController) else { return nil }
         let nextIndex = index + 1
         if nextIndex == castedCoordinator?.childViewControllers.count {
             return nil
         }
+        
         return castedCoordinator?.childViewControllers[nextIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        guard let viewController = pageViewController.viewControllers?.first as? ChildCompositionalViewController,
+              let index = castedCoordinator?.childViewControllers.firstIndex(of: viewController) else { return }
+        categoryView.branchButtonTag(index)
+        viewModel.changeIndex(index)
     }
 }

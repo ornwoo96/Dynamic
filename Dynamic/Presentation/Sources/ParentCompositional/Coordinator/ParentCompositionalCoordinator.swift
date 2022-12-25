@@ -26,6 +26,16 @@ public class ParentCompositionalCoordinator: Coordinator {
         coordinator.start()
     }
     
+    public func hideNavigationBar() {
+        guard let viewController = self.viewController as? ParentCompositionalViewController else { return }
+        viewController.animateHideNavigationBar()
+    }
+    
+    public func showNavigationBar() {
+        guard let viewController = self.viewController as? ParentCompositionalViewController else { return }
+        viewController.animateShowNavigationBar()
+    }
+    
     private func setupParentCoordinator() {
         self.childViewControllers.forEach {
             guard let childCoordinator = $0.coordinator else { return }

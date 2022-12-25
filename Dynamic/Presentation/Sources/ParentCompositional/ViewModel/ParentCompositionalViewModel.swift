@@ -6,12 +6,49 @@
 //
 
 import Foundation
+import Combine
 
-protocol ParentCompositionalViewModelProtocol {
-    var isCustomNavigationBarAnimationFirst: Bool { get set }
+protocol ParentCompositionalViewModelInputProtocol: AnyObject {
+    func changeIndex(_ tag: Int)
+    func action(_ action: ParentCompositionalViewModel.Action)
+}
+
+protocol ParentCompositionalViewModelOutputProtocol: AnyObject {
+    func readIndex() -> Int
+}
+
+protocol ParentCompositionalViewModelProtocol: ParentCompositionalViewModelInputProtocol, ParentCompositionalViewModelOutputProtocol {
+    var pageViewControllerPreviousIndex: Int { get set }
+    var event: CurrentValueSubject<ParentCompositionalViewModel.Event, Never> { get set }
 }
 
 class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
-    public var isCustomNavigationBarAnimationFirst = false
+    internal var pageViewControllerPreviousIndex = 0
+    internal var event = CurrentValueSubject<Event, Never>(.none)
     
+    func action(_ action: Action) {
+        switch action {
+        case .categoryButtonDidTap(let tag, let viewController):
+            branchCategoryViewTags(tag, viewController)
+        }
+    }
+    
+    func changeIndex(_ tag: Int) {
+        self.pageViewControllerPreviousIndex = tag
+    }
+    
+    func readIndex() -> Int {
+        return pageViewControllerPreviousIndex
+    }
+    
+    func branchCategoryViewTags(_ tag: Int,
+                                _ viewController: ChildCompositionalViewController) {
+        if tag > self.pageViewControllerPreviousIndex {
+            self.event.send(.setViewControllersToForward(viewController))
+            self.pageViewControllerPreviousIndex = tag
+        } else {
+            self.event.send(.setViewControllersToReverse(viewController))
+            self.pageViewControllerPreviousIndex = tag
+        }
+    }
 }

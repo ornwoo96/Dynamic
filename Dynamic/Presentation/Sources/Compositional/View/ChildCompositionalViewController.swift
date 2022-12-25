@@ -53,7 +53,8 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     private func setupCollectionView() {
         registerCollectionViewCell()
-        compositionalCollectionView.backgroundColor = .black
+        compositionalCollectionView.contentInset = UIEdgeInsets(top: yValueRatio(10), left: .zero, bottom: .zero, right: .zero)
+        compositionalCollectionView.backgroundColor = .clear
         compositionalCollectionView.delegate = self
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,21 +82,26 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         viewModel.event
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
+                guard let strongSelf = self else { return }
                 switch $0 {
                 case .none:
                     break
                 case .reloadData(sections: let sections):
-                    self?.reloadData(sections)
+                    strongSelf.reloadData(sections)
                 case .showDetailView(let data):
-                    self?.showDetailView(data)
+                    strongSelf.showDetailView(data)
                 case .showLoading:
                     break
                 case .hideLoading:
                     break
                 case .invalidateLayout:
-                    self?.invalidateLayout()
+                    strongSelf.invalidateLayout()
                 case .showHeartView(indexPath: let indexPath):
-                    self?.setupCellWhenCellLongPressed(indexPath)
+                    strongSelf.setupCellWhenCellLongPressed(indexPath)
+                case .animateHideBar:
+                    strongSelf.animateHideBar()
+                case .animateShowBar:
+                    strongSelf.animateShowBar()
                 }
             }
             .store(in: &cancellable)
@@ -175,6 +181,25 @@ extension ChildCompositionalViewController {
             
             return section
         }
+    }
+}
+
+extension ChildCompositionalViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewModel.action(.scrollViewDidScroll(scrollView.contentOffset.y))
+    }
+}
+
+extension ChildCompositionalViewController {
+    
+    private func animateHideBar() {
+        print("hideBar")
+        castedCoordinator?.hideNavigationBar()
+    }
+    
+    private func animateShowBar() {
+        print("showBar")
+        castedCoordinator?.showNavigationBar()
     }
 }
 

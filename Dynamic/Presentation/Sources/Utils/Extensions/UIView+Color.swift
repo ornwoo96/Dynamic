@@ -30,6 +30,15 @@ extension UIView {
         ]
         layer.addSublayer(gradient)
     }
+    
+    func setGradientThreeColor(_ color1: UIColor,
+                               _ color2: UIColor,
+                               _ color3: UIColor) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        gradient.frame = CGRect(x: .zero, y: .zero, width: self.calculateXMax(), height: 40)
+        layer.addSublayer(gradient)
+    }
 }
 
 extension UIColor {

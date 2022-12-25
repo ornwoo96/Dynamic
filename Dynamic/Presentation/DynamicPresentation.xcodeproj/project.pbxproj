@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B5F204D2958117900338007 /* ParentCompositionalViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */; };
+		0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */; };
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -102,6 +104,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Action.swift"; sourceTree = "<group>"; };
+		0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Event.swift"; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -635,6 +639,8 @@
 			isa = PBXGroup;
 			children = (
 				0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */,
+				0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */,
+				0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -776,6 +782,7 @@
 				0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */,
 				0B8F0764294DAFB600F5B591 /* HeartView.swift in Sources */,
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
+				0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */,
 				0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
 				0BB7E0482952D31000C0AA83 /* CompositionalLayout + Dynamic.swift in Sources */,
@@ -809,6 +816,7 @@
 				0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */,
 				0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */,
 				0BB7E0542952D70000C0AA83 /* ChildCompositionalViewModel + Action.swift in Sources */,
+				0B5F204D2958117900338007 /* ParentCompositionalViewModel + Action.swift in Sources */,
 				0BB7E06C2955C49300C0AA83 /* CategoryView.swift in Sources */,
 				0B72322329470627009D3EDF /* CustomViewModel.swift in Sources */,
 				0BB7E07A2957130B00C0AA83 /* ChildCompositionalViewController.swift in Sources */,

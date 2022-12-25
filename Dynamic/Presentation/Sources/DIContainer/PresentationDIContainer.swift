@@ -24,7 +24,7 @@ public final class PresentationDIContainer: Containable {
     
     private func registerViewModels() {
         registerCustomViewModel()
-        registerCompositionalViewModel()
+        registerChildCompositionalViewModel()
         registerSwiftUIViewModel()
         registerDetailViewModel()
         registerPickListViewModel()
@@ -56,7 +56,7 @@ extension PresentationDIContainer {
         container.registerValue(VMKeys.customVM.rawValue, viewModel)
     }
     
-    private func registerCompositionalViewModel() {
+    private func registerChildCompositionalViewModel() {
         guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
         let childViewModel = ChildCompositionalViewModel(dynamicUseCase: dynamicUseCase)
         container.registerValue(VMKeys.compoVM.rawValue, childViewModel)
@@ -83,6 +83,18 @@ extension PresentationDIContainer {
         guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
         let viewModel = PickListViewModel(dynamicUseCase: dynamicUseCase)
         container.registerValue(VMKeys.pickList.rawValue, viewModel)
+    }
+    
+    private func createChildCompositionViewModel(_ categorys: [ChildCompositionalViewModel.Category]) -> [ChildCompositionalViewModel] {
+        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return []}
+        var viewModelArray: [ChildCompositionalViewModel] = []
+        for category in categorys {
+            let viewModel = ChildCompositionalViewModel(dynamicUseCase: dynamicUseCase)
+            viewModel.category = category
+            viewModelArray.append(viewModel)
+        }
+        
+        return viewModelArray
     }
 }
 
@@ -119,13 +131,15 @@ extension PresentationDIContainer {
     }
     
     private func createCategoryViewControllers() -> [ChildCompositionalViewController] {
-        guard let viewModel: ChildCompositionalViewModel = container.resolveValue(VMKeys.compoVM.rawValue) else { return []}
-        let categorys: [ChildCompositionalViewModel.Category] = [.Coding, .Cats, .Christmas, .Dogs, .Memes, .Oops]
+        let categorys: [ChildCompositionalViewModel.Category] = [.Coding, .Memes, .Cats, .Dogs, .Christmas, .Oops, .Reactions, .Emoji ]
+        let viewModels = createChildCompositionViewModel(categorys)
         var categoryViewControllers: [ChildCompositionalViewController] = []
+        var viewModelCount = 0
         categorys.forEach {
-            let viewController = ChildCompositionalViewController(viewModel: viewModel,
+            let viewController = ChildCompositionalViewController(viewModel: viewModels[viewModelCount],
                                                                   category: $0)
             categoryViewControllers.append(viewController)
+            viewModelCount += 1
         }
         return setupViewControllerContainCoordinator(categoryViewControllers)
     }
@@ -176,15 +190,18 @@ extension PresentationDIContainer {
         container.registerValue(CodiKeys.pickList.rawValue, coordinator)
     }
     
-    // MARK: ChildVIewCOntroller 를 ParentCoordinator 로 위치변경
     private func setupViewControllerContainCoordinator(_ viewControllers: [ChildCompositionalViewController]) -> [ChildCompositionalViewController] {
         var viewControllerArray: [ChildCompositionalViewController] = []
+        let colors: [UIColor] = [ .red, .orange, .yellow, .green, .blue, .purple, .black, .white ]
+        var count = 0
         viewControllers.forEach {
             let coordinator = ChildCompositionalCoordinator(parentCoordinator: nil,
                                                             viewController: $0)
             $0.coordinator = coordinator
+            $0.view.backgroundColor = colors[count]
             coordinator.navigationController = UINavigationController()
             viewControllerArray.append($0)
+            count += 1
         }
         
         return viewControllerArray

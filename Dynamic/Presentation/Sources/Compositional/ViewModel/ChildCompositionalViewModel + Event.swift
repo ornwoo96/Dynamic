@@ -29,6 +29,12 @@ extension ChildCompositionalViewModel {
                 
             case (.showHeartView, .showHeartView):
                 return true
+            
+            case (.animateHideBar, .animateHideBar):
+                return true
+                
+            case (.animateShowBar, .animateShowBar):
+                return true
                 
             default:
                 return false
@@ -44,6 +50,8 @@ extension ChildCompositionalViewModel {
         case showHeartView(indexPath: IndexPath)
         case hideLoading
         case invalidateLayout
+        case animateHideBar
+        case animateShowBar
     }
     
 }

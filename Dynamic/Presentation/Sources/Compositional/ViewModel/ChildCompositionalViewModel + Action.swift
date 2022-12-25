@@ -13,5 +13,6 @@ extension ChildCompositionalViewModel {
         case didSelectItemAt(_ indexPath: IndexPath)
         case willDisplay(_ indexPath: IndexPath)
         case didSelectedItemAtLongPressed(indexPath: IndexPath)
+        case scrollViewDidScroll(_ yValue: CGFloat)
     }
 }

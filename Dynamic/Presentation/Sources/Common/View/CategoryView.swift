@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol CategoryViewProtocol {
+    func buttonDidTap(_ tag: Int)
+}
+
 class CategoryView: UIView {
+    var delegate: CategoryViewProtocol?
     private var scrollView = UIScrollView()
     private var stackView = UIStackView()
     private var selectedView = UIView()
@@ -24,10 +29,14 @@ class CategoryView: UIView {
     }
     
     private func setupUI() {
-        self.backgroundColor = .cyan
+        setupView()
         setupScrollView()
         setupSelectedView()
         setupStackView()
+    }
+    
+    private func setupView() {
+        self.setGradientThreeColor(.black, .black, .darkGray)
     }
     
     private func setupStackView() {
@@ -44,7 +53,7 @@ class CategoryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -yValueRatio(2.5))
         ])
     }
     
@@ -57,20 +66,20 @@ class CategoryView: UIView {
             scrollView.topAnchor.constraint(equalTo: self.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -yValueRatio(2.5))
         ])
     }
     
     private func setupSelectedView() {
         selectedView.backgroundColor = .black
-        selectedView.viewRadius(cornerRadius: xValueRatio(22.5))
+        selectedView.viewRadius(cornerRadius: xValueRatio(20))
         scrollView.addSubview(selectedView)
         selectedView.translatesAutoresizingMaskIntoConstraints = false
         selectedViewLeadingConstraint = selectedView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: xValueRatio(5))
         selectedViewWidthConstraint = selectedView.widthAnchor.constraint(equalToConstant: xValueRatio(92))
         NSLayoutConstraint.activate([
             selectedView.topAnchor.constraint(equalTo: self.topAnchor),
-            selectedView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            selectedView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -yValueRatio(2.5))
         ])
         selectedViewLeadingConstraint?.isActive = true
         selectedViewWidthConstraint?.isActive = true
@@ -104,10 +113,11 @@ class CategoryView: UIView {
     }
     
     @objc private func buttonTapped(_ sender: UIButton) {
+        delegate?.buttonDidTap(sender.tag)
         self.branchButtonTag(sender.tag)
     }
     
-    private func branchButtonTag(_ tag: Int) {
+    public func branchButtonTag(_ tag: Int) {
         switch tag {
         case 0:
             self.animateButton(xValueRatio(6), xValueRatio(90))
