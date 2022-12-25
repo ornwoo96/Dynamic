@@ -53,7 +53,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     private func setupCollectionView() {
         registerCollectionViewCell()
-        compositionalCollectionView.contentInset = UIEdgeInsets(top: yValueRatio(10), left: .zero, bottom: .zero, right: .zero)
         compositionalCollectionView.backgroundColor = .clear
         compositionalCollectionView.delegate = self
         view.addSubview(compositionalCollectionView)
@@ -172,7 +171,7 @@ extension ChildCompositionalViewController {
             
             let section = self?.layoutFactory.getDynamicLayoutSection(
                 columnCount: 2,
-                itemPadding: 10,
+                itemPadding: self?.xValueRatio(5) ?? 0,
                 contentWidth: environment.container.effectiveContentSize.width,
                 sectionIndex: sectionIndex,
                 numberOfItems: numberOfItem,

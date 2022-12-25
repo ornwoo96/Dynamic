@@ -19,6 +19,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
                                                           navigationOrientation: .horizontal)
     private var categoryView = CategoryView()
     private var categoryViewTopConstraint: NSLayoutConstraint?
+    private var pageViewTopConstraint: NSLayoutConstraint?
     
     init(viewModel: ParentCompositionalViewModelProtocol) {
         self.viewModel = viewModel
@@ -91,10 +92,10 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
         view.addSubview(pageViewController.view)
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: categoryView.bottomAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            pageViewController.view.topAnchor.constraint(equalTo: categoryView.bottomAnchor, constant: yValueRatio(5))
         ])
         view.bringSubviewToFront(categoryView)
     }
@@ -121,6 +122,7 @@ extension ParentCompositionalViewController {
         customNavigationBarTopConstraint?.constant = -yValueRatio(100)
         categoryViewTopConstraint?.constant = yValueRatio(70)
         UIView.animate(withDuration: 0.2) {
+            self.categoryView.setupBackGroundViewWhenHideBar()
             self.view.layoutIfNeeded()
         }
     }
@@ -128,8 +130,8 @@ extension ParentCompositionalViewController {
     func animateShowNavigationBar() {
         customNavigationBarTopConstraint?.constant = 0
         categoryViewTopConstraint?.constant = 0
-        
         UIView.animate(withDuration: 0.2) {
+            self.categoryView.setupBackGroundViewWhenShowBar()
             self.view.layoutIfNeeded()
         }
     }

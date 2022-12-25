@@ -13,9 +13,10 @@ protocol CategoryViewProtocol {
 
 class CategoryView: UIView {
     var delegate: CategoryViewProtocol?
+    var backgroundView = UIView()
     private var scrollView = UIScrollView()
     private var stackView = UIStackView()
-    private var selectedView = UIView()
+    var selectedView = UIView()
     private var selectedViewLeadingConstraint: NSLayoutConstraint?
     private var selectedViewWidthConstraint: NSLayoutConstraint?
     
@@ -36,7 +37,19 @@ class CategoryView: UIView {
     }
     
     private func setupView() {
-        self.setGradientThreeColor(.black, .black, .darkGray)
+        self.setGradientWithThreeColor(.categoryBackgroundColor1,
+                                       .categoryBackgroundColor2,
+                                       .categoryBackgroundColor3,
+                                       CGSize(width: self.calculateXMax(),
+                                              height: yValueRatio(45)))
+        self.addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
     }
     
     private func setupStackView() {
@@ -53,36 +66,41 @@ class CategoryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -yValueRatio(2.5))
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
     private func setupScrollView() {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        self.addSubview(scrollView)
+        backgroundView.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: self.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -yValueRatio(2.5))
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
     private func setupSelectedView() {
         selectedView.backgroundColor = .black
-        selectedView.viewRadius(cornerRadius: xValueRatio(20))
+        selectedView.viewRadius(cornerRadius: xValueRatio(22.5))
         scrollView.addSubview(selectedView)
         selectedView.translatesAutoresizingMaskIntoConstraints = false
         selectedViewLeadingConstraint = selectedView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: xValueRatio(5))
         selectedViewWidthConstraint = selectedView.widthAnchor.constraint(equalToConstant: xValueRatio(92))
         NSLayoutConstraint.activate([
             selectedView.topAnchor.constraint(equalTo: self.topAnchor),
-            selectedView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -yValueRatio(2.5))
+            selectedView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         selectedViewLeadingConstraint?.isActive = true
         selectedViewWidthConstraint?.isActive = true
+        selectedView.setCrossGradientWithThreeColor(.systemRed,
+                                                    .systemPink,
+                                                    .systemPurple,
+                                                    CGSize(width: xValueRatio(95),
+                                                           height: xValueRatio(45)))
     }
     
     private func createCategoryItems() -> [UIButton] {
@@ -121,8 +139,10 @@ class CategoryView: UIView {
         switch tag {
         case 0:
             self.animateButton(xValueRatio(6), xValueRatio(90))
+            self.animateGradient2()
         case 1:
             self.animateButton(xValueRatio(89), xValueRatio(90))
+            self.animateGradient1()
         case 2:
             self.animateButton(xValueRatio(175.5), xValueRatio(65))
         case 3:
@@ -143,11 +163,41 @@ class CategoryView: UIView {
         selectedViewLeadingConstraint?.constant = leading
         selectedViewWidthConstraint?.constant = width
         
+        
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 0.5) {
             self.layoutIfNeeded()
         }
+    }
+    
+    private func animateGradient1() {
+        UIView.animate(withDuration: 1) {
+            self.selectedView.setCrossGradientWithThreeColor(.systemBlue,
+                                                             .systemYellow,
+                                                             .systemMint,
+                                                             CGSize(width: self.xValueRatio(95),
+                                                                    height: self.xValueRatio(45)))
+        }
+    }
+    
+    private func animateGradient2() {
+        UIView.animate(withDuration: 0.5) {
+            self.selectedView.setCrossGradientWithThreeColor(.systemRed,
+                                                             .systemPink,
+                                                             .systemPurple,
+                                                             CGSize(width: self.xValueRatio(95),
+                                                                    height: self.xValueRatio(45)))
+        }
+    }
+    
+    public func setupBackGroundViewWhenHideBar() {
+        self.backgroundView.backgroundColor = .black
+
+    }
+    
+    public func setupBackGroundViewWhenShowBar() {
+        self.backgroundView.backgroundColor = .clear
     }
 }

@@ -31,12 +31,38 @@ extension UIView {
         layer.addSublayer(gradient)
     }
     
-    func setGradientThreeColor(_ color1: UIColor,
-                               _ color2: UIColor,
-                               _ color3: UIColor) {
+    func setGradientWithThreeColor(_ color1: UIColor,
+                                   _ color2: UIColor,
+                                   _ color3: UIColor,
+                                   _ size: CGSize ) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
-        gradient.frame = CGRect(x: .zero, y: .zero, width: self.calculateXMax(), height: 40)
+        gradient.frame = CGRect(origin: .zero, size: size)
+        
+        layer.addSublayer(gradient)
+    }
+    
+    func setCrossGradientWithThreeColor(_ color1: UIColor,
+                               _ color2: UIColor,
+                               _ color3: UIColor,
+                               _ size: CGSize ) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        gradient.startPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.frame = CGRect(origin: .zero, size: size)
+
+        layer.addSublayer(gradient)
+    }
+    
+    func setAnimateGradientWithThreeColor(_ color1: UIColor,
+                                          _ color2: UIColor,
+                                          _ color3: UIColor,
+                                          _ view: UIView) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        gradient.frame = view.bounds
+        
         layer.addSublayer(gradient)
     }
 }
@@ -84,5 +110,17 @@ extension UIColor {
     
     static var tabItemYellowLeft: UIColor {
         return UIColor.init(red: 251/255, green: 103/255, blue: 87/255, alpha: 1)
+    }
+    
+    static var categoryBackgroundColor1: UIColor {
+        return UIColor.init(red: 26/255, green: 26/255, blue: 26/255, alpha: 1)
+    }
+    
+    static var categoryBackgroundColor2: UIColor {
+        return UIColor.init(red: 19/255, green: 19/255, blue: 19/255, alpha: 1)
+    }
+    
+    static var categoryBackgroundColor3: UIColor {
+        return UIColor.init(red: 15/255, green: 15/255, blue: 15/255, alpha: 1)
     }
 }
