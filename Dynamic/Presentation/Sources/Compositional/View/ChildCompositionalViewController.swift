@@ -1,36 +1,24 @@
 //
-//  CompositionalViewController.swift
+//  Child.swift
 //  DynamicPresentation
 //
-//  Created by 김동우 on 2022/12/11.
+//  Created by 김동우 on 2022/12/24.
 //
 
 import UIKit
 import Combine
 
-final class CompositionalViewController: UIViewController, HasCoordinatable {
-    private let viewModel: CompositionalViewModelProtocol
+class ChildCompositionalViewController: UIViewController, HasCoordinatable {
+    private let viewModel: ChildCompositionalViewModelProtocol
     var coordinator: Coordinator?
-    private var castedCoordinator: CompositionalCoordinator? { coordinator as? CompositionalCoordinator }
+    private var castedCoordinator: ChildCompositionalCoordinator? { coordinator as? ChildCompositionalCoordinator }
     private var layoutFactory = CompositionalLayoutFactory()
     private var cancellable: Set<AnyCancellable> = .init()
     private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
-    private var dataSource: UICollectionViewDiffableDataSource<CompositionalViewModel.Section, BaseCellItem>?
-    private var customNavigationBar = CustomNavigationBar()
-    private var customNavigationBarTopConstraint: NSLayoutConstraint?
-
-    init(viewModel: CompositionalViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var dataSource: UICollectionViewDiffableDataSource<ChildCompositionalViewModel.Section, BaseCellItem>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.action(.viewDidLoad)
         setupLongGestureRecognizerOnCollection()
         setupUI()
         bind()
@@ -39,13 +27,25 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.action(.viewDidLoad)
+
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    init(viewModel: ChildCompositionalViewModelProtocol,
+         category: ChildCompositionalViewModel.Category) {
+        self.viewModel = viewModel
+        self.viewModel.category = category
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupUI() {
         setupViewController()
         setupCollectionView()
-        setupCustomNavigationBar()
     }
     
     private func setupViewController() {
@@ -53,98 +53,111 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupCollectionView() {
-        compositionalCollectionView.backgroundColor = .black
+        registerCollectionViewCell()
+        compositionalCollectionView.backgroundColor = .clear
         compositionalCollectionView.delegate = self
-        compositionalCollectionView.register(CompositionalCollectionViewCell.self,
-                                             forCellWithReuseIdentifier: CompositionalCollectionViewCell.identifier)
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            compositionalCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             compositionalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             compositionalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             compositionalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    private func setupCustomNavigationBar() {
-        customNavigationBar.backgroundColor = .blue
-        customNavigationBar.delegate = self
-        view.addSubview(customNavigationBar)
-        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            customNavigationBar.heightAnchor.constraint(equalToConstant: yValueRatio(90)),
-            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
+    private func registerCollectionViewCell() {
+        compositionalCollectionView.register(CompositionalCollectionViewCell.self,
+                                             forCellWithReuseIdentifier: CompositionalCollectionViewCell.identifier)
+        compositionalCollectionView.register(CompositionalHeaderView.self,
+                                             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                             withReuseIdentifier: CompositionalHeaderView.identifier)
     }
     
     private func bind() {
         bindEvent()
+        bindCurrentFavoritesCount()
     }
     
     private func bindEvent() {
         viewModel.event
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
+                guard let strongSelf = self else { return }
                 switch $0 {
                 case .none:
                     break
                 case .reloadData(sections: let sections):
-                    self?.reloadData(sections)
+                    strongSelf.reloadData(sections)
                 case .showDetailView(let data):
-                    self?.showDetailView(data)
+                    strongSelf.showDetailView(data)
                 case .showLoading:
                     break
                 case .hideLoading:
                     break
                 case .invalidateLayout:
-                    self?.invalidateLayout()
+                    strongSelf.invalidateLayout()
                 case .showHeartView(indexPath: let indexPath):
-                    self?.setupCellWhenCellLongPressed(indexPath)
+                    strongSelf.setupCellWhenCellLongPressed(indexPath)
+                case .animateHideBar:
+                    strongSelf.animateHideBar()
+                case .animateShowBar:
+                    strongSelf.animateShowBar()
                 }
             }
             .store(in: &cancellable)
     }
     
-    private func reloadData(_ sections: [CompositionalViewModel.Section]) {
-        var snapShot = NSDiffableDataSourceSnapshot<CompositionalViewModel.Section, BaseCellItem>()
-
+    private func bindCurrentFavoritesCount() {
+        viewModel.favoritesCount
+            .sink { [weak self] in
+                self?.castedCoordinator?.passFavoritesCountDataToParent($0)
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func reloadData(_ sections: [ChildCompositionalViewModel.Section]) {
+        var snapShot = NSDiffableDataSourceSnapshot<ChildCompositionalViewModel.Section, BaseCellItem>()
+        
         sections.forEach {
             snapShot.appendSections([$0])
-            snapShot.appendItems($0.items)
+            snapShot.appendItems($0.items, toSection: $0)
         }
-        
         dataSource?.apply(snapShot)
     }
     
     private func setDataSource() {
         dataSource = .init(collectionView: compositionalCollectionView) { [weak self] in
-            guard let strongSelf = self else {
-                return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
+            let sectionType = self?.viewModel.getSectionItem($1.section).type
+            switch sectionType {
+            case .content:
+                if let cell = $0.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier,
+                                                     for: $1) as? CompositionalCollectionViewCell,
+                   let item = $2 as? CompositionalCellItem {
+                    
+                    cell.configure(item)
+                    return cell
+                }
+            case .none: break
             }
-            
-            if let cell = $0.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier,
-                                                 for: $1) as? CompositionalCollectionViewCell,
-               let item = $2 as? CompositionalCellItem {
-                
-                cell.configure(item)
-                return cell
-            }
-            
-
             return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
+        }
+        
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            let view = collectionView
+                .dequeueReusableSupplementaryView(ofKind: kind,
+                                                  withReuseIdentifier: CompositionalHeaderView.identifier,
+                                                  for: indexPath)
+            view.viewRadius(cornerRadius: 20)
+            return view
         }
     }
     
     private func invalidateLayout() {
         if let visibleIndexPaths = compositionalCollectionView.indexPathsForVisibleItems.min(by: { $0.item < $1.item }),
               visibleIndexPaths.isEmpty == false {
-            
+
             compositionalCollectionView.reloadData()
-            
-            
             compositionalCollectionView.scrollToItem(at: visibleIndexPaths, at: .top, animated: false)
         } else{
             compositionalCollectionView.reloadData()
@@ -157,33 +170,49 @@ final class CompositionalViewController: UIViewController, HasCoordinatable {
     
 }
 
-// MARK: Tab 변경시 Repository에 있는 cache 값도 바꿔주는 코드 하나 추가
-// MARK: navigation animation
-
-extension CompositionalViewController {
+extension ChildCompositionalViewController {
     private func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return .init { [weak self] sectionIndex, environment in
-            
             guard let sectionItem = self?.viewModel.getSectionItem(sectionIndex) else {
-                return self?.layoutFactory.getEmptySection()
+                return (self?.layoutFactory.getEmptySection())!
             }
             
             let numberOfItem = sectionItem.items.count
-
+            
             let section = self?.layoutFactory.getDynamicLayoutSection(
                 columnCount: 2,
-                itemPadding: 10,
+                itemPadding: self?.xValueRatio(5) ?? 0,
                 contentWidth: environment.container.effectiveContentSize.width,
+                sectionIndex: sectionIndex,
                 numberOfItems: numberOfItem,
                 sectionItem: sectionItem
             )
-
+            
             return section
         }
     }
 }
 
-extension CompositionalViewController: UICollectionViewDelegate {
+extension ChildCompositionalViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewModel.action(.scrollViewDidScroll(scrollView.contentOffset.y))
+    }
+}
+
+extension ChildCompositionalViewController {
+    
+    private func animateHideBar() {
+        print("hideBar")
+        castedCoordinator?.hideNavigationBar()
+    }
+    
+    private func animateShowBar() {
+        print("showBar")
+        castedCoordinator?.showNavigationBar()
+    }
+}
+
+extension ChildCompositionalViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         viewModel.action(.didSelectItemAt(indexPath))
@@ -196,13 +225,7 @@ extension CompositionalViewController: UICollectionViewDelegate {
     }
 }
 
-extension CompositionalViewController: CustomNavigationBarDelegate {
-    func favoritesButtonTapped() {
-        castedCoordinator?.pushPickListView()
-    }
-}
-
-extension CompositionalViewController: UIGestureRecognizerDelegate {
+extension ChildCompositionalViewController: UIGestureRecognizerDelegate {
     private func setupLongGestureRecognizerOnCollection() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self,
                                                               action: #selector(LongPressCell(_:)))
@@ -229,25 +252,5 @@ extension CompositionalViewController: UIGestureRecognizerDelegate {
         guard let cell = compositionalCollectionView.cellForItem(at: indexPath) as? CompositionalCollectionViewCell else { return }
         
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
-    }
-}
-
-extension CompositionalViewController {
-    // MARK: NavigationBar Animation
-    private enum Action {
-        case hideBar
-        case showBar
-    }
-    
-    private func animateHideBar() {
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    private func animateShowBar() {
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
     }
 }

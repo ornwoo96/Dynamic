@@ -59,7 +59,6 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
     }
     
     public func configure(_ item: CompositionalCellItem) {

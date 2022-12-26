@@ -9,12 +9,15 @@ import Foundation
 import Combine
 import DynamicDomain
 
-public class CompositionalViewModel: CompositionalViewModelProtocol {
+public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     private let dynamicUseCase: DynamicUseCase
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
+    private var isCustomNavigationBarAnimationFirst: Bool = false
+    public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
+    public var category: Category = .Coding
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
@@ -30,15 +33,23 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
             self.retrieveNextData(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath: indexPath))
+        case .scrollViewDidScroll(let yValue):
+            self.branchNavigationAnimationForHideORShow(yValue)
         }
+    }
+    
+    public func changeIsNavigationBarAnimation(_ bool: Bool) {
+        self.isCustomNavigationBarAnimationFirst = bool
     }
     
     public func checkFavoriteButtonTapped(_ bool: Bool,
                                           _ indexPath: Int) {
         if bool {
             requestCreateImageDataToCoreData(indexPath)
+            favoritesCount.send(1)
         } else {
             requestRemoveImageDataToCoreData(indexPath)
+            favoritesCount.send(-1)
         }
     }
     
@@ -65,12 +76,11 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
     
     private func setupSections(_ data: [CompositionalPresentationModel.PreviewModel]) {
         if sections.isEmpty {
-            
+            sections.append(.init(type: .content, items: convertCellModel(data)))
             sections.append(.init(type: .content, items: convertCellModel(data)))
         } else {
             sections.first?.items.append(contentsOf: convertCellModel(data))
         }
-        
         event.send(.reloadData(sections: sections))
         event.send(.hideLoading)
     }
@@ -82,10 +92,29 @@ public class CompositionalViewModel: CompositionalViewModelProtocol {
             retrieveGIPHYData()
         }
     }
+    
+    private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
+        if yValue > 1 {
+            if self.isCustomNavigationBarAnimationFirst == false {
+                self.isCustomNavigationBarAnimationFirst = true
+                event.send(.animateHideBar)
+            }
+        } else {
+            if self.isCustomNavigationBarAnimationFirst {
+                self.isCustomNavigationBarAnimationFirst = false
+                event.send(.animateShowBar)
+            }
+        }
+    }
 }
 
-extension CompositionalViewModel {
+extension ChildCompositionalViewModel {
     public func getSectionItem(_ sectionIndex: Int) -> Section {
         return sections[sectionIndex]
     }
+    
+    public func getIsNavigationBarAnimation() -> Bool {
+        return self.isCustomNavigationBarAnimationFirst
+    }
+    
 }

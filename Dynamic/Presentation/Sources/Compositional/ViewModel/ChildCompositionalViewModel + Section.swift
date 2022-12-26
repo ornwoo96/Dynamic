@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension CompositionalViewModel {
+extension ChildCompositionalViewModel {
     public class Section: Hashable {
         
         let identifier: UUID = .init()
@@ -18,8 +18,8 @@ extension CompositionalViewModel {
             hasher.combine(identifier)
         }
         
-        public static func == (lhs: CompositionalViewModel.Section,
-                               rhs: CompositionalViewModel.Section) -> Bool {
+        public static func == (lhs: ChildCompositionalViewModel.Section,
+                               rhs: ChildCompositionalViewModel.Section) -> Bool {
             lhs.identifier ==  rhs.identifier
         }
         

@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension CompositionalViewModel {
+extension ChildCompositionalViewModel {
     public enum Event: Equatable {
-        public static func == (lhs: CompositionalViewModel.Event, rhs: CompositionalViewModel.Event) -> Bool {
+        public static func == (lhs: ChildCompositionalViewModel.Event, rhs: ChildCompositionalViewModel.Event) -> Bool {
             switch (lhs, rhs) {
                 
             case (.none, .none):
@@ -29,6 +29,13 @@ extension CompositionalViewModel {
                 
             case (.showHeartView, .showHeartView):
                 return true
+            
+            case (.animateHideBar, .animateHideBar):
+                return true
+                
+            case (.animateShowBar, .animateShowBar):
+                return true
+                
             default:
                 return false
                 
@@ -43,6 +50,8 @@ extension CompositionalViewModel {
         case showHeartView(indexPath: IndexPath)
         case hideLoading
         case invalidateLayout
+        case animateHideBar
+        case animateShowBar
     }
     
 }

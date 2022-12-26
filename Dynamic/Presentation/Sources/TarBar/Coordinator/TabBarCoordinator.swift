@@ -13,10 +13,10 @@ public class TabBarCoordinator: Coordinator {
     override public func start() {
         guard let viewController = viewController,
               let customCoordinator: CustomCoordinator = DIContainer.shared.resolveValue(CodiKeys.custom.rawValue),
-              let compositionalCoordinator: CompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.compo.rawValue),
+              let parentCompositionalCoordinator: ParentCompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCompo.rawValue),
               let swiftCoordinator: SwiftUICoordinator = DIContainer.shared.resolveValue(CodiKeys.swift.rawValue) else { return }
         customCoordinator.start()
-        compositionalCoordinator.start()
+        parentCompositionalCoordinator.start()
         swiftCoordinator.start()
 
         navigationController?.pushViewController(viewController, animated: false)

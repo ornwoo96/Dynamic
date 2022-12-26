@@ -14,4 +14,8 @@ class PickListCoordinator: Coordinator {
         
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    internal func popViewController() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

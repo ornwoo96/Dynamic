@@ -15,4 +15,5 @@ public protocol DynamicUseCase {
     func requestCoreDataCreateImageData(_ data: OriginalDomainModel)
     func requestRemoveImageDataFromCoreData(_ id: String)
     func retrieveGIPHYDataFromCoreData() async throws -> [FavoriteDomainModel]
+    func requestFavoritesImageDataCountInCoreData() async throws -> Int
 }

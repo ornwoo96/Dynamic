@@ -30,6 +30,53 @@ extension UIView {
         ]
         layer.addSublayer(gradient)
     }
+    
+    func setGradientWithThreeColor(_ color1: UIColor,
+                                   _ color2: UIColor,
+                                   _ color3: UIColor,
+                                   _ size: CGSize ) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        gradient.frame = CGRect(origin: .zero, size: size)
+        
+        layer.addSublayer(gradient)
+    }
+    
+    func setCrossGradientWithThreeColor(_ color1: UIColor,
+                                        _ color2: UIColor,
+                                        _ color3: UIColor,
+                                        _ size: CGSize ) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        gradient.startPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.frame = CGRect(origin: .zero, size: size)
+        
+        layer.addSublayer(gradient)
+    }
+    
+    func setAnimateGradientWithThreeColor(_ color1: UIColor,
+                                          _ color2: UIColor,
+                                          _ color3: UIColor,
+                                          _ view: UIView) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        gradient.frame = view.bounds
+        
+        layer.addSublayer(gradient)
+    }
+    
+    func setCrossGradientWithThreeColorAndReturnLayer(_ colors: [UIColor],
+                                                      _ size: CGSize) -> CAGradientLayer {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [colors[0].cgColor, colors[1].cgColor, colors[2].cgColor]
+        gradient.startPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.frame = CGRect(origin: .zero, size: size)
+        
+        layer.addSublayer(gradient)
+        return gradient
+    }
 }
 
 extension UIColor {
@@ -75,5 +122,60 @@ extension UIColor {
     
     static var tabItemYellowLeft: UIColor {
         return UIColor.init(red: 251/255, green: 103/255, blue: 87/255, alpha: 1)
+    }
+    
+    static var categoryBackgroundColor1: UIColor {
+        return UIColor.init(red: 26/255, green: 26/255, blue: 26/255, alpha: 1)
+    }
+    
+    static var categoryBackgroundColor2: UIColor {
+        return UIColor.init(red: 19/255, green: 19/255, blue: 19/255, alpha: 1)
+    }
+    
+    static var categoryBackgroundColor3: UIColor {
+        return UIColor.init(red: 15/255, green: 15/255, blue: 15/255, alpha: 1)
+    }
+    
+}
+
+// MARK: Gradient 3Colors
+extension UIColor {
+    static var gradientSeries1: [CGColor] {
+        return [UIColor.systemRed.cgColor, UIColor.systemPink.cgColor, UIColor.systemPurple.cgColor]
+    }
+    
+    static var gradientSeries2: [CGColor] {
+        return [UIColor.systemOrange.cgColor, UIColor.systemYellow.cgColor, UIColor.systemTeal.cgColor]
+    }
+    
+    static var gradientSeries3: [CGColor] {
+        return [UIColor.systemMint.cgColor, UIColor.systemBlue.cgColor, UIColor.systemTeal.cgColor]
+    }
+    
+    static var gradientSeries4: [CGColor] {
+        return [UIColor.systemPurple.cgColor, UIColor.systemIndigo.cgColor, UIColor.systemTeal.cgColor]
+    }
+    
+    static var gradientSeries5: [CGColor] {
+        return [UIColor.systemBlue.cgColor, UIColor.systemPurple.cgColor, UIColor.systemRed.cgColor]
+    }
+    
+    static var gradientSeries6: [CGColor] {
+        return [UIColor.systemCyan.cgColor, UIColor.systemYellow.cgColor, UIColor.systemRed.cgColor]
+    }
+    
+    static var gradientSeries7: [CGColor] {
+        return [UIColor.systemTeal.cgColor, UIColor.systemYellow.cgColor, UIColor.systemPurple.cgColor]
+    }
+    
+    static var gradientSeries8: [CGColor] {
+        return [UIColor.systemPink.cgColor, UIColor.systemYellow.cgColor, UIColor.systemBlue.cgColor]
+    }
+    
+    static var gradientSeries9: [CGColor] {
+        return [UIColor.systemRed.cgColor,
+                UIColor.systemPink.cgColor,
+                UIColor.systemPurple.cgColor,
+                UIColor.systemBlue.cgColor]
     }
 }

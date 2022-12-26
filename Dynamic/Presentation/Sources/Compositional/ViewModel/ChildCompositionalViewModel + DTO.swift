@@ -8,7 +8,7 @@
 import Foundation
 import DynamicDomain
 
-extension CompositionalViewModel {
+extension ChildCompositionalViewModel {
     public func convert(_ data: CompositionalPresentationModel.OriginalModel) -> DetailModel {
         return DetailModel(url: data.url,
                            width: String(Int(data.width)),
