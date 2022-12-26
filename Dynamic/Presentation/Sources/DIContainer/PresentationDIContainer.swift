@@ -63,7 +63,8 @@ extension PresentationDIContainer {
     }
     
     private func registerParentCompositionalViewModel() {
-        let parentViewModel = ParentCompositionalViewModel()
+        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
+        let parentViewModel = ParentCompositionalViewModel(dynamicUseCase: dynamicUseCase)
         container.registerValue(VMKeys.parentCompo.rawValue, parentViewModel)
     }
     
@@ -192,7 +193,7 @@ extension PresentationDIContainer {
     
     private func setupViewControllerContainCoordinator(_ viewControllers: [ChildCompositionalViewController]) -> [ChildCompositionalViewController] {
         var viewControllerArray: [ChildCompositionalViewController] = []
-        let colors: [UIColor] = [ .red, .orange, .yellow, .green, .blue, .purple, .black, .white ]
+        let colors: [UIColor] = [ .black, .orange, .yellow, .green, .blue, .purple, .black, .white ]
         var count = 0
         viewControllers.forEach {
             let coordinator = ChildCompositionalCoordinator(parentCoordinator: nil,

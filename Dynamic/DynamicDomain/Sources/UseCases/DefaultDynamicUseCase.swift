@@ -32,4 +32,9 @@ public final class DefaultDynamicUseCase: DynamicUseCase {
     public func requestCoreDataCreateImageData(_ data: OriginalDomainModel) {
         coreDataManager.createGIFImageData(data.height, data.width, data.id, data.url)
     }
+    
+    public func requestFavoritesImageDataCountInCoreData() async throws -> Int {
+        let favoritesData = coreDataManager.requestFavoritesDatas
+        return try await favoritesData().count
+    }
 }

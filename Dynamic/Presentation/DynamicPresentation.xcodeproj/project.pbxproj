@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0B5F204D2958117900338007 /* ParentCompositionalViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */; };
 		0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */; };
+		0B5F20542959B20100338007 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20532959B20100338007 /* MainNavigationBar.swift */; };
+		0B5F20562959B21300338007 /* FavoritesNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */; };
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -106,6 +108,8 @@
 /* Begin PBXFileReference section */
 		0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Action.swift"; sourceTree = "<group>"; };
 		0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Event.swift"; sourceTree = "<group>"; };
+		0B5F20532959B20100338007 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
+		0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNavigationBar.swift; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -195,6 +199,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B5F20572959B25800338007 /* CustomNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
+				0B5F20532959B20100338007 /* MainNavigationBar.swift */,
+				0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */,
+			);
+			path = CustomNavigationBar;
+			sourceTree = "<group>";
+		};
 		0B72320A29463EAF009D3EDF /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,8 +506,8 @@
 		0B9923342950318500913288 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0B5F20572959B25800338007 /* CustomNavigationBar */,
 				0B8F0763294DAFB600F5B591 /* HeartView.swift */,
-				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
 				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
 				0BB7E06B2955C49300C0AA83 /* CategoryView.swift */,
 			);
@@ -777,6 +791,8 @@
 				0B72325A2949E032009D3EDF /* CustomViewModel + Event.swift in Sources */,
 				0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */,
 				0BB7E04C2952D4BB00C0AA83 /* CustomViewModel + DTO.swift in Sources */,
+				0B5F20542959B20100338007 /* MainNavigationBar.swift in Sources */,
+				0B5F20562959B21300338007 /* FavoritesNavigationBar.swift in Sources */,
 				0BB7E0802957160F00C0AA83 /* ParentCompositionalViewModel.swift in Sources */,
 				0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */,
 				0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */,

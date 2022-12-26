@@ -196,8 +196,9 @@ class CategoryView: UIView {
         animation.toValue = colors
         animation.isRemovedOnCompletion = false
         animation.fillMode = CAMediaTimingFillMode.forwards
+        selectedViewGradientLayer.frame = selectedView.bounds
         selectedViewGradientLayer.add(animation, forKey: "colors")
-    }
+    } 
     
     public func setupBackGroundViewWhenHideBar() {
         self.backgroundView.backgroundColor = .black

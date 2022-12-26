@@ -36,6 +36,11 @@ public class ParentCompositionalCoordinator: Coordinator {
         viewController.animateShowNavigationBar()
     }
     
+    public func receiveFavoritesCountData(_ count: Int) {
+        guard let viewController = viewController as? ParentCompositionalViewController else { return }
+        viewController.setupFavoritesCountData(count)
+    }
+    
     private func setupParentCoordinator() {
         self.childViewControllers.forEach {
             guard let childCoordinator = $0.coordinator else { return }

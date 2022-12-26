@@ -78,7 +78,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar.delegate = self
+        customNavigationBar.mainNavigationBar.delegate = self
         view.addSubview(customNavigationBar)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

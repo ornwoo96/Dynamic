@@ -171,4 +171,11 @@ extension UIColor {
     static var gradientSeries8: [CGColor] {
         return [UIColor.systemPink.cgColor, UIColor.systemYellow.cgColor, UIColor.systemBlue.cgColor]
     }
+    
+    static var gradientSeries9: [CGColor] {
+        return [UIColor.systemRed.cgColor,
+                UIColor.systemPink.cgColor,
+                UIColor.systemPurple.cgColor,
+                UIColor.systemBlue.cgColor]
+    }
 }

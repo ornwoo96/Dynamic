@@ -9,6 +9,8 @@ import Foundation
 
 extension ParentCompositionalViewModel {
     internal enum Action {
+        case viewDidLoad
+        case receiveFavoritesCountData(_ count: Int)
         case categoryButtonDidTap(_ tag: Int,
                                   _ viewController: ChildCompositionalViewController)
     }

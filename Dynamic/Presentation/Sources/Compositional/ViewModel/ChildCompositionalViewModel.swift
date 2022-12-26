@@ -16,6 +16,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
     private var isCustomNavigationBarAnimationFirst: Bool = false
+    public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     public var category: Category = .Coding
     
     init(dynamicUseCase: DynamicUseCase) {
@@ -45,8 +46,10 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
                                           _ indexPath: Int) {
         if bool {
             requestCreateImageDataToCoreData(indexPath)
+            favoritesCount.send(1)
         } else {
             requestRemoveImageDataToCoreData(indexPath)
+            favoritesCount.send(-1)
         }
     }
     

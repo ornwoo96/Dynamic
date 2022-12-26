@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import DynamicDomain
 
 protocol ParentCompositionalViewModelInputProtocol: AnyObject {
     func changeIndex(_ tag: Int)
@@ -25,11 +26,23 @@ protocol ParentCompositionalViewModelProtocol: ParentCompositionalViewModelInput
 class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
     internal var pageViewControllerPreviousIndex = 0
     internal var event = CurrentValueSubject<Event, Never>(.none)
+    private let dynamicUseCase: DynamicUseCase
+    private var favoritesCount = 0
+    
+    init(dynamicUseCase: DynamicUseCase) {
+        self.dynamicUseCase = dynamicUseCase
+    }
     
     func action(_ action: Action) {
         switch action {
+        case .viewDidLoad:
+            retrieveSavingDataCountFromCoreData()
         case .categoryButtonDidTap(let tag, let viewController):
             branchCategoryViewTags(tag, viewController)
+        case .receiveFavoritesCountData(let count):
+            
+            favoritesCount += count
+            event.send(.setupPickListButtonCount(favoritesCount))
         }
     }
     
@@ -41,7 +54,7 @@ class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
         return pageViewControllerPreviousIndex
     }
     
-    func branchCategoryViewTags(_ tag: Int,
+    private func branchCategoryViewTags(_ tag: Int,
                                 _ viewController: ChildCompositionalViewController) {
         if tag > self.pageViewControllerPreviousIndex {
             self.event.send(.setViewControllersToForward(viewController))
@@ -49,6 +62,18 @@ class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
         } else {
             self.event.send(.setViewControllersToReverse(viewController))
             self.pageViewControllerPreviousIndex = tag
+        }
+    }
+    
+    private func retrieveSavingDataCountFromCoreData()  {
+        Task {
+            do {
+                let count = try await dynamicUseCase.requestFavoritesImageDataCountInCoreData()
+                event.send(.setupPickListButtonCount(count))
+                self.favoritesCount = count
+            } catch {
+                
+            }
         }
     }
 }

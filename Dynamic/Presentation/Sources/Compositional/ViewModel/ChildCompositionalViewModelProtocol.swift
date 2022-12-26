@@ -22,4 +22,5 @@ public protocol ChildCompositionalViewModelOutputProtocol: AnyObject {
 
 public protocol ChildCompositionalViewModelProtocol: ChildCompositionalViewModelInputProtocol, ChildCompositionalViewModelOutputProtocol {
     var category: ChildCompositionalViewModel.Category { set get }
+    var favoritesCount: CurrentValueSubject<Int, Never> { get set }
 }

@@ -19,7 +19,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.action(.viewDidLoad)
         setupLongGestureRecognizerOnCollection()
         setupUI()
         bind()
@@ -28,6 +27,8 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.action(.viewDidLoad)
+
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -75,6 +76,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     private func bind() {
         bindEvent()
+        bindCurrentFavoritesCount()
     }
     
     private func bindEvent() {
@@ -102,6 +104,14 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
                 case .animateShowBar:
                     strongSelf.animateShowBar()
                 }
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func bindCurrentFavoritesCount() {
+        viewModel.favoritesCount
+            .sink { [weak self] in
+                self?.castedCoordinator?.passFavoritesCountDataToParent($0)
             }
             .store(in: &cancellable)
     }

@@ -13,7 +13,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     weak var coordinator: Coordinator?
     private var cancellable: Set<AnyCancellable> = .init()
     private var castedCoordinator: ParentCompositionalCoordinator? { coordinator as? ParentCompositionalCoordinator }
-    private var customNavigationBar = CustomNavigationBar()
+    private var customNavigationBar = CustomNavigationBar(.main)
     private var customNavigationBarTopConstraint: NSLayoutConstraint?
     private var pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                           navigationOrientation: .horizontal)
@@ -38,6 +38,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.action(.viewDidLoad)
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -54,7 +55,7 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     
     private func setupCustomNavigationBar() {
         customNavigationBar.backgroundColor = .blue
-        customNavigationBar.delegate = self
+        customNavigationBar.mainNavigationBar.delegate = self
         view.addSubview(customNavigationBar)
         
         customNavigationBarTopConstraint = customNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
@@ -111,6 +112,8 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
                     strongSelf.setViewControllerToForward(viewController)
                 case .setViewControllersToReverse(let viewController):
                     strongSelf.setViewControllersToReverse(viewController)
+                case .setupPickListButtonCount(let count):
+                    strongSelf.setupPickListButtonCount(count)
                 }
             }
             .store(in: &cancellable)
@@ -134,6 +137,14 @@ extension ParentCompositionalViewController {
             self.categoryView.setupBackGroundViewWhenShowBar()
             self.view.layoutIfNeeded()
         }
+    }
+    
+    public func setupFavoritesCountData(_ count: Int) {
+        viewModel.action(.receiveFavoritesCountData(count))
+    }
+    
+    private func setupPickListButtonCount(_ count: Int) {
+        customNavigationBar.mainNavigationBar.checkNumber(count)
     }
 }
 
