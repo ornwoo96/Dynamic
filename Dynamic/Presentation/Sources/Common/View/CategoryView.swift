@@ -19,6 +19,8 @@ class CategoryView: UIView {
     var selectedView = UIView()
     private var selectedViewLeadingConstraint: NSLayoutConstraint?
     private var selectedViewWidthConstraint: NSLayoutConstraint?
+    private var selectedViewGradientLayer = CAGradientLayer()
+    private var seriesColorFromValue: [CGColor] = UIColor.gradientSeries1
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,11 +98,13 @@ class CategoryView: UIView {
         ])
         selectedViewLeadingConstraint?.isActive = true
         selectedViewWidthConstraint?.isActive = true
-        selectedView.setCrossGradientWithThreeColor(.systemRed,
-                                                    .systemPink,
-                                                    .systemPurple,
-                                                    CGSize(width: xValueRatio(95),
-                                                           height: xValueRatio(45)))
+        selectedViewGradientLayer.colors = UIColor.gradientSeries1
+        selectedViewGradientLayer.startPoint = CGPoint(x: 1.0, y: 1.0)
+        selectedViewGradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
+        selectedViewGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(95),
+                                                                             height: xValueRatio(45)))
+        
+        selectedView.layer.addSublayer(selectedViewGradientLayer)
     }
     
     private func createCategoryItems() -> [UIButton] {
@@ -139,22 +143,36 @@ class CategoryView: UIView {
         switch tag {
         case 0:
             self.animateButton(xValueRatio(6), xValueRatio(90))
-            self.animateGradient2()
+            self.animateGradient(UIColor.gradientSeries1)
+            self.seriesColorFromValue = UIColor.gradientSeries1
         case 1:
             self.animateButton(xValueRatio(89), xValueRatio(90))
-            self.animateGradient1()
+            self.animateGradient(UIColor.gradientSeries2)
+            self.seriesColorFromValue = UIColor.gradientSeries2
         case 2:
             self.animateButton(xValueRatio(175.5), xValueRatio(65))
+            self.animateGradient(UIColor.gradientSeries3)
+            self.seriesColorFromValue = UIColor.gradientSeries3
         case 3:
             self.animateButton(xValueRatio(237), xValueRatio(70))
+            self.animateGradient(UIColor.gradientSeries4)
+            self.seriesColorFromValue = UIColor.gradientSeries4
         case 4:
             self.animateButton(xValueRatio(302), xValueRatio(120))
+            self.animateGradient(UIColor.gradientSeries5)
+            self.seriesColorFromValue = UIColor.gradientSeries5
         case 5:
             self.animateButton(xValueRatio(416), xValueRatio(72))
+            self.animateGradient(UIColor.gradientSeries6)
+            self.seriesColorFromValue = UIColor.gradientSeries6
         case 6:
             self.animateButton(xValueRatio(482.5), xValueRatio(112.5))
+            self.animateGradient(UIColor.gradientSeries7)
+            self.seriesColorFromValue = UIColor.gradientSeries7
         case 7:
             self.animateButton(xValueRatio(591), xValueRatio(77.5))
+            self.animateGradient(UIColor.gradientSeries8)
+            self.seriesColorFromValue = UIColor.gradientSeries8
         default: break
         }
     }
@@ -162,7 +180,6 @@ class CategoryView: UIView {
     private func animateButton(_ leading: CGFloat, _ width: CGFloat) {
         selectedViewLeadingConstraint?.constant = leading
         selectedViewWidthConstraint?.constant = width
-        
         
         UIView.animate(withDuration: 0.5,
                        delay: 0,
@@ -172,24 +189,14 @@ class CategoryView: UIView {
         }
     }
     
-    private func animateGradient1() {
-        UIView.animate(withDuration: 1) {
-            self.selectedView.setCrossGradientWithThreeColor(.systemBlue,
-                                                             .systemYellow,
-                                                             .systemMint,
-                                                             CGSize(width: self.xValueRatio(95),
-                                                                    height: self.xValueRatio(45)))
-        }
-    }
-    
-    private func animateGradient2() {
-        UIView.animate(withDuration: 0.5) {
-            self.selectedView.setCrossGradientWithThreeColor(.systemRed,
-                                                             .systemPink,
-                                                             .systemPurple,
-                                                             CGSize(width: self.xValueRatio(95),
-                                                                    height: self.xValueRatio(45)))
-        }
+    private func animateGradient(_ colors: [CGColor]) {
+        let animation = CABasicAnimation(keyPath: "colors")
+        animation.duration = 1
+        animation.fromValue = seriesColorFromValue
+        animation.toValue = colors
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        selectedViewGradientLayer.add(animation, forKey: "colors")
     }
     
     public func setupBackGroundViewWhenHideBar() {
