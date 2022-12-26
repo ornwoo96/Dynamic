@@ -54,10 +54,8 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar.backgroundColor = .blue
         customNavigationBar.mainNavigationBar.delegate = self
         view.addSubview(customNavigationBar)
-        
         customNavigationBarTopConstraint = customNavigationBar.topAnchor.constraint(equalTo: view.topAnchor)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

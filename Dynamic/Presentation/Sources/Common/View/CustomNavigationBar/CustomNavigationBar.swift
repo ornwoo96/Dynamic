@@ -9,11 +9,7 @@ import UIKit
 
 final class CustomNavigationBar: UIView {
     internal var mainNavigationBar = MainNavigationBar()
-    private(set) var favoritesNavigationBar = FavoritesNavigationBar()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    internal var favoritesNavigationBar = FavoritesNavigationBar()
     
     public enum CustomNavigationBarType {
         case main

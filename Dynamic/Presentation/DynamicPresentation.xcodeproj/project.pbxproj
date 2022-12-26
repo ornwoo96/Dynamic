@@ -11,6 +11,7 @@
 		0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */; };
 		0B5F20542959B20100338007 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20532959B20100338007 /* MainNavigationBar.swift */; };
 		0B5F20562959B21300338007 /* FavoritesNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */; };
+		0B5F205C2959C17900338007 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F205B2959C17900338007 /* BackButton.swift */; };
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -110,6 +111,7 @@
 		0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Event.swift"; sourceTree = "<group>"; };
 		0B5F20532959B20100338007 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
 		0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNavigationBar.swift; sourceTree = "<group>"; };
+		0B5F205B2959C17900338007 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				0B72326D294B0EA6009D3EDF /* CustomNavigationBar.swift */,
 				0B5F20532959B20100338007 /* MainNavigationBar.swift */,
 				0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */,
+				0B5F205B2959C17900338007 /* BackButton.swift */,
 			);
 			path = CustomNavigationBar;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */,
 				0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
+				0B5F205C2959C17900338007 /* BackButton.swift in Sources */,
 				0BB7E0482952D31000C0AA83 /* CompositionalLayout + Dynamic.swift in Sources */,
 				0BB7E06E2955DEDE00C0AA83 /* CompositionalHeaderView.swift in Sources */,
 				0B99232D294F44A200913288 /* PickListViewModel + Event.swift in Sources */,

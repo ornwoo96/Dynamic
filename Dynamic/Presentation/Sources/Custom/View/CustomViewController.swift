@@ -32,7 +32,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
         return collectionView
     }()
     
-    private var customNavigationBar = CustomNavigationBar()
+    private var customNavigationBar = CustomNavigationBar(.main)
     
     init(viewModel: CustomViewModelProtocol) {
         self.viewModel = viewModel

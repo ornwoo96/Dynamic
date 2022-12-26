@@ -13,6 +13,8 @@ class PickListViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: PickListCoordinator? { coordinator as? PickListCoordinator }
     private var cancellable = Set<AnyCancellable>()
+    
+    private var customNavigationBar = CustomNavigationBar(.favorites)
 
     private lazy var pickListCollectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
@@ -23,7 +25,7 @@ class PickListViewController: UIViewController, HasCoordinatable {
         collectionView.register(PickListCollectionViewCell.self,
                                 forCellWithReuseIdentifier: PickListCollectionViewCell.identifier)
         collectionView.backgroundColor = .black
-        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35),
+        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(5),
                                                    left: xValueRatio(5),
                                                    bottom: xValueRatio(10),
                                                    right: xValueRatio(5))
@@ -49,7 +51,6 @@ class PickListViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
         viewModel.action(.viewDidLoad)
     }
     
@@ -59,15 +60,28 @@ class PickListViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupUI() {
+        setupCustomNavigationBar()
         setupLongGestureRecognizerOnCollection()
         setupCollectionView()
     }
     
+    private func setupCustomNavigationBar() {
+        customNavigationBar.favoritesNavigationBar.delegate = self
+        view.addSubview(customNavigationBar)
+        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            customNavigationBar.topAnchor.constraint(equalTo: view.topAnchor),
+            customNavigationBar.heightAnchor.constraint(equalToConstant: yValueRatio(90)),
+            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+    }
+
     private func setupCollectionView() {
         view.addSubview(pickListCollectionView)
         pickListCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pickListCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            pickListCollectionView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
             pickListCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pickListCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pickListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -94,6 +108,12 @@ class PickListViewController: UIViewController, HasCoordinatable {
             .store(in: &cancellable)
     }
     
+}
+
+extension PickListViewController: BackButtonProtocol {
+    func backButtonDidTap() {
+        castedCoordinator?.popViewController()
+    }
 }
 
 extension PickListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
