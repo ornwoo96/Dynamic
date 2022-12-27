@@ -16,6 +16,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
     private var isCustomNavigationBarAnimationFirst: Bool = false
+    private var offset = 0
+    private var limit = 15
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     public var category: Category = .Coding
     
@@ -26,6 +28,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     public func action(_ action: Action) {
         switch action {
         case .viewDidLoad:
+            event.send(.showLoading)
             self.retrieveGIPHYData()
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(content: convert(originalContents[indexPath.item])))
@@ -35,6 +38,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             event.send(.showHeartView(indexPath: indexPath))
         case .scrollViewDidScroll(let yValue):
             self.branchNavigationAnimationForHideORShow(yValue)
+        case .pullToRefresh:
+            self.delayRetrieveData()
         }
     }
     
@@ -53,6 +58,15 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         }
     }
     
+    private func delayRetrieveData() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            self?.event.send(.endRefreshing)
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            self?.retrieveGIPHYDataForRefresh()
+        }
+    }
+    
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
         dynamicUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
     }
@@ -61,13 +75,36 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
     }
     
-    private func retrieveGIPHYData() {
+    private func retrieveGIPHYDataForRefresh() {
+        
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas()
+                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                self?.resetFetchData()
                 self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
                 self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
                 setupSections(convertPresentationModel(model).previewModel)
+                offset += limit
+            } catch {
+                print("viewModel PreviewImage - 가져오기 실패")
+            }
+        }
+    }
+    
+    private func resetFetchData() {
+        sections = []
+        previewContents = []
+        originalContents = []
+    }
+    
+    private func retrieveGIPHYData() {
+        Task { [weak self] in
+            do {
+                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
+                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
+                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
+                setupSections(convertPresentationModel(model).previewModel)
+                offset += limit
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -88,7 +125,6 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private func retrieveNextData(_ indexPath: Int) {
         if previewContents.count - 1 == indexPath,
            event.value != .showLoading {
-            event.send(.showLoading)
             retrieveGIPHYData()
         }
     }

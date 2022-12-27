@@ -73,12 +73,12 @@ public class CustomViewModel: CustomViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas()
-                self?.previewContents.append(contentsOf: convert(model.previewImages))
-                self?.originalContents.append(contentsOf: convert(model.originalImages))
-                
-                event.send(.invalidateLayout)
-                event.send(.hideLoading)
+//                let model = try await dynamicUseCase.retrieveGIPHYDatas()
+//                self?.previewContents.append(contentsOf: convert(model.previewImages))
+//                self?.originalContents.append(contentsOf: convert(model.originalImages))
+//                
+//                event.send(.invalidateLayout)
+//                event.send(.hideLoading)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }

@@ -14,8 +14,24 @@ extension UIImage {
         gradientLayer.colors = colors.map(\.cgColor)
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+        
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
         
+        return renderer.image { ctx in
+            gradientLayer.render(in: ctx.cgContext)
+        }
+    }
+    
+    static func gradientImageHorizontal(gradientLayer: CAGradientLayer,
+                                        bounds: CGRect,
+                                        colors: [CGColor]) -> UIImage {
+        gradientLayer.frame = bounds
+        gradientLayer.colors = colors
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+        
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+
         return renderer.image { ctx in
             gradientLayer.render(in: ctx.cgContext)
         }

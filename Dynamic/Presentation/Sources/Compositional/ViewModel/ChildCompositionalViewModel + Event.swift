@@ -36,6 +36,12 @@ extension ChildCompositionalViewModel {
             case (.animateShowBar, .animateShowBar):
                 return true
                 
+            case (.beginRefreshing, .beginRefreshing):
+                return true
+                
+            case (.endRefreshing, .endRefreshing):
+                return true
+                
             default:
                 return false
                 
@@ -52,6 +58,8 @@ extension ChildCompositionalViewModel {
         case invalidateLayout
         case animateHideBar
         case animateShowBar
+        case beginRefreshing
+        case endRefreshing
     }
     
 }

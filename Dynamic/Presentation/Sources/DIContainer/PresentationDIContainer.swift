@@ -137,8 +137,10 @@ extension PresentationDIContainer {
         var categoryViewControllers: [ChildCompositionalViewController] = []
         var viewModelCount = 0
         categorys.forEach {
-            let viewController = ChildCompositionalViewController(viewModel: viewModels[viewModelCount],
-                                                                  category: $0)
+            let viewController = ChildCompositionalViewController(
+                viewModel: viewModels[viewModelCount],
+                category: $0
+            )
             categoryViewControllers.append(viewController)
             viewModelCount += 1
         }
@@ -193,16 +195,12 @@ extension PresentationDIContainer {
     
     private func setupViewControllerContainCoordinator(_ viewControllers: [ChildCompositionalViewController]) -> [ChildCompositionalViewController] {
         var viewControllerArray: [ChildCompositionalViewController] = []
-        let colors: [UIColor] = [ .black, .orange, .yellow, .green, .blue, .purple, .black, .white ]
-        var count = 0
         viewControllers.forEach {
             let coordinator = ChildCompositionalCoordinator(parentCoordinator: nil,
                                                             viewController: $0)
             $0.coordinator = coordinator
-            $0.view.backgroundColor = colors[count]
             coordinator.navigationController = UINavigationController()
             viewControllerArray.append($0)
-            count += 1
         }
         
         return viewControllerArray

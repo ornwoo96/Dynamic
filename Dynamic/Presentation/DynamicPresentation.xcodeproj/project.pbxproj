@@ -12,6 +12,8 @@
 		0B5F20542959B20100338007 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20532959B20100338007 /* MainNavigationBar.swift */; };
 		0B5F20562959B21300338007 /* FavoritesNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */; };
 		0B5F205C2959C17900338007 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F205B2959C17900338007 /* BackButton.swift */; };
+		0B5F2066295AF17200338007 /* PageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2065295AF17200338007 /* PageLoadingView.swift */; };
+		0B5F2068295B211E00338007 /* ReloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2067295B211E00338007 /* ReloadingView.swift */; };
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -25,7 +27,7 @@
 		0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323429476220009D3EDF /* UIView+Radius.swift */; };
 		0B72323C2947695B009D3EDF /* UIViewController+Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */; };
 		0B72323E29476E37009D3EDF /* UIView+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323D29476E37009D3EDF /* UIView+Color.swift */; };
-		0B723240294793C6009D3EDF /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323F294793C6009D3EDF /* UIImage.swift */; };
+		0B723240294793C6009D3EDF /* UIImage + Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72323F294793C6009D3EDF /* UIImage + Gradient.swift */; };
 		0B72325A2949E032009D3EDF /* CustomViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */; };
 		0B72325C2949E03F009D3EDF /* CustomViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */; };
 		0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */; };
@@ -112,6 +114,8 @@
 		0B5F20532959B20100338007 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
 		0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNavigationBar.swift; sourceTree = "<group>"; };
 		0B5F205B2959C17900338007 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		0B5F2065295AF17200338007 /* PageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLoadingView.swift; sourceTree = "<group>"; };
+		0B5F2067295B211E00338007 /* ReloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadingView.swift; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -125,7 +129,7 @@
 		0B72323429476220009D3EDF /* UIView+Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Radius.swift"; sourceTree = "<group>"; };
 		0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ratio.swift"; sourceTree = "<group>"; };
 		0B72323D29476E37009D3EDF /* UIView+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Color.swift"; sourceTree = "<group>"; };
-		0B72323F294793C6009D3EDF /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		0B72323F294793C6009D3EDF /* UIImage + Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Gradient.swift"; sourceTree = "<group>"; };
 		0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + Event.swift"; sourceTree = "<group>"; };
 		0B72325B2949E03F009D3EDF /* CustomViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + Action.swift"; sourceTree = "<group>"; };
 		0B723261294A08FC009D3EDF /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -370,7 +374,7 @@
 				0B72323429476220009D3EDF /* UIView+Radius.swift */,
 				0B72323B2947695B009D3EDF /* UIViewController+Ratio.swift */,
 				0B72323D29476E37009D3EDF /* UIView+Color.swift */,
-				0B72323F294793C6009D3EDF /* UIImage.swift */,
+				0B72323F294793C6009D3EDF /* UIImage + Gradient.swift */,
 				0B723264294A2B67009D3EDF /* UIImage + GIF.swift */,
 			);
 			path = Extensions;
@@ -513,6 +517,8 @@
 				0B8F0763294DAFB600F5B591 /* HeartView.swift */,
 				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
 				0BB7E06B2955C49300C0AA83 /* CategoryView.swift */,
+				0B5F2065295AF17200338007 /* PageLoadingView.swift */,
+				0B5F2067295B211E00338007 /* ReloadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -785,7 +791,8 @@
 				0B992330294F479700913288 /* PickListCollectionViewCell.swift in Sources */,
 				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
 				0BB7E0432952D27900C0AA83 /* BaseCellItem.swift in Sources */,
-				0B723240294793C6009D3EDF /* UIImage.swift in Sources */,
+				0B723240294793C6009D3EDF /* UIImage + Gradient.swift in Sources */,
+				0B5F2068295B211E00338007 /* ReloadingView.swift in Sources */,
 				0BB7E05A2952D77200C0AA83 /* ChildCompositionalViewModel + Section.swift in Sources */,
 				0B723278294B2C1D009D3EDF /* DetailViewModel.swift in Sources */,
 				0BB7E04F2952D53E00C0AA83 /* CustomPresentationModel.swift in Sources */,
@@ -808,6 +815,7 @@
 				0BB7E0482952D31000C0AA83 /* CompositionalLayout + Dynamic.swift in Sources */,
 				0BB7E06E2955DEDE00C0AA83 /* CompositionalHeaderView.swift in Sources */,
 				0B99232D294F44A200913288 /* PickListViewModel + Event.swift in Sources */,
+				0B5F2066295AF17200338007 /* PageLoadingView.swift in Sources */,
 				0B72322D29473531009D3EDF /* TarBarController.swift in Sources */,
 				0BB7E05C2952D7C500C0AA83 /* ChildCompositionalViewModelProtocol.swift in Sources */,
 				0BB52BE82946095D005FC30F /* CustomViewController.swift in Sources */,
