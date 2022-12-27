@@ -17,6 +17,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
     private var dataSource: UICollectionViewDiffableDataSource<ChildCompositionalViewModel.Section, BaseCellItem>?
     private var loadingView = PageLoadingView()
+    private var compositionalCollectionViewTopConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         setupViewController()
         setupCollectionView()
         setupLoadingView()
+        setupRefreshControl()
     }
     
     private func setupViewController() {
@@ -59,12 +61,13 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         compositionalCollectionView.delegate = self
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        compositionalCollectionViewTopConstraint = compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor)
         NSLayoutConstraint.activate([
-            compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             compositionalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             compositionalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             compositionalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        compositionalCollectionViewTopConstraint?.isActive = true
     }
     
     private func setupLoadingView() {
@@ -77,6 +80,12 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         view.bringSubviewToFront(loadingView)
+    }
+    
+    private func setupRefreshControl() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        compositionalCollectionView.refreshControl = refresh
     }
     
     private func registerCollectionViewCell() {
@@ -116,6 +125,9 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
                     strongSelf.animateHideBar()
                 case .animateShowBar:
                     strongSelf.animateShowBar()
+                case .beginRefreshing:break
+                case .endRefreshing:
+                    strongSelf.endRefreshing()
                 }
             }
             .store(in: &cancellable)
@@ -189,6 +201,15 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private func hideLoading() {
         loadingView.isHidden = true
     }
+    
+    @objc private func pullToRefresh(_ sender: UIRefreshControl) {
+        compositionalCollectionView.refreshControl?.beginRefreshing()
+        viewModel.action(.pullToRefresh)
+    }
+    
+    private func endRefreshing() {
+        compositionalCollectionView.refreshControl?.endRefreshing()
+    }
 }
 
 extension ChildCompositionalViewController {
@@ -223,12 +244,10 @@ extension ChildCompositionalViewController {
 extension ChildCompositionalViewController {
     
     private func animateHideBar() {
-        print("hideBar")
         castedCoordinator?.hideNavigationBar()
     }
     
     private func animateShowBar() {
-        print("showBar")
         castedCoordinator?.showNavigationBar()
     }
 }

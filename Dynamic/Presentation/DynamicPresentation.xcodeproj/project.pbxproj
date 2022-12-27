@@ -13,6 +13,7 @@
 		0B5F20562959B21300338007 /* FavoritesNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */; };
 		0B5F205C2959C17900338007 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F205B2959C17900338007 /* BackButton.swift */; };
 		0B5F2066295AF17200338007 /* PageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2065295AF17200338007 /* PageLoadingView.swift */; };
+		0B5F2068295B211E00338007 /* ReloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2067295B211E00338007 /* ReloadingView.swift */; };
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -114,6 +115,7 @@
 		0B5F20552959B21300338007 /* FavoritesNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNavigationBar.swift; sourceTree = "<group>"; };
 		0B5F205B2959C17900338007 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		0B5F2065295AF17200338007 /* PageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLoadingView.swift; sourceTree = "<group>"; };
+		0B5F2067295B211E00338007 /* ReloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadingView.swift; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				0B72326F294B21E2009D3EDF /* PickListButton.swift */,
 				0BB7E06B2955C49300C0AA83 /* CategoryView.swift */,
 				0B5F2065295AF17200338007 /* PageLoadingView.swift */,
+				0B5F2067295B211E00338007 /* ReloadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
 				0BB7E0432952D27900C0AA83 /* BaseCellItem.swift in Sources */,
 				0B723240294793C6009D3EDF /* UIImage + Gradient.swift in Sources */,
+				0B5F2068295B211E00338007 /* ReloadingView.swift in Sources */,
 				0BB7E05A2952D77200C0AA83 /* ChildCompositionalViewModel + Section.swift in Sources */,
 				0B723278294B2C1D009D3EDF /* DetailViewModel.swift in Sources */,
 				0BB7E04F2952D53E00C0AA83 /* CustomPresentationModel.swift in Sources */,

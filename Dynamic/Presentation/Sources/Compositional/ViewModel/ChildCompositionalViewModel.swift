@@ -38,6 +38,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             event.send(.showHeartView(indexPath: indexPath))
         case .scrollViewDidScroll(let yValue):
             self.branchNavigationAnimationForHideORShow(yValue)
+        case .pullToRefresh:
+            self.delayRetrieveData()
         }
     }
     
@@ -56,12 +58,43 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         }
     }
     
+    private func delayRetrieveData() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            self?.event.send(.endRefreshing)
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            self?.retrieveGIPHYDataForRefresh()
+        }
+    }
+    
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
         dynamicUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
     }
     
     private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
         dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
+    }
+    
+    private func retrieveGIPHYDataForRefresh() {
+        
+        Task { [weak self] in
+            do {
+                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                self?.resetFetchData()
+                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
+                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
+                setupSections(convertPresentationModel(model).previewModel)
+                offset += limit
+            } catch {
+                print("viewModel PreviewImage - 가져오기 실패")
+            }
+        }
+    }
+    
+    private func resetFetchData() {
+        sections = []
+        previewContents = []
+        originalContents = []
     }
     
     private func retrieveGIPHYData() {
