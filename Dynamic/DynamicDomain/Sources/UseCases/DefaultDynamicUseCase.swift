@@ -17,8 +17,9 @@ public final class DefaultDynamicUseCase: DynamicUseCase {
         self.coreDataManager = coreDataManager
     }
     
-    public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
-        return try await dynamicRepository.retrieveGIPHYDatas()
+    public func retrieveGIPHYDatas(_ searchWord: String,
+                                   _ offset: Int) async throws -> GIPHYDomainModel {
+        return try await dynamicRepository.retrieveGIPHYDatas(searchWord, offset)
     }
     
     public func requestRemoveImageDataFromCoreData(_ id: String) {

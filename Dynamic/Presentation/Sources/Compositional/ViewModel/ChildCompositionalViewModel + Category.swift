@@ -8,14 +8,14 @@
 import Foundation
 
 extension ChildCompositionalViewModel {
-    public enum Category {
-        case Coding
-        case Memes
-        case Cats
-        case Dogs
-        case Christmas
-        case Oops
-        case Reactions
-        case Emoji
+    public enum Category: String {
+        case Coding = "Coding"
+        case Memes = "Memes"
+        case Cats = "Cat"
+        case Dogs = "Dogs"
+        case Christmas = "Christmas"
+        case Oops = "Oops"
+        case Reactions = "Reactions"
+        case Emoji = "Emoji"
     }
 }

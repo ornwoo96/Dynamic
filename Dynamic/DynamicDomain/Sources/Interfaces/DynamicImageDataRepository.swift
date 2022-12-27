@@ -8,5 +8,6 @@
 import Foundation
 
 public protocol DynamicImageDataRepository {
-    func retrieveGIPHYDatas() async throws -> GIPHYDomainModel
+    func retrieveGIPHYDatas(_ searchWord: String,
+                            _ offset: Int) async throws -> GIPHYDomainModel
 }

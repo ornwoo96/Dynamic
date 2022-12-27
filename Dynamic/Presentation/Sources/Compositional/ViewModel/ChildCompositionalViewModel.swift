@@ -16,6 +16,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
     private var isCustomNavigationBarAnimationFirst: Bool = false
+    private var offset = 0
+    private var limit = 15
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     public var category: Category = .Coding
     
@@ -26,6 +28,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     public func action(_ action: Action) {
         switch action {
         case .viewDidLoad:
+            event.send(.showLoading)
             self.retrieveGIPHYData()
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(content: convert(originalContents[indexPath.item])))
@@ -64,10 +67,11 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas()
+                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
                 self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
                 self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
                 setupSections(convertPresentationModel(model).previewModel)
+                offset += limit
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }

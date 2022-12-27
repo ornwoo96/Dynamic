@@ -19,8 +19,9 @@ public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository
         self.coreDataManager = coreDataManager
     }
     
-    public func retrieveGIPHYDatas() async throws -> GIPHYDomainModel {
-        let data = try await manager.fetchGIPHYDatas()
+    public func retrieveGIPHYDatas(_ searchWord: String,
+                                   _ offset: Int) async throws -> GIPHYDomainModel {
+        let data = try await manager.fetchGIPHYDatas(searchWord, offset)
         let boolArray = try await coreDataManager.checkGIFImageArrayDataIsExist(createIdArray(data.previewImages))
         
         return convert(data, boolArray)

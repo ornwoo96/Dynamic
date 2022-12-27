@@ -11,7 +11,8 @@ import Foundation
 public protocol DynamicUseCase {
     var dynamicRepository: DynamicImageDataRepository { get }
     
-    func retrieveGIPHYDatas() async throws -> GIPHYDomainModel
+    func retrieveGIPHYDatas(_ searchWord: String,
+                            _ offset: Int) async throws -> GIPHYDomainModel
     func requestCoreDataCreateImageData(_ data: OriginalDomainModel)
     func requestRemoveImageDataFromCoreData(_ id: String)
     func retrieveGIPHYDataFromCoreData() async throws -> [FavoriteDomainModel]

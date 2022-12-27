@@ -55,6 +55,14 @@ extension UIView {
         layer.addSublayer(gradient)
     }
     
+    func setGradientWithArrayThreeColor(_ cgcolors: [CGColor], _ size: CGSize) {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = cgcolors
+        gradient.frame = CGRect(origin: .zero, size: size)
+        
+        layer.addSublayer(gradient)
+    }
+    
     func setAnimateGradientWithThreeColor(_ color1: UIColor,
                                           _ color2: UIColor,
                                           _ color3: UIColor,
@@ -177,5 +185,39 @@ extension UIColor {
                 UIColor.systemPink.cgColor,
                 UIColor.systemPurple.cgColor,
                 UIColor.systemBlue.cgColor]
+    }
+    
+    static var gradientSeries10: [CGColor] {
+        return [UIColor.systemRed.cgColor,
+                UIColor.systemPink.cgColor,
+                UIColor.systemPurple.cgColor,
+                UIColor.systemBlue.cgColor,
+                UIColor.systemTeal.cgColor,
+                UIColor.systemMint.cgColor]
+    }
+    
+    static var gradientSeries11: [CGColor] {
+        return [UIColor.systemMint.cgColor,
+                UIColor.systemTeal.cgColor,
+                UIColor.systemBlue.cgColor,
+                UIColor.systemPurple.cgColor,
+                UIColor.systemPink.cgColor,
+                UIColor.systemRed.cgColor]
+    }
+}
+
+extension UIColor {
+    static var randomGradientSeries: [CGColor] {
+        let array: [[CGColor]] = [UIColor.gradientSeries1,
+                                  UIColor.gradientSeries2,
+                                  UIColor.gradientSeries3,
+                                  UIColor.gradientSeries4,
+                                  UIColor.gradientSeries5,
+                                  UIColor.gradientSeries6,
+                                  UIColor.gradientSeries7,
+                                  UIColor.gradientSeries8]
+        let randomNumber = ((0..<8).randomElement()) ?? 0
+        
+        return array[randomNumber]
     }
 }

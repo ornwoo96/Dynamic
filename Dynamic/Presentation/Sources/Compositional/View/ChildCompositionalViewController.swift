@@ -16,6 +16,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private var cancellable: Set<AnyCancellable> = .init()
     private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
     private var dataSource: UICollectionViewDiffableDataSource<ChildCompositionalViewModel.Section, BaseCellItem>?
+    private var loadingView = PageLoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.action(.viewDidLoad)
-
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -46,6 +46,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private func setupUI() {
         setupViewController()
         setupCollectionView()
+        setupLoadingView()
     }
     
     private func setupViewController() {
@@ -64,6 +65,18 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
             compositionalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             compositionalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func setupLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        view.bringSubviewToFront(loadingView)
     }
     
     private func registerCollectionViewCell() {
@@ -92,7 +105,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
                 case .showDetailView(let data):
                     strongSelf.showDetailView(data)
                 case .showLoading:
-                    break
+                    strongSelf.showLoading()
                 case .hideLoading:
                     break
                 case .invalidateLayout:
@@ -168,6 +181,9 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         castedCoordinator?.presentDetailView(self, data)
     }
     
+    private func showLoading() {
+//        loadingView.animateGradient()
+    }
 }
 
 extension ChildCompositionalViewController {
