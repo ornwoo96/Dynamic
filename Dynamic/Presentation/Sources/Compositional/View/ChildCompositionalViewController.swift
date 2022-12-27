@@ -107,7 +107,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
                 case .showLoading:
                     strongSelf.showLoading()
                 case .hideLoading:
-                    break
+                    strongSelf.hideLoading()
                 case .invalidateLayout:
                     strongSelf.invalidateLayout()
                 case .showHeartView(indexPath: let indexPath):
@@ -182,7 +182,12 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func showLoading() {
-//        loadingView.animateGradient()
+        loadingView.isHidden = false
+        loadingView.bounceAnimation()
+    }
+    
+    private func hideLoading() {
+        loadingView.isHidden = true
     }
 }
 

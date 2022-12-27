@@ -92,7 +92,6 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private func retrieveNextData(_ indexPath: Int) {
         if previewContents.count - 1 == indexPath,
            event.value != .showLoading {
-            event.send(.showLoading)
             retrieveGIPHYData()
         }
     }

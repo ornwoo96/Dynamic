@@ -221,3 +221,38 @@ extension UIColor {
         return array[randomNumber]
     }
 }
+
+// MARK: Dynamic 8colors
+extension UIColor {
+    static var dynamicRed: UIColor {
+        return UIColor.init(red: 183/255, green: 28/255, blue: 67/255, alpha: 1)
+    }
+    
+    static var dynamicTurquoise: UIColor {
+        return UIColor.init(red: 35/255, green: 136/255, blue: 165/255, alpha: 1)
+    }
+    
+    static var dynamicPink: UIColor {
+        return UIColor.init(red: 200/255, green: 95/255, blue: 133/255, alpha: 1)
+    }
+    
+    static var dynamicGreen: UIColor {
+        return UIColor.init(red: 105/255, green: 149/255, blue: 107/255, alpha: 1)
+    }
+    
+    static var dynamicPurple: UIColor {
+        return UIColor.init(red: 121/255, green: 79/255, blue: 130/255, alpha: 1)
+    }
+    
+    static var dynamicOrange: UIColor {
+        return UIColor.init(red: 185/255, green: 66/255, blue: 29/255, alpha: 1)
+    }
+    
+    static var dynamicTeal: UIColor {
+        return UIColor.init(red: 45/255, green: 138/255, blue: 123/255, alpha: 1)
+    }
+    
+    static var dynamicYellow: UIColor {
+        return UIColor.init(red: 212/255, green: 140/255, blue: 42/255, alpha: 1)
+    }
+}

@@ -68,6 +68,7 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
                 self?.imageView.image = nil
                 self?.imageView.image = UIImage.gifImageWithData(image)
                 self?.animateHeartView(item.favorite)
+                self?.layer.backgroundColor = UIColor.clear.cgColor
             }
         }
     }
