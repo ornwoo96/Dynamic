@@ -14,11 +14,11 @@
 		0B19C796294232AA00909F8D /* DynamicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C795294232AA00909F8D /* DynamicTests.swift */; };
 		0B19C7A0294232AA00909F8D /* DynamicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C79F294232AA00909F8D /* DynamicUITests.swift */; };
 		0B19C7A2294232AA00909F8D /* DynamicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C7A1294232AA00909F8D /* DynamicUITestsLaunchTests.swift */; };
-		0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B202945B509005FC30F /* DynamicCore.framework */; };
+		0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B202945B509005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B232945B509005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B202945B509005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B212945B509005FC30F /* DynamicData.framework */; };
+		0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B212945B509005FC30F /* DynamicData.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B252945B509005FC30F /* DynamicData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B212945B509005FC30F /* DynamicData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; };
+		0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B2A2945B50F005FC30F /* DynamicPresentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -131,6 +131,7 @@
 		0BB52B2B2945B530005FC30F /* Domain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Domain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/Domain.framework"; sourceTree = "<group>"; };
 		0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicDomain.xcodeproj; path = Dynamic/DynamicDomain/DynamicDomain.xcodeproj; sourceTree = "<group>"; };
 		0BB52BB929460367005FC30F /* DynamicData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicData.xcodeproj; path = Dynamic/DynamicData/DynamicData.xcodeproj; sourceTree = "<group>"; };
+		0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamicDomain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/DynamicDomain.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +219,7 @@
 				0BB52B282945B50F005FC30F /* DynamicPresentation.framework */,
 				0BB52B202945B509005FC30F /* DynamicCore.framework */,
 				0BB52B212945B509005FC30F /* DynamicData.framework */,
+				0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */,
 				0BB52B2B2945B530005FC30F /* Domain.framework */,
 			);
 			name = Frameworks;
@@ -546,7 +548,7 @@
 		0B19C7A3294232AA00909F8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -606,7 +608,7 @@
 		0B19C7A4294232AA00909F8D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -671,6 +673,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -701,6 +704,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

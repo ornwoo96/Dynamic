@@ -69,7 +69,7 @@ public struct Original: Codable {
 }
 
 
-public struct GiphyImageEntity {
+public struct GiphyImageDataModel {
     static let empty: Self = .init(previewImages: [],
                                    originalImages: [])
     
@@ -81,18 +81,19 @@ public struct GiphyImageEntity {
         self.previewImages = previewImages
         self.originalImages = originalImages
     }
+    
+    public struct PreviewAddIDEntity {
+        public let id: String
+        public let height: String
+        public let width: String
+        public let url: String
+    }
+
+    public struct OriginalAddIDEntity {
+        public let id: String
+        public let height: String
+        public let width: String
+        public let url: String
+    }
 }
 
-public struct PreviewAddIDEntity {
-    public let id: String
-    public let height: String
-    public let width: String
-    public let url: String
-}
-
-public struct OriginalAddIDEntity {
-    public let id: String
-    public let height: String
-    public let width: String
-    public let url: String
-}

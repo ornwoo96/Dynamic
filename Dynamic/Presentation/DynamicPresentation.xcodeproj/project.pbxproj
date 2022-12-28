@@ -59,9 +59,9 @@
 		0BB52A1B2945AC90005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52A102945AC90005FC30F /* DynamicPresentation.framework */; };
 		0BB52A202945AC90005FC30F /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52A1F2945AC90005FC30F /* PresentationTests.swift */; };
 		0BB52A212945AC90005FC30F /* Presentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52A132945AC90005FC30F /* Presentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BB52B1B2945B4FA005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B192945B4FA005FC30F /* DynamicCore.framework */; };
+		0BB52B1B2945B4FA005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B192945B4FA005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B1C2945B4FA005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B192945B4FA005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BB52B1D2945B4FA005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B1A2945B4FA005FC30F /* DynamicDomain.framework */; };
+		0BB52B1D2945B4FA005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B1A2945B4FA005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B1E2945B4FA005FC30F /* DynamicDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B1A2945B4FA005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB52B2E2945C3A2005FC30F /* PresentationDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B2D2945C3A2005FC30F /* PresentationDIContainer.swift */; };
 		0BB52B542945F836005FC30F /* DynamicCustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B532945F836005FC30F /* DynamicCustomFlowLayout.swift */; };
@@ -934,7 +934,7 @@
 		0BB52A222945AC90005FC30F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -997,7 +997,7 @@
 		0BB52A232945AC90005FC30F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1064,6 +1064,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1095,6 +1096,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,19 +1,17 @@
 //
-//  DefaultDynamicRepository.swift
-//  DynamicData
+//  ImageSearchUseCase.swift
+//  DynamicDomain
 //
-//  Created by 김동우 on 2022/12/11.
+//  Created by 김동우 on 2022/12/28.
 //
 
 import Foundation
 
-import DynamicDomain
-
-public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository {
-    private let manager: NetworkManager
+public final class ImageSearchUseCase: ImageSearchUseCaseProtocol {
+    private let manager: NetworkManagerRepository
     private let coreDataManager: CoreDataManagerRepository
     
-    init(manager: NetworkManager,
+    init(manager: NetworkManagerRepository,
          coreDataManager: CoreDataManagerRepository) {
         self.manager = manager
         self.coreDataManager = coreDataManager

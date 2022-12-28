@@ -17,14 +17,11 @@
 		0BB52BAA29460367005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9F29460367005FC30F /* DynamicData.framework */; };
 		0BB52BAF29460367005FC30F /* DynamicDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BAE29460367005FC30F /* DynamicDataTests.swift */; };
 		0BB52BB029460367005FC30F /* DynamicData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52BA229460367005FC30F /* DynamicData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BB52BDB294604D3005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD9294604D3005FC30F /* DynamicCore.framework */; };
+		0BB52BDB294604D3005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD9294604D3005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52BDC294604D3005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD9294604D3005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BB52BDD294604D4005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BDA294604D3005FC30F /* DynamicDomain.framework */; };
+		0BB52BDD294604D4005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BDA294604D3005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52BDE294604D4005FC30F /* DynamicDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BDA294604D3005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BB52BE32946053F005FC30F /* DefaultDynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BE22946053F005FC30F /* DefaultDynamicRepository.swift */; };
 		0BB52BE529460573005FC30F /* DataDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BE429460573005FC30F /* DataDIContainer.swift */; };
-		0BB7E03E2952CE7200C0AA83 /* DynamicRepository + DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E03D2952CE7200C0AA83 /* DynamicRepository + DTO.swift */; };
-		0BB7E0402952CE8300C0AA83 /* GIPHYFromAPIEntity + DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E03F2952CE8300C0AA83 /* GIPHYFromAPIEntity + DTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,10 +63,7 @@
 		0BB52BAE29460367005FC30F /* DynamicDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDataTests.swift; sourceTree = "<group>"; };
 		0BB52BD9294604D3005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52BDA294604D3005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB52BE22946053F005FC30F /* DefaultDynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDynamicRepository.swift; sourceTree = "<group>"; };
 		0BB52BE429460573005FC30F /* DataDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDIContainer.swift; sourceTree = "<group>"; };
-		0BB7E03D2952CE7200C0AA83 /* DynamicRepository + DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicRepository + DTO.swift"; sourceTree = "<group>"; };
-		0BB7E03F2952CE8300C0AA83 /* GIPHYFromAPIEntity + DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIPHYFromAPIEntity + DTO.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,14 +101,6 @@
 				0B723243294857B0009D3EDF /* NetworkManager.swift */,
 			);
 			path = NetWork;
-			sourceTree = "<group>";
-		};
-		0B8F0765294DBDD600F5B591 /* CoreDataManager */ = {
-			isa = PBXGroup;
-			children = (
-				0B8F0766294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift */,
-			);
-			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 		0B8F077F294DCCD300F5B591 /* CoreData */ = {
@@ -167,7 +153,6 @@
 		0BB52BC32946038C005FC30F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0BB7E03C2952CE5100C0AA83 /* DTO */,
 				0B8F077F294DCCD300F5B591 /* CoreData */,
 				0BB52BE129460528005FC30F /* DIContainer */,
 				0B72324129485140009D3EDF /* Entities */,
@@ -189,8 +174,7 @@
 		0BB52BE029460516005FC30F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0B8F0765294DBDD600F5B591 /* CoreDataManager */,
-				0BB52BE22946053F005FC30F /* DefaultDynamicRepository.swift */,
+				0B8F0766294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -201,15 +185,6 @@
 				0BB52BE429460573005FC30F /* DataDIContainer.swift */,
 			);
 			path = DIContainer;
-			sourceTree = "<group>";
-		};
-		0BB7E03C2952CE5100C0AA83 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				0BB7E03D2952CE7200C0AA83 /* DynamicRepository + DTO.swift */,
-				0BB7E03F2952CE8300C0AA83 /* GIPHYFromAPIEntity + DTO.swift */,
-			);
-			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,13 +301,10 @@
 				0BB52BA429460367005FC30F /* DynamicData.docc in Sources */,
 				0B723246294858B2009D3EDF /* GIPHYFromAPIEntity.swift in Sources */,
 				0B723244294857B0009D3EDF /* NetworkManager.swift in Sources */,
-				0BB7E03E2952CE7200C0AA83 /* DynamicRepository + DTO.swift in Sources */,
 				0B8F0767294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift in Sources */,
 				0B992324294DE31700913288 /* Favorites+CoreDataProperties.swift in Sources */,
-				0BB7E0402952CE8300C0AA83 /* GIPHYFromAPIEntity + DTO.swift in Sources */,
 				0B8F0788294DDEBC00F5B591 /* DynamicCoreData.xcdatamodeld in Sources */,
 				0B992323294DE31300913288 /* Favorites+CoreDataClass.swift in Sources */,
-				0BB52BE32946053F005FC30F /* DefaultDynamicRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +330,7 @@
 		0BB52BB129460367005FC30F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -421,7 +393,7 @@
 		0BB52BB229460367005FC30F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -488,6 +460,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -519,6 +492,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
