@@ -11,7 +11,7 @@ class BackButton: UIButton {
     private lazy var backImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.backward")
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .white
         return imageView
     }()
@@ -19,6 +19,19 @@ class BackButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+    }
+    
+    override var isHighlighted: Bool {
+        get {
+            return super.isHighlighted
+        } set {
+            if newValue {
+                backgroundColor = .buttonHighlightColor
+            } else {
+                backgroundColor = .clear
+            }
+            super.isHighlighted = newValue
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -33,10 +46,10 @@ class BackButton: UIButton {
         self.addSubview(backImageView)
         backImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backImageView.topAnchor.constraint(equalTo: topAnchor),
-            backImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            backImageView.topAnchor.constraint(equalTo: topAnchor, constant: xValueRatio(10)),
+            backImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: xValueRatio(10)),
+            backImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -xValueRatio(10)),
+            backImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -xValueRatio(10))
         ])
     }
 }

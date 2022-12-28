@@ -87,6 +87,7 @@ class PickListViewController: UIViewController, HasCoordinatable {
             pickListCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pickListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        view.bringSubviewToFront(customNavigationBar)
     }
     
     private func bind() {
@@ -128,7 +129,6 @@ extension PickListViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickListCollectionViewCell.identifier, for: indexPath) as? PickListCollectionViewCell else { return UICollectionViewCell() }
         cell.imageView.image = nil
         cell.configure(viewModel.contents[indexPath.item].url)
-        cell.backgroundColor = .blue
         return cell
     }
 }

@@ -51,10 +51,12 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ item: CustomCellItem) {
+        DispatchQueue.main.async { [weak self] in
+            self?.imageView.image = nil
+        }
         Task {
             let image = try await ImageCacheManager.shared.imageLoad(item.imageUrl)
             await MainActor.run { [weak self] in
-                self?.imageView.image = nil
                 self?.imageView.image = UIImage.gifImageWithData(image)
                 self?.animateHeartView(item.favorite)
             }

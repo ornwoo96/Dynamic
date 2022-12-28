@@ -144,6 +144,10 @@ extension UIColor {
         return UIColor.init(red: 15/255, green: 15/255, blue: 15/255, alpha: 1)
     }
     
+    static var buttonHighlightColor: UIColor {
+        return UIColor.init(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.3)
+    }
+    
 }
 
 // MARK: Gradient 3Colors
