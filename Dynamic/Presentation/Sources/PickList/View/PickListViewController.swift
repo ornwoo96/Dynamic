@@ -18,6 +18,7 @@ class PickListViewController: UIViewController, HasCoordinatable {
 
     private lazy var pickListCollectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
+        layout.cellPadding = self.xValueRatio(2.5)
         layout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self

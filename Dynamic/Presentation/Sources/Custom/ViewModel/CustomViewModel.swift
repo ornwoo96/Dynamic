@@ -15,14 +15,25 @@ public class CustomViewModel: CustomViewModelProtocol {
     private var previewContents: [CustomPresentationModel.PresentationPreview] = []
     private var originalContents: [CustomPresentationModel.PresentationOriginal] = []
     private var originalImageDataArray: [String] = []
+    private var isCustomNavigationBarAnimationFirst: Bool = false
+    private var offset = 0
+    private var limit = 20
+    private var currentContentCount = 0
+    private var category: Category = .Coding
+    public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
     }
     
+    public func setupCategory(_ category: CustomViewModel.Category) {
+        self.category = category
+    }
+    
     public func action(_ action: Action) {
         switch action {
-        case .viewDidLoad:
+        case .viewWillAppear:
+            event.send(.showPageLoading)
             retrieveGIPHYData()
         case .viewNeededCalculateLayout:
             event.send(.invalidateLayout)
@@ -32,6 +43,10 @@ public class CustomViewModel: CustomViewModelProtocol {
             checkLastCell(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath))
+        case .scrollViewDidScroll(let yValue):
+            self.branchNavigationAnimationForHideORShow(yValue)
+        case .pullToRefresh:
+            self.delayRetrieveData()
         }
     }
     
@@ -45,9 +60,46 @@ public class CustomViewModel: CustomViewModelProtocol {
                                           _ indexPath: Int) {
         if bool {
             requestCreateImageDataToCoreData(indexPath)
+            favoritesCount.send(1)
         } else {
             requestRemoveImageDataToCoreData(indexPath)
+            favoritesCount.send(-1)
         }
+    }
+    
+    private func delayRetrieveData() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
+            self?.event.send(.endRefreshing)
+            self?.event.send(.showPageLoading)
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            self?.retrieveGIPHYDataForRefresh()
+        }
+    }
+    
+    private func retrieveGIPHYDataForRefresh() {
+        Task { [weak self] in
+            do {
+                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                self?.resetFetchData()
+                let presentationModel = convertCustomPresentationModel(model)
+                self?.previewContents.append(contentsOf: presentationModel.previewImageData)
+                self?.originalContents.append(contentsOf: presentationModel.originalImageData)
+                event.send(.invalidateLayout)
+                event.send(.hideBottomLoading)
+                event.send(.collectionViewReload)
+                event.send(.hidePageLoading)
+            } catch {
+                print("viewModel PreviewImage - 가져오기 실패")
+            }
+        }
+    }
+    
+    private func resetFetchData() {
+        previewContents = []
+        originalContents = []
+        offset = 0
+        currentContentCount = 0
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
@@ -64,8 +116,8 @@ public class CustomViewModel: CustomViewModelProtocol {
     
     private func checkLastCell(_ indexPath: Int) {
         if previewContents.count - 1 == indexPath,
-           event.value != .showLoading {
-            event.send(.showLoading)
+           event.value != .showBottomLoading {
+            event.send(.showBottomLoading)
             retrieveGIPHYData()
         }
     }
@@ -73,12 +125,14 @@ public class CustomViewModel: CustomViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-//                let model = try await dynamicUseCase.retrieveGIPHYDatas()
-//                self?.previewContents.append(contentsOf: convert(model.previewImages))
-//                self?.originalContents.append(contentsOf: convert(model.originalImages))
-//                
-//                event.send(.invalidateLayout)
-//                event.send(.hideLoading)
+                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
+                let presentationModel = convertCustomPresentationModel(model)
+                self?.previewContents.append(contentsOf: presentationModel.previewImageData)
+                self?.originalContents.append(contentsOf: presentationModel.originalImageData)
+                event.send(.invalidateLayout)
+                event.send(.hideBottomLoading)
+                event.send(.hidePageLoading)
+                offset += limit
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -87,20 +141,36 @@ public class CustomViewModel: CustomViewModelProtocol {
     
     private func createIndexPaths() -> [IndexPath] {
         var indexPaths: [IndexPath] = []
-        for i in previewContents.count-15..<previewContents.count {
+        for i in previewContents.count-20..<previewContents.count {
             let indexPath = IndexPath(item: i, section: 0)
             indexPaths.append(indexPath)
         }
         return indexPaths
     }
+    
+    private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
+        if yValue > 1 {
+            if self.isCustomNavigationBarAnimationFirst == false {
+                self.isCustomNavigationBarAnimationFirst = true
+                event.send(.animateHideBar)
+            }
+        } else {
+            if self.isCustomNavigationBarAnimationFirst {
+                self.isCustomNavigationBarAnimationFirst = false
+                event.send(.animateShowBar)
+            }
+        }
+    }
 }
 
 extension CustomViewModel {
     public func scrollViewDidEndDecelerating() {
-        if event.value == .showLoading {
+        if event.value == .showBottomLoading {
+            
             event.send(.showRetrievedCells(createIndexPaths()))
+            
         }
-        event.send(.hideLoading)
+        event.send(.hideBottomLoading)
     }
     
     public func collectionViewImageHeight(_ indexPath: IndexPath) -> CGFloat {

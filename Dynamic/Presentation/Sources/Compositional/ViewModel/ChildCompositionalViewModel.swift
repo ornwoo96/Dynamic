@@ -17,9 +17,9 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var sections: [Section] = []
     private var isCustomNavigationBarAnimationFirst: Bool = false
     private var offset = 0
-    private var limit = 15
+    private var limit = 20
+    private var category: Category = .Coding
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
-    public var category: Category = .Coding
     
     init(dynamicUseCase: DynamicUseCase) {
         self.dynamicUseCase = dynamicUseCase
@@ -41,6 +41,10 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         case .pullToRefresh:
             self.delayRetrieveData()
         }
+    }
+    
+    public func setupCategory(_ category: ChildCompositionalViewModel.Category) {
+        self.category = category
     }
     
     public func changeIsNavigationBarAnimation(_ bool: Bool) {
@@ -80,11 +84,11 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         Task { [weak self] in
             do {
                 let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                let presentationModel = convertPresentationModel(model)
                 self?.resetFetchData()
-                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
-                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
-                setupSections(convertPresentationModel(model).previewModel)
-                offset += limit
+                self?.previewContents.append(contentsOf: presentationModel.previewModel)
+                self?.originalContents.append(contentsOf: presentationModel.originalModel)
+                setupSections(presentationModel.previewModel)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -95,15 +99,17 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         sections = []
         previewContents = []
         originalContents = []
+        offset = 0
     }
     
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
                 let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
-                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
-                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
-                setupSections(convertPresentationModel(model).previewModel)
+                let presentationModel = convertPresentationModel(model)
+                self?.previewContents.append(contentsOf: presentationModel.previewModel)
+                self?.originalContents.append(contentsOf: presentationModel.originalModel)
+                setupSections(presentationModel.previewModel)
                 offset += limit
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")

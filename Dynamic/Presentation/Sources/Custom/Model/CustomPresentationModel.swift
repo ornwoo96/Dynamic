@@ -9,6 +9,8 @@ import Foundation
 import DynamicDomain
 
 public struct CustomPresentationModel {
+    public static let empty: Self = .init(previewImageData: [],
+                                          originalImageData: [])
     
     var previewImageData: [PresentationPreview]
     var originalImageData: [PresentationOriginal]

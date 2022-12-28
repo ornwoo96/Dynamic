@@ -17,7 +17,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
     private var dataSource: UICollectionViewDiffableDataSource<ChildCompositionalViewModel.Section, BaseCellItem>?
     private var loadingView = PageLoadingView()
-    private var compositionalCollectionViewTopConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     init(viewModel: ChildCompositionalViewModelProtocol,
          category: ChildCompositionalViewModel.Category) {
         self.viewModel = viewModel
-        self.viewModel.category = category
+        self.viewModel.setupCategory(category)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,13 +60,12 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         compositionalCollectionView.delegate = self
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        compositionalCollectionViewTopConstraint = compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor)
         NSLayoutConstraint.activate([
+            compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             compositionalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             compositionalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             compositionalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        compositionalCollectionViewTopConstraint?.isActive = true
     }
     
     private func setupLoadingView() {
@@ -107,8 +105,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
             .sink { [weak self] in
                 guard let strongSelf = self else { return }
                 switch $0 {
-                case .none:
-                    break
+                case .none: break
                 case .reloadData(sections: let sections):
                     strongSelf.reloadData(sections)
                 case .showDetailView(let data):
@@ -125,7 +122,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
                     strongSelf.animateHideBar()
                 case .animateShowBar:
                     strongSelf.animateShowBar()
-                case .beginRefreshing:break
                 case .endRefreshing:
                     strongSelf.endRefreshing()
                 }

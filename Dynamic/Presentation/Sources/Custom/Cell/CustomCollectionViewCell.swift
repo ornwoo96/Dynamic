@@ -62,12 +62,19 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        setupBackgroundView()
         setupImageView()
         setupHeartView()
     }
     
     private func setupCell() {
         self.viewRadius(cornerRadius: 10)
+    }
+    
+    private func setupBackgroundView() {
+        self.setGradientWithArrayThreeColor(UIColor.randomGradientSeries,
+                                            CGSize(width: xValueRatio(200),
+                                                   height: yValueRatio(300)))
     }
     
     private func setupImageView() {

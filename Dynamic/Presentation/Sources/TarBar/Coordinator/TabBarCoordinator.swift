@@ -12,10 +12,10 @@ public class TabBarCoordinator: Coordinator {
     
     override public func start() {
         guard let viewController = viewController,
-              let customCoordinator: CustomCoordinator = DIContainer.shared.resolveValue(CodiKeys.custom.rawValue),
+              let parentCustomCoordinator: ParentCustomCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCustom.rawValue),
               let parentCompositionalCoordinator: ParentCompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCompo.rawValue),
               let swiftCoordinator: SwiftUICoordinator = DIContainer.shared.resolveValue(CodiKeys.swift.rawValue) else { return }
-        customCoordinator.start()
+        parentCustomCoordinator.start()
         parentCompositionalCoordinator.start()
         swiftCoordinator.start()
 

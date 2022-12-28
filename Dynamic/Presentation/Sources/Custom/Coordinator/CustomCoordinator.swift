@@ -31,4 +31,25 @@ public class CustomCoordinator: Coordinator {
         coordinator.detailData = detailData
         viewController.present(coordinator.viewController ?? UIViewController(), animated: true)
     }
+    
+    public func passFavoritesCountDataToParent(_ count: Int) {
+        guard let parentCoordinator = self.parentCoordinator as? ParentCustomCoordinator else { return }
+        parentCoordinator.receiveFavoritesCountData(count)
+    }
+    
+    public func pushPickListViewFromCustom() {
+        guard let coordinator: PickListCoordinator = DIContainer.shared.resolveValue(CodiKeys.pickList.rawValue) else { return }
+        coordinator.navigationController = parentCoordinator?.navigationController
+        coordinator.start()
+    }
+    
+    public func hideCustomNavigationBar() {
+        guard let parentCoordinator = self.parentCoordinator as? ParentCustomCoordinator else { return }
+        parentCoordinator.hideParentCustomNavigationBar()
+    }
+    
+    public func showCustomNavigationBar() {
+        guard let parentCoordinator = self.parentCoordinator as? ParentCustomCoordinator else { return }
+        parentCoordinator.showParentCustomNavigationBar()
+    }
 }

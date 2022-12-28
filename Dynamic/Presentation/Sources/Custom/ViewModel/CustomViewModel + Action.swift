@@ -9,10 +9,12 @@ import Foundation
 
 extension CustomViewModel {
     public enum Action {
-        case viewDidLoad
+        case viewWillAppear
         case viewNeededCalculateLayout
         case didSelectItemAt(indexPath: IndexPath)
         case willDisplay(indexPath: IndexPath)
         case didSelectedItemAtLongPressed(indexPath: IndexPath)
+        case scrollViewDidScroll(_ yValue: CGFloat)
+        case pullToRefresh
     }
 }

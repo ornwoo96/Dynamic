@@ -14,6 +14,12 @@
 		0B5F205C2959C17900338007 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F205B2959C17900338007 /* BackButton.swift */; };
 		0B5F2066295AF17200338007 /* PageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2065295AF17200338007 /* PageLoadingView.swift */; };
 		0B5F2068295B211E00338007 /* ReloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2067295B211E00338007 /* ReloadingView.swift */; };
+		0B5F206E295B49BD00338007 /* ParentCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F206D295B49BD00338007 /* ParentCustomViewController.swift */; };
+		0B5F2070295B49CA00338007 /* ParentCustomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F206F295B49CA00338007 /* ParentCustomViewModel.swift */; };
+		0B5F2072295B49D900338007 /* ParentCustomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2071295B49D900338007 /* ParentCustomCoordinator.swift */; };
+		0B5F2074295B4AE300338007 /* ParentCustomViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2073295B4AE300338007 /* ParentCustomViewModel + Action.swift */; };
+		0B5F2076295B4AF000338007 /* ParentCustomViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2075295B4AF000338007 /* ParentCustomViewModel + Event.swift */; };
+		0B5F2078295B4F0200338007 /* CustomViewModel + Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F2077295B4F0200338007 /* CustomViewModel + Category.swift */; };
 		0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */; };
 		0B72321D2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */; };
 		0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */; };
@@ -116,6 +122,12 @@
 		0B5F205B2959C17900338007 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		0B5F2065295AF17200338007 /* PageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLoadingView.swift; sourceTree = "<group>"; };
 		0B5F2067295B211E00338007 /* ReloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadingView.swift; sourceTree = "<group>"; };
+		0B5F206D295B49BD00338007 /* ParentCustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCustomViewController.swift; sourceTree = "<group>"; };
+		0B5F206F295B49CA00338007 /* ParentCustomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCustomViewModel.swift; sourceTree = "<group>"; };
+		0B5F2071295B49D900338007 /* ParentCustomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCustomCoordinator.swift; sourceTree = "<group>"; };
+		0B5F2073295B4AE300338007 /* ParentCustomViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCustomViewModel + Action.swift"; sourceTree = "<group>"; };
+		0B5F2075295B4AF000338007 /* ParentCustomViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCustomViewModel + Event.swift"; sourceTree = "<group>"; };
+		0B5F2077295B4F0200338007 /* CustomViewModel + Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViewModel + Category.swift"; sourceTree = "<group>"; };
 		0B72321A2946FED6009D3EDF /* ChildCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0B72321C2946FEE5009D3EDF /* ChildCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCompositionalCoordinator.swift; sourceTree = "<group>"; };
 		0B72321E29470410009D3EDF /* SwiftUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICoordinator.swift; sourceTree = "<group>"; };
@@ -216,6 +228,42 @@
 			path = CustomNavigationBar;
 			sourceTree = "<group>";
 		};
+		0B5F2069295B496500338007 /* ParentCustom */ = {
+			isa = PBXGroup;
+			children = (
+				0B5F206C295B498000338007 /* Coordinator */,
+				0B5F206B295B497800338007 /* ViewModel */,
+				0B5F206A295B497400338007 /* View */,
+			);
+			path = ParentCustom;
+			sourceTree = "<group>";
+		};
+		0B5F206A295B497400338007 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0B5F206D295B49BD00338007 /* ParentCustomViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0B5F206B295B497800338007 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0B5F206F295B49CA00338007 /* ParentCustomViewModel.swift */,
+				0B5F2073295B4AE300338007 /* ParentCustomViewModel + Action.swift */,
+				0B5F2075295B4AF000338007 /* ParentCustomViewModel + Event.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0B5F206C295B498000338007 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0B5F2071295B49D900338007 /* ParentCustomCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		0B72320A29463EAF009D3EDF /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +313,7 @@
 				0B7232592949E032009D3EDF /* CustomViewModel + Event.swift */,
 				0BB7E0492952D46000C0AA83 /* CustomViewModelProtocol.swift */,
 				0BB7E04B2952D4BB00C0AA83 /* CustomViewModel + DTO.swift */,
+				0B5F2077295B4F0200338007 /* CustomViewModel + Category.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -572,6 +621,7 @@
 				0BB7E07B295714F300C0AA83 /* ParentCompositional */,
 				0B72320C29463EC6009D3EDF /* Compositional */,
 				0B72320B29463EB6009D3EDF /* SwiftUI */,
+				0B5F2069295B496500338007 /* ParentCustom */,
 				0B72320A29463EAF009D3EDF /* Custom */,
 				0B723271294B2B59009D3EDF /* Detail */,
 				0B72327B294B2C36009D3EDF /* PickList */,
@@ -790,7 +840,9 @@
 				0BB52A152945AC90005FC30F /* Presentation.docc in Sources */,
 				0B992330294F479700913288 /* PickListCollectionViewCell.swift in Sources */,
 				0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */,
+				0B5F2070295B49CA00338007 /* ParentCustomViewModel.swift in Sources */,
 				0BB7E0432952D27900C0AA83 /* BaseCellItem.swift in Sources */,
+				0B5F2074295B4AE300338007 /* ParentCustomViewModel + Action.swift in Sources */,
 				0B723240294793C6009D3EDF /* UIImage + Gradient.swift in Sources */,
 				0B5F2068295B211E00338007 /* ReloadingView.swift in Sources */,
 				0BB7E05A2952D77200C0AA83 /* ChildCompositionalViewModel + Section.swift in Sources */,
@@ -808,6 +860,7 @@
 				0B8F0762294CC10300F5B591 /* DetailViewModel + Action.swift in Sources */,
 				0B8F0764294DAFB600F5B591 /* HeartView.swift in Sources */,
 				0B72322B29473521009D3EDF /* TabBarCoordinator.swift in Sources */,
+				0B5F206E295B49BD00338007 /* ParentCustomViewController.swift in Sources */,
 				0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */,
 				0B723265294A2B67009D3EDF /* UIImage + GIF.swift in Sources */,
 				0B72323529476220009D3EDF /* UIView+Radius.swift in Sources */,
@@ -820,6 +873,7 @@
 				0BB7E05C2952D7C500C0AA83 /* ChildCompositionalViewModelProtocol.swift in Sources */,
 				0BB52BE82946095D005FC30F /* CustomViewController.swift in Sources */,
 				0B8F075E294C6C4700F5B591 /* Coordinator.swift in Sources */,
+				0B5F2078295B4F0200338007 /* CustomViewModel + Category.swift in Sources */,
 				0B8F0757294B9EA100F5B591 /* DetailModel.swift in Sources */,
 				0BB52B2E2945C3A2005FC30F /* PresentationDIContainer.swift in Sources */,
 				0BB7E0582952D75900C0AA83 /* ChildCompositionalViewModel + Event.swift in Sources */,
@@ -827,6 +881,7 @@
 				0BB7E05E2952D80C00C0AA83 /* CompositionalCollectionViewCell.swift in Sources */,
 				0B723233294761E4009D3EDF /* UIView+Ratio.swift in Sources */,
 				0B99232B294F448200913288 /* PickListViewModel + Action.swift in Sources */,
+				0B5F2076295B4AF000338007 /* ParentCustomViewModel + Event.swift in Sources */,
 				0BB52BEA2946097D005FC30F /* ParentCompositionalViewController.swift in Sources */,
 				0BB7E04A2952D46000C0AA83 /* CustomViewModelProtocol.swift in Sources */,
 				0B72321F29470410009D3EDF /* SwiftUICoordinator.swift in Sources */,
@@ -853,6 +908,7 @@
 				0BB7E0522952D6DA00C0AA83 /* CompositionalPresentationModel.swift in Sources */,
 				0B72321B2946FED6009D3EDF /* ChildCompositionalViewModel.swift in Sources */,
 				0B72323E29476E37009D3EDF /* UIView+Color.swift in Sources */,
+				0B5F2072295B49D900338007 /* ParentCustomCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

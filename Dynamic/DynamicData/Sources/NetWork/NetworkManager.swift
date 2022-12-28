@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 public class NetworkManager {
-    private let limit: Int = 15
+    private let limit: Int = 20
     
     public func fetchGIPHYDatas(_ searchWord: String,
                                 _ offset: Int) async throws -> GiphyImageEntity {

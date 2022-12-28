@@ -12,6 +12,7 @@ public protocol ChildCompositionalViewModelInputProtocol: AnyObject {
     func action(_ action: ChildCompositionalViewModel.Action)
     func checkFavoriteButtonTapped(_ bool: Bool, _ indexPath: Int)
     func changeIsNavigationBarAnimation(_ bool: Bool)
+    func setupCategory(_ category: ChildCompositionalViewModel.Category)
 }
 
 public protocol ChildCompositionalViewModelOutputProtocol: AnyObject {
@@ -21,6 +22,5 @@ public protocol ChildCompositionalViewModelOutputProtocol: AnyObject {
 }
 
 public protocol ChildCompositionalViewModelProtocol: ChildCompositionalViewModelInputProtocol, ChildCompositionalViewModelOutputProtocol {
-    var category: ChildCompositionalViewModel.Category { set get }
     var favoritesCount: CurrentValueSubject<Int, Never> { get set }
 }

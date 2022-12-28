@@ -18,7 +18,7 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
     weak var delegate: DynamicCollectionViewHeightLayoutDelegate?
     private var columnCount: Int = 2
     private var cache: [UICollectionViewLayoutAttributes] = []
-    private let cellPadding: CGFloat = 5.0
+    internal var cellPadding: CGFloat?
     private var contentHeight: CGFloat = 0.0
     private lazy var contentWidth: CGFloat = {
         guard let collectionView = collectionView else { return 0.0 }
@@ -28,7 +28,7 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
     
     private var allLeftHeightValue: CGFloat = 0.0
     private var allRightHeightValue: CGFloat = 0.0
-
+    
     override var collectionViewContentSize: CGSize {
         return CGSize(width: contentWidth, height: contentHeight)
     }
@@ -38,7 +38,6 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
         guard let collectionView = collectionView else { return }
         clearLayoutObject()
         calculateYOffsetValue(collectionView, calculateXOffsetValue())
-        
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -79,11 +78,11 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
                                          _ indexPath: IndexPath) {
         let columnWidth: CGFloat = contentWidth / CGFloat(columnCount)
         let heightResult = createHeightResize(collectionView, indexPath)
-        let height = cellPadding * 2 + heightResult
+        let height = (cellPadding ?? 0) * 2 + heightResult
         let frame = CGRect(x: calculateXOffsetValue()[0],
                            y: allLeftHeightValue,
                            width: columnWidth, height: height)
-        let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+        let insetFrame = frame.insetBy(dx: cellPadding ?? 0, dy: cellPadding ?? 0)
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = insetFrame
         cache.append(attributes)
@@ -95,11 +94,11 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
                                           _ indexPath: IndexPath) {
         let columnWidth: CGFloat = contentWidth / CGFloat(columnCount)
         let heightResult = createHeightResize(collectionView, indexPath)
-        let height = cellPadding * 2 + heightResult
+        let height = (cellPadding ?? 0) * 2 + heightResult
         let frame = CGRect(x: calculateXOffsetValue()[1],
                            y: allRightHeightValue,
                            width: columnWidth, height: height)
-        let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+        let insetFrame = frame.insetBy(dx: cellPadding ?? 0, dy: cellPadding ?? 0)
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = insetFrame
         cache.append(attributes)

@@ -6,36 +6,33 @@
 //
 
 import UIKit
-
 import Combine
 
 class CustomViewController: UIViewController, HasCoordinatable {
     private var viewModel: CustomViewModelProtocol
-    weak var coordinator: Coordinator?
+    var coordinator: Coordinator?
     private var castedCoordinator: CustomCoordinator? { coordinator as? CustomCoordinator }
     private var cancellable = Set<AnyCancellable>()
+    private var loadingView = PageLoadingView()
     
     private lazy var customCollectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
+        layout.cellPadding = self.xValueRatio(2.5)
         layout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.backgroundColor = .black
-        collectionView.contentInset = UIEdgeInsets(top: xValueRatio(35),
-                                                   left: xValueRatio(5),
-                                                   bottom: xValueRatio(10),
-                                                   right: xValueRatio(5))
         collectionView.isPrefetchingEnabled = true
         collectionView.alwaysBounceVertical = true
         return collectionView
     }()
     
-    private var customNavigationBar = CustomNavigationBar(.main)
-    
-    init(viewModel: CustomViewModelProtocol) {
+    init(viewModel: CustomViewModelProtocol,
+         category: CustomViewModel.Category) {
         self.viewModel = viewModel
+        self.viewModel.setupCategory(category)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,18 +45,19 @@ class CustomViewController: UIViewController, HasCoordinatable {
         view.backgroundColor = .black
         setupUI()
         bind()
+        setupRefreshControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupViewController()
-        viewModel.action(.viewDidLoad)
+        viewModel.action(.viewWillAppear)
     }
     
     private func setupUI() {
         setupCollectionView()
-        setupCustomNavigationBar()
         setupLongGestureRecognizerOnCollection()
+        setupLoadingView()
     }
     
     private func setupViewController() {
@@ -69,57 +67,89 @@ class CustomViewController: UIViewController, HasCoordinatable {
     private func setupCollectionView() {
         view.addSubview(customCollectionView)
         customCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        customCollectionView.contentInset = UIEdgeInsets(top: xValueRatio(2.5),
+                                                         left: xValueRatio(2.5),
+                                                         bottom: .zero,
+                                                         right: xValueRatio(2.5))
         NSLayoutConstraint.activate([
-            customCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            customCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             customCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             customCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    private func setupCustomNavigationBar() {
-        customNavigationBar.mainNavigationBar.delegate = self
-        view.addSubview(customNavigationBar)
-        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+    private func setupLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            customNavigationBar.heightAnchor.constraint(equalToConstant: yValueRatio(100)),
-            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customNavigationBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: yValueRatio(30))
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        view.bringSubviewToFront(loadingView)
+    }
+    
+    private func setupRefreshControl() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        customCollectionView.refreshControl = refresh
     }
     
     private func bind() {
         bindEvent()
+        bindCurrentFavoritesCount()
     }
     
     private func bindEvent() {
         viewModel.event
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] in
+                guard let strongSelf = self else { return }
                 switch $0 {
-                case .invalidateLayout:
-                    self?.invalidateLayout()
-                case .showDetailView(let data):
-                    self?.showDetailView(data)
-                case .showLoading:
-                    print("ShowLoading")
-                case .hideLoading:
-                    print("hideLoading")
-                case .showHeartView(let indexPath):
-                    self?.setupCellWhenCellLongPressed(indexPath)
-                case .showRetrievedCells(let indexPaths):
-                    self?.insertItemInCollectionView(indexPaths)
                 case .none: break
+                case .invalidateLayout:
+                    strongSelf.invalidateLayout()
+                case .showDetailView(let data):
+                    strongSelf.showDetailView(data)
+                case .showBottomLoading:
+                    break
+                case .hideBottomLoading:
+                    break
+                case .showHeartView(let indexPath):
+                    strongSelf.setupCellWhenCellLongPressed(indexPath)
+                case .showRetrievedCells(let indexPaths):
+                    strongSelf.insertItemInCollectionView(indexPaths)
+                case .animateHideBar:
+                    strongSelf.animateHideBar()
+                case .animateShowBar:
+                    strongSelf.animateShowBar()
+                case .endRefreshing:
+                    strongSelf.endRefreshing()
+                case .showPageLoading:
+                    strongSelf.showPageLoading()
+                case .hidePageLoading:
+                    strongSelf.hidePageLoading()
+                case .collectionViewReload:
+                    strongSelf.collectionViewReloadData()
                 }
             })
+            .store(in: &cancellable)
+    }
+    
+    private func bindCurrentFavoritesCount() {
+        viewModel.favoritesCount
+            .sink { [weak self] in
+                self?.castedCoordinator?.passFavoritesCountDataToParent($0)
+            }
             .store(in: &cancellable)
     }
     
     private func invalidateLayout() {
         if let visibleIndexPaths = customCollectionView.indexPathsForVisibleItems.min(by: { $0.item < $1.item }),
            visibleIndexPaths.isEmpty == false {
-            viewModel.event.send(.showLoading)
+            viewModel.event.send(.showBottomLoading)
         } else{
             customCollectionView.reloadData()
         }
@@ -131,6 +161,42 @@ class CustomViewController: UIViewController, HasCoordinatable {
     
     private func insertItemInCollectionView(_ indexPaths: [IndexPath]) {
         customCollectionView.insertItems(at:indexPaths)
+    }
+    
+    private func showPageLoading() {
+        loadingView.isHidden = false
+        loadingView.bounceAnimation()
+    }
+    
+    private func hidePageLoading() {
+        loadingView.isHidden = true
+    }
+    
+    @objc private func pullToRefresh(_ sender: UIRefreshControl) {
+        customCollectionView.refreshControl?.beginRefreshing()
+        viewModel.action(.pullToRefresh)
+    }
+    
+    private func endRefreshing() {
+        customCollectionView.refreshControl?.endRefreshing()
+    }
+    
+    private func animateHideBar() {
+        castedCoordinator?.hideCustomNavigationBar()
+    }
+    
+    private func animateShowBar() {
+        castedCoordinator?.showCustomNavigationBar()
+    }
+    
+    private func collectionViewReloadData() {
+        customCollectionView.reloadData()
+    }
+}
+
+extension CustomViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewModel.action(.scrollViewDidScroll(scrollView.contentOffset.y))
     }
 }
 
@@ -153,6 +219,7 @@ extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
 extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
+        
         return viewModel.numberOfItemsInSection()
     }
     
@@ -163,7 +230,7 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
             for: indexPath) as? CustomCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.backgroundColor = .blue
+        
         cell.configure(viewModel.retrieveCustomCellItem(indexPath))
         
         return cell
