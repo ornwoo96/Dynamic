@@ -23,10 +23,5 @@ protocol SwiftUIViewModelProtocol: SwiftUIViewModelInputProtocol, SwiftUIViewMod
 }
 
 final class SwiftUIViewModel: SwiftUIViewModelProtocol {
-    var dynamicUseCase: DynamicUseCase?
-    
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
-    }
     
 }

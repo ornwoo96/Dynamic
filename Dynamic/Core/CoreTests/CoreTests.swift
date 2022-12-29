@@ -19,7 +19,7 @@ final class CoreTests: XCTestCase {
     func testBMOInject() throws {
         // given
         let Bmo = BMOInject()
-        var viewController: UIViewController = TestViewController()
+        let viewController: UIViewController = TestViewController()
         Bmo.registerValue("dd", viewController)
         
         // when

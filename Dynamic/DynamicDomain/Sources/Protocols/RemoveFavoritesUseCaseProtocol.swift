@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol RemoveFavoritesUseCaseProtocol {
+public protocol RemoveFavoritesUseCaseProtocol {
     func requestRemoveImageDataFromCoreData(_ id: String)
 }

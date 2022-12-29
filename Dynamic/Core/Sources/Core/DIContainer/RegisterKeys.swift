@@ -31,7 +31,10 @@ public enum VCKeys: String {
 }
 
 public enum UCKeys: String {
-    case dynamicUC = "DynamicUseCase"
+    case search = "ImageSearchUseCase"
+    case addFavorites = "AddFavoritesUseCase"
+    case fetchFavorites = "FetchFavoritesUseCase"
+    case removeFavorites = "RemoveFavoritesUseCase"
 }
 
 public enum RepoKeys: String {

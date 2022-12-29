@@ -10,8 +10,9 @@ import Combine
 import DynamicDomain
 
 public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
-    public var event: CurrentValueSubject<Event, Never> = .init(.none)
-    private let dynamicUseCase: DynamicUseCase
+    private var addFavoritesUseCase: AddFavoritesUseCaseProtocol
+    private var removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol
+    private var imageSearchUseCase: ImageSearchUseCaseProtocol
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
@@ -20,9 +21,14 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var limit = 20
     private var category: Category = .Coding
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
+    public var event: CurrentValueSubject<Event, Never> = .init(.none)
     
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
+    init(addFavoritesUseCase: AddFavoritesUseCaseProtocol,
+         removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol,
+         imageSearchUseCase: ImageSearchUseCaseProtocol) {
+        self.addFavoritesUseCase = addFavoritesUseCase
+        self.removeFavoritesUseCase = removeFavoritesUseCase
+        self.imageSearchUseCase = imageSearchUseCase
     }
     
     public func action(_ action: Action) {
@@ -72,18 +78,18 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
-        dynamicUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
+        addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
     }
     
     private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
-        dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
+        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
     }
     
     private func retrieveGIPHYDataForRefresh() {
         
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, 0)
                 let presentationModel = convertPresentationModel(model)
                 self?.resetFetchData()
                 self?.previewContents.append(contentsOf: presentationModel.previewModel)
@@ -105,7 +111,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
+                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, offset)
                 let presentationModel = convertPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewModel)
                 self?.originalContents.append(contentsOf: presentationModel.originalModel)

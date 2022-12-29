@@ -50,40 +50,45 @@ public final class PresentationDIContainer: Containable {
 // MARK: Register - ViewModel
 extension PresentationDIContainer {
     private func registerParentCustomViewModel() {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
-        let viewModel = ParentCustomViewModel(dynamicUseCase: dynamicUseCase)
+        guard let fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol = container.resolveValue(UCKeys.fetchFavorites.rawValue) else { return }
+        
+        let viewModel = ParentCustomViewModel(fetchFavoritesUseCase: fetchFavoritesUseCase)
         container.registerValue(VMKeys.parentCustom.rawValue, viewModel)
     }
     
     private func registerParentCompositionalViewModel() {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
-        let parentViewModel = ParentCompositionalViewModel(dynamicUseCase: dynamicUseCase)
+        guard let fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol = container.resolveValue(UCKeys.fetchFavorites.rawValue) else { return }
+        let parentViewModel = ParentCompositionalViewModel(fetchFavoritesUseCase: fetchFavoritesUseCase)
         container.registerValue(VMKeys.parentCompo.rawValue, parentViewModel)
     }
     
     private func registerSwiftUIViewModel() {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
-        let viewModel = DynamicPresentation.SwiftUIViewModel(dynamicUseCase: dynamicUseCase)
+        let viewModel = DynamicPresentation.SwiftUIViewModel()
         container.registerValue(VMKeys.swiftUIVM.rawValue, viewModel)
     }
     
     private func registerDetailViewModel() {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
-        let viewModel = DetailViewModel(dynamicUseCase: dynamicUseCase)
+        let viewModel = DetailViewModel()
         container.registerValue(VMKeys.detail.rawValue, viewModel)
     }
     
     private func registerPickListViewModel() {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return }
-        let viewModel = PickListViewModel(dynamicUseCase: dynamicUseCase)
+        guard let removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol = container.resolveValue(UCKeys.removeFavorites.rawValue),
+        let fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol = container.resolveValue(UCKeys.fetchFavorites.rawValue) else { return }
+        let viewModel = PickListViewModel(removeFavoritesUseCase: removeFavoritesUseCase,
+                                          fetchFavoritesUseCase: fetchFavoritesUseCase)
         container.registerValue(VMKeys.pickList.rawValue, viewModel)
     }
     
     private func createChildCompositionViewModel(_ categorys: [ChildCompositionalViewModel.Category]) -> [ChildCompositionalViewModel] {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return []}
+        guard let addFavoritesUseCase: AddFavoritesUseCaseProtocol = container.resolveValue(UCKeys.addFavorites.rawValue),
+              let removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol = container.resolveValue(UCKeys.removeFavorites.rawValue),
+              let imageSearchUseCase: ImageSearchUseCaseProtocol = container.resolveValue(UCKeys.search.rawValue) else { return []}
         var viewModelArray: [ChildCompositionalViewModel] = []
         for _ in categorys {
-            let viewModel = ChildCompositionalViewModel(dynamicUseCase: dynamicUseCase)
+            let viewModel = ChildCompositionalViewModel(addFavoritesUseCase: addFavoritesUseCase,
+                                                        removeFavoritesUseCase: removeFavoritesUseCase,
+                                                        imageSearchUseCase: imageSearchUseCase)
             viewModelArray.append(viewModel)
         }
         
@@ -91,10 +96,18 @@ extension PresentationDIContainer {
     }
     
     private func createCustomViewModel(_ categorys: [CustomViewModel.Category]) -> [CustomViewModel] {
-        guard let dynamicUseCase: DynamicUseCase = container.resolveValue(UCKeys.dynamicUC.rawValue) else { return []}
+        guard let addFavoritesUseCase: AddFavoritesUseCaseProtocol = container.resolveValue(UCKeys.addFavorites.rawValue),
+              let removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol = container.resolveValue(UCKeys.removeFavorites.rawValue),
+              let imageSearchUseCase: ImageSearchUseCaseProtocol = container.resolveValue(UCKeys.search.rawValue) else {
+            return []
+        }
+        
         var viewModelArray: [CustomViewModel] = []
+        
         for _ in categorys {
-            let viewModel = CustomViewModel(dynamicUseCase: dynamicUseCase)
+            let viewModel = CustomViewModel(addFavoritesUseCase: addFavoritesUseCase,
+                                            removeFavoritesUseCase: removeFavoritesUseCase,
+                                            imageSearchUseCase: imageSearchUseCase)
             viewModelArray.append(viewModel)
         }
         
@@ -155,11 +168,13 @@ extension PresentationDIContainer {
         let viewModels = createCustomViewModel(categorys)
         var categoryViewControllers: [CustomViewController] = []
         var viewModelCount = 0
+        
         categorys.forEach {
             let viewController = CustomViewController(
                 viewModel: viewModels[viewModelCount],
                 category: $0
             )
+            
             categoryViewControllers.append(viewController)
             viewModelCount += 1
         }

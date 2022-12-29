@@ -26,11 +26,11 @@ protocol ParentCompositionalViewModelProtocol: ParentCompositionalViewModelInput
 class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
     internal var pageViewControllerPreviousIndex = 0
     internal var event = CurrentValueSubject<Event, Never>(.none)
-    private let dynamicUseCase: DynamicUseCase
+    private let fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol
     private var favoritesCount = 0
     
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
+    init(fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol) {
+        self.fetchFavoritesUseCase = fetchFavoritesUseCase
     }
     
     func action(_ action: Action) {
@@ -68,7 +68,7 @@ class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
     private func retrieveSavingDataCountFromCoreData()  {
         Task {
             do {
-                let count = try await dynamicUseCase.requestFavoritesImageDataCountInCoreData()
+                let count = try await fetchFavoritesUseCase.requestFavoritesImageDataCountInCoreData()
                 event.send(.setupPickListButtonCount(count))
                 self.favoritesCount = count
             } catch {

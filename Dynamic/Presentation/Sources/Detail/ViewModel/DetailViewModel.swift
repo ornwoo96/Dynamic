@@ -23,12 +23,7 @@ protocol DetailViewModelProtocol: DetailViewModelInputProtocol, DetailViewModelO
 }
 
 public class DetailViewModel: DetailViewModelProtocol {
-    var dynamicUseCase: DynamicUseCase
     var imageDataSubject = CurrentValueSubject<Data, Never>(Data())
-    
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
-    }
     
     public func action(_ action: Action) {
         switch action {

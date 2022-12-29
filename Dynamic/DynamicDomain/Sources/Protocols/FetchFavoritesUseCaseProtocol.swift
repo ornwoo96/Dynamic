@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FetchFavoritesUseCaseProtocol {
+public protocol FetchFavoritesUseCaseProtocol {
     func retrieveGIPHYDataFromCoreData() async throws -> [FavoriteDomainModel]
     func requestFavoritesImageDataCountInCoreData() async throws -> Int
 }

@@ -10,8 +10,9 @@ import Combine
 import DynamicDomain
 
 public class CustomViewModel: CustomViewModelProtocol {
-    private var dynamicUseCase: DynamicUseCase
-    public var event: CurrentValueSubject<Event, Never> = .init(.none)
+    private var addFavoritesUseCase: AddFavoritesUseCaseProtocol
+    private var removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol
+    private var imageSearchUseCase: ImageSearchUseCaseProtocol
     private var previewContents: [CustomPresentationModel.PresentationPreview] = []
     private var originalContents: [CustomPresentationModel.PresentationOriginal] = []
     private var originalImageDataArray: [String] = []
@@ -20,10 +21,15 @@ public class CustomViewModel: CustomViewModelProtocol {
     private var limit = 20
     private var currentContentCount = 0
     private var category: Category = .Coding
+    public var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
+    init(addFavoritesUseCase: AddFavoritesUseCaseProtocol,
+         removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol,
+         imageSearchUseCase: ImageSearchUseCaseProtocol) {
+        self.addFavoritesUseCase = addFavoritesUseCase
+        self.removeFavoritesUseCase = removeFavoritesUseCase
+        self.imageSearchUseCase = imageSearchUseCase
     }
     
     public func setupCategory(_ category: CustomViewModel.Category) {
@@ -80,7 +86,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     private func retrieveGIPHYDataForRefresh() {
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, 0)
                 self?.resetFetchData()
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
@@ -103,11 +109,11 @@ public class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
-        dynamicUseCase.requestCoreDataCreateImageData(convert(originalContents[indexPath]))
+        addFavoritesUseCase.requestCoreDataCreateImageData(convert(originalContents[indexPath]))
     }
     
     private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
-        dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
+        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
     }
     
     private func createDetailData(_ indexPath: Int) -> DetailModel {
@@ -125,7 +131,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
+                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, offset)
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
                 self?.originalContents.append(contentsOf: presentationModel.originalImageData)

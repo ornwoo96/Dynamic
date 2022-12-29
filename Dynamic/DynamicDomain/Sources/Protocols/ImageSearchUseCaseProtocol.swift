@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ImageSearchUseCaseProtocol {
+public protocol ImageSearchUseCaseProtocol {
     func retrieveGIPHYDatas(_ searchWord: String,
                             _ offset: Int) async throws -> GIPHYDomainModel
 }

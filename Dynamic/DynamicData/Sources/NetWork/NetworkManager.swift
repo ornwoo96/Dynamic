@@ -7,7 +7,6 @@
 
 import Foundation
 import DynamicDomain
-import Combine
 
 public class NetworkManager: NetworkManagerRepository {
     private let limit: Int = 20
@@ -20,7 +19,7 @@ public class NetworkManager: NetworkManagerRepository {
             return GIPHYDomainModel.empty
         }
         
-        let (data, _ ) = try await URLSession.shared.data(from: stringToURL)
+        let (data, statusCode) = try await URLSession.shared.data(from: stringToURL)
         
         let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
         

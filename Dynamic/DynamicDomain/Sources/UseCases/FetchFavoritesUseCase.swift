@@ -19,7 +19,7 @@ public final class FetchFavoritesUseCase: FetchFavoritesUseCaseProtocol {
     }
     
     public func requestFavoritesImageDataCountInCoreData() async throws -> Int {
-        let favoritesData = coreDataManager.requestFavoritesDatas
-        return try await favoritesData().count
+        let favoritesData = try await coreDataManager.requestFavoritesDatas()
+        return favoritesData.count
     }
 }
