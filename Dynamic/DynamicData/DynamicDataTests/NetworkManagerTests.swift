@@ -14,22 +14,6 @@ final class NetworkManagerTests: XCTestCase {
     private let networkManager = NetworkManager()
     private let urlSession = URLSession.shared
     
-//    func testFetchGIPHYDatas() async throws {
-//        // given
-//        let expectation = expectation(description: "200")
-//        var resultDataCount = 0
-//
-//        // when
-//        let testData = try await dynamicRepository.retrieveGIFImageData(searchWord: "coding", offset: 0)
-//        resultDataCount = testData.originalImages.count
-//        expectation.fulfill()
-//
-//        wait(for: [expectation], timeout: 5)
-//
-//        // then
-//        XCTAssertEqual(resultDataCount, 20)
-//    }
-    
     func testURLSetup() async throws {
         // Given
         let parameters: [String: Any] = ["api_key":"fUyNy20JVfRpEHP0UJEAJQk8mT3hyv4H",
@@ -52,8 +36,12 @@ final class NetworkManagerTests: XCTestCase {
         let (data, urlResponse) = try await urlSession.data(for: requestUrl)
         let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
         
+        guard let response = (urlResponse as? HTTPURLResponse)?.statusCode else {
+            throw NetworkManager.NetworkManagerError.urlError
+        }
+        
         // Then
-        XCTAssertEqual(decodeData.giphyData.count, 3)
+        XCTAssertEqual(response, 200)
     }
     
     func testRequest() async throws {
@@ -64,7 +52,6 @@ final class NetworkManagerTests: XCTestCase {
                                          "offset":"0",
                                          "rating":"g",
                                          "lang":"en"]
-        let baseURL = "https://api.giphy.com"
         let searchPath = "/v1/gifs/search"
         let method: NetworkManager.Method = .get
         
@@ -72,14 +59,26 @@ final class NetworkManagerTests: XCTestCase {
         let (data, urlResponse) = try await networkManager.request(path: searchPath,
                                                                    parameters: parameters,
                                                                    method: method)
+        guard let response = (urlResponse as? HTTPURLResponse)?.statusCode else {
+            throw NetworkManager.NetworkManagerError.urlError
+        }
         
         // Then
-        XCTAssertEqual(data.giphyData.count, 3)
+        XCTAssertEqual(response, 200)
     }
     
     func testRequestImageData() async throws {
+        // Given
+        let url = "https://giphy.com/gifs/cat-cool-cats-cfuL5gqFDreXxkWQ4o"
         
+        // When
+        let (data, urlResponse) = try await networkManager.requestImageData(url)
         
+        guard let response = (urlResponse as? HTTPURLResponse)?.statusCode else {
+            throw NetworkManager.NetworkManagerError.urlError
+        }
+        
+        // Then
+        XCTAssertEqual(response, 200)
     }
-    
 }

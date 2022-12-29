@@ -23,7 +23,6 @@ enum CoreDataError: Error {
 
 public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     public static let shared = DefaultCoreDataManagerRepository()
-    
     private let identifier: String = "dongdong.DynamicData"
     private let model: String = "DynamicCoreData"
     

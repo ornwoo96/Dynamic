@@ -9,7 +9,7 @@ import Foundation
 import DynamicDomain
 
 public class NetworkManager {
-    private var baseURL: BaseURL { .base }
+    private var baseURL: BaseURL { .GIPHYBase }
     private var urlSession = URLSession.shared
     
     func request(path: String,
@@ -46,7 +46,7 @@ public class NetworkManager {
 
 extension NetworkManager {
     enum BaseURL: String {
-        case base = "https://api.giphy.com/v1/gifs/"
+        case GIPHYBase = "https://api.giphy.com/v1/gifs/"
     }
     
     enum Method: String {
