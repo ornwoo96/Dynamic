@@ -112,6 +112,10 @@ final class ParentCustomViewController: UIViewController, HasCoordinatable {
                     strongSelf.setViewControllersToReverse(viewController)
                 case .setupPickListButtonCount(let count):
                     strongSelf.setupPickListButtonCount(count)
+                case .animateHideNavigationBar:
+                    strongSelf.animateHideParentCustomNavigationBar()
+                case .animateShowNavigationBar:
+                    strongSelf.animateShowParentCustomNavigationBar()
                 }
             }
             .store(in: &cancellable)

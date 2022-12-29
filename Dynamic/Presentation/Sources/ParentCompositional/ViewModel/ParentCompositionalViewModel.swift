@@ -39,8 +39,8 @@ class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
             retrieveSavingDataCountFromCoreData()
         case .categoryButtonDidTap(let tag, let viewController):
             branchCategoryViewTags(tag, viewController)
+            event.send(.animateShowNavigationBar)
         case .receiveFavoritesCountData(let count):
-            
             favoritesCount += count
             event.send(.setupPickListButtonCount(favoritesCount))
         }
@@ -48,6 +48,7 @@ class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
     
     func changeIndex(_ tag: Int) {
         self.pageViewControllerPreviousIndex = tag
+        event.send(.animateShowNavigationBar)
     }
     
     func readIndex() -> Int {

@@ -21,7 +21,7 @@
 		0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B992325294E075C00913288 /* FavoritesDomainModel.swift */; };
 		0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B7629460353005FC30F /* DynamicDomain.docc */; };
 		0BB52B7D29460354005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B7229460353005FC30F /* DynamicDomain.framework */; };
-		0BB52B8229460354005FC30F /* DynamicDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* DynamicDomainTests.swift */; };
+		0BB52B8229460354005FC30F /* ImageSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* ImageSearchTests.swift */; };
 		0BB52B8329460354005FC30F /* DynamicDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52B7529460353005FC30F /* DynamicDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */; };
 		0BB52BD5294604BF005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -69,7 +69,7 @@
 		0BB52B7529460353005FC30F /* DynamicDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicDomain.h; sourceTree = "<group>"; };
 		0BB52B7629460353005FC30F /* DynamicDomain.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicDomain.docc; sourceTree = "<group>"; };
 		0BB52B7C29460354005FC30F /* DynamicDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamicDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB52B8129460354005FC30F /* DynamicDomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDomainTests.swift; sourceTree = "<group>"; };
+		0BB52B8129460354005FC30F /* ImageSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchTests.swift; sourceTree = "<group>"; };
 		0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDIContainer.swift; sourceTree = "<group>"; };
 		0BB52BD4294604BF005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,7 +126,7 @@
 		0BB52B8029460354005FC30F /* DynamicDomainTests */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52B8129460354005FC30F /* DynamicDomainTests.swift */,
+				0BB52B8129460354005FC30F /* ImageSearchTests.swift */,
 			);
 			path = DynamicDomainTests;
 			sourceTree = "<group>";
@@ -330,7 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB52B8229460354005FC30F /* DynamicDomainTests.swift in Sources */,
+				0BB52B8229460354005FC30F /* ImageSearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

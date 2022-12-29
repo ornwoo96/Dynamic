@@ -112,6 +112,10 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
                     strongSelf.setViewControllersToReverse(viewController)
                 case .setupPickListButtonCount(let count):
                     strongSelf.setupPickListButtonCount(count)
+                case .animateHideNavigationBar:
+                    strongSelf.animateHideNavigationBar()
+                case .animateShowNavigationBar:
+                    strongSelf.animateShowNavigationBar()
                 }
             }
             .store(in: &cancellable)

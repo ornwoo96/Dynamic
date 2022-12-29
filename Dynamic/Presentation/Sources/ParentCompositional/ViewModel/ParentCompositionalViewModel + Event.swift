@@ -19,6 +19,10 @@ extension ParentCompositionalViewModel {
                 return true
             case (.setupPickListButtonCount, .setupPickListButtonCount):
                 return true
+            case (.animateHideNavigationBar, .animateHideNavigationBar):
+                return true
+            case (.animateShowNavigationBar, .animateShowNavigationBar):
+                return true
             default:
                 return false
             }
@@ -26,6 +30,8 @@ extension ParentCompositionalViewModel {
         case setViewControllersToForward(_ viewController: ChildCompositionalViewController)
         case setViewControllersToReverse(_ viewController: ChildCompositionalViewController)
         case setupPickListButtonCount(_ count: Int)
+        case animateHideNavigationBar
+        case animateShowNavigationBar
         case none
     }
     

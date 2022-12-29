@@ -19,6 +19,10 @@ extension ParentCustomViewModel {
                 return true
             case (.setupPickListButtonCount, .setupPickListButtonCount):
                 return true
+            case (.animateHideNavigationBar, .animateHideNavigationBar):
+                return true
+            case (.animateShowNavigationBar, .animateShowNavigationBar):
+                return true
             default:
                 return false
             }
@@ -26,6 +30,8 @@ extension ParentCustomViewModel {
         case setViewControllersToForward(_ viewController: CustomViewController)
         case setViewControllersToReverse(_ viewController: CustomViewController)
         case setupPickListButtonCount(_ count: Int)
+        case animateHideNavigationBar
+        case animateShowNavigationBar
         case none
     }
     
