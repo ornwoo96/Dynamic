@@ -16,7 +16,7 @@
 		0B8E3584295C603500C97215 /* ImageSearchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3583295C603500C97215 /* ImageSearchUseCaseProtocol.swift */; };
 		0B8E3586295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */; };
 		0B8E3589295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */; };
-		0B8E358B295C648C00C97215 /* NetworkManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E358A295C648C00C97215 /* NetworkManagerRepository.swift */; };
+		0B8E3597295DCCB100C97215 /* DynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3596295DCCB100C97215 /* DynamicRepository.swift */; };
 		0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */; };
 		0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B992325294E075C00913288 /* FavoritesDomainModel.swift */; };
 		0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B7629460353005FC30F /* DynamicDomain.docc */; };
@@ -62,7 +62,7 @@
 		0B8E3583295C603500C97215 /* ImageSearchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchUseCaseProtocol.swift; sourceTree = "<group>"; };
 		0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
 		0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
-		0B8E358A295C648C00C97215 /* NetworkManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerRepository.swift; sourceTree = "<group>"; };
+		0B8E3596295DCCB100C97215 /* DynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRepository.swift; sourceTree = "<group>"; };
 		0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerRepository.swift; sourceTree = "<group>"; };
 		0B992325294E075C00913288 /* FavoritesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDomainModel.swift; sourceTree = "<group>"; };
 		0BB52B7229460353005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,7 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */,
-				0B8E358A295C648C00C97215 /* NetworkManagerRepository.swift */,
+				0B8E3596295DCCB100C97215 /* DynamicRepository.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -311,7 +311,6 @@
 			files = (
 				0B8E3578295C5ADB00C97215 /* AddFavoritesUseCase.swift in Sources */,
 				0B8E3589295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift in Sources */,
-				0B8E358B295C648C00C97215 /* NetworkManagerRepository.swift in Sources */,
 				0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */,
 				0B8E3582295C600800C97215 /* AddFavoritesUseCaseProtocol.swift in Sources */,
 				0B8E3586295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift in Sources */,
@@ -321,6 +320,7 @@
 				0B8E3580295C5CE500C97215 /* RemoveFavoritesUseCase.swift in Sources */,
 				0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */,
 				0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */,
+				0B8E3597295DCCB100C97215 /* DynamicRepository.swift in Sources */,
 				0B8E357A295C5B0D00C97215 /* ImageSearchUseCase.swift in Sources */,
 				0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */,
 			);

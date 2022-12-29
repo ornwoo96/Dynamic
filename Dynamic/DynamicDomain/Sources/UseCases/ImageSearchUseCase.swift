@@ -8,18 +8,18 @@
 import Foundation
 
 public final class ImageSearchUseCase: ImageSearchUseCaseProtocol {
-    private let manager: NetworkManagerRepository
+    private let dynamicRepository: DynamicRepository
     private let coreDataManager: CoreDataManagerRepository
     
-    init(manager: NetworkManagerRepository,
+    init(dynamicRepository: DynamicRepository,
          coreDataManager: CoreDataManagerRepository) {
-        self.manager = manager
+        self.dynamicRepository = dynamicRepository
         self.coreDataManager = coreDataManager
     }
     
     public func retrieveGIPHYDatas(_ searchWord: String,
                                    _ offset: Int) async throws -> GIPHYDomainModel {
-        let data = try await manager.fetchGIPHYDatas(searchWord, offset)
+        let data = try await dynamicRepository.retrieveGIFImageData(searchWord: searchWord, offset: offset)
         let boolArray = try await coreDataManager.checkGIFImageArrayDataIsExist(createIDArray(data.previewImages))
         
         return mergeBoolArrayInDomainModel(data, boolArray)

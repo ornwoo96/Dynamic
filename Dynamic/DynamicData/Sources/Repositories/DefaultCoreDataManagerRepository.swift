@@ -13,6 +13,14 @@ enum CoreDataEntityName: String {
     case favorites = "Favorites"
 }
 
+enum CoreDataError: Error {
+    case requestError
+    case saveError
+    case deleteError
+    case containerError
+    case loadPersistentStoresError
+}
+
 public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     public static let shared = DefaultCoreDataManagerRepository()
     
@@ -22,11 +30,12 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     lazy var persistentContainer: NSPersistentContainer = {
         let bundle = Bundle(identifier: self.identifier)
         guard let modelURL = bundle?.url(forResource: self.model, withExtension: "momd") else {
+            print(CoreDataError.containerError,"ModelURL create - 실패")
             return NSPersistentContainer()
         }
         
         guard let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL) else {
-            print("modelURL 가져오기 실패")
+            print(CoreDataError.containerError,"NSPersistentContainer create - 실패")
             return NSPersistentContainer()
         }
         
@@ -34,12 +43,11 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         
         container.loadPersistentStores(completionHandler: { (store, error) in
             if let error = error {
-                fatalError("persistentContainer 생성 실패\(error)")
+                fatalError("loadPersistentStores - 실패 \(error)")
             }
         })
         
         return container
-        
     }()
     
     public func createGIFImageData(_ height: String,
@@ -58,7 +66,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
             try context.save()
             print("coreData image save - 성공")
         } catch {
-            print("coreData image save - 실패")
+            print(CoreDataError.saveError, "GIF image save - 실패")
         }
     }
     
@@ -71,15 +79,16 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
             let data = try context.fetch(request)
             
             if data.count == 0 {
+                print("There is no data in the store to delete.")
                 return
             } else {
                 context.delete(data[0])
                 try context.save()
-                print("GIF Image 삭제 - 완료")
+                print("GIF Image delete - 완료")
                 return
             }
         } catch {
-            print(error.localizedDescription)
+            print(CoreDataError.deleteError,"remove GIFImageData - 실패")
             return
         }
     }
@@ -101,9 +110,9 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
                 } else {
                     boolArray.append(true)
                 }
-
+                
             } catch {
-                print("check 실패")
+                print(CoreDataError.saveError, "ImageArray fetch - 실패")
             }
         }
         
@@ -163,7 +172,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
             let data = try context.fetch(request)
             
             if data.count == 0 {
-                print("코어데이터에 아무것도 없습니다")
+                print("There is no data in the store to delete.")
                 return []
             } else {
                 return convertFavoritesToDomainModel(data)

@@ -8,71 +8,57 @@
 import Foundation
 import DynamicDomain
 
-public class NetworkManager: NetworkManagerRepository {
-    private let limit: Int = 20
+public class NetworkManager {
+    private var baseURL: BaseURL { .base }
+    private var urlSession = URLSession.shared
     
-    public func fetchGIPHYDatas(_ searchWord: String,
-                                _ offset: Int) async throws -> GIPHYDomainModel {
-        let randomImageURL = "https://api.giphy.com/v1/gifs/search?api_key=fUyNy20JVfRpEHP0UJEAJQk8mT3hyv4H&q=\(searchWord)&limit=\(limit)&offset=\(offset)&rating=g&lang=en"
+    func request(path: String,
+                 parameters: [String: Any],
+                 method: Method) async throws -> (GIPHYFromAPIEntity, URLResponse) {
+        var urlComponents = URLComponents(string: baseURL.rawValue)
+        urlComponents?.path = path
+        urlComponents?.queryItems = parameters.map { .init(name: $0, value: $1 as? String) }
         
-        guard let stringToURL = URL(string: randomImageURL) else {
-            return GIPHYDomainModel.empty
+        guard let url = urlComponents?.url else {
+            throw NetworkManagerError.urlError
         }
         
-        let (data, statusCode) = try await URLSession.shared.data(from: stringToURL)
+        var requestUrl = URLRequest(url: url)
+        requestUrl.httpMethod = method.rawValue
+        
+        let (data, urlResponse) = try await urlSession.data(for: requestUrl)
         
         let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
         
-        return convertToDomainModel(convertGiphyImageEntity(decodeData))
+        return (decodeData, urlResponse)
     }
     
-    public func fetchImageData(_ url: String) async throws -> Data {
-        guard let stringToURL = URL(string: url) else { return Data() }
+    public func requestImageData(_ url: String) async throws -> (Data, URLResponse) {
+        guard let stringToURL = URL(string: url) else {
+            throw NetworkManagerError.urlError
+        }
         
-        let (data, _) = try await URLSession.shared.data(from: stringToURL)
+        let (data, urlResponse) = try await urlSession.data(from: stringToURL)
         
-        return data
+        return (data, urlResponse)
     }
 }
 
 extension NetworkManager {
     enum BaseURL: String {
-        case base = ""
-    }
-}
-
-extension NetworkManager {
-    public func convertGiphyImageEntity(_ data: GIPHYFromAPIEntity) -> GiphyImageDataModel {
-        return .init(previewImages: data.giphyData.map { convertPreviewImageData($0) },
-                     originalImages: data.giphyData.map { convertOriginalImageData($0) })
+        case base = "https://api.giphy.com/v1/gifs/"
     }
     
-    private func convertPreviewImageData(_ data: GiphyData) -> GiphyImageDataModel.PreviewAddIDEntity {
-        return .init(id: data.id,
-                     height: data.images.previewGIF.height,
-                     width: data.images.previewGIF.width,
-                     url: data.images.previewGIF.url)
+    enum Method: String {
+        case post = "POST"
+        case get = "GET"
+        case patch = "PATCH"
+        case delete = "DELETE"
     }
     
-    private func convertOriginalImageData(_ data: GiphyData) -> GiphyImageDataModel.OriginalAddIDEntity {
-        return .init(id: data.id,
-                     height: data.images.original.height,
-                     width: data.images.original.width,
-                     url: data.images.original.url)
-    }
-    
-    public func convertToDomainModel(_ data: GiphyImageDataModel) -> GIPHYDomainModel {
-        return .init(
-            previewImages: data.previewImages.map { convertToDomainPreviewModel($0) },
-            originalImages: data.originalImages.map { convertToDomainOriginalModel($0) }
-        )
-    }
-    
-    private func convertToDomainPreviewModel(_ data: GiphyImageDataModel.PreviewAddIDEntity) -> PreviewDomainModel {
-        return .init(id: data.id, height: data.height, width: data.width, url: data.url)
-    }
-    
-    private func convertToDomainOriginalModel(_ data: GiphyImageDataModel.OriginalAddIDEntity) -> OriginalDomainModel {
-        return .init(id: data.id, height: data.height, width: data.width, url: data.url)
+    enum NetworkManagerError: Error {
+        case urlError
+        case networkError
+        case decodeError
     }
 }

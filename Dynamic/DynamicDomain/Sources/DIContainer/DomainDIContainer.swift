@@ -24,10 +24,10 @@ public final class DomainDIContainer: Containable {
 
 extension DomainDIContainer {
     private func registerImageSearchUseCase() {
-        guard let networkManager: NetworkManagerRepository = container.resolveValue(RepoKeys.network.rawValue),
+        guard let dynamicRepository: DynamicRepository = container.resolveValue(RepoKeys.dynamicRepo.rawValue),
               let coreDataManager: CoreDataManagerRepository = container.resolveValue(RepoKeys.coreManager.rawValue) else { return }
-        let imageSearchUseCase = ImageSearchUseCase(manager: networkManager,
-                                              coreDataManager: coreDataManager)
+        let imageSearchUseCase = ImageSearchUseCase(dynamicRepository: dynamicRepository,
+                                                    coreDataManager: coreDataManager)
         container.registerValue(UCKeys.search.rawValue, imageSearchUseCase)
     }
     

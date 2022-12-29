@@ -9,13 +9,17 @@
 /* Begin PBXBuildFile section */
 		0B723244294857B0009D3EDF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723243294857B0009D3EDF /* NetworkManager.swift */; };
 		0B723246294858B2009D3EDF /* GIPHYFromAPIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723245294858B2009D3EDF /* GIPHYFromAPIEntity.swift */; };
+		0B8E3590295DB7B400C97215 /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E358E295DB7B400C97215 /* CoreDataManagerTests.swift */; };
+		0B8E3595295DC7F600C97215 /* DefaultDynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3592295DC3F500C97215 /* DefaultDynamicRepository.swift */; };
+		0B8E359B295DED3B00C97215 /* GIPHYAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3599295DECD900C97215 /* GIPHYAPI.swift */; };
+		0B8E359E295DEF4F00C97215 /* BaseAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E359C295DEF4B00C97215 /* BaseAPIProtocol.swift */; };
 		0B8F0767294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0766294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift */; };
 		0B8F0788294DDEBC00F5B591 /* DynamicCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0786294DDEBC00F5B591 /* DynamicCoreData.xcdatamodeld */; };
 		0B992323294DE31300913288 /* Favorites+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0789294DDFA600F5B591 /* Favorites+CoreDataClass.swift */; };
 		0B992324294DE31700913288 /* Favorites+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F078A294DDFA600F5B591 /* Favorites+CoreDataProperties.swift */; };
 		0BB52BA429460367005FC30F /* DynamicData.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BA329460367005FC30F /* DynamicData.docc */; };
 		0BB52BAA29460367005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9F29460367005FC30F /* DynamicData.framework */; };
-		0BB52BAF29460367005FC30F /* DynamicDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BAE29460367005FC30F /* DynamicDataTests.swift */; };
+		0BB52BAF29460367005FC30F /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BAE29460367005FC30F /* NetworkManagerTests.swift */; };
 		0BB52BB029460367005FC30F /* DynamicData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52BA229460367005FC30F /* DynamicData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BB52BDB294604D3005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD9294604D3005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52BDC294604D3005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD9294604D3005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -52,6 +56,10 @@
 /* Begin PBXFileReference section */
 		0B723243294857B0009D3EDF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0B723245294858B2009D3EDF /* GIPHYFromAPIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIPHYFromAPIEntity.swift; sourceTree = "<group>"; };
+		0B8E358E295DB7B400C97215 /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
+		0B8E3592295DC3F500C97215 /* DefaultDynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDynamicRepository.swift; sourceTree = "<group>"; };
+		0B8E3599295DECD900C97215 /* GIPHYAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIPHYAPI.swift; sourceTree = "<group>"; };
+		0B8E359C295DEF4B00C97215 /* BaseAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPIProtocol.swift; sourceTree = "<group>"; };
 		0B8F0766294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCoreDataManagerRepository.swift; sourceTree = "<group>"; };
 		0B8F0787294DDEBC00F5B591 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		0B8F0789294DDFA600F5B591 /* Favorites+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favorites+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -60,7 +68,7 @@
 		0BB52BA229460367005FC30F /* DynamicData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicData.h; sourceTree = "<group>"; };
 		0BB52BA329460367005FC30F /* DynamicData.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicData.docc; sourceTree = "<group>"; };
 		0BB52BA929460367005FC30F /* DynamicDataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamicDataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB52BAE29460367005FC30F /* DynamicDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDataTests.swift; sourceTree = "<group>"; };
+		0BB52BAE29460367005FC30F /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		0BB52BD9294604D3005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52BDA294604D3005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52BE429460573005FC30F /* DataDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDIContainer.swift; sourceTree = "<group>"; };
@@ -99,8 +107,17 @@
 			isa = PBXGroup;
 			children = (
 				0B723243294857B0009D3EDF /* NetworkManager.swift */,
+				0B8E359C295DEF4B00C97215 /* BaseAPIProtocol.swift */,
 			);
 			path = NetWork;
+			sourceTree = "<group>";
+		};
+		0B8E3598295DEC9200C97215 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				0B8E3599295DECD900C97215 /* GIPHYAPI.swift */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 		0B8F077F294DCCD300F5B591 /* CoreData */ = {
@@ -136,7 +153,8 @@
 		0BB52BAD29460367005FC30F /* DynamicDataTests */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52BAE29460367005FC30F /* DynamicDataTests.swift */,
+				0BB52BAE29460367005FC30F /* NetworkManagerTests.swift */,
+				0B8E358E295DB7B400C97215 /* CoreDataManagerTests.swift */,
 			);
 			path = DynamicDataTests;
 			sourceTree = "<group>";
@@ -157,6 +175,7 @@
 				0BB52BE129460528005FC30F /* DIContainer */,
 				0B72324129485140009D3EDF /* Entities */,
 				0B7232422948514A009D3EDF /* NetWork */,
+				0B8E3598295DEC9200C97215 /* APIs */,
 				0BB52BE029460516005FC30F /* Repositories */,
 			);
 			path = Sources;
@@ -175,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				0B8F0766294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift */,
+				0B8E3592295DC3F500C97215 /* DefaultDynamicRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -300,6 +320,9 @@
 				0BB52BE529460573005FC30F /* DataDIContainer.swift in Sources */,
 				0BB52BA429460367005FC30F /* DynamicData.docc in Sources */,
 				0B723246294858B2009D3EDF /* GIPHYFromAPIEntity.swift in Sources */,
+				0B8E3595295DC7F600C97215 /* DefaultDynamicRepository.swift in Sources */,
+				0B8E359E295DEF4F00C97215 /* BaseAPIProtocol.swift in Sources */,
+				0B8E359B295DED3B00C97215 /* GIPHYAPI.swift in Sources */,
 				0B723244294857B0009D3EDF /* NetworkManager.swift in Sources */,
 				0B8F0767294DBDE500F5B591 /* DefaultCoreDataManagerRepository.swift in Sources */,
 				0B992324294DE31700913288 /* Favorites+CoreDataProperties.swift in Sources */,
@@ -312,7 +335,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB52BAF29460367005FC30F /* DynamicDataTests.swift in Sources */,
+				0B8E3590295DB7B400C97215 /* CoreDataManagerTests.swift in Sources */,
+				0BB52BAF29460367005FC30F /* NetworkManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
