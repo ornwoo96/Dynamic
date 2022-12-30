@@ -8,14 +8,18 @@
 import Foundation
 import DynamicDomain
 
+enum GIPYAPIError: String, Error {
+    case invalidServerResponse = "invalidServerResponse"
+}
+
 public struct GIPHYAPI: BaseAPIProtocol {
-    internal var networkManager: NetworkManager
+    public var networkManager: NetworkManager
     private let limit: Int = 20
     private var path = "/v1/gifs/search"
     private var method: NetworkManager.Method = .get
     private var GIPHYAPIKey = "fUyNy20JVfRpEHP0UJEAJQk8mT3hyv4H"
     
-    init(networkManager: NetworkManager) {
+    public init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
     
@@ -31,6 +35,11 @@ public struct GIPHYAPI: BaseAPIProtocol {
                                                                  parameters: parameters,
                                                                  method: NetworkManager.Method.get)
         let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
+        
+        guard let response = response as? HTTPURLResponse,
+              response.statusCode == 200 else {
+            throw GIPYAPIError.invalidServerResponse
+        }
 
         return convertGiphyImageEntity(decodeData)
     }

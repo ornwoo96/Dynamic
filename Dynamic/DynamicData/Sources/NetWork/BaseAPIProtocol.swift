@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol BaseAPIProtocol {
+public protocol BaseAPIProtocol {
     var networkManager: NetworkManager { get }
 }

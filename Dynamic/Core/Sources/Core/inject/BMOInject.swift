@@ -7,19 +7,26 @@
 
 import Foundation
 
+public enum BMOInjectError: String, Error {
+    case resolveError = "resolveError"
+    case registerError = "registerError"
+}
+
 public final class BMOInject {
     private var storage: Dictionary<String, AnyObject> = [:]
     
     public func registerValue<Service>(_ key: String,
                                        _ value: Service) {
-        if let value = value as? AnyObject {
-            storage.updateValue(value, forKey: key)
+        guard let value = value as? AnyObject else {
+            print(BMOInjectError.registerError)
+            return
         }
+        storage.updateValue(value, forKey: key)
     }
     
     public func resolveValue<Service>(_ key: String) -> Service? {
         guard let value = storage[key] as? Service else {
-            print("resolve 실패")
+            print(BMOInjectError.resolveError)
             return nil
         }
         return value

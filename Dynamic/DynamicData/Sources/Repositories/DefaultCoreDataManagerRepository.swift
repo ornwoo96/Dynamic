@@ -9,11 +9,11 @@ import Foundation
 import DynamicDomain
 import CoreData
 
-enum CoreDataEntityName: String {
+public enum CoreDataEntityName: String {
     case favorites = "Favorites"
 }
 
-enum CoreDataError: Error {
+public enum CoreDataError: Error {
     case requestError
     case saveError
     case deleteError
@@ -26,7 +26,9 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     private let identifier: String = "dongdong.DynamicData"
     private let model: String = "DynamicCoreData"
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    public init() {}
+    
+    private lazy var persistentContainer: NSPersistentContainer = {
         let bundle = Bundle(identifier: self.identifier)
         guard let modelURL = bundle?.url(forResource: self.model, withExtension: "momd") else {
             print(CoreDataError.containerError,"ModelURL create - 실패")

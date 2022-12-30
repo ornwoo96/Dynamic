@@ -11,7 +11,7 @@ import DynamicDomain
 public final class DefaultDynamicRepository: DynamicRepository {
     private let GIPHYAPI: GIPHYAPI
     
-    init(GIPHYAPI: GIPHYAPI) {
+    public init(GIPHYAPI: GIPHYAPI) {
         self.GIPHYAPI = GIPHYAPI
     }
     

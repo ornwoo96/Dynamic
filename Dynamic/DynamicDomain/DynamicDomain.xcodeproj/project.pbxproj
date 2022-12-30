@@ -17,6 +17,7 @@
 		0B8E3586295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */; };
 		0B8E3589295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */; };
 		0B8E3597295DCCB100C97215 /* DynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3596295DCCB100C97215 /* DynamicRepository.swift */; };
+		0B8E35A3295EC60B00C97215 /* FetchFavoritesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E35A2295EC60B00C97215 /* FetchFavoritesTests.swift */; };
 		0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */; };
 		0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B992325294E075C00913288 /* FavoritesDomainModel.swift */; };
 		0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B7629460353005FC30F /* DynamicDomain.docc */; };
@@ -63,6 +64,7 @@
 		0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
 		0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
 		0B8E3596295DCCB100C97215 /* DynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRepository.swift; sourceTree = "<group>"; };
+		0B8E35A2295EC60B00C97215 /* FetchFavoritesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFavoritesTests.swift; sourceTree = "<group>"; };
 		0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerRepository.swift; sourceTree = "<group>"; };
 		0B992325294E075C00913288 /* FavoritesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDomainModel.swift; sourceTree = "<group>"; };
 		0BB52B7229460353005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				0BB52B8129460354005FC30F /* ImageSearchTests.swift */,
+				0B8E35A2295EC60B00C97215 /* FetchFavoritesTests.swift */,
 			);
 			path = DynamicDomainTests;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B8E35A3295EC60B00C97215 /* FetchFavoritesTests.swift in Sources */,
 				0BB52B8229460354005FC30F /* ImageSearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

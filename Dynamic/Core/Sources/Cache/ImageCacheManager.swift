@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ImageDownloadError: String, Error {
+public enum ImageCacheError: String, Error {
     case invalidServerResponse = "invalidServerResponse"
 }
 
@@ -51,7 +51,7 @@ public final class ImageCacheManager {
         
         guard let response = response as? HTTPURLResponse,
               response.statusCode == 200 else {
-            throw ImageDownloadError.invalidServerResponse
+            throw ImageCacheError.invalidServerResponse
         }
         
         return data
