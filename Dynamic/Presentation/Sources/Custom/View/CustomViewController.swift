@@ -207,6 +207,12 @@ class CustomViewController: UIViewController, HasCoordinatable {
     private func collectionViewReloadData() {
         customCollectionView.reloadData()
     }
+    
+    @objc private func scrollPanGestureAction(_ panGesture: UIPanGestureRecognizer) {
+        viewModel.action(.scrollPanGestureAction(
+            yValue: panGesture.velocity(in: customCollectionView).y
+        ))
+    }
 }
 
 extension CustomViewController {
@@ -296,5 +302,10 @@ extension CustomViewController: UIGestureRecognizerDelegate {
     private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
         guard let cell = customCollectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

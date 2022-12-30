@@ -51,6 +51,10 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupViewController() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                          action: #selector(scrollPanGestureAction(_:)))
+        panGestureRecognizer.delegate = self
+        compositionalCollectionView.addGestureRecognizer(panGestureRecognizer)
         view.backgroundColor = .black
     }
     
@@ -203,6 +207,12 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         viewModel.action(.pullToRefresh)
     }
     
+    @objc private func scrollPanGestureAction(_ panGesture: UIPanGestureRecognizer) {
+        viewModel.action(.scrollPanGestureAction(
+            yValue: panGesture.velocity(in: compositionalCollectionView).y
+        ))
+    }
+    
     private func endRefreshing() {
         compositionalCollectionView.refreshControl?.endRefreshing()
     }
@@ -238,7 +248,6 @@ extension ChildCompositionalViewController {
 }
 
 extension ChildCompositionalViewController {
-    
     private func animateHideBar() {
         castedCoordinator?.hideNavigationBar()
     }
@@ -288,5 +297,10 @@ extension ChildCompositionalViewController: UIGestureRecognizerDelegate {
         guard let cell = compositionalCollectionView.cellForItem(at: indexPath) as? CompositionalCollectionViewCell else { return }
         
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

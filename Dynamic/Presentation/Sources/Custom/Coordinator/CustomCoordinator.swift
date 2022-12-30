@@ -29,6 +29,7 @@ public class CustomCoordinator: Coordinator {
                                   _ detailData: DetailModel) {
         guard let coordinator: DetailCoordinator = DIContainer.shared.resolveValue(CodiKeys.detail.rawValue) else { return }
         coordinator.detailData = detailData
+        viewController.modalPresentationStyle = .overFullScreen
         viewController.present(coordinator.viewController ?? UIViewController(), animated: true)
     }
     
@@ -45,11 +46,11 @@ public class CustomCoordinator: Coordinator {
     
     public func hideCustomNavigationBar() {
         guard let parentCoordinator = self.parentCoordinator as? ParentCustomCoordinator else { return }
-        parentCoordinator.hideParentCustomNavigationBar()
+        parentCoordinator.setupCustomNavigationBarState(state: .hide)
     }
     
     public func showCustomNavigationBar() {
         guard let parentCoordinator = self.parentCoordinator as? ParentCustomCoordinator else { return }
-        parentCoordinator.showParentCustomNavigationBar()
+        parentCoordinator.setupCustomNavigationBarState(state: .show)
     }
 }

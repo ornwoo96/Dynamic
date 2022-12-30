@@ -46,6 +46,7 @@
 		0B723281294B2C82009D3EDF /* PickListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723280294B2C82009D3EDF /* PickListViewController.swift */; };
 		0B723283294B2C8E009D3EDF /* PickListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723282294B2C8E009D3EDF /* PickListViewModel.swift */; };
 		0B723285294B2C9D009D3EDF /* PickListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B723284294B2C9D009D3EDF /* PickListCoordinator.swift */; };
+		0B8E35A7295F3C8A00C97215 /* DetailViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E35A6295F3C8A00C97215 /* DetailViewModel + Event.swift */; };
 		0B8F0757294B9EA100F5B591 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0756294B9EA100F5B591 /* DetailModel.swift */; };
 		0B8F075C294C6C0200F5B591 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075B294C6C0200F5B591 /* Coordinatable.swift */; };
 		0B8F075E294C6C4700F5B591 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F075D294C6C4700F5B591 /* Coordinator.swift */; };
@@ -154,6 +155,7 @@
 		0B723280294B2C82009D3EDF /* PickListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListViewController.swift; sourceTree = "<group>"; };
 		0B723282294B2C8E009D3EDF /* PickListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListViewModel.swift; sourceTree = "<group>"; };
 		0B723284294B2C9D009D3EDF /* PickListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListCoordinator.swift; sourceTree = "<group>"; };
+		0B8E35A6295F3C8A00C97215 /* DetailViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewModel + Event.swift"; sourceTree = "<group>"; };
 		0B8F0756294B9EA100F5B591 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		0B8F075B294C6C0200F5B591 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		0B8F075D294C6C4700F5B591 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 			children = (
 				0B723277294B2C1D009D3EDF /* DetailViewModel.swift */,
 				0B8F0761294CC10300F5B591 /* DetailViewModel + Action.swift */,
+				0B8E35A6295F3C8A00C97215 /* DetailViewModel + Event.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -896,6 +899,7 @@
 				0BB7E0842957238200C0AA83 /* ParentCompositionalCoordinator.swift in Sources */,
 				0B8F0760294C6C6200F5B591 /* HasCoordinatable.swift in Sources */,
 				0B7232212947041A009D3EDF /* SwiftUIViewModel.swift in Sources */,
+				0B8E35A7295F3C8A00C97215 /* DetailViewModel + Event.swift in Sources */,
 				0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */,
 				0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */,
 				0BB7E0542952D70000C0AA83 /* ChildCompositionalViewModel + Action.swift in Sources */,

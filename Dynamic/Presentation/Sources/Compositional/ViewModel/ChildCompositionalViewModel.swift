@@ -16,7 +16,6 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
-    private var isCustomNavigationBarAnimationFirst: Bool = false
     private var offset = 0
     private var limit = 20
     private var category: Category = .Coding
@@ -46,15 +45,13 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             self.branchNavigationAnimationForHideORShow(yValue)
         case .pullToRefresh:
             self.delayRetrieveData()
+        case .scrollPanGestureAction(yValue: let yValue):
+            self.branchScrollPanGestureAction(yValue: yValue)
         }
     }
     
     public func setupCategory(_ category: ChildCompositionalViewModel.Category) {
         self.category = category
-    }
-    
-    public func changeIsNavigationBarAnimation(_ bool: Bool) {
-        self.isCustomNavigationBarAnimationFirst = bool
     }
     
     public func checkFavoriteButtonTapped(_ bool: Bool,
@@ -65,6 +62,12 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         } else {
             requestRemoveImageDataToCoreData(indexPath)
             favoritesCount.send(-1)
+        }
+    }
+    
+    private func branchScrollPanGestureAction(yValue: Double) {
+        if yValue < 0 {
+            event.send(.animateHideBar)
         }
     }
     
@@ -142,15 +145,9 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     
     private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
         if yValue > 1 {
-            if self.isCustomNavigationBarAnimationFirst == false {
-                self.isCustomNavigationBarAnimationFirst = true
-                event.send(.animateHideBar)
-            }
+            event.send(.animateHideBar)
         } else {
-            if self.isCustomNavigationBarAnimationFirst {
-                self.isCustomNavigationBarAnimationFirst = false
-                event.send(.animateShowBar)
-            }
+            event.send(.animateShowBar)
         }
     }
 }
@@ -158,9 +155,5 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
 extension ChildCompositionalViewModel {
     public func getSectionItem(_ sectionIndex: Int) -> Section {
         return sections[sectionIndex]
-    }
-    
-    public func getIsNavigationBarAnimation() -> Bool {
-        return self.isCustomNavigationBarAnimationFirst
     }
 }

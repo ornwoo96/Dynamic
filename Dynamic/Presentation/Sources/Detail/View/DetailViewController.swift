@@ -13,12 +13,13 @@ class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: DetailCoordinator? { coordinator as? DetailCoordinator }
     private var cancellables: Set<AnyCancellable> = .init()
-    let viewModel: DetailViewModel
+    private let viewModel: DetailViewModel
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    private let loadingView = PageLoadingView()
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
@@ -37,6 +38,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        imageView.image = nil
         setupImageData()
     }
     
@@ -47,21 +49,34 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     private func setupUI() {
         setupImageView()
+        setupLoadingView()
     }
     
     private func setupImageView() {
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.maxX),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+    
+    private func setupLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor, constant: yValueRatio(90)),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        loadingView.backgroundColor = .clear
     }
     
     private func bind() {
         bindImageData()
+        bindEvent()
     }
     
     private func bindImageData() {
@@ -73,10 +88,33 @@ class DetailViewController: UIViewController, HasCoordinatable {
             .store(in: &cancellables)
     }
     
+    private func bindEvent() {
+        viewModel.event
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] in
+                guard let strongSelf = self else { return }
+                switch $0 {
+                case .none: break
+                case .hideLoading:
+                    strongSelf.hideLoading()
+                case .showLoading:
+                    strongSelf.showLoading()
+                }
+            })
+            .store(in: &cancellables)
+    }
+    
+    private func showLoading() {
+        loadingView.isHidden = false
+        loadingView.bounceAnimation()
+    }
+    
+    private func hideLoading() {
+        loadingView.isHidden = true
+    }
     
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
-        
         viewModel.action(.viewDidLoad(url))
     }
 }

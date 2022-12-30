@@ -23,11 +23,12 @@ protocol ParentCustomViewModelProtocol: ParentCustomViewModelInputProtocol, Pare
     var event: CurrentValueSubject<ParentCustomViewModel.Event, Never> { get set }
 }
 
-class ParentCustomViewModel: ParentCustomViewModelProtocol {
+public class ParentCustomViewModel: ParentCustomViewModelProtocol {
     internal var pageViewControllerPreviousIndex = 0
     internal var event = CurrentValueSubject<Event, Never>(.none)
     private let fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol
     private var favoritesCount = 0
+    private var currentNavigationBarState = CustomNavigationBarState.show
     
     init(fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol) {
         self.fetchFavoritesUseCase = fetchFavoritesUseCase
@@ -43,6 +44,8 @@ class ParentCustomViewModel: ParentCustomViewModelProtocol {
         case .receiveFavoritesCountData(let count):
             favoritesCount += count
             event.send(.setupPickListButtonCount(favoritesCount))
+        case .customNavigationBarState(state: let state):
+            branchNavigationBar(state: state)
         }
     }
     
@@ -53,6 +56,21 @@ class ParentCustomViewModel: ParentCustomViewModelProtocol {
     
     func readIndex() -> Int {
         return pageViewControllerPreviousIndex
+    }
+    
+    private func branchNavigationBar(state: CustomNavigationBarState) {
+        switch state {
+        case .hide:
+            if currentNavigationBarState == .show {
+                event.send(.animateHideNavigationBar)
+                currentNavigationBarState = .hide
+            }
+        case .show:
+            if currentNavigationBarState == .hide {
+                event.send(.animateShowNavigationBar)
+                currentNavigationBarState = .show
+            }
+        }
     }
     
     private func branchCategoryViewTags(_ tag: Int,

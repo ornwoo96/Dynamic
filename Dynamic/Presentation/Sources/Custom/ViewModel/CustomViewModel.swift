@@ -16,7 +16,6 @@ public class CustomViewModel: CustomViewModelProtocol {
     private var previewContents: [CustomPresentationModel.PresentationPreview] = []
     private var originalContents: [CustomPresentationModel.PresentationOriginal] = []
     private var originalImageDataArray: [String] = []
-    private var isCustomNavigationBarAnimationFirst: Bool = false
     private var offset = 0
     private var limit = 20
     private var currentContentCount = 0
@@ -53,6 +52,8 @@ public class CustomViewModel: CustomViewModelProtocol {
             self.branchNavigationAnimationForHideORShow(yValue)
         case .pullToRefresh:
             self.delayRetrieveData()
+        case .scrollPanGestureAction(yValue: let yValue):
+            self.branchScrollPanGestureAction(yValue: yValue)
         }
     }
     
@@ -70,6 +71,12 @@ public class CustomViewModel: CustomViewModelProtocol {
         } else {
             requestRemoveImageDataToCoreData(indexPath)
             favoritesCount.send(-1)
+        }
+    }
+    
+    private func branchScrollPanGestureAction(yValue: Double) {
+        if yValue < 0 {
+            event.send(.animateHideBar)
         }
     }
     
@@ -157,15 +164,9 @@ public class CustomViewModel: CustomViewModelProtocol {
     
     private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
         if yValue > 1 {
-            if self.isCustomNavigationBarAnimationFirst == false {
-                self.isCustomNavigationBarAnimationFirst = true
-                event.send(.animateHideBar)
-            }
+            event.send(.animateHideBar)
         } else {
-            if self.isCustomNavigationBarAnimationFirst {
-                self.isCustomNavigationBarAnimationFirst = false
-                event.send(.animateShowBar)
-            }
+            event.send(.animateShowBar)
         }
     }
 }

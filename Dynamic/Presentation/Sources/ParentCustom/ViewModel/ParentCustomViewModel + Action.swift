@@ -13,5 +13,6 @@ extension ParentCustomViewModel {
         case receiveFavoritesCountData(_ count: Int)
         case categoryButtonDidTap(_ tag: Int,
                                   _ viewController: CustomViewController)
+        case customNavigationBarState(state: CustomNavigationBarState)
     }
 }

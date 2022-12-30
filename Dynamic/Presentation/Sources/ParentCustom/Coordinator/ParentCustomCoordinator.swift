@@ -25,14 +25,9 @@ public class ParentCustomCoordinator: Coordinator {
         coordinator.start()
     }
     
-    public func hideParentCustomNavigationBar() {
-        guard let viewController = self.viewController as? ParentCustomViewController else { return }
-        viewController.animateHideParentCustomNavigationBar()
-    }
-    
-    public func showParentCustomNavigationBar() {
-        guard let viewController = self.viewController as? ParentCustomViewController else { return }
-        viewController.animateShowParentCustomNavigationBar()
+    public func setupCustomNavigationBarState(state: ParentCustomViewModel.CustomNavigationBarState) {
+        guard let viewController = viewController as? ParentCustomViewController else { return }
+        viewController.animateCustomNavigationBar(state: state)
     }
     
     public func receiveFavoritesCountData(_ count: Int) {

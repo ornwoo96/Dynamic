@@ -35,4 +35,8 @@ extension ParentCustomViewModel {
         case none
     }
     
+    public enum CustomNavigationBarState {
+        case hide
+        case show
+    }
 }

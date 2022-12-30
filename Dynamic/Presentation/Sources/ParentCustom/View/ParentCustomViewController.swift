@@ -123,6 +123,10 @@ final class ParentCustomViewController: UIViewController, HasCoordinatable {
 }
 
 extension ParentCustomViewController {
+    func animateCustomNavigationBar(state: ParentCustomViewModel.CustomNavigationBarState) {
+        viewModel.action(.customNavigationBarState(state: state))
+    }
+    
     func animateHideParentCustomNavigationBar() {
         customNavigationBarTopConstraint?.constant = -yValueRatio(100)
         categoryViewTopConstraint?.constant = yValueRatio(70)
