@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol AddFavoritesUseCaseProtocol {
-    func requestCoreDataCreateImageData(_ data: OriginalDomainModel)
+    func requestCoreDataCreateImageData(_ data: PreviewDomainModel)
 }

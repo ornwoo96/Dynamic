@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Presentation
+@testable import DynamicPresentation
 
 final class PresentationTests: XCTestCase {
 

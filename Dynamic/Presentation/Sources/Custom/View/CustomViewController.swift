@@ -14,10 +14,11 @@ class CustomViewController: UIViewController, HasCoordinatable {
     private var castedCoordinator: CustomCoordinator? { coordinator as? CustomCoordinator }
     private var cancellable = Set<AnyCancellable>()
     private var loadingView = PageLoadingView()
+    private let blackView = UIView()
     
     private lazy var customCollectionView: UICollectionView = {
         let layout = DynamicCustomFlowLayout()
-        layout.cellPadding = self.xValueRatio(2.5)
+        layout.cellPadding = 2.5
         layout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
@@ -55,6 +56,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupUI() {
+        setupBlackBackgroundView()
         setupCollectionView()
         setupLongGestureRecognizerOnCollection()
         setupLoadingView()
@@ -64,19 +66,32 @@ class CustomViewController: UIViewController, HasCoordinatable {
         navigationController?.isNavigationBarHidden = true
     }
     
+    private func setupBlackBackgroundView() {
+        blackView.backgroundColor = .black
+        view.addSubview(blackView)
+        blackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blackView.topAnchor.constraint(equalTo: view.topAnchor),
+            blackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blackView.heightAnchor.constraint(equalToConstant: yValueRatio(5))
+        ])
+    }
+    
     private func setupCollectionView() {
         view.addSubview(customCollectionView)
         customCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        customCollectionView.contentInset = UIEdgeInsets(top: xValueRatio(2.5),
+        customCollectionView.contentInset = UIEdgeInsets(top: .zero,
                                                          left: xValueRatio(2.5),
                                                          bottom: .zero,
                                                          right: xValueRatio(2.5))
         NSLayoutConstraint.activate([
-            customCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            customCollectionView.topAnchor.constraint(equalTo: blackView.bottomAnchor, constant: -yValueRatio(2.5)),
             customCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             customCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        view.bringSubviewToFront(blackView)
     }
     
     private func setupLoadingView() {
@@ -196,6 +211,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
 
 extension CustomViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         viewModel.action(.scrollViewDidScroll(scrollView.contentOffset.y))
     }
 }
@@ -244,6 +260,7 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
+        
         viewModel.action(.willDisplay(indexPath: indexPath))
     }
 }

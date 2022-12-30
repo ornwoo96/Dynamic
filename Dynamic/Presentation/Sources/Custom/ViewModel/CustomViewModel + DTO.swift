@@ -9,12 +9,12 @@ import Foundation
 import DynamicDomain
 
 extension CustomViewModel {
-    public func convert(_ presentationOriginal: CustomPresentationModel.PresentationOriginal) -> OriginalDomainModel {
-        return OriginalDomainModel(id: presentationOriginal.id,
-                                   height: String(Int(presentationOriginal.height)),
-                                   width: String(Int(presentationOriginal.width)),
-                                   url: presentationOriginal.url,
-                                   favorite: true)
+    public func convert(_ presentationOriginal: CustomPresentationModel.PresentationPreview) -> PreviewDomainModel {
+        return PreviewDomainModel(id: presentationOriginal.id,
+                                  height: String(Int(presentationOriginal.height)),
+                                  width: String(Int(presentationOriginal.width)),
+                                  url: presentationOriginal.url,
+                                  favorite: true)
     }
 
     public func convert(_ indexPath: Int, _ presentationOriginal: [CustomPresentationModel.PresentationOriginal]) -> DetailModel {

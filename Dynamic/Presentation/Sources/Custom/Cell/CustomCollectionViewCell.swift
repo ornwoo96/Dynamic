@@ -17,6 +17,8 @@ public struct CustomCellItem {
 class CustomCollectionViewCell: UICollectionViewCell {
     static let identifier = "CustomCollectionViewCell"
     
+    private var cellGradientLayer = CAGradientLayer()
+    
     public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -59,6 +61,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
             await MainActor.run { [weak self] in
                 self?.imageView.image = UIImage.gifImageWithData(image)
                 self?.animateHeartView(item.favorite)
+                self?.cellGradientLayer.frame = CGRect(
+                    origin: .zero,
+                    size: CGSize(width: xValueRatio(1),
+                                 height: yValueRatio(1)))
             }
         }
     }
@@ -74,9 +80,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupBackgroundView() {
-        self.setGradientWithArrayThreeColor(UIColor.randomGradientSeries,
-                                            CGSize(width: xValueRatio(200),
-                                                   height: yValueRatio(300)))
+        cellGradientLayer.colors = UIColor.randomGradientSeries
+        cellGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(200),
+                                                                     height: yValueRatio(500)))
+        layer.addSublayer(cellGradientLayer)
     }
     
     private func setupImageView() {

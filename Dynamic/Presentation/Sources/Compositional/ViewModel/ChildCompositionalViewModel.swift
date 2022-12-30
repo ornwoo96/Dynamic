@@ -78,15 +78,14 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
-        addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
+        addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(previewContents[indexPath]))
     }
     
     private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
-        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
+        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(previewContents[indexPath].id)
     }
     
     private func retrieveGIPHYDataForRefresh() {
-        
         Task { [weak self] in
             do {
                 let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, 0)
@@ -164,5 +163,4 @@ extension ChildCompositionalViewModel {
     public func getIsNavigationBarAnimation() -> Bool {
         return self.isCustomNavigationBarAnimationFirst
     }
-    
 }

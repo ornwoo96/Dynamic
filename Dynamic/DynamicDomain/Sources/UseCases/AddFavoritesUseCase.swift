@@ -14,7 +14,7 @@ public final class AddFavoritesUseCase: AddFavoritesUseCaseProtocol {
         self.coreDataManager = coreDataManager
     }
     
-    public func requestCoreDataCreateImageData(_ data: OriginalDomainModel) {
+    public func requestCoreDataCreateImageData(_ data: PreviewDomainModel) {
         coreDataManager.createGIFImageData(data.height, data.width, data.id, data.url)
     }
 }

@@ -45,7 +45,7 @@ class PickListViewModel: PickListViewModelProtocol {
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             removeFavoriteData(indexPath)
         case .viewDidDisappear:
-            self.contents = []
+            break
         }
     }
     
@@ -59,7 +59,7 @@ class PickListViewModel: PickListViewModelProtocol {
         Task {
             do {
                 let data = try await fetchFavoritesUseCase.retrieveGIPHYDataFromCoreData()
-                contents.append(contentsOf: data)
+                self.contents = data
                 event.send(.invalidateLayout)
             } catch {
                 

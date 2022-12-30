@@ -101,7 +101,7 @@ class CategoryView: UIView {
         selectedViewGradientLayer.colors = UIColor.gradientSeries1
         selectedViewGradientLayer.startPoint = CGPoint(x: 1.0, y: 1.0)
         selectedViewGradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
-        selectedViewGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(95),
+        selectedViewGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(210),
                                                                              height: xValueRatio(45)))
         
         selectedView.layer.addSublayer(selectedViewGradientLayer)
@@ -130,10 +130,6 @@ class CategoryView: UIView {
         return button
     }
     
-    @objc private func buttonGestureTapped(_ sender: UITapGestureRecognizer) {
-        print(sender.location(in: self.scrollView))
-    }
-    
     @objc private func buttonTapped(_ sender: UIButton) {
         delegate?.buttonDidTap(sender.tag)
         self.branchButtonTag(sender.tag)
@@ -142,39 +138,37 @@ class CategoryView: UIView {
     public func branchButtonTag(_ tag: Int) {
         switch tag {
         case 0:
-            self.animateButton(xValueRatio(6), xValueRatio(90))
-            self.animateGradient(UIColor.gradientSeries1)
-            self.seriesColorFromValue = UIColor.gradientSeries1
+            self.buttonTapAnimations(6, 90, 0, 0)
         case 1:
-            self.animateButton(xValueRatio(89), xValueRatio(90))
-            self.animateGradient(UIColor.gradientSeries2)
-            self.seriesColorFromValue = UIColor.gradientSeries2
+            self.buttonTapAnimations(89, 90, 1, 0)
         case 2:
-            self.animateButton(xValueRatio(175.5), xValueRatio(65))
-            self.animateGradient(UIColor.gradientSeries3)
-            self.seriesColorFromValue = UIColor.gradientSeries3
+            self.buttonTapAnimations(175.5, 65, 2, 12.5)
         case 3:
-            self.animateButton(xValueRatio(237), xValueRatio(70))
-            self.animateGradient(UIColor.gradientSeries4)
-            self.seriesColorFromValue = UIColor.gradientSeries4
+            self.buttonTapAnimations(237, 70, 3, 77.5)
         case 4:
-            self.animateButton(xValueRatio(302), xValueRatio(120))
-            self.animateGradient(UIColor.gradientSeries5)
-            self.seriesColorFromValue = UIColor.gradientSeries5
+            self.buttonTapAnimations(302, 120, 4, 168)
         case 5:
-            self.animateButton(xValueRatio(416), xValueRatio(72))
-            self.animateGradient(UIColor.gradientSeries6)
-            self.seriesColorFromValue = UIColor.gradientSeries6
+            self.buttonTapAnimations(416, 72, 5, 257.5)
         case 6:
-            self.animateButton(xValueRatio(482.5), xValueRatio(112.5))
-            self.animateGradient(UIColor.gradientSeries7)
-            self.seriesColorFromValue = UIColor.gradientSeries7
+            self.buttonTapAnimations(482.5, 112.5, 6, 300)
         case 7:
-            self.animateButton(xValueRatio(591), xValueRatio(77.5))
-            self.animateGradient(UIColor.gradientSeries8)
-            self.seriesColorFromValue = UIColor.gradientSeries8
+            self.buttonTapAnimations(591, 77.5, 7, 300)
         default: break
         }
+    }
+    
+    private func buttonTapAnimations(_ leading: CGFloat,
+                                     _ width: CGFloat,
+                                     _ number: Int,
+                                     _ xPointValue: CGFloat) {
+        animateButton(xValueRatio(leading), xValueRatio(width))
+        animateGradient(UIColor.branchGradient(number: number))
+        seriesColorFromValue = UIColor.branchGradient(number: number)
+        scrollToCenter(xValueRatio(xPointValue))
+    }
+    
+    private func scrollToCenter(_ xValue: CGFloat) {
+        scrollView.setContentOffset(CGPoint(x: xValue, y: 0), animated: true)
     }
     
     private func animateButton(_ leading: CGFloat, _ width: CGFloat) {
@@ -190,14 +184,13 @@ class CategoryView: UIView {
     }
     
     private func animateGradient(_ colors: [CGColor]) {
-        let animation = CABasicAnimation(keyPath: "colors")
-        animation.duration = 1
-        animation.fromValue = seriesColorFromValue
-        animation.toValue = colors
-        animation.isRemovedOnCompletion = false
-        animation.fillMode = CAMediaTimingFillMode.forwards
-        selectedViewGradientLayer.frame = selectedView.bounds
-        selectedViewGradientLayer.add(animation, forKey: "colors")
+        let animation2 = CABasicAnimation(keyPath: "colors")
+        animation2.duration = 1
+        animation2.fromValue = seriesColorFromValue
+        animation2.toValue = colors
+        animation2.isRemovedOnCompletion = false
+        animation2.fillMode = CAMediaTimingFillMode.forwards
+        selectedViewGradientLayer.add(animation2, forKey: "colors")
     } 
     
     public func setupBackGroundViewWhenHideBar() {

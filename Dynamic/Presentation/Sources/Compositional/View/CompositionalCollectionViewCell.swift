@@ -27,6 +27,7 @@ public class CompositionalCellItem: BaseCellItem {
 
 class CompositionalCollectionViewCell: UICollectionViewCell {
     static let identifier = "CompositionalCollectionViewCell"
+    private var cellGradientLayer = CAGradientLayer()
     
     public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,22 +55,22 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-    }
-    
-    public func configure(_ item: CompositionalCellItem) {
         DispatchQueue.main.async { [weak self] in
             self?.imageView.image = nil
         }
+    }
+    
+    public func configure(_ item: CompositionalCellItem) {
         Task {
             let image = try await ImageCacheManager.shared.imageLoad(item.url)
             await MainActor.run { [weak self] in
                 self?.imageView.image = UIImage.gifImageWithData(image)
                 self?.animateHeartView(item.favorite)
+                self?.cellGradientLayer.colors = [UIColor.black.cgColor]
             }
         }
     }
@@ -85,9 +86,10 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupBackgroundView() {
-        self.setGradientWithArrayThreeColor(UIColor.randomGradientSeries,
-                                            CGSize(width: xValueRatio(200),
-                                                   height: yValueRatio(300)))
+        cellGradientLayer.colors = UIColor.randomGradientSeries
+        cellGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(200),
+                                                                     height: yValueRatio(500)))
+        layer.addSublayer(cellGradientLayer)
     }
     
     private func setupImageView() {

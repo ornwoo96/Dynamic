@@ -15,8 +15,8 @@ extension ChildCompositionalViewModel {
                            height: String(Int(data.height)))
     }
     
-    public func convertOriginalDomain(_ data: CompositionalPresentationModel.OriginalModel) -> OriginalDomainModel {
-        return OriginalDomainModel.init(id: data.id,
+    public func convertOriginalDomain(_ data: CompositionalPresentationModel.PreviewModel) -> PreviewDomainModel {
+        return PreviewDomainModel.init(id: data.id,
                                         height: String(Int(data.height)),
                                         width: String(Int(data.width)),
                                         url: data.url,

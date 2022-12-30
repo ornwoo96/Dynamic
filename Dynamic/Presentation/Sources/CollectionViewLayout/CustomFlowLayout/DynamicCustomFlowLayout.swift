@@ -110,7 +110,8 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
                                     _ indexPath: IndexPath) -> CGFloat {
         let imageHeight = delegate?.collectionViewImageHeight(collectionView, indexPath) ?? 0
         let imageWidth = delegate?.collectionViewImageWidth(collectionView, indexPath) ?? 0
-        let heightResult = setupImageResize(imageWidth, imageHeight, contentWidth/2)
+        
+        let heightResult = setupImageResize(imageWidth, imageHeight, (UIScreen.main.bounds.maxX/2)-7.5)
         return heightResult
     }
     

@@ -224,6 +224,29 @@ extension UIColor {
         
         return array[randomNumber]
     }
+    
+    static func branchGradient(number: Int) -> [CGColor] {
+        switch number {
+        case 0:
+            return UIColor.gradientSeries1
+        case 1:
+            return UIColor.gradientSeries2
+        case 2:
+            return UIColor.gradientSeries3
+        case 3:
+            return UIColor.gradientSeries4
+        case 4:
+            return UIColor.gradientSeries5
+        case 5:
+            return UIColor.gradientSeries6
+        case 6:
+            return UIColor.gradientSeries7
+        case 7:
+            return UIColor.gradientSeries8
+        default:
+            return UIColor.gradientSeries1
+        }
+    }
 }
 
 // MARK: Dynamic 8colors

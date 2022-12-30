@@ -11,10 +11,10 @@ import DynamicCore
 
 class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
-    
+    private var cellGradientLayer = CAGradientLayer()
+
     public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = nil
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -53,7 +53,13 @@ class PickListCollectionViewCell: UICollectionViewCell {
         Task {
             let image = try await ImageCacheManager.shared.imageLoad(url)
             await MainActor.run { [weak self] in
+                
+                self?.imageView.image = nil
                 self?.imageView.image = UIImage.gifImageWithData(image)
+                self?.cellGradientLayer.frame = CGRect(
+                    origin: .zero,
+                    size: CGSize(width: xValueRatio(1),
+                                 height: yValueRatio(1)))
             }
         }
     }
@@ -65,9 +71,10 @@ class PickListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupBackgroundView() {
-        self.setGradientWithArrayThreeColor(UIColor.randomGradientSeries,
-                                            CGSize(width: xValueRatio(200),
-                                                   height: yValueRatio(300)))
+        cellGradientLayer.colors = UIColor.randomGradientSeries
+        cellGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(200),
+                                                                     height: yValueRatio(500)))
+        layer.addSublayer(cellGradientLayer)
     }
     
     private func setupCell() {

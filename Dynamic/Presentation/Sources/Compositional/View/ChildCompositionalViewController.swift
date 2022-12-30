@@ -219,7 +219,7 @@ extension ChildCompositionalViewController {
             
             let section = self?.layoutFactory.getDynamicLayoutSection(
                 columnCount: 2,
-                itemPadding: self?.xValueRatio(5) ?? 0,
+                itemPadding: 5,
                 contentWidth: environment.container.effectiveContentSize.width,
                 sectionIndex: sectionIndex,
                 numberOfItems: numberOfItem,

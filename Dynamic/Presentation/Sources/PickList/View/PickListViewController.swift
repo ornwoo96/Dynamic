@@ -98,18 +98,20 @@ class PickListViewController: UIViewController, HasCoordinatable {
         viewModel.event
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {[weak self] in
+                guard let strongSelf = self else { return }
                 switch $0 {
                 case .none:
                     break
                 case .invalidateLayout:
-                    self?.pickListCollectionView.reloadData()
+                    strongSelf.collectionViewReloadData()
                 case .deleteItem(let indexPath):
-                    self?.setupCellWhenCellLongPressed(indexPath)
+                    strongSelf.setupCellWhenCellLongPressed(indexPath)
                 }
             })
             .store(in: &cancellable)
     }
     
+    private func collectionViewReloadData() {}
 }
 
 extension PickListViewController: BackButtonProtocol {
@@ -127,8 +129,8 @@ extension PickListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickListCollectionViewCell.identifier, for: indexPath) as? PickListCollectionViewCell else { return UICollectionViewCell() }
-        cell.imageView.image = nil
         cell.configure(viewModel.contents[indexPath.item].url)
+        
         return cell
     }
 }

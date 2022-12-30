@@ -40,13 +40,13 @@ public class CustomViewModel: CustomViewModelProtocol {
         switch action {
         case .viewWillAppear:
             event.send(.showPageLoading)
-            retrieveGIPHYData()
+            self.retrieveGIPHYData()
         case .viewNeededCalculateLayout:
             event.send(.invalidateLayout)
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(createDetailData(indexPath.item)))
         case .willDisplay(indexPath: let indexPath):
-            checkLastCell(indexPath.item)
+            self.checkLastCell(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath))
         case .scrollViewDidScroll(let yValue):
@@ -109,11 +109,11 @@ public class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
-        addFavoritesUseCase.requestCoreDataCreateImageData(convert(originalContents[indexPath]))
+        addFavoritesUseCase.requestCoreDataCreateImageData(convert(previewContents[indexPath]))
     }
     
     private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
-        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
+        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(previewContents[indexPath].id)
     }
     
     private func createDetailData(_ indexPath: Int) -> DetailModel {
@@ -121,6 +121,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func checkLastCell(_ indexPath: Int) {
+        
         if previewContents.count - 1 == indexPath,
            event.value != .showBottomLoading {
             event.send(.showBottomLoading)
@@ -174,7 +175,6 @@ extension CustomViewModel {
         if event.value == .showBottomLoading {
             
             event.send(.showRetrievedCells(createIndexPaths()))
-            
         }
         event.send(.hideBottomLoading)
     }
