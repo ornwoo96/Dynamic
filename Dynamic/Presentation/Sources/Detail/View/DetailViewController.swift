@@ -14,11 +14,13 @@ class DetailViewController: UIViewController, HasCoordinatable {
     private var castedCoordinator: DetailCoordinator? { coordinator as? DetailCoordinator }
     private var cancellables: Set<AnyCancellable> = .init()
     private let viewModel: DetailViewModel
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     private let loadingView = PageLoadingView()
     
     init(viewModel: DetailViewModel) {

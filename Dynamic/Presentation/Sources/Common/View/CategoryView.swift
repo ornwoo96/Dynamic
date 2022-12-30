@@ -36,6 +36,21 @@ class CategoryView: UIView {
         setupScrollView()
         setupSelectedView()
         setupStackView()
+        setupGradient()
+    }
+    
+    private func setupGradient() {
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.maxX,
+                                                            height: yValueRatio(45)))
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.locations = [0.7, 0.95]
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
+        gradient.colors = [
+            UIColor.clear.cgColor,
+            UIColor.homeAlphaBlackColor2.cgColor
+        ]
+        self.layer.addSublayer(gradient)
     }
     
     private func setupView() {

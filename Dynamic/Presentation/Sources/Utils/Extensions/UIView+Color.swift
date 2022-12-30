@@ -93,7 +93,11 @@ extension UIColor {
     }
     
     static var homeAlphaBlackColor2: UIColor {
-        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
+        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+    }
+    
+    static var homeAlphaBlackColor3: UIColor {
+        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.9)
     }
     
     static var heartViewBackgroundBlackColor: UIColor {

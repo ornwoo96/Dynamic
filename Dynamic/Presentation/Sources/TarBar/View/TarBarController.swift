@@ -15,17 +15,7 @@ public final class TabBarController: UITabBarController, HasCoordinatable {
     
     private lazy var tabBarBackgroundView: UIView = {
         let view = UIView()
-        let gradient = CAGradientLayer()
-        gradient.frame.size = CGSize(width: calculateXMax(), height: yValueRatio(150))
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.locations = [0.1, 0.3]
-        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.colors = [
-            UIColor.clear.cgColor,
-            UIColor.homeAlphaBlackColor1.cgColor,
-            UIColor.black.cgColor
-        ]
-        view.layer.addSublayer(gradient)
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -95,6 +85,7 @@ public final class TabBarController: UITabBarController, HasCoordinatable {
     
     private func setupUI() {
         setupTabBar()
+        setupGradient()
         setupTabBarBackgroundView()
         setupCompoTabButton()
         setupCustomTabButton()
@@ -110,11 +101,27 @@ public final class TabBarController: UITabBarController, HasCoordinatable {
         view.addSubview(tabBarBackgroundView)
         tabBarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            tabBarBackgroundView.heightAnchor.constraint(equalToConstant: yValueRatio(90)),
             tabBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tabBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBarBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tabBarBackgroundView.heightAnchor.constraint(equalToConstant: yValueRatio(150))
+            tabBarBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func setupGradient() {
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(origin: CGPoint(x: 0, y: UIScreen.main.bounds.maxY-yValueRatio(190)),
+                                size: CGSize(width: calculateXMax(),
+                                             height: yValueRatio(190)))
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.locations = [0.0, 0.5, 0.7]
+        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.colors = [
+            UIColor.clear.cgColor,
+            UIColor.homeAlphaBlackColor3.cgColor,
+            UIColor.black.cgColor
+        ]
+        view.layer.addSublayer(gradient)
     }
     
     private func setupCompoTabButton() {
@@ -122,9 +129,9 @@ public final class TabBarController: UITabBarController, HasCoordinatable {
         compoTabButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             compoTabButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            compoTabButton.centerYAnchor.constraint(equalTo: tabBarBackgroundView.centerYAnchor, constant: yValueRatio(15)),
-            compoTabButton.widthAnchor.constraint(equalToConstant: xValueRatio(40)),
-            compoTabButton.heightAnchor.constraint(equalToConstant: yValueRatio(45))
+            compoTabButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -yValueRatio(40)),
+            compoTabButton.widthAnchor.constraint(equalToConstant: xValueRatio(50)),
+            compoTabButton.heightAnchor.constraint(equalToConstant: yValueRatio(55))
         ])
     }
     
@@ -134,8 +141,8 @@ public final class TabBarController: UITabBarController, HasCoordinatable {
         NSLayoutConstraint.activate([
             customTabButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: xValueRatio(80)),
             customTabButton.centerYAnchor.constraint(equalTo: compoTabButton.centerYAnchor),
-            customTabButton.widthAnchor.constraint(equalToConstant: xValueRatio(40)),
-            customTabButton.heightAnchor.constraint(equalToConstant: yValueRatio(45))
+            customTabButton.widthAnchor.constraint(equalToConstant: xValueRatio(50)),
+            customTabButton.heightAnchor.constraint(equalToConstant: yValueRatio(55))
         ])
     }
     
@@ -145,8 +152,8 @@ public final class TabBarController: UITabBarController, HasCoordinatable {
         NSLayoutConstraint.activate([
             swiftTabButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -xValueRatio(80)),
             swiftTabButton.centerYAnchor.constraint(equalTo: compoTabButton.centerYAnchor),
-            swiftTabButton.widthAnchor.constraint(equalToConstant: xValueRatio(38)),
-            swiftTabButton.heightAnchor.constraint(equalToConstant: yValueRatio(45))
+            swiftTabButton.widthAnchor.constraint(equalToConstant: xValueRatio(48)),
+            swiftTabButton.heightAnchor.constraint(equalToConstant: yValueRatio(55))
         ])
     }
     
