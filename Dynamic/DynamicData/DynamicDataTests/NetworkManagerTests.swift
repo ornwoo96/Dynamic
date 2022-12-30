@@ -66,19 +66,4 @@ final class NetworkManagerTests: XCTestCase {
         // Then
         XCTAssertEqual(response, 200)
     }
-    
-    func testRequestImageData() async throws {
-        // Given
-        let url = "https://giphy.com/gifs/cat-cool-cats-cfuL5gqFDreXxkWQ4o"
-        
-        // When
-        let (data, urlResponse) = try await networkManager.requestImageData(url)
-        
-        guard let response = (urlResponse as? HTTPURLResponse)?.statusCode else {
-            throw NetworkManager.NetworkManagerError.urlError
-        }
-        
-        // Then
-        XCTAssertEqual(response, 200)
-    }
 }

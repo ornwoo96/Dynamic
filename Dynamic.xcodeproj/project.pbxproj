@@ -128,7 +128,6 @@
 		0BB52B202945B509005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B212945B509005FC30F /* DynamicData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B282945B50F005FC30F /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB52B2B2945B530005FC30F /* Domain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Domain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/Domain.framework"; sourceTree = "<group>"; };
 		0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicDomain.xcodeproj; path = Dynamic/DynamicDomain/DynamicDomain.xcodeproj; sourceTree = "<group>"; };
 		0BB52BB929460367005FC30F /* DynamicData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicData.xcodeproj; path = Dynamic/DynamicData/DynamicData.xcodeproj; sourceTree = "<group>"; };
 		0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamicDomain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/DynamicDomain.framework"; sourceTree = "<group>"; };
@@ -220,7 +219,6 @@
 				0BB52B202945B509005FC30F /* DynamicCore.framework */,
 				0BB52B212945B509005FC30F /* DynamicData.framework */,
 				0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */,
-				0BB52B2B2945B530005FC30F /* Domain.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

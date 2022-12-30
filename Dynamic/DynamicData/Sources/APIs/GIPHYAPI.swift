@@ -24,13 +24,15 @@ public struct GIPHYAPI: BaseAPIProtocol {
         let parameters: [String: Any] = ["api_key":GIPHYAPIKey,
                                          "q":searchWord,
                                          "limit":"\(limit)",
-                                         "offset":offset,
+                                         "offset":"\(offset)",
                                          "rating":"g",
                                          "lang":"en"]
-        let (model, response) = try await networkManager.request(path: path,
+        let (data, response) = try await networkManager.request(path: path,
                                                                  parameters: parameters,
                                                                  method: NetworkManager.Method.get)
-        return convertGiphyImageEntity(model)
+        let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
+
+        return convertGiphyImageEntity(decodeData)
     }
 }
 

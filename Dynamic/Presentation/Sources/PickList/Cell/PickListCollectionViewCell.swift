@@ -44,14 +44,15 @@ class PickListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        DispatchQueue.main.async { [weak self] in
+            self?.imageView.image = nil
+        }
     }
     
     public func configure(_ url: String) {
         Task {
             let image = try await ImageCacheManager.shared.imageLoad(url)
             await MainActor.run { [weak self] in
-                self?.imageView.image = nil
                 self?.imageView.image = UIImage.gifImageWithData(image)
             }
         }

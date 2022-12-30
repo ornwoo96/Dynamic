@@ -14,7 +14,7 @@ public class NetworkManager {
     
     func request(path: String,
                  parameters: [String: Any],
-                 method: Method) async throws -> (GIPHYFromAPIEntity, URLResponse) {
+                 method: Method) async throws -> (Data, URLResponse) {
         var urlComponents = URLComponents(string: baseURL.rawValue)
         urlComponents?.path = path
         urlComponents?.queryItems = parameters.map { .init(name: $0, value: $1 as? String) }
@@ -27,18 +27,6 @@ public class NetworkManager {
         requestUrl.httpMethod = method.rawValue
         
         let (data, urlResponse) = try await urlSession.data(for: requestUrl)
-        
-        let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
-        
-        return (decodeData, urlResponse)
-    }
-    
-    public func requestImageData(_ url: String) async throws -> (Data, URLResponse) {
-        guard let stringToURL = URL(string: url) else {
-            throw NetworkManagerError.urlError
-        }
-        
-        let (data, urlResponse) = try await urlSession.data(from: stringToURL)
         
         return (data, urlResponse)
     }
