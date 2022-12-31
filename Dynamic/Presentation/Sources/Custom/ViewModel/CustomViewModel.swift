@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import DynamicDomain
+import DynamicCore
 
 public class CustomViewModel: CustomViewModelProtocol {
     private var addFavoritesUseCase: AddFavoritesUseCaseProtocol
@@ -18,8 +19,8 @@ public class CustomViewModel: CustomViewModelProtocol {
     private var originalImageDataArray: [String] = []
     private var offset = 0
     private var limit = 20
-    private var currentContentCount = 0
     private var category: Category = .Coding
+    private var IsFirstResponse = true
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     
@@ -37,7 +38,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     
     public func action(_ action: Action) {
         switch action {
-        case .viewWillAppear:
+        case .viewDidLoad:
             event.send(.showPageLoading)
             self.retrieveGIPHYData()
         case .viewNeededCalculateLayout:
@@ -48,12 +49,12 @@ public class CustomViewModel: CustomViewModelProtocol {
             self.checkLastCell(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath))
-        case .scrollViewDidScroll(let yValue):
-            self.branchNavigationAnimationForHideORShow(yValue)
         case .pullToRefresh:
             self.delayRetrieveData()
         case .scrollPanGestureAction(yValue: let yValue):
             self.branchScrollPanGestureAction(yValue: yValue)
+        case .scrollViewDidScroll(let yValue):
+            self.branchNavigationAnimationForHideORShow(yValue)
         }
     }
     
@@ -98,6 +99,7 @@ public class CustomViewModel: CustomViewModelProtocol {
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
                 self?.originalContents.append(contentsOf: presentationModel.originalImageData)
+                print("previewContents", previewContents.count)
                 event.send(.invalidateLayout)
                 event.send(.hideBottomLoading)
                 event.send(.collectionViewReload)
@@ -111,8 +113,8 @@ public class CustomViewModel: CustomViewModelProtocol {
     private func resetFetchData() {
         previewContents = []
         originalContents = []
-        offset = 0
-        currentContentCount = 0
+        offset = 20
+        ImageCacheManager.shared.removeCacheData()
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
@@ -143,6 +145,7 @@ public class CustomViewModel: CustomViewModelProtocol {
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
                 self?.originalContents.append(contentsOf: presentationModel.originalImageData)
+                print("previewContents", previewContents.count)
                 event.send(.invalidateLayout)
                 event.send(.hideBottomLoading)
                 event.send(.hidePageLoading)
@@ -162,11 +165,15 @@ public class CustomViewModel: CustomViewModelProtocol {
         return indexPaths
     }
     
-    private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
+    public func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
         if yValue > 1 {
-            event.send(.animateHideBar)
+            if IsFirstResponse == true {
+                event.send(.animateHideBar)
+                IsFirstResponse = false
+            }
         } else {
             event.send(.animateShowBar)
+            IsFirstResponse = true
         }
     }
 }
@@ -174,7 +181,6 @@ public class CustomViewModel: CustomViewModelProtocol {
 extension CustomViewModel {
     public func scrollViewDidEndDecelerating() {
         if event.value == .showBottomLoading {
-            
             event.send(.showRetrievedCells(createIndexPaths()))
         }
         event.send(.hideBottomLoading)

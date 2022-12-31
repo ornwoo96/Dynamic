@@ -44,6 +44,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        viewModel.action(.viewDidLoad)
         setupUI()
         bind()
         setupRefreshControl()
@@ -52,7 +53,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupViewController()
-        viewModel.action(.viewWillAppear)
     }
     
     private func setupUI() {
@@ -217,7 +217,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
 
 extension CustomViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         viewModel.action(.scrollViewDidScroll(scrollView.contentOffset.y))
     }
 }

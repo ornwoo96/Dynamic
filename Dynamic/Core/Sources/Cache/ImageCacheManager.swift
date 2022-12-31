@@ -42,6 +42,11 @@ public final class ImageCacheManager {
         return data
     }
     
+    public func removeCacheData() {
+        cachedImages.removeAllObjects()
+        print("cacheData removeAll")
+    }
+    
     private func fetchImageData(_ url: String) async throws -> Data {
         guard let stringToURL = URL(string: url) else {
             return Data()

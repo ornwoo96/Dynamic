@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */; };
+		0B7A57FA29600AE5008BCF05 /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; };
+		0B7A57FB29600AE5008BCF05 /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B8E3578295C5ADB00C97215 /* AddFavoritesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3577295C5ADB00C97215 /* AddFavoritesUseCase.swift */; };
 		0B8E357A295C5B0D00C97215 /* ImageSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3579295C5B0D00C97215 /* ImageSearchUseCase.swift */; };
 		0B8E357E295C5C7700C97215 /* FetchFavoritesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E357D295C5C7700C97215 /* FetchFavoritesUseCase.swift */; };
@@ -25,8 +27,6 @@
 		0BB52B8229460354005FC30F /* ImageSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* ImageSearchTests.swift */; };
 		0BB52B8329460354005FC30F /* DynamicDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52B7529460353005FC30F /* DynamicDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */; };
-		0BB52BD5294604BF005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		0BB52BD6294604C0005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,13 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0BB52BD7294604C0005FC30F /* Embed Frameworks */ = {
+		0B7A57FC29600AE5008BCF05 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0BB52BD6294604C0005FC30F /* DynamicCore.framework in Embed Frameworks */,
+				0B7A57FB29600AE5008BCF05 /* DynamicCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB52BD5294604BF005FC30F /* DynamicCore.framework in Frameworks */,
+				0B7A57FA29600AE5008BCF05 /* DynamicCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +224,7 @@
 				0BB52B6E29460353005FC30F /* Sources */,
 				0BB52B6F29460353005FC30F /* Frameworks */,
 				0BB52B7029460353005FC30F /* Resources */,
-				0BB52BD7294604C0005FC30F /* Embed Frameworks */,
+				0B7A57FC29600AE5008BCF05 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

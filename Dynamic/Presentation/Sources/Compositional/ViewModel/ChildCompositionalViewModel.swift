@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import DynamicDomain
+import DynamicCore
 
 public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var addFavoritesUseCase: AddFavoritesUseCaseProtocol
@@ -107,7 +108,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         sections = []
         previewContents = []
         originalContents = []
-        offset = 0
+        offset = 20
+        ImageCacheManager.shared.removeCacheData()
     }
     
     private func retrieveGIPHYData() {

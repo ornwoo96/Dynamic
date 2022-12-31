@@ -14,6 +14,8 @@
 		0B19C796294232AA00909F8D /* DynamicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C795294232AA00909F8D /* DynamicTests.swift */; };
 		0B19C7A0294232AA00909F8D /* DynamicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C79F294232AA00909F8D /* DynamicUITests.swift */; };
 		0B19C7A2294232AA00909F8D /* DynamicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C7A1294232AA00909F8D /* DynamicUITestsLaunchTests.swift */; };
+		0B7A57FF29600B25008BCF05 /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9229460354005FC30F /* DynamicDomain.framework */; };
+		0B7A580029600B25008BCF05 /* DynamicDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9229460354005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B202945B509005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B232945B509005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B202945B509005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B212945B509005FC30F /* DynamicData.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -102,6 +104,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0B7A580029600B25008BCF05 /* DynamicDomain.framework in Embed Frameworks */,
 				0BB52B252945B509005FC30F /* DynamicData.framework in Embed Frameworks */,
 				0BB52B232945B509005FC30F /* DynamicCore.framework in Embed Frameworks */,
 				0BB52B2A2945B50F005FC30F /* DynamicPresentation.framework in Embed Frameworks */,
@@ -138,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B7A57FF29600B25008BCF05 /* DynamicDomain.framework in Frameworks */,
 				0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */,
 				0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */,
 				0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */,
@@ -677,7 +681,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dongdong.Dynamic;
+				PRODUCT_BUNDLE_IDENTIFIER = dongdong.DynamicHeight;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -708,7 +712,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dongdong.Dynamic;
+				PRODUCT_BUNDLE_IDENTIFIER = dongdong.DynamicHeight;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
