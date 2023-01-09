@@ -72,6 +72,7 @@ final class DynamicCustomFlowLayout: UICollectionViewLayout {
                 createRightSideAttribute(collectionView, indexPath)
             }
         }
+        
     }
     
     private func createLeftSideAttribute(_ collectionView: UICollectionView,

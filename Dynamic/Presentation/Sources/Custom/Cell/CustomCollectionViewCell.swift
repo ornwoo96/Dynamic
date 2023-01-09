@@ -19,8 +19,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private var cellGradientLayer = CAGradientLayer()
     
-    public lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var imageView: GIFImageView = {
+        let imageView = GIFImageView(frame: .zero)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -31,6 +31,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
         view.isHidden = true
         return view
     }()
+    
+    private var count = 0
+    
+    private var isFirstTime = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,21 +55,30 @@ class CustomCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         DispatchQueue.main.async { [weak self] in
-            self?.imageView.image = nil
+            self?.imageView.gifImageView.image = nil
         }
     }
     
     public func configure(_ item: CustomCellItem) {
-        Task {
+        Task { [weak self] in
             let image = try await ImageCacheManager.shared.imageLoad(item.imageUrl)
-            await MainActor.run { [weak self] in
-                self?.imageView.image = UIImage.gifImageWithData(image)
+            
+            guard let imageData = UIImage.gifImageWithData(image) else { return }
+            
+            await MainActor.run {
+                self?.imageView.gifImageView.image = imageData
                 self?.animateHeartView(item.favorite)
                 self?.cellGradientLayer.frame = CGRect(
                     origin: .zero,
                     size: CGSize(width: xValueRatio(1),
                                  height: yValueRatio(1)))
             }
+        }
+    }
+    
+    public func clear() {
+        DispatchQueue.main.async { [weak self] in
+            self?.imageView.gifImageView.image = nil
         }
     }
     

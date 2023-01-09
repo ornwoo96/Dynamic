@@ -29,6 +29,7 @@ public final class BMOInject {
             print(BMOInjectError.resolveError)
             return nil
         }
+        
         return value
     }
     

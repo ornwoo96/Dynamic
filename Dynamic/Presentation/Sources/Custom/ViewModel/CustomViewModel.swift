@@ -111,8 +111,8 @@ public class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func resetFetchData() {
-        previewContents = []
-        originalContents = []
+        previewContents.removeAll()
+        originalContents.removeAll()
         offset = 20
         ImageCacheManager.shared.removeCacheData()
     }

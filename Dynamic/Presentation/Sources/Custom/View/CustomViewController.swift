@@ -23,7 +23,8 @@ class CustomViewController: UIViewController, HasCoordinatable {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
+        collectionView.register(CustomCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.backgroundColor = .black
         collectionView.isPrefetchingEnabled = true
         collectionView.alwaysBounceVertical = true
@@ -41,6 +42,11 @@ class CustomViewController: UIViewController, HasCoordinatable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -53,6 +59,11 @@ class CustomViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupViewController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
     
     private func setupUI() {
@@ -240,7 +251,6 @@ extension CustomViewController: DynamicCollectionViewHeightLayoutDelegate {
 extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        
         return viewModel.numberOfItemsInSection()
     }
     
@@ -265,9 +275,20 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
-        
         viewModel.action(.willDisplay(indexPath: indexPath))
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CustomCollectionViewCell.identifier,
+            for: indexPath) as? CustomCollectionViewCell else {
+            return
+        }
+        cell.clear()
+    }
+    
 }
 
 extension CustomViewController: CustomNavigationBarDelegate {

@@ -47,10 +47,12 @@ class HeartView: UIView {
     }
     
     private func setupHeartImageView() {
-        guard let imageData = NSDataAsset(name: "heart_gif")?.data else {
-            return
-        }
-        heartImageView.image = UIImage.gifImageWithData(imageData)
+//        guard let imageData = NSDataAsset(name: "heart_gif")?.data else {
+//            return
+//        }
+//
+//        heartImageView.image = UIImage.gifImageWithData(imageData)
+        
         blackBackgroundLayerView.addSubview(heartImageView)
         heartImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

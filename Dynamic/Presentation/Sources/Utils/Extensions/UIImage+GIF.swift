@@ -20,7 +20,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 extension UIImage {
-    
     public class func gifImageWithData(_ data: Data) -> UIImage? {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
             print("image doesn't exist")
@@ -30,32 +29,13 @@ extension UIImage {
         return UIImage.animatedImageWithSource(source)
     }
     
-    public class func gifImageWithURL(_ gifUrl: String) -> UIImage? {
-        guard let bundleURL: URL = URL(string: gifUrl)
-        else {
-            print("image named \"\(gifUrl)\" doesn't exist")
-            return nil
-        }
-        guard let imageData = try? Data(contentsOf: bundleURL) else {
-            print("image named \"\(gifUrl)\" into NSData")
-            return nil
+    public class func animationImages(_ data: Data) -> [UIImage] {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
+            print("image doesn't exist")
+            return []
         }
         
-        return gifImageWithData(imageData)
-    }
-    
-    public class func gifImageWithName(_ name: String) -> UIImage? {
-        guard let bundleURL = Bundle.main
-            .url(forResource: name, withExtension: "gif") else {
-            print("SwiftGif: This image named \"\(name)\" does not exist")
-            return nil
-        }
-        guard let imageData = try? Data(contentsOf: bundleURL) else {
-            print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
-            return nil
-        }
-        
-        return gifImageWithData(imageData)
+        return UIImage.animatedImagesWithSource(source)
     }
     
     class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
@@ -174,5 +154,37 @@ extension UIImage {
                                               duration: Double(duration) / 1000.0)
         
         return animation
+    }
+    
+    class func animatedImagesWithSource(_ source: CGImageSource) -> [UIImage] {
+        let count = CGImageSourceGetCount(source)
+        var images = [CGImage]()
+        var delays = [Int]()
+        
+        for i in 0..<count {
+            if let image = CGImageSourceCreateImageAtIndex(source, i, nil) {
+                images.append(image)
+            }
+            
+            let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
+                                                            source: source)
+            delays.append(Int(delaySeconds * 1000.0))
+        }
+        
+        let gcd = gcdForArray(delays)
+        var frames = [UIImage]()
+        
+        var frame: UIImage
+        var frameCount: Int
+        for i in 0..<count {
+            frame = UIImage(cgImage: images[Int(i)])
+            frameCount = Int(delays[Int(i)] / gcd)
+            
+            for _ in 0..<frameCount {
+                frames.append(frame)
+            }
+        }
+        
+        return frames
     }
 }
