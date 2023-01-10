@@ -9,6 +9,8 @@ import UIKit
 import AVFoundation
 import Combine
 
+import Photos
+
 class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: DetailCoordinator? { coordinator as? DetailCoordinator }
@@ -36,6 +38,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
         super.viewDidLoad()
         setupUI()
         bind()
+        setupLongGestureRecognizerOnCollection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,5 +121,39 @@ class DetailViewController: UIViewController, HasCoordinatable {
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
         viewModel.action(.viewDidLoad(url))
+    }
+}
+
+extension DetailViewController: UIGestureRecognizerDelegate {
+    
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self,
+                                                              action: #selector(LongPressCell(_:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        view.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc private func LongPressCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            saveImage()
+        }
+    }
+    
+    private func saveImage() {
+        let imageData = viewModel.imageDataSubject.value
+        
+        PHPhotoLibrary.shared().performChanges({
+            let request = PHAssetCreationRequest.forAsset()
+            request.addResource(with: .photo, data: imageData, options: nil)
+        }) { (success, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                
+                print("GIF has saved")
+            }
+        }
     }
 }
