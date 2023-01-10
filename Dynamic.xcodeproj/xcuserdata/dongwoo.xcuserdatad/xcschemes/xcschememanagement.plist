@@ -7,7 +7,25 @@
 		<key>Dynamic.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>0B19C777294232A700909F8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B19C790294232AA00909F8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B19C79A294232AA00909F8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

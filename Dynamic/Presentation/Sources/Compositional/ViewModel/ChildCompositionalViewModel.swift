@@ -8,21 +8,27 @@
 import Foundation
 import Combine
 import DynamicDomain
+import DynamicCore
 
 public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
-    public var event: CurrentValueSubject<Event, Never> = .init(.none)
-    private let dynamicUseCase: DynamicUseCase
+    private var addFavoritesUseCase: AddFavoritesUseCaseProtocol
+    private var removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol
+    private var imageSearchUseCase: ImageSearchUseCaseProtocol
     private var previewContents: [CompositionalPresentationModel.PreviewModel] = []
     private var originalContents: [CompositionalPresentationModel.OriginalModel] = []
     private var sections: [Section] = []
-    private var isCustomNavigationBarAnimationFirst: Bool = false
     private var offset = 0
-    private var limit = 15
+    private var limit = 20
+    private var category: Category = .Coding
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
-    public var category: Category = .Coding
+    public var event: CurrentValueSubject<Event, Never> = .init(.none)
     
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
+    init(addFavoritesUseCase: AddFavoritesUseCaseProtocol,
+         removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol,
+         imageSearchUseCase: ImageSearchUseCaseProtocol) {
+        self.addFavoritesUseCase = addFavoritesUseCase
+        self.removeFavoritesUseCase = removeFavoritesUseCase
+        self.imageSearchUseCase = imageSearchUseCase
     }
     
     public func action(_ action: Action) {
@@ -40,11 +46,13 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             self.branchNavigationAnimationForHideORShow(yValue)
         case .pullToRefresh:
             self.delayRetrieveData()
+        case .scrollPanGestureAction(yValue: let yValue):
+            self.branchScrollPanGestureAction(yValue: yValue)
         }
     }
     
-    public func changeIsNavigationBarAnimation(_ bool: Bool) {
-        self.isCustomNavigationBarAnimationFirst = bool
+    public func setupCategory(_ category: ChildCompositionalViewModel.Category) {
+        self.category = category
     }
     
     public func checkFavoriteButtonTapped(_ bool: Bool,
@@ -58,6 +66,12 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         }
     }
     
+    private func branchScrollPanGestureAction(yValue: Double) {
+        if yValue < 0 {
+            event.send(.animateHideBar)
+        }
+    }
+    
     private func delayRetrieveData() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self] in
             self?.event.send(.endRefreshing)
@@ -68,23 +82,22 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
-        dynamicUseCase.requestCoreDataCreateImageData(convertOriginalDomain(originalContents[indexPath]))
+        addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(previewContents[indexPath]))
     }
     
     private func requestRemoveImageDataToCoreData(_ indexPath: Int) {
-        dynamicUseCase.requestRemoveImageDataFromCoreData(originalContents[indexPath].id)
+        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(previewContents[indexPath].id)
     }
     
     private func retrieveGIPHYDataForRefresh() {
-        
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, 0)
+                let presentationModel = convertPresentationModel(model)
                 self?.resetFetchData()
-                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
-                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
-                setupSections(convertPresentationModel(model).previewModel)
-                offset += limit
+                self?.previewContents.append(contentsOf: presentationModel.previewModel)
+                self?.originalContents.append(contentsOf: presentationModel.originalModel)
+                setupSections(presentationModel.previewModel)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -95,15 +108,18 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         sections = []
         previewContents = []
         originalContents = []
+        offset = 20
+        ImageCacheManager.shared.removeCacheData()
     }
     
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await dynamicUseCase.retrieveGIPHYDatas(category.rawValue, offset)
-                self?.previewContents.append(contentsOf: convertPresentationModel(model).previewModel)
-                self?.originalContents.append(contentsOf: convertPresentationModel(model).originalModel)
-                setupSections(convertPresentationModel(model).previewModel)
+                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, offset)
+                let presentationModel = convertPresentationModel(model)
+                self?.previewContents.append(contentsOf: presentationModel.previewModel)
+                self?.originalContents.append(contentsOf: presentationModel.originalModel)
+                setupSections(presentationModel.previewModel)
                 offset += limit
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
@@ -131,15 +147,9 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     
     private func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
         if yValue > 1 {
-            if self.isCustomNavigationBarAnimationFirst == false {
-                self.isCustomNavigationBarAnimationFirst = true
-                event.send(.animateHideBar)
-            }
+            event.send(.animateHideBar)
         } else {
-            if self.isCustomNavigationBarAnimationFirst {
-                self.isCustomNavigationBarAnimationFirst = false
-                event.send(.animateShowBar)
-            }
+            event.send(.animateShowBar)
         }
     }
 }
@@ -148,9 +158,4 @@ extension ChildCompositionalViewModel {
     public func getSectionItem(_ sectionIndex: Int) -> Section {
         return sections[sectionIndex]
     }
-    
-    public func getIsNavigationBarAnimation() -> Bool {
-        return self.isCustomNavigationBarAnimationFirst
-    }
-    
 }

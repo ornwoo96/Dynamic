@@ -37,11 +37,11 @@ public class ChildCompositionalCoordinator: Coordinator {
     
     public func hideNavigationBar() {
         guard let parentCoordinator = self.parentCoordinator as? ParentCompositionalCoordinator else { return }
-        parentCoordinator.hideNavigationBar()
+        parentCoordinator.setupCompositionalNavigationBarState(state: .hide)
     }
     
     public func showNavigationBar() {
         guard let parentCoordinator = self.parentCoordinator as? ParentCompositionalCoordinator else { return }
-        parentCoordinator.showNavigationBar()
+        parentCoordinator.setupCompositionalNavigationBarState(state: .show)
     }
 }

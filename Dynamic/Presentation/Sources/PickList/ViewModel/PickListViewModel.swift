@@ -25,12 +25,15 @@ protocol PickListViewModelProtocol: PickListViewModelInputProtocol, PickListView
 }
 
 class PickListViewModel: PickListViewModelProtocol {
-    private var dynamicUseCase: DynamicUseCase
+    private var removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol
+    private var fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol
     var event: CurrentValueSubject<Event, Never> = .init(.none)
     var contents: [FavoriteDomainModel] = []
     
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
+    init(removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol,
+         fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol) {
+        self.removeFavoritesUseCase = removeFavoritesUseCase
+        self.fetchFavoritesUseCase = fetchFavoritesUseCase
     }
     
     public func action(_ action: Action) {
@@ -42,21 +45,21 @@ class PickListViewModel: PickListViewModelProtocol {
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             removeFavoriteData(indexPath)
         case .viewDidDisappear:
-            self.contents = []
+            break
         }
     }
     
     private func removeFavoriteData(_ indexPath: IndexPath) {
         let id = contents[indexPath.item].id
-        dynamicUseCase.requestRemoveImageDataFromCoreData(id)
+        removeFavoritesUseCase.requestRemoveImageDataFromCoreData(id)
         event.send(.deleteItem(indexPath))
     }
     
     private func retrieveFavoriteDataFromCoreData() {
         Task {
             do {
-                let data = try await dynamicUseCase.retrieveGIPHYDataFromCoreData()
-                contents.append(contentsOf: data)
+                let data = try await fetchFavoritesUseCase.retrieveGIPHYDataFromCoreData()
+                self.contents = data
                 event.send(.invalidateLayout)
             } catch {
                 

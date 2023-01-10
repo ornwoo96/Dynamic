@@ -22,10 +22,10 @@ extension CustomViewModel {
             case (.showDetailView, .showDetailView):
                 return true
                 
-            case (.showLoading, .showLoading):
+            case (.showBottomLoading, .showBottomLoading):
                 return true
                 
-            case (.hideLoading, hideLoading):
+            case (.hideBottomLoading, hideBottomLoading):
                 return true
                 
             case (.showHeartView, .showHeartView):
@@ -34,7 +34,23 @@ extension CustomViewModel {
             case (.showRetrievedCells, showRetrievedCells):
                 return true
                 
+            case (.animateHideBar, .animateHideBar):
+                return true
                 
+            case (.animateShowBar, .animateShowBar):
+                return true
+                
+            case (.endRefreshing, .endRefreshing):
+                return true
+                
+            case (.showPageLoading, .showPageLoading):
+                return true
+                
+            case (.hidePageLoading, .hidePageLoading):
+                return true
+                
+            case (.collectionViewReload, collectionViewReload):
+                return true
                 
             default:
                 return false
@@ -46,9 +62,15 @@ extension CustomViewModel {
         case none
         case invalidateLayout
         case showDetailView(_ data: DetailModel)
-        case showLoading
-        case hideLoading
+        case showBottomLoading
+        case hideBottomLoading
+        case showPageLoading
+        case hidePageLoading
         case showHeartView(_ indexPath: IndexPath)
         case showRetrievedCells(_ indexPaths: [IndexPath])
+        case animateHideBar
+        case animateShowBar
+        case endRefreshing
+        case collectionViewReload
     }
 }

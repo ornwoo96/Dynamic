@@ -8,18 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */; };
+		0B7A57FA29600AE5008BCF05 /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; };
+		0B7A57FB29600AE5008BCF05 /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0B8E3578295C5ADB00C97215 /* AddFavoritesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3577295C5ADB00C97215 /* AddFavoritesUseCase.swift */; };
+		0B8E357A295C5B0D00C97215 /* ImageSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3579295C5B0D00C97215 /* ImageSearchUseCase.swift */; };
+		0B8E357E295C5C7700C97215 /* FetchFavoritesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E357D295C5C7700C97215 /* FetchFavoritesUseCase.swift */; };
+		0B8E3580295C5CE500C97215 /* RemoveFavoritesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E357F295C5CE500C97215 /* RemoveFavoritesUseCase.swift */; };
+		0B8E3582295C600800C97215 /* AddFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3581295C600800C97215 /* AddFavoritesUseCaseProtocol.swift */; };
+		0B8E3584295C603500C97215 /* ImageSearchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3583295C603500C97215 /* ImageSearchUseCaseProtocol.swift */; };
+		0B8E3586295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */; };
+		0B8E3589295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */; };
+		0B8E3597295DCCB100C97215 /* DynamicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E3596295DCCB100C97215 /* DynamicRepository.swift */; };
+		0B8E35A3295EC60B00C97215 /* FetchFavoritesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E35A2295EC60B00C97215 /* FetchFavoritesTests.swift */; };
 		0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */; };
 		0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B992325294E075C00913288 /* FavoritesDomainModel.swift */; };
 		0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B7629460353005FC30F /* DynamicDomain.docc */; };
 		0BB52B7D29460354005FC30F /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B7229460353005FC30F /* DynamicDomain.framework */; };
-		0BB52B8229460354005FC30F /* DynamicDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* DynamicDomainTests.swift */; };
+		0BB52B8229460354005FC30F /* ImageSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52B8129460354005FC30F /* ImageSearchTests.swift */; };
 		0BB52B8329460354005FC30F /* DynamicDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB52B7529460353005FC30F /* DynamicDomain.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BB52BCC2946041B005FC30F /* DefaultDynamicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCB2946041B005FC30F /* DefaultDynamicUseCase.swift */; };
-		0BB52BCE29460461005FC30F /* DynamicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCD29460461005FC30F /* DynamicUseCase.swift */; };
-		0BB52BD02946048D005FC30F /* DynamicImageDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */; };
 		0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */; };
-		0BB52BD5294604BF005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; };
-		0BB52BD6294604C0005FC30F /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52BD4294604BF005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,13 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0BB52BD7294604C0005FC30F /* Embed Frameworks */ = {
+		0B7A57FC29600AE5008BCF05 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0BB52BD6294604C0005FC30F /* DynamicCore.framework in Embed Frameworks */,
+				0B7A57FB29600AE5008BCF05 /* DynamicCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,16 +55,23 @@
 
 /* Begin PBXFileReference section */
 		0B7232532949D9F6009D3EDF /* GIPHYDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIPHYDomainModel.swift; sourceTree = "<group>"; };
+		0B8E3577295C5ADB00C97215 /* AddFavoritesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavoritesUseCase.swift; sourceTree = "<group>"; };
+		0B8E3579295C5B0D00C97215 /* ImageSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchUseCase.swift; sourceTree = "<group>"; };
+		0B8E357D295C5C7700C97215 /* FetchFavoritesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFavoritesUseCase.swift; sourceTree = "<group>"; };
+		0B8E357F295C5CE500C97215 /* RemoveFavoritesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFavoritesUseCase.swift; sourceTree = "<group>"; };
+		0B8E3581295C600800C97215 /* AddFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
+		0B8E3583295C603500C97215 /* ImageSearchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchUseCaseProtocol.swift; sourceTree = "<group>"; };
+		0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
+		0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFavoritesUseCaseProtocol.swift; sourceTree = "<group>"; };
+		0B8E3596295DCCB100C97215 /* DynamicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRepository.swift; sourceTree = "<group>"; };
+		0B8E35A2295EC60B00C97215 /* FetchFavoritesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFavoritesTests.swift; sourceTree = "<group>"; };
 		0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerRepository.swift; sourceTree = "<group>"; };
 		0B992325294E075C00913288 /* FavoritesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDomainModel.swift; sourceTree = "<group>"; };
 		0BB52B7229460353005FC30F /* DynamicDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B7529460353005FC30F /* DynamicDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicDomain.h; sourceTree = "<group>"; };
 		0BB52B7629460353005FC30F /* DynamicDomain.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicDomain.docc; sourceTree = "<group>"; };
 		0BB52B7C29460354005FC30F /* DynamicDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamicDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BB52B8129460354005FC30F /* DynamicDomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicDomainTests.swift; sourceTree = "<group>"; };
-		0BB52BCB2946041B005FC30F /* DefaultDynamicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDynamicUseCase.swift; sourceTree = "<group>"; };
-		0BB52BCD29460461005FC30F /* DynamicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUseCase.swift; sourceTree = "<group>"; };
-		0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicImageDataRepository.swift; sourceTree = "<group>"; };
+		0BB52B8129460354005FC30F /* ImageSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchTests.swift; sourceTree = "<group>"; };
 		0BB52BD1294604A6005FC30F /* DomainDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDIContainer.swift; sourceTree = "<group>"; };
 		0BB52BD4294604BF005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -67,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB52BD5294604BF005FC30F /* DynamicCore.framework in Frameworks */,
+				0B7A57FA29600AE5008BCF05 /* DynamicCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +128,8 @@
 		0BB52B8029460354005FC30F /* DynamicDomainTests */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52B8129460354005FC30F /* DynamicDomainTests.swift */,
+				0BB52B8129460354005FC30F /* ImageSearchTests.swift */,
+				0B8E35A2295EC60B00C97215 /* FetchFavoritesTests.swift */,
 			);
 			path = DynamicDomainTests;
 			sourceTree = "<group>";
@@ -151,7 +166,10 @@
 		0BB52BC7294603F2005FC30F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52BCB2946041B005FC30F /* DefaultDynamicUseCase.swift */,
+				0B8E3579295C5B0D00C97215 /* ImageSearchUseCase.swift */,
+				0B8E3577295C5ADB00C97215 /* AddFavoritesUseCase.swift */,
+				0B8E357D295C5C7700C97215 /* FetchFavoritesUseCase.swift */,
+				0B8E357F295C5CE500C97215 /* RemoveFavoritesUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -159,8 +177,8 @@
 		0BB52BC8294603F7005FC30F /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52BCF2946048D005FC30F /* DynamicImageDataRepository.swift */,
 				0B8F0768294DC16C00F5B591 /* CoreDataManagerRepository.swift */,
+				0B8E3596295DCCB100C97215 /* DynamicRepository.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -168,7 +186,10 @@
 		0BB52BC9294603FD005FC30F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				0BB52BCD29460461005FC30F /* DynamicUseCase.swift */,
+				0B8E3581295C600800C97215 /* AddFavoritesUseCaseProtocol.swift */,
+				0B8E3583295C603500C97215 /* ImageSearchUseCaseProtocol.swift */,
+				0B8E3585295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift */,
+				0B8E3588295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -203,7 +224,7 @@
 				0BB52B6E29460353005FC30F /* Sources */,
 				0BB52B6F29460353005FC30F /* Frameworks */,
 				0BB52B7029460353005FC30F /* Resources */,
-				0BB52BD7294604C0005FC30F /* Embed Frameworks */,
+				0B7A57FC29600AE5008BCF05 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -291,14 +312,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B8E3578295C5ADB00C97215 /* AddFavoritesUseCase.swift in Sources */,
+				0B8E3589295C606800C97215 /* RemoveFavoritesUseCaseProtocol.swift in Sources */,
 				0B8F0769294DC16C00F5B591 /* CoreDataManagerRepository.swift in Sources */,
-				0BB52BCE29460461005FC30F /* DynamicUseCase.swift in Sources */,
+				0B8E3582295C600800C97215 /* AddFavoritesUseCaseProtocol.swift in Sources */,
+				0B8E3586295C604600C97215 /* FetchFavoritesUseCaseProtocol.swift in Sources */,
+				0B8E3584295C603500C97215 /* ImageSearchUseCaseProtocol.swift in Sources */,
 				0B7232542949D9F6009D3EDF /* GIPHYDomainModel.swift in Sources */,
+				0B8E357E295C5C7700C97215 /* FetchFavoritesUseCase.swift in Sources */,
+				0B8E3580295C5CE500C97215 /* RemoveFavoritesUseCase.swift in Sources */,
 				0BB52B7729460353005FC30F /* DynamicDomain.docc in Sources */,
-				0BB52BCC2946041B005FC30F /* DefaultDynamicUseCase.swift in Sources */,
 				0B992326294E075C00913288 /* FavoritesDomainModel.swift in Sources */,
+				0B8E3597295DCCB100C97215 /* DynamicRepository.swift in Sources */,
+				0B8E357A295C5B0D00C97215 /* ImageSearchUseCase.swift in Sources */,
 				0BB52BD2294604A6005FC30F /* DomainDIContainer.swift in Sources */,
-				0BB52BD02946048D005FC30F /* DynamicImageDataRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +333,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB52B8229460354005FC30F /* DynamicDomainTests.swift in Sources */,
+				0B8E35A3295EC60B00C97215 /* FetchFavoritesTests.swift in Sources */,
+				0BB52B8229460354005FC30F /* ImageSearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +352,7 @@
 		0BB52B8429460354005FC30F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -387,7 +415,7 @@
 		0BB52B8529460354005FC30F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -454,6 +482,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -485,6 +514,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

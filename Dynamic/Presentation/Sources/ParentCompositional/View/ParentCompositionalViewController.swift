@@ -112,6 +112,10 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
                     strongSelf.setViewControllersToReverse(viewController)
                 case .setupPickListButtonCount(let count):
                     strongSelf.setupPickListButtonCount(count)
+                case .animateHideNavigationBar:
+                    strongSelf.animateHideNavigationBar()
+                case .animateShowNavigationBar:
+                    strongSelf.animateShowNavigationBar()
                 }
             }
             .store(in: &cancellable)
@@ -119,6 +123,10 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
 }
 
 extension ParentCompositionalViewController {
+    func animateNavigationBar(state: ParentCompositionalViewModel.NavigationBarState) {
+        viewModel.action(.navigationBarState(state: state))
+    }
+    
     func animateHideNavigationBar() {
         customNavigationBarTopConstraint?.constant = -yValueRatio(100)
         categoryViewTopConstraint?.constant = yValueRatio(70)

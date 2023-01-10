@@ -103,7 +103,6 @@ public class CompositionalItemFactory {
     private func itemSizeAspect() -> CGSize {
         let height = itemHeight()
         let width = itemWidth()
-        
         return CGSize(width: width, height: height)
     }
     

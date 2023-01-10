@@ -27,9 +27,10 @@ public class CompositionalCellItem: BaseCellItem {
 
 class CompositionalCollectionViewCell: UICollectionViewCell {
     static let identifier = "CompositionalCollectionViewCell"
+    private var cellGradientLayer = CAGradientLayer()
     
-    public lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    public lazy var gifImageView: GIFImageView = {
+        let imageView = GIFImageView(frame: .zero)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -54,22 +55,30 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        clear()
     }
     
     public func configure(_ item: CompositionalCellItem) {
-        Task {
-            let image = try await ImageCacheManager.shared.imageLoad(item.url)
-            await MainActor.run { [weak self] in
-                self?.imageView.image = nil
-                self?.imageView.image = UIImage.gifImageWithData(image)
-                self?.animateHeartView(item.favorite)
-            }
-        }
+        gifImageView.configure(url: item.url)
+        heartView.setupHeartViewImage(bool: item.favorite)
+        setupCellGradient()
+    }
+    
+    public func clear() {
+        gifImageView.clear()
+        heartView.isHidden = true
+        heartView.setupHeartViewImage(bool: false)
+    }
+    
+    private func setupCellGradient() {
+        cellGradientLayer.frame = CGRect(
+            origin: .zero,
+            size: CGSize(width: xValueRatio(1),
+                         height: yValueRatio(1)))
     }
     
     private func setupUI() {
@@ -83,24 +92,25 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupBackgroundView() {
-        self.setGradientWithArrayThreeColor(UIColor.randomGradientSeries,
-                                            CGSize(width: xValueRatio(200),
-                                                   height: yValueRatio(300)))
+        cellGradientLayer.colors = UIColor.randomGradientSeries
+        cellGradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: xValueRatio(200),
+                                                                     height: yValueRatio(500)))
+        layer.addSublayer(cellGradientLayer)
     }
     
     private func setupImageView() {
-        contentView.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(gifImageView)
+        gifImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            gifImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            gifImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            gifImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            gifImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
     private func setupHeartView() {
-        imageView.addSubview(heartView)
+        gifImageView.addSubview(heartView)
         heartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heartView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -110,28 +120,13 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func animateHeartView(_ bool: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            if bool == false {
-                self?.heartView.isHidden = true
-            } else {
-                self?.heartView.isHidden = false
-            }
-        }
-    }
-    
     public func checkHeartViewIsHidden() -> Bool {
         if heartView.isHidden == true {
-            DispatchQueue.main.async { [weak self] in
-                self?.heartView.isHidden = false
-            }
+            heartView.setupHeartViewImage(bool: true)
             return true
         } else {
-            DispatchQueue.main.async { [weak self] in
-                self?.heartView.isHidden = true
-            }
+            heartView.setupHeartViewImage(bool: false)
             return false
         }
     }
-    
 }

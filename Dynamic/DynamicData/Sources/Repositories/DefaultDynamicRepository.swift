@@ -1,29 +1,41 @@
 //
-//  DefaultDynamicRepository.swift
-//  DynamicData
+//  DynamicAdapter.swift
+//  DynamicDataTests
 //
-//  Created by 김동우 on 2022/12/11.
+//  Created by 김동우 on 2022/12/29.
 //
 
 import Foundation
-
 import DynamicDomain
 
-public final class DefaultDynamicImageDataRepository: DynamicImageDataRepository {
-    private let manager: NetworkManager
-    private let coreDataManager: CoreDataManagerRepository
+public final class DefaultDynamicRepository: DynamicRepository {
+    private let GIPHYAPI: GIPHYAPI
     
-    init(manager: NetworkManager,
-         coreDataManager: CoreDataManagerRepository) {
-        self.manager = manager
-        self.coreDataManager = coreDataManager
+    public init(GIPHYAPI: GIPHYAPI) {
+        self.GIPHYAPI = GIPHYAPI
     }
     
-    public func retrieveGIPHYDatas(_ searchWord: String,
-                                   _ offset: Int) async throws -> GIPHYDomainModel {
-        let data = try await manager.fetchGIPHYDatas(searchWord, offset)
-        let boolArray = try await coreDataManager.checkGIFImageArrayDataIsExist(createIdArray(data.previewImages))
-        
-        return convert(data, boolArray)
+    public func retrieveGIFImageData(searchWord: String,
+                                     offset: Int) async throws -> GIPHYDomainModel {
+        let model = try await GIPHYAPI.retrieveGIFImageData(searchWord: searchWord,
+                                                            offset: offset)
+        return convertToDomainModel(model)
+    }
+}
+
+extension DefaultDynamicRepository {
+    public func convertToDomainModel(_ data: GiphyImageDataModel) -> GIPHYDomainModel {
+        return .init(
+            previewImages: data.previewImages.map { convertToDomainPreviewModel($0) },
+            originalImages: data.originalImages.map { convertToDomainOriginalModel($0) }
+        )
+    }
+    
+    private func convertToDomainPreviewModel(_ data: GiphyImageDataModel.PreviewAddIDEntity) -> PreviewDomainModel {
+        return .init(id: data.id, height: data.height, width: data.width, url: data.url)
+    }
+    
+    private func convertToDomainOriginalModel(_ data: GiphyImageDataModel.OriginalAddIDEntity) -> OriginalDomainModel {
+        return .init(id: data.id, height: data.height, width: data.width, url: data.url)
     }
 }

@@ -7,19 +7,21 @@
 
 import UIKit
 
-class HeartView: UIView {
+public class HeartView: UIView {
     private lazy var blackBackgroundLayerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.heartViewBackgroundBlackColor
         return view
     }()
     
-    private lazy var heartImageView: UIImageView = {
-        let view = UIImageView()
+    private lazy var heartImageView: GIFImageView = {
+        let view = GIFImageView(frame: .zero)
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         return view
     }()
+    
+    internal var isFavorite = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,10 +49,6 @@ class HeartView: UIView {
     }
     
     private func setupHeartImageView() {
-        guard let imageData = NSDataAsset(name: "heart_gif")?.data else {
-            return
-        }
-        heartImageView.image = UIImage.gifImageWithData(imageData)
         blackBackgroundLayerView.addSubview(heartImageView)
         heartImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -59,5 +57,29 @@ class HeartView: UIView {
             heartImageView.widthAnchor.constraint(equalToConstant: xValueRatio(60)),
             heartImageView.heightAnchor.constraint(equalToConstant: yValueRatio(60))
         ])
+    }
+    
+    public func setupHeartViewImage(bool: Bool) {
+        isFavorite = bool
+        
+        if isFavorite {
+            self.showHeartView()
+        } else {
+            self.hideHeartView()
+        }
+    }
+    
+    private func showHeartView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.isHidden = false
+        }
+        heartImageView.configureWithFileName(name: "heart_gif")
+    }
+    
+    private func hideHeartView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.isHidden = true
+        }
+        self.heartImageView.clear()
     }
 }

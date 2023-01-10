@@ -16,6 +16,7 @@ protocol DetailViewModelInputProtocol: AnyObject {
 
 protocol DetailViewModelOutputProtocol: AnyObject {
     var imageDataSubject: CurrentValueSubject<Data, Never> { get }
+    var event: CurrentValueSubject<DetailViewModel.Event, Never> { get }
 }
 
 protocol DetailViewModelProtocol: DetailViewModelInputProtocol, DetailViewModelOutputProtocol {
@@ -23,16 +24,13 @@ protocol DetailViewModelProtocol: DetailViewModelInputProtocol, DetailViewModelO
 }
 
 public class DetailViewModel: DetailViewModelProtocol {
-    var dynamicUseCase: DynamicUseCase
     var imageDataSubject = CurrentValueSubject<Data, Never>(Data())
-    
-    init(dynamicUseCase: DynamicUseCase) {
-        self.dynamicUseCase = dynamicUseCase
-    }
+    var event = CurrentValueSubject<DetailViewModel.Event, Never>(.none)
     
     public func action(_ action: Action) {
         switch action {
         case .viewDidLoad(let url):
+            event.send(.showLoading)
             retrieveOriginalImage(url)
         }
     }
@@ -42,6 +40,7 @@ public class DetailViewModel: DetailViewModelProtocol {
             do {
                 let imageData = try await ImageCacheManager.shared.imageLoad(url)
                 self?.imageDataSubject.send(imageData)
+                event.send(.hideLoading)
             } catch {
                 print("OriginalImage Retrieve - 실패")
             }

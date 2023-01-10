@@ -15,5 +15,6 @@ extension ChildCompositionalViewModel {
         case didSelectedItemAtLongPressed(indexPath: IndexPath)
         case scrollViewDidScroll(_ yValue: CGFloat)
         case pullToRefresh
+        case scrollPanGestureAction(yValue: Double)
     }
 }

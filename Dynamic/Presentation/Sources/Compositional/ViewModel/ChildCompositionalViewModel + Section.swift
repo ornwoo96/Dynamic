@@ -9,8 +9,8 @@ import UIKit
 
 extension ChildCompositionalViewModel {
     public class Section: Hashable {
-        
         let identifier: UUID = .init()
+        
         public let type: SectionType
         public var items: [BaseCellItem]
         

@@ -13,5 +13,6 @@ extension ParentCompositionalViewModel {
         case receiveFavoritesCountData(_ count: Int)
         case categoryButtonDidTap(_ tag: Int,
                                   _ viewController: ChildCompositionalViewController)
+        case navigationBarState(state: NavigationBarState)
     }
 }

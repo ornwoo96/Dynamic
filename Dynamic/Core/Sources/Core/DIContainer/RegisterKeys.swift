@@ -15,12 +15,14 @@ public enum VMKeys: String {
     case detail = "DetailViewModel"
     case pickList = "PickListViewModel"
     case parentCompo = "ParentCompositionalViewModel"
+    case parentCustom = "ParentCustomViewModel"
 }
 
 public enum VCKeys: String {
     case mainVC = "MainViewController"
     case compoVC = "CompositionalViewController"
     case customVC = "CustomViewController"
+    case parentCustom = "ParentCustomViewController"
     case swiftUI = "SwiftUIViewController"
     case tabBar = "TabBarController"
     case detail = "DetailViewController"
@@ -29,7 +31,10 @@ public enum VCKeys: String {
 }
 
 public enum UCKeys: String {
-    case dynamicUC = "DynamicUseCase"
+    case search = "ImageSearchUseCase"
+    case addFavorites = "AddFavoritesUseCase"
+    case fetchFavorites = "FetchFavoritesUseCase"
+    case removeFavorites = "RemoveFavoritesUseCase"
 }
 
 public enum RepoKeys: String {
@@ -49,4 +54,5 @@ public enum CodiKeys: String {
     case mainCodi = "MainCoordinator"
     case detail = "DetailCoordinator"
     case pickList = "PickListCoordinator"
+    case parentCustom = "ParentCustomCoordinator"
 }

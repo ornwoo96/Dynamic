@@ -17,7 +17,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
     private var dataSource: UICollectionViewDiffableDataSource<ChildCompositionalViewModel.Section, BaseCellItem>?
     private var loadingView = PageLoadingView()
-    private var compositionalCollectionViewTopConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,18 +24,18 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         setupUI()
         bind()
         setDataSource()
+        viewModel.action(.viewDidLoad)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.action(.viewDidLoad)
         navigationController?.navigationBar.isHidden = true
     }
     
     init(viewModel: ChildCompositionalViewModelProtocol,
          category: ChildCompositionalViewModel.Category) {
         self.viewModel = viewModel
-        self.viewModel.category = category
+        self.viewModel.setupCategory(category)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,6 +51,10 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupViewController() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                          action: #selector(scrollPanGestureAction(_:)))
+        panGestureRecognizer.delegate = self
+        compositionalCollectionView.addGestureRecognizer(panGestureRecognizer)
         view.backgroundColor = .black
     }
     
@@ -61,13 +64,12 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         compositionalCollectionView.delegate = self
         view.addSubview(compositionalCollectionView)
         compositionalCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        compositionalCollectionViewTopConstraint = compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor)
         NSLayoutConstraint.activate([
+            compositionalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             compositionalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             compositionalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             compositionalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        compositionalCollectionViewTopConstraint?.isActive = true
     }
     
     private func setupLoadingView() {
@@ -107,8 +109,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
             .sink { [weak self] in
                 guard let strongSelf = self else { return }
                 switch $0 {
-                case .none:
-                    break
+                case .none: break
                 case .reloadData(sections: let sections):
                     strongSelf.reloadData(sections)
                 case .showDetailView(let data):
@@ -125,7 +126,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
                     strongSelf.animateHideBar()
                 case .animateShowBar:
                     strongSelf.animateShowBar()
-                case .beginRefreshing:break
                 case .endRefreshing:
                     strongSelf.endRefreshing()
                 }
@@ -207,6 +207,12 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         viewModel.action(.pullToRefresh)
     }
     
+    @objc private func scrollPanGestureAction(_ panGesture: UIPanGestureRecognizer) {
+        viewModel.action(.scrollPanGestureAction(
+            yValue: panGesture.velocity(in: compositionalCollectionView).y
+        ))
+    }
+    
     private func endRefreshing() {
         compositionalCollectionView.refreshControl?.endRefreshing()
     }
@@ -223,7 +229,7 @@ extension ChildCompositionalViewController {
             
             let section = self?.layoutFactory.getDynamicLayoutSection(
                 columnCount: 2,
-                itemPadding: self?.xValueRatio(5) ?? 0,
+                itemPadding: 5,
                 contentWidth: environment.container.effectiveContentSize.width,
                 sectionIndex: sectionIndex,
                 numberOfItems: numberOfItem,
@@ -242,7 +248,6 @@ extension ChildCompositionalViewController {
 }
 
 extension ChildCompositionalViewController {
-    
     private func animateHideBar() {
         castedCoordinator?.hideNavigationBar()
     }
@@ -262,6 +267,15 @@ extension ChildCompositionalViewController: UICollectionViewDelegate {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         viewModel.action(.willDisplay(indexPath))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier, for: indexPath) as? CompositionalCollectionViewCell else {
+            return
+        }
+        cell.clear()
     }
 }
 
@@ -292,5 +306,10 @@ extension ChildCompositionalViewController: UIGestureRecognizerDelegate {
         guard let cell = compositionalCollectionView.cellForItem(at: indexPath) as? CompositionalCollectionViewCell else { return }
         
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

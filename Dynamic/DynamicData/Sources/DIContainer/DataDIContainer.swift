@@ -16,30 +16,22 @@ public final class DataDIContainer: Containable {
     public init() {}
     
     public func register() {
-        registerFetchDataService()
         registerRepositories()
-    }
-    
-    private func registerFetchDataService() {
-        let networkManager = NetworkManager()
-        
-        container.registerValue(RepoKeys.network.rawValue, networkManager)
     }
     
     private func registerRepositories() {
         registerCoreDataManager()
-        registerDynamicImageDataRepository()
+        registerDynamicRepository()
     }
 }
 
 extension DataDIContainer {
-    private func registerDynamicImageDataRepository() {
-        guard let manager: NetworkManager = container.resolveValue(RepoKeys.network.rawValue),
-              let coredataManager: DefaultCoreDataManagerRepository = container.resolveValue(RepoKeys.coreManager.rawValue) else { return }
-        let repository = DefaultDynamicImageDataRepository(manager: manager,
-                                                           coreDataManager: coredataManager)
+    private func registerDynamicRepository() {
+        let networkManager = NetworkManager()
+        let api = GIPHYAPI(networkManager: networkManager)
+        let dynamicRepository = DefaultDynamicRepository(GIPHYAPI: api)
         
-        container.registerValue(RepoKeys.dynamicRepo.rawValue, repository)
+        container.registerValue(RepoKeys.dynamicRepo.rawValue, dynamicRepository)
     }
     
     private func registerCoreDataManager() {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ImageDownloadError: String, Error {
+public enum ImageCacheError: String, Error {
     case invalidServerResponse = "invalidServerResponse"
 }
 
@@ -42,6 +42,11 @@ public final class ImageCacheManager {
         return data
     }
     
+    public func removeCacheData() {
+        cachedImages.removeAllObjects()
+        print("cacheData removeAll")
+    }
+    
     private func fetchImageData(_ url: String) async throws -> Data {
         guard let stringToURL = URL(string: url) else {
             return Data()
@@ -51,7 +56,7 @@ public final class ImageCacheManager {
         
         guard let response = response as? HTTPURLResponse,
               response.statusCode == 200 else {
-            throw ImageDownloadError.invalidServerResponse
+            throw ImageCacheError.invalidServerResponse
         }
         
         return data

@@ -6,38 +6,49 @@
 //
 
 import Foundation
-
-import Combine
+import DynamicDomain
 
 public class NetworkManager {
-    private let limit: Int = 15
+    private var baseURL: BaseURL { .GIPHYBase }
+    private var urlSession = URLSession.shared
     
-    public func fetchGIPHYDatas(_ searchWord: String,
-                                _ offset: Int) async throws -> GiphyImageEntity {
-        let randomImageURL = "https://api.giphy.com/v1/gifs/search?api_key=fUyNy20JVfRpEHP0UJEAJQk8mT3hyv4H&q=\(searchWord)&limit=\(limit)&offset=\(offset)&rating=g&lang=en"
+    public init() {}
+    
+    public func request(path: String,
+                        parameters: [String: Any],
+                        method: Method) async throws -> (Data, URLResponse) {
+        var urlComponents = URLComponents(string: baseURL.rawValue)
+        urlComponents?.path = path
+        urlComponents?.queryItems = parameters.map { .init(name: $0, value: $1 as? String) }
         
-        guard let stringToURL = URL(string: randomImageURL) else {
-            return GiphyImageEntity.empty
+        guard let url = urlComponents?.url else {
+            throw NetworkManagerError.urlError
         }
         
-        let (data, _ ) = try await URLSession.shared.data(from: stringToURL)
+        var requestUrl = URLRequest(url: url)
+        requestUrl.httpMethod = method.rawValue
         
-        let decodeData = try JSONDecoder().decode(GIPHYFromAPIEntity.self, from: data)
+        let (data, urlResponse) = try await urlSession.data(for: requestUrl)
         
-        return decodeData.convertGiphyImageEntity()
-    }
-    
-    public func fetchImageData(_ url: String) async throws -> Data {
-        guard let stringToURL = URL(string: url) else { return Data() }
-        
-        let (data, _) = try await URLSession.shared.data(from: stringToURL)
-        
-        return data
+        return (data, urlResponse)
     }
 }
 
 extension NetworkManager {
-    enum BaseURL: String {
-        case base = ""
+    public enum BaseURL: String {
+        case GIPHYBase = "https://api.giphy.com/v1/gifs/"
+    }
+    
+    public enum Method: String {
+        case post = "POST"
+        case get = "GET"
+        case patch = "PATCH"
+        case delete = "DELETE"
+    }
+    
+    public enum NetworkManagerError: Error {
+        case urlError
+        case networkError
+        case decodeError
     }
 }

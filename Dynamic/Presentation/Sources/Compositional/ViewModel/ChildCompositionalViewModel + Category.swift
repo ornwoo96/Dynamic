@@ -18,4 +18,16 @@ extension ChildCompositionalViewModel {
         case Reactions = "Reactions"
         case Emoji = "Emoji"
     }
+    
+    static var categorys: [Category] = {
+        var array = [Category.Coding,
+                     Category.Memes,
+                     Category.Cats,
+                     Category.Dogs,
+                     Category.Christmas,
+                     Category.Oops,
+                     Category.Reactions,
+                     Category.Emoji]
+        return array
+    }()
 }

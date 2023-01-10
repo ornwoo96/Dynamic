@@ -93,7 +93,11 @@ extension UIColor {
     }
     
     static var homeAlphaBlackColor2: UIColor {
-        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
+        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+    }
+    
+    static var homeAlphaBlackColor3: UIColor {
+        return UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.9)
     }
     
     static var heartViewBackgroundBlackColor: UIColor {
@@ -142,6 +146,10 @@ extension UIColor {
     
     static var categoryBackgroundColor3: UIColor {
         return UIColor.init(red: 15/255, green: 15/255, blue: 15/255, alpha: 1)
+    }
+    
+    static var buttonHighlightColor: UIColor {
+        return UIColor.init(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.3)
     }
     
 }
@@ -219,6 +227,29 @@ extension UIColor {
         let randomNumber = ((0..<8).randomElement()) ?? 0
         
         return array[randomNumber]
+    }
+    
+    static func branchGradient(number: Int) -> [CGColor] {
+        switch number {
+        case 0:
+            return UIColor.gradientSeries1
+        case 1:
+            return UIColor.gradientSeries2
+        case 2:
+            return UIColor.gradientSeries3
+        case 3:
+            return UIColor.gradientSeries4
+        case 4:
+            return UIColor.gradientSeries5
+        case 5:
+            return UIColor.gradientSeries6
+        case 6:
+            return UIColor.gradientSeries7
+        case 7:
+            return UIColor.gradientSeries8
+        default:
+            return UIColor.gradientSeries1
+        }
     }
 }
 
