@@ -322,6 +322,7 @@ extension CustomViewController: UIGestureRecognizerDelegate {
     private func setupCellWhenCellLongPressed(_ indexPath: IndexPath) {
         guard let cell = customCollectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
         viewModel.checkFavoriteButtonTapped(cell.checkHeartViewIsHidden(), indexPath.item)
+        
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,

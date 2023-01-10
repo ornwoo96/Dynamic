@@ -6,41 +6,43 @@
 //
 
 import UIKit
+import DynamicCore
 
-public class GIFImageView: UIView {
-    
-    private let gifImageView = UIImageView()
+public class GIFImageView: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
-        setupImageView()
+    public func clear() {
+        DispatchQueue.main.async { [weak self] in
+            self?.image = nil
+        }
     }
     
-    private func setupImageView() {
-        self.addSubview(gifImageView)
-        gifImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            gifImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            gifImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            gifImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            gifImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
+    public func configure(url: String) {
+        Task { [weak self] in
+            let image = try await ImageCacheManager.shared.imageLoad(url)
+            
+            guard let imageData = UIImage.gifImageWithData(image) else { return }
+            
+            await MainActor.run {
+                self?.image = imageData
+            }
+        }
     }
     
-    public func clearGIFImageView() {
-        
+    public func configureWithFileName(name: String) {
+        guard let imageData = NSDataAsset(name: name)?.data else {
+            print("imageData not found")
+            return
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.image = UIImage.gifImageWithData(imageData)
+        }
     }
-    
-    public func configureGIFImageView() {
-        
-    }
-    
 }

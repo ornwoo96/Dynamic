@@ -13,8 +13,8 @@ class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
     private var cellGradientLayer = CAGradientLayer()
 
-    public lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    public lazy var gifImageView: GIFImageView = {
+        let imageView = GIFImageView(frame: .zero)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -44,24 +44,26 @@ class PickListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        DispatchQueue.main.async { [weak self] in
-            self?.imageView.image = nil
-        }
+        clear()
     }
     
     public func configure(_ url: String) {
-        Task {
-            let image = try await ImageCacheManager.shared.imageLoad(url)
-            await MainActor.run { [weak self] in
-                
-                self?.imageView.image = nil
-                self?.imageView.image = UIImage.gifImageWithData(image)
-                self?.cellGradientLayer.frame = CGRect(
-                    origin: .zero,
-                    size: CGSize(width: xValueRatio(1),
-                                 height: yValueRatio(1)))
-            }
-        }
+        gifImageView.configure(url: url)
+        heartView.setupHeartViewImage(bool: true)
+        setupCellGradient()
+    }
+    
+    public func clear() {
+        gifImageView.clear()
+        heartView.isHidden = true
+        heartView.setupHeartViewImage(bool: false)
+    }
+    
+    private func setupCellGradient() {
+        cellGradientLayer.frame = CGRect(
+            origin: .zero,
+            size: CGSize(width: xValueRatio(1),
+                         height: yValueRatio(1)))
     }
     
     private func setupUI() {
@@ -82,18 +84,18 @@ class PickListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupImageView() {
-        contentView.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(gifImageView)
+        gifImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            gifImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            gifImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            gifImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            gifImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
     private func setupHeartView() {
-        imageView.addSubview(heartView)
+        gifImageView.addSubview(heartView)
         heartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heartView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -103,27 +105,14 @@ class PickListCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func animateHeartView(_ bool: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            if bool == false {
-                self?.heartView.isHidden = true
-            } else {
-                self?.heartView.isHidden = false
-            }
-        }
-    }
-    
     public func checkHeartViewIsHidden() -> Bool {
         if heartView.isHidden == true {
-            DispatchQueue.main.async { [weak self] in
-                self?.heartView.isHidden = false
-            }
+            heartView.setupHeartViewImage(bool: true)
             return true
         } else {
-            DispatchQueue.main.async { [weak self] in
-                self?.heartView.isHidden = true
-            }
+            heartView.setupHeartViewImage(bool: false)
             return false
         }
     }
+
 }
