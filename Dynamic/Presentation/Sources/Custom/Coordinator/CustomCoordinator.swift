@@ -29,8 +29,8 @@ public class CustomCoordinator: Coordinator {
                                   _ detailData: DetailModel) {
         guard let coordinator: DetailCoordinator = DIContainer.shared.resolveValue(CodiKeys.detail.rawValue) else { return }
         coordinator.detailData = detailData
-        viewController.modalPresentationStyle = .overFullScreen
-        viewController.present(coordinator.viewController ?? UIViewController(), animated: true)
+        coordinator.viewController?.modalPresentationStyle = .formSheet
+        self.parentCoordinator?.viewController?.present(coordinator.viewController ?? UIViewController(), animated: true)
     }
     
     public func passFavoritesCountDataToParent(_ count: Int) {

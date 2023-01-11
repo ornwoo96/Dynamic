@@ -251,6 +251,10 @@ extension UIColor {
             return UIColor.gradientSeries1
         }
     }
+    
+    static var gifDownloadColor: UIColor {
+        return UIColor.init(red: 95/255, green: 219/255, blue: 187/255, alpha: 0.5)
+    }
 }
 
 // MARK: Dynamic 8colors

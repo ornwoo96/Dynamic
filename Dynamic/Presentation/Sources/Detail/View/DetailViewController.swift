@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import AVFoundation
 import Combine
 
 import Photos
+import AVFoundation
 
 class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
@@ -19,11 +19,33 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
     private let loadingView = PageLoadingView()
+    private let saveGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    private var saveImageFrontViewHeightConstraint: NSLayoutConstraint?
+    private var saveImageFrontViewCenterYConstraint: NSLayoutConstraint?
+    private var saveImageFrontViewWidthConstraint: NSLayoutConstraint?
+    private var imageViewHeightConstraint: NSLayoutConstraint?
+    private var imageViewWidthConstraint: NSLayoutConstraint?
+    
+    private lazy var saveImageFrontView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.gifDownloadColor
+        return view
+    }()
+    
+    private lazy var saveImageLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: yValueRatio(25), weight: .heavy)
+        label.text = "GIF Save Complete"
+        label.textAlignment = .center
+        label.alpha = 0
+        return label
+    }()
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
@@ -44,27 +66,55 @@ class DetailViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.image = nil
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupResizeImageView()
         setupImageData()
+        setupResizeImageFrontView()
+        saveImageFrontView.isHidden = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         imageView.image = nil
+        castedCoordinator?.detailData = nil
+        saveImageFrontView.isHidden = true
+        saveImageLabel.alpha = 0
     }
     
     private func setupUI() {
-        setupImageView()
         setupLoadingView()
+        setupImageView()
+        setupGifImageFrontView()
+        setupSaveImageLabel()
     }
     
     private func setupImageView() {
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: resizeHeight())
+        imageViewWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: resizeWidth())
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.maxX),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+        imageViewWidthConstraint?.isActive = true
+        imageViewHeightConstraint?.isActive = true
+    }
+    
+    private func setupResizeImageView() {
+        imageViewHeightConstraint?.constant = resizeHeight()
+        imageViewWidthConstraint?.constant = resizeWidth()
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    private func setupResizeImageFrontView() {
+        saveImageFrontViewWidthConstraint?.constant = resizeWidth()
+        saveImageFrontViewCenterYConstraint?.constant = resizeHeight()/2
+        saveImageFrontViewHeightConstraint?.constant = 0
     }
     
     private func setupLoadingView() {
@@ -77,6 +127,27 @@ class DetailViewController: UIViewController, HasCoordinatable {
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         loadingView.backgroundColor = .clear
+    }
+    
+    private func setupGifImageFrontView() {
+        imageView.addSubview(saveImageFrontView)
+        saveImageFrontView.translatesAutoresizingMaskIntoConstraints = false
+        saveImageFrontViewHeightConstraint = saveImageFrontView.heightAnchor.constraint(equalToConstant: 0)
+        saveImageFrontView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        saveImageFrontViewCenterYConstraint = saveImageFrontView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(resizeHeight()/2))
+        saveImageFrontViewWidthConstraint = saveImageFrontView.widthAnchor.constraint(equalToConstant: resizeWidth())
+        saveImageFrontViewHeightConstraint?.isActive = true
+        saveImageFrontViewCenterYConstraint?.isActive = true
+        saveImageFrontViewWidthConstraint?.isActive = true
+    }
+    
+    private func setupSaveImageLabel() {
+        imageView.addSubview(saveImageLabel)
+        saveImageLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            saveImageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveImageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func bind() {
@@ -122,6 +193,36 @@ class DetailViewController: UIViewController, HasCoordinatable {
         guard let url = castedCoordinator?.detailData?.url else { return }
         viewModel.action(.viewDidLoad(url))
     }
+    
+    private func resizeHeight() -> CGFloat {
+        guard let height = castedCoordinator?.detailData?.height,
+              let width = castedCoordinator?.detailData?.width else { return 0 }
+        let convertHeight = CGFloat(Int(height) ?? 0)
+        let convertWidth = CGFloat(Int(width) ?? 0)
+        let resizeWidth = UIScreen.main.bounds.maxX
+        
+        if convertWidth > resizeWidth {
+            let result = (resizeWidth*convertHeight) / convertWidth
+            return result
+        } else {
+            return convertHeight
+        }
+    }
+    
+    private func resizeWidth() -> CGFloat {
+        guard let height = castedCoordinator?.detailData?.height,
+              let width = castedCoordinator?.detailData?.width else { return 0 }
+        let convertHeight = CGFloat(Int(height) ?? 0)
+        let convertWidth = CGFloat(Int(width) ?? 0)
+        let resizeWidth = UIScreen.main.bounds.maxX
+
+        if convertWidth > resizeWidth {
+            let result = (resizeHeight()*convertWidth) / convertHeight
+            return result
+        } else {
+            return convertWidth
+        }
+    }
 }
 
 extension DetailViewController: UIGestureRecognizerDelegate {
@@ -137,7 +238,10 @@ extension DetailViewController: UIGestureRecognizerDelegate {
     
     @objc private func LongPressCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
-            saveImage()
+            if viewModel.event.value == .hideLoading {
+                animateSaveImage()
+                saveImage()
+            }
         }
     }
     
@@ -151,9 +255,50 @@ extension DetailViewController: UIGestureRecognizerDelegate {
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                
                 print("GIF has saved")
             }
+        }
+    }
+    
+    private func animateSaveImage() {
+        saveImageFrontViewCenterYConstraint?.constant = 0
+        saveImageFrontViewHeightConstraint?.constant = resizeHeight()
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn) {
+            self.imageView.layoutIfNeeded()
+        }
+        saveGenerator.impactOccurred()
+        animateTextAlpha()
+    }
+    
+    func animateTextAlpha() {
+        UIView.animateKeyframes(withDuration: 1.0,
+                                delay: 0.5) {
+            UIView.addKeyframe(withRelativeStartTime: 0,
+                               relativeDuration: 2.5/12,
+                               animations: {
+                self.saveImageLabel.alpha = 1.0
+            })
+            UIView.addKeyframe(withRelativeStartTime: 2.5/12,
+                               relativeDuration: 2.5/12,
+                               animations: {
+                self.saveImageLabel.alpha = 0
+            })
+            UIView.addKeyframe(withRelativeStartTime: 5/12,
+                               relativeDuration: 2/12,
+                               animations: {
+                self.saveImageLabel.alpha = 1.0
+            })
+            UIView.addKeyframe(withRelativeStartTime: 7/12,
+                               relativeDuration: 2/12,
+                               animations: {
+                self.saveImageLabel.alpha = 0
+            })
+            UIView.addKeyframe(withRelativeStartTime: 9/12,
+                               relativeDuration: 2/12,
+                               animations: {
+                self.saveImageLabel.alpha = 1.0
+            })
         }
     }
 }
