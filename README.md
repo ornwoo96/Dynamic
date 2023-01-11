@@ -53,9 +53,16 @@
 <br/>
 
 ## ⚒️ Architecture
-<img src = "https://user-images.githubusercontent.com/73861795/210162595-53cf53cf-5f1f-4890-b4ea-740d053b39c1.png" width="817" height="458"/>
+
+<img src = "https://user-images.githubusercontent.com/73861795/211819647-c4231fbd-753b-4efe-a64d-a870a1df6865.png" width="817" height="458"/>
+
+- Dynamic의 프로젝트 구조를 도식화했습니다.
+
+<br/>
 
 >### MVVM
+
+- MVVM은 뷰컨트롤러는 뷰를 그리는 것만 집중하고, 그 외의 Object관리나, UI로직 처리는 뷰 모델에서 진행하도록 했습니다.
 
 <br/>
 
@@ -81,29 +88,49 @@
 >### DIContainer
 
 - DIContainer로 의존성 객체 주입을 따로 가지게 했습니다.
-- Coordinator 안에 객체로 있으며(1:1) 모든 Layer의 의존성을 주입시키고 해당 viewController를 뱉어주는 팩토리로서 사용했습니다.
+- 모듈화 작업을 하면서 DIContainer를 계층별로 나누었습니다.
 
 
 <br/>
 
 >### ActionPattern
 
-- Action & Event 패턴을 적용하여 뷰에서 일어나는 이벤트들을 관리해주었습니다.
+- Combine + Action & Event 패턴을 적용하여 뷰에서 일어나는 이벤트들을 관리해주었습니다.
+- View와 ViewModel 간의 통신은 Action, Event라는 두 enum으로 그 명세를 한눈에 볼 수 있어서 편리했습니다.
 
 <br/>
 <br/>
 
 ## 👨🏻‍💻 Technical Challenge
->### Cache 작업
+>### 라이브러리 없이 작업
 
-- 서버로 부터 받은 데이터들은 CoreData에 저장하고 불러오게 끔 캐시 작업 하였습니다. 
+- 서드파티 라이브러리에 의존성을 부여하지 않고자하여 라이브러리 없이 프로젝트를 진행했습니다.
+
+<br/>
+
+>### ImageCache 작업
+
+- NSCache를 사용하여 GIF Image 데이터들을 핸들링 했습니다.
+
+<br/>
+
+>### 모듈화 작업
+
+- 각 계층별(3개) 모듈을 만들어 관리 하였습니다.
 
 <br/>
 
 
+>### Async Await
+
+- 비동기 처리를 Async Await으로 했습니다.
+
+<br/>
+
 >### Combine
 
-- 데이터가 발생하는 시점에서부터 뷰에 그려지기까지 하나의 큰 스트림으로 데이터를 바인딩해주었습니다.
+- Combine을 사용해보았습니다. 
+- RxSwift와 비슷한 점이 많아 금방 적응할 수 있었습니다.
 
 
 <br/>
