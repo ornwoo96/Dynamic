@@ -7,8 +7,6 @@
 
 import UIKit
 
-import DynamicCore
-
 public struct CustomCellItem {
     let favorite: Bool
     let imageUrl: String

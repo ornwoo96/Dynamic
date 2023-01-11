@@ -7,8 +7,6 @@
 
 import UIKit
 
-import DynamicCore
-
 class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
     private var cellGradientLayer = CAGradientLayer()

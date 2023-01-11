@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 import DynamicDomain
-import DynamicCore
 
 protocol DetailViewModelInputProtocol: AnyObject {
     

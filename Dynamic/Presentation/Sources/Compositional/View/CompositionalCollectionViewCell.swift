@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DynamicCore
 
 public class CompositionalCellItem: BaseCellItem {
     let url: String

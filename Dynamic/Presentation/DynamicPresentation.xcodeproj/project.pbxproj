@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B44F7D1296ECB6C00589F83 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B44F7D0296ECB6C00589F83 /* ImageCacheManager.swift */; };
 		0B5F204D2958117900338007 /* ParentCompositionalViewModel + Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */; };
 		0B5F204F2958118B00338007 /* ParentCompositionalViewModel + Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */; };
 		0B5F20542959B20100338007 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5F20532959B20100338007 /* MainNavigationBar.swift */; };
@@ -118,6 +119,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B44F7D0296ECB6C00589F83 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		0B5F204C2958117900338007 /* ParentCompositionalViewModel + Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Action.swift"; sourceTree = "<group>"; };
 		0B5F204E2958118B00338007 /* ParentCompositionalViewModel + Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParentCompositionalViewModel + Event.swift"; sourceTree = "<group>"; };
 		0B5F20532959B20100338007 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
@@ -223,6 +225,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B44F7CF296ECB6000589F83 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				0B44F7D0296ECB6C00589F83 /* ImageCacheManager.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		0B5F20572959B25800338007 /* CustomNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +457,7 @@
 		0B723263294A2B3A009D3EDF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0B44F7CF296ECB6000589F83 /* Cache */,
 				0B9923342950318500913288 /* View */,
 			);
 			path = Common;
@@ -909,6 +920,7 @@
 				0B7232212947041A009D3EDF /* SwiftUIViewModel.swift in Sources */,
 				0B8E35A7295F3C8A00C97215 /* DetailViewModel + Event.swift in Sources */,
 				0B723262294A08FC009D3EDF /* CustomCollectionViewCell.swift in Sources */,
+				0B44F7D1296ECB6C00589F83 /* ImageCacheManager.swift in Sources */,
 				0B72322F29475014009D3EDF /* TabBarItem.swift in Sources */,
 				0BB7E0542952D70000C0AA83 /* ChildCompositionalViewModel + Action.swift in Sources */,
 				0B5F204D2958117900338007 /* ParentCompositionalViewModel + Action.swift in Sources */,

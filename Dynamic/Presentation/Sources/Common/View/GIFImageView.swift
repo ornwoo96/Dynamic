@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DynamicCore
 
 public class GIFImageView: UIImageView {
     
@@ -37,12 +36,8 @@ public class GIFImageView: UIImageView {
     }
     
     public func configureWithFileName(name: String) {
-        guard let imageData = NSDataAsset(name: name)?.data else {
-            print("imageData not found")
-            return
-        }
         DispatchQueue.main.async { [weak self] in
-            self?.image = UIImage.gifImageWithData(imageData)
+            self?.image = UIImage(named: name)
         }
     }
 }

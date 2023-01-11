@@ -73,7 +73,7 @@ public class HeartView: UIView {
         DispatchQueue.main.async { [weak self] in
             self?.isHidden = false
         }
-        heartImageView.configureWithFileName(name: "heart_gif")
+        heartImageView.configureWithFileName(name: "heart")
     }
     
     private func hideHeartView() {
