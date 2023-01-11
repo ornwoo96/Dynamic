@@ -231,7 +231,6 @@ extension ChildCompositionalViewController {
                 columnCount: 2,
                 itemPadding: 5,
                 contentWidth: environment.container.effectiveContentSize.width,
-                sectionIndex: sectionIndex,
                 numberOfItems: numberOfItem,
                 sectionItem: sectionItem
             )

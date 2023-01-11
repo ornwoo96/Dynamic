@@ -10,22 +10,18 @@ import UIKit
 public struct FactoryItems {
     static let empty: Self = .init(columnCount: 0,
                                    itemPadding: 0,
-                                   contentWidth: 0,
-                                   sectionIndex: 0)
+                                   contentWidth: 0)
     
     let columnCount: Int
     let itemPadding: CGFloat
     let contentWidth: CGFloat
-    let sectionIndex: Int
     
     init(columnCount: Int,
          itemPadding: CGFloat,
-         contentWidth: CGFloat,
-         sectionIndex: Int) {
+         contentWidth: CGFloat) {
         self.columnCount = columnCount
         self.itemPadding = itemPadding
         self.contentWidth = contentWidth
-        self.sectionIndex = sectionIndex
     }
 }
 
@@ -35,13 +31,11 @@ public class CompositionalItemFactory {
     private let itemPadding: CGFloat
     private let contentWidth: CGFloat
     private var itemSize: CGSize = .zero
-    private var sectionIndex: CGFloat
     
     init(factoryItems: FactoryItems) {
         self.columnCount = CGFloat(factoryItems.columnCount)
         self.contentWidth = factoryItems.contentWidth
         self.itemPadding = factoryItems.itemPadding
-        self.sectionIndex = CGFloat(factoryItems.sectionIndex)
     }
     
     public func setItemSize(_ itemSize: CGSize) {
@@ -78,7 +72,7 @@ public class CompositionalItemFactory {
     
     private func itemOrigin(_ width: CGFloat) -> CGPoint {
         let y = checkColumnHeights()
-        let x = xValue(width) + addSectionIndexXPoint()
+        let x = xValue(width)
         
         return CGPoint(x: x, y: y)
     }
@@ -86,10 +80,10 @@ public class CompositionalItemFactory {
     private func xValue(_ width: CGFloat) -> CGFloat {
         if columnIndex() == 0 {
             return itemPadding
-        } else if columnIndex() == Int(columnCount) {
+        } else if columnIndex() == Int(columnCount)-1 {
             return (width*CGFloat(columnIndex())) + (itemPadding*2)
         } else {
-            return (width*CGFloat(columnIndex())) + (itemPadding*2)
+            return (width*CGFloat(columnIndex())) + (itemPadding*CGFloat(columnIndex()+1))
         }
     }
     
@@ -104,10 +98,6 @@ public class CompositionalItemFactory {
         let height = itemHeight()
         let width = itemWidth()
         return CGSize(width: width, height: height)
-    }
-    
-    private func addSectionIndexXPoint() -> CGFloat {
-        return contentWidth * sectionIndex
     }
     
     private func itemWidth() -> CGFloat {

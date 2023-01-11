@@ -12,7 +12,6 @@ public class CompositionalLayoutFactory {
     public func getDynamicLayoutSection(columnCount: Int = 2,
                                         itemPadding: CGFloat,
                                         contentWidth: CGFloat,
-                                        sectionIndex: Int,
                                         numberOfItems: Int,
                                         sectionItem: ChildCompositionalViewModel.Section) -> NSCollectionLayoutSection {
         guard let items = sectionItem.items as? [CompositionalCellItem] else {
@@ -22,8 +21,7 @@ public class CompositionalLayoutFactory {
         
         let itemFactory = CompositionalItemFactory(factoryItems: .init(columnCount: columnCount,
                                                                        itemPadding: itemPadding,
-                                                                       contentWidth: contentWidth,
-                                                                       sectionIndex: sectionIndex))
+                                                                       contentWidth: contentWidth))
         var customGroupItems: [NSCollectionLayoutGroupCustomItem] = []
         
         for i in 0..<numberOfItems {

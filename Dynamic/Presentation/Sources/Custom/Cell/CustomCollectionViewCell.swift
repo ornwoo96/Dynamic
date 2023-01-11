@@ -54,7 +54,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
     public func configure(_ item: CustomCellItem) {
         gifImageView.configure(url: item.imageUrl)
         heartView.setupHeartViewImage(bool: item.favorite)
-        setupCellGradient()
     }
     
     public func clear() {
@@ -64,6 +63,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupCellGradient() {
+        cellGradientLayer.isOpaque = true
         cellGradientLayer.frame = CGRect(
             origin: .zero,
             size: CGSize(width: xValueRatio(1),
