@@ -21,21 +21,32 @@
 ## 🌐 Main Features of the Project
 >### 🗂️ 카테고리 별 GIF
 
+<img src = "https://user-images.githubusercontent.com/73861795/211813537-14e1f41b-2c61-4832-bd74-0390a24be38b.gif" width="231" height="500"/>
+
+
 <br/>
 
 >### 👆🏻 이미지를 짧게 누르면 원본 이미지를 볼 수 있습니다.
+
+<img src = "https://user-images.githubusercontent.com/73861795/211813909-371ff687-5169-4dd1-8383-e3ac1cf44219.gif" width="231" height="500"/>
 
 <br/>
 
 >### 📥 원본 이미지를 길게 꾹 누르면 사진앨범에 저장할 수 있습니다.
 
+<img src = "https://user-images.githubusercontent.com/73861795/211813968-fc433e88-e549-4f43-a82f-247d83ea5c05.gif" width="231" height="500"/>
+
 <br/>
 
 >### 😍 이미지들을 꾹 누르면 찜리스트에 저장이 가능합니다.
 
+<img src = "https://user-images.githubusercontent.com/73861795/211814206-252646ae-9d1e-432c-b6b9-58803c5926a8.gif" width="231" height="500"/>
+
 <br/>
 
 >### 🔴 찜리스트는 오른쪽 상단 빨간색 버튼을 통해 확인할 수 있습니다.
+
+<img src = "https://user-images.githubusercontent.com/73861795/211815195-4e63b6b8-9b3f-48ba-9ee5-b2aebd2da6cb.gif" width="231" height="500"/>
 
 <br/>
 <br/>
