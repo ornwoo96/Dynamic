@@ -12,6 +12,7 @@ public protocol ChildCompositionalViewModelInputProtocol: AnyObject {
     func action(_ action: ChildCompositionalViewModel.Action)
     func checkFavoriteButtonTapped(_ bool: Bool, _ indexPath: Int)
     func setupCategory(_ category: ChildCompositionalViewModel.Category)
+    func scrollViewDidScroll(yValue: CGFloat)
 }
 
 public protocol ChildCompositionalViewModelOutputProtocol: AnyObject {

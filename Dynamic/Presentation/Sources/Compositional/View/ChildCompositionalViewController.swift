@@ -14,7 +14,13 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private var castedCoordinator: ChildCompositionalCoordinator? { coordinator as? ChildCompositionalCoordinator }
     private var layoutFactory = CompositionalLayoutFactory()
     private var cancellable: Set<AnyCancellable> = .init()
-    private lazy var compositionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCompositionalLayout())
+    private lazy var compositionalCollectionView: UICollectionView = {
+        let layout = makeCompositionalLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        return collectionView
+    }()
+    
     private var dataSource: UICollectionViewDiffableDataSource<ChildCompositionalViewModel.Section, BaseCellItem>?
     private var loadingView = PageLoadingView()
     
@@ -167,15 +173,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
             }
             return $0.dequeueReusableCell(withReuseIdentifier: "cell", for: $1)
         }
-        
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            let view = collectionView
-                .dequeueReusableSupplementaryView(ofKind: kind,
-                                                  withReuseIdentifier: CompositionalHeaderView.identifier,
-                                                  for: indexPath)
-            view.viewRadius(cornerRadius: 20)
-            return view
-        }
     }
     
     private func invalidateLayout() {
@@ -221,6 +218,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
 extension ChildCompositionalViewController {
     private func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return .init { [weak self] sectionIndex, environment in
+            
             guard let sectionItem = self?.viewModel.getSectionItem(sectionIndex) else {
                 return (self?.layoutFactory.getEmptySection())!
             }
@@ -242,7 +240,7 @@ extension ChildCompositionalViewController {
 
 extension ChildCompositionalViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        viewModel.action(.scrollViewDidScroll(scrollView.contentOffset.y))
+        viewModel.scrollViewDidScroll(yValue: scrollView.contentOffset.y)
     }
 }
 

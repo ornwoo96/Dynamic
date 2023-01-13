@@ -145,7 +145,6 @@ public class CustomViewModel: CustomViewModelProtocol {
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
                 self?.originalContents.append(contentsOf: presentationModel.originalImageData)
-                print("previewContents", previewContents.count)
                 event.send(.invalidateLayout)
                 event.send(.hideBottomLoading)
                 event.send(.hidePageLoading)

@@ -42,13 +42,15 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             self.retrieveNextData(indexPath.item)
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             event.send(.showHeartView(indexPath: indexPath))
-        case .scrollViewDidScroll(let yValue):
-            self.branchNavigationAnimationForHideORShow(yValue)
         case .pullToRefresh:
             self.delayRetrieveData()
         case .scrollPanGestureAction(yValue: let yValue):
             self.branchScrollPanGestureAction(yValue: yValue)
         }
+    }
+    
+    public func scrollViewDidScroll(yValue: CGFloat) {
+        self.branchNavigationAnimationForHideORShow(yValue)
     }
     
     public func setupCategory(_ category: ChildCompositionalViewModel.Category) {
@@ -129,7 +131,6 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     
     private func setupSections(_ data: [CompositionalPresentationModel.PreviewModel]) {
         if sections.isEmpty {
-            sections.append(.init(type: .content, items: convertCellModel(data)))
             sections.append(.init(type: .content, items: convertCellModel(data)))
         } else {
             sections.first?.items.append(contentsOf: convertCellModel(data))
