@@ -21,6 +21,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     private var limit = 20
     private var category: Category = .Coding
     private var IsFirstResponse = true
+    private var isRetrieveSuccess = false
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     
@@ -130,14 +131,13 @@ public class CustomViewModel: CustomViewModelProtocol {
     }
     
     private func checkLastCell(_ indexPath: Int) {
-        
         if previewContents.count - 1 == indexPath,
            event.value != .showBottomLoading {
             event.send(.showBottomLoading)
             retrieveGIPHYData()
         }
     }
-    
+        
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
@@ -145,6 +145,7 @@ public class CustomViewModel: CustomViewModelProtocol {
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
                 self?.originalContents.append(contentsOf: presentationModel.originalImageData)
+                isRetrieveSuccess = true
                 event.send(.invalidateLayout)
                 event.send(.hideBottomLoading)
                 event.send(.hidePageLoading)
@@ -180,7 +181,10 @@ public class CustomViewModel: CustomViewModelProtocol {
 extension CustomViewModel {
     public func scrollViewDidEndDecelerating() {
         if event.value == .showBottomLoading {
-            event.send(.showRetrievedCells(createIndexPaths()))
+            if isRetrieveSuccess {
+                event.send(.showRetrievedCells(createIndexPaths()))
+                isRetrieveSuccess = false
+            }
         }
         event.send(.hideBottomLoading)
     }

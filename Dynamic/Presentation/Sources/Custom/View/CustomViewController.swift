@@ -185,6 +185,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
         castedCoordinator?.presentDetailView(self, data)
     }
     
+    
     private func insertItemInCollectionView(_ indexPaths: [IndexPath]) {
         customCollectionView.insertItems(at:indexPaths)
     }

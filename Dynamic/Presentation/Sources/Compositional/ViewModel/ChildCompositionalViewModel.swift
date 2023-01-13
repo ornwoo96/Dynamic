@@ -157,6 +157,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
 
 extension ChildCompositionalViewModel {
     public func getSectionItem(_ sectionIndex: Int) -> Section {
+        
         return sections[sectionIndex]
     }
 }
