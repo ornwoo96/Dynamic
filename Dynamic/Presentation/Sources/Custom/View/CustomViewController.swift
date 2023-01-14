@@ -63,7 +63,7 @@ class CustomViewController: UIViewController, HasCoordinatable {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        viewModel.action(.viewWillAppear)
     }
     
     private func setupUI() {

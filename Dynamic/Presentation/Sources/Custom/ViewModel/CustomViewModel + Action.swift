@@ -10,6 +10,7 @@ import Foundation
 extension CustomViewModel {
     public enum Action {
         case viewDidLoad
+        case viewWillAppear
         case viewNeededCalculateLayout
         case didSelectItemAt(indexPath: IndexPath)
         case willDisplay(indexPath: IndexPath)

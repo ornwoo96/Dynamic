@@ -22,6 +22,7 @@ public class CustomViewModel: CustomViewModelProtocol {
     private var category: Category = .Coding
     private var IsFirstResponse = true
     private var isRetrieveSuccess = false
+    private var isViewWillAppear = false
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     
@@ -42,6 +43,8 @@ public class CustomViewModel: CustomViewModelProtocol {
         case .viewDidLoad:
             event.send(.showPageLoading)
             self.retrieveGIPHYData()
+        case .viewWillAppear:
+            branchOutViewWillAppear()
         case .viewNeededCalculateLayout:
             event.send(.invalidateLayout)
         case .didSelectItemAt(let indexPath):
@@ -76,7 +79,15 @@ public class CustomViewModel: CustomViewModelProtocol {
         }
     }
     
-    private func branchScrollPanGestureAction(yValue: Double) {
+    private func branchOutViewWillAppear() {
+        event.send(.showPageLoading)
+        if isViewWillAppear {
+            retrieveGIPHYDataForRefresh()
+        }
+        isViewWillAppear = true
+    }
+    
+    private func branchOutScrollPanGestureAction(yValue: Double) {
         if yValue < 0 {
             event.send(.animateHideBar)
         }
@@ -100,7 +111,6 @@ public class CustomViewModel: CustomViewModelProtocol {
                 let presentationModel = convertCustomPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewImageData)
                 self?.originalContents.append(contentsOf: presentationModel.originalImageData)
-                print("previewContents", previewContents.count)
                 event.send(.invalidateLayout)
                 event.send(.hideBottomLoading)
                 event.send(.collectionViewReload)
@@ -165,7 +175,7 @@ public class CustomViewModel: CustomViewModelProtocol {
         return indexPaths
     }
     
-    public func branchNavigationAnimationForHideORShow(_ yValue: CGFloat) {
+    public func branchOutNavigationAnimationForHideORShow(_ yValue: CGFloat) {
         if yValue > 1 {
             if IsFirstResponse == true {
                 event.send(.animateHideBar)

@@ -7,6 +7,10 @@
 
 import UIKit
 
+public protocol CheckFavoriteInCoreDataDelegate {
+    func checkFavoriteInCoreData() -> Bool
+}
+
 public struct CustomCellItem {
     let favorite: Bool
     let imageUrl: String
@@ -16,6 +20,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     static let identifier = "CustomCollectionViewCell"
     
     private var cellGradientLayer = CAGradientLayer()
+    public let delegate: CheckFavoriteInCoreDataDelegate?
     
     private lazy var gifImageView: GIFImageView = {
         let imageView = GIFImageView(frame: .zero)

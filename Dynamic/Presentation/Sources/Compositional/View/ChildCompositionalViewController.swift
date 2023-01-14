@@ -30,11 +30,11 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
         setupUI()
         bind()
         setDataSource()
-        viewModel.action(.viewDidLoad)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.action(.viewDidLoad)
         navigationController?.navigationBar.isHidden = true
     }
     
