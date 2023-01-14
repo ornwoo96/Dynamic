@@ -26,6 +26,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.action(.viewDidLoad)
         setupLongGestureRecognizerOnCollection()
         setupUI()
         bind()
@@ -34,7 +35,7 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.action(.viewDidLoad)
+        viewModel.action(.viewWillAppear)
         navigationController?.navigationBar.isHidden = true
     }
     

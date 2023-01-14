@@ -10,6 +10,7 @@ import Foundation
 extension ChildCompositionalViewModel {
     public enum Action {
         case viewDidLoad
+        case viewWillAppear
         case didSelectItemAt(_ indexPath: IndexPath)
         case willDisplay(_ indexPath: IndexPath)
         case didSelectedItemAtLongPressed(indexPath: IndexPath)

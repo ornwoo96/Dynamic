@@ -20,7 +20,7 @@ public protocol CustomViewModelOutputProtocol: AnyObject {
     func retrieveCustomCellItem(_ indexPath: IndexPath) -> CustomCellItem
     func collectionViewImageHeight(_ indexPath: IndexPath) -> CGFloat
     func collectionViewImageWidth(_ indexPath: IndexPath) -> CGFloat
-    func branchNavigationAnimationForHideORShow(_ yValue: CGFloat)
+    func branchOutNavigationAnimationForHideORShow(_ yValue: CGFloat)
     func numberOfItemsInSection() -> Int
 }
 

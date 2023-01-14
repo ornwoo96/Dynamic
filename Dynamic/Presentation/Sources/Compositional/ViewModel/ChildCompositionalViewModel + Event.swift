@@ -38,6 +38,8 @@ extension ChildCompositionalViewModel {
                 
             case (.endRefreshing, .endRefreshing):
                 return true
+            
+            
                 
             default:
                 return false

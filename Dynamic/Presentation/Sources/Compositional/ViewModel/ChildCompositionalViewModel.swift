@@ -20,6 +20,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var offset = 0
     private var limit = 20
     private var category: Category = .Coding
+    private var isViewWillAppear = false
     public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     public var event: CurrentValueSubject<Event, Never> = .init(.none)
     
@@ -36,6 +37,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         case .viewDidLoad:
             event.send(.showLoading)
             self.retrieveGIPHYData()
+        case .viewWillAppear:
+            branchOutViewWillAppear()
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(content: convert(originalContents[indexPath.item])))
         case .willDisplay(let indexPath):
@@ -66,6 +69,14 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
             requestRemoveImageDataToCoreData(indexPath)
             favoritesCount.send(-1)
         }
+    }
+    
+    private func branchOutViewWillAppear() {
+        event.send(.showLoading)
+        if isViewWillAppear {
+            retrieveGIPHYDataForRefresh()
+        }
+        isViewWillAppear = true
     }
     
     private func branchScrollPanGestureAction(yValue: Double) {
@@ -100,6 +111,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
                 self?.previewContents.append(contentsOf: presentationModel.previewModel)
                 self?.originalContents.append(contentsOf: presentationModel.originalModel)
                 setupSections(presentationModel.previewModel)
+                event.send(.hideLoading)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }

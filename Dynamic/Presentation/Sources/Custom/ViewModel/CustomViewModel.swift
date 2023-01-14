@@ -56,9 +56,9 @@ public class CustomViewModel: CustomViewModelProtocol {
         case .pullToRefresh:
             self.delayRetrieveData()
         case .scrollPanGestureAction(yValue: let yValue):
-            self.branchScrollPanGestureAction(yValue: yValue)
+            self.branchOutScrollPanGestureAction(yValue: yValue)
         case .scrollViewDidScroll(let yValue):
-            self.branchNavigationAnimationForHideORShow(yValue)
+            self.branchOutNavigationAnimationForHideORShow(yValue)
         }
     }
     
