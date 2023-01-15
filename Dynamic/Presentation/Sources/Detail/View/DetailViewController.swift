@@ -215,6 +215,12 @@ class DetailViewController: UIViewController, HasCoordinatable {
         guard let url = castedCoordinator?.detailData?.url else { return }
         viewModel.action(.viewDidLoad(url))
     }
+    
+    private func dismissViewController() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.castedCoordinator?.viewDismiss(self)
+        }
+    }
 }
 
 extension DetailViewController: UIGestureRecognizerDelegate {
@@ -248,6 +254,7 @@ extension DetailViewController: UIGestureRecognizerDelegate {
                 print(error.localizedDescription)
             } else {
                 print("GIF has saved")
+                self.dismissViewController()
             }
         }
     }
