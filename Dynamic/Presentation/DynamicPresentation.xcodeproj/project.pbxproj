@@ -91,6 +91,7 @@
 		0BB7E0802957160F00C0AA83 /* ParentCompositionalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */; };
 		0BB7E08229571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E08129571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift */; };
 		0BB7E0842957238200C0AA83 /* ParentCompositionalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7E0832957238200C0AA83 /* ParentCompositionalCoordinator.swift */; };
+		0BFAF3EC29741CB20045FE4E /* CGFloat + Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFAF3EB29741CB20045FE4E /* CGFloat + Resize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +203,7 @@
 		0BB7E07F2957160F00C0AA83 /* ParentCompositionalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCompositionalViewModel.swift; sourceTree = "<group>"; };
 		0BB7E08129571EB200C0AA83 /* ChildCompositionalViewModel + Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChildCompositionalViewModel + Category.swift"; sourceTree = "<group>"; };
 		0BB7E0832957238200C0AA83 /* ParentCompositionalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCompositionalCoordinator.swift; sourceTree = "<group>"; };
+		0BFAF3EB29741CB20045FE4E /* CGFloat + Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat + Resize.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,6 +444,7 @@
 				0B72323D29476E37009D3EDF /* UIView+Color.swift */,
 				0B72323F294793C6009D3EDF /* UIImage+Gradient.swift */,
 				0B8E35A8295F581600C97215 /* UIView+Shadow.swift */,
+				0BFAF3EB29741CB20045FE4E /* CGFloat + Resize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -914,6 +917,7 @@
 				0B72322529470635009D3EDF /* CustomCoordinator.swift in Sources */,
 				0B723270294B21E2009D3EDF /* PickListButton.swift in Sources */,
 				0B723285294B2C9D009D3EDF /* PickListCoordinator.swift in Sources */,
+				0BFAF3EC29741CB20045FE4E /* CGFloat + Resize.swift in Sources */,
 				0B723276294B2BB3009D3EDF /* DetailCoordinator.swift in Sources */,
 				0BB7E0842957238200C0AA83 /* ParentCompositionalCoordinator.swift in Sources */,
 				0B8F0760294C6C6200F5B591 /* HasCoordinatable.swift in Sources */,

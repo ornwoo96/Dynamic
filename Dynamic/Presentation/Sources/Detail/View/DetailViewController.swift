@@ -15,7 +15,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: DetailCoordinator? { coordinator as? DetailCoordinator }
     private var cancellables: Set<AnyCancellable> = .init()
-    private let viewModel: DetailViewModel
+    private let viewModel: DetailViewModelProtocol
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,7 +47,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
         return label
     }()
     
-    init(viewModel: DetailViewModel) {
+    init(viewModel: DetailViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -66,6 +66,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.image = nil
+        setupDetailSize()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,6 +85,14 @@ class DetailViewController: UIViewController, HasCoordinatable {
         saveImageLabel.alpha = 0
     }
     
+    private func setupDetailSize() {
+        guard let height = castedCoordinator?.detailData?.height,
+              let width = castedCoordinator?.detailData?.width else { return }
+        
+        viewModel.setupDetailHeightData(height)
+        viewModel.setupDetailWidthData(width)
+    }
+    
     private func setupUI() {
         setupLoadingView()
         setupImageView()
@@ -94,8 +103,12 @@ class DetailViewController: UIViewController, HasCoordinatable {
     private func setupImageView() {
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: resizeHeight())
-        imageViewWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: resizeWidth())
+        imageViewHeightConstraint = imageView.heightAnchor.constraint(
+            equalToConstant: CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
+                                                  width: viewModel.retrieveDetailWidthData()))
+        imageViewWidthConstraint = imageView.widthAnchor.constraint(
+            equalToConstant: CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
+                                                 width: viewModel.retrieveDetailWidthData()))
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -105,15 +118,19 @@ class DetailViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupResizeImageView() {
-        imageViewHeightConstraint?.constant = resizeHeight()
-        imageViewWidthConstraint?.constant = resizeWidth()
+        imageViewHeightConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
+                                                                   width: viewModel.retrieveDetailWidthData())
+        imageViewWidthConstraint?.constant = CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
+                                                                 width: viewModel.retrieveDetailWidthData())
         
         self.view.layoutIfNeeded()
     }
     
     private func setupResizeImageFrontView() {
-        saveImageFrontViewWidthConstraint?.constant = resizeWidth()
-        saveImageFrontViewCenterYConstraint?.constant = resizeHeight()/2
+        saveImageFrontViewWidthConstraint?.constant = CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
+                                                                          width: viewModel.retrieveDetailWidthData())
+        saveImageFrontViewCenterYConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
+                                                                             width:viewModel.retrieveDetailWidthData())/2
         saveImageFrontViewHeightConstraint?.constant = 0
     }
     
@@ -134,8 +151,13 @@ class DetailViewController: UIViewController, HasCoordinatable {
         saveImageFrontView.translatesAutoresizingMaskIntoConstraints = false
         saveImageFrontViewHeightConstraint = saveImageFrontView.heightAnchor.constraint(equalToConstant: 0)
         saveImageFrontView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        saveImageFrontViewCenterYConstraint = saveImageFrontView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(resizeHeight()/2))
-        saveImageFrontViewWidthConstraint = saveImageFrontView.widthAnchor.constraint(equalToConstant: resizeWidth())
+        saveImageFrontViewCenterYConstraint = saveImageFrontView.centerYAnchor.constraint(
+            equalTo: view.centerYAnchor, constant: -(CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
+                                                                          width: viewModel.retrieveDetailWidthData())/2))
+        saveImageFrontViewWidthConstraint = saveImageFrontView.widthAnchor.constraint(
+            equalToConstant: CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
+                                                 width: viewModel.retrieveDetailWidthData())
+        )
         saveImageFrontViewHeightConstraint?.isActive = true
         saveImageFrontViewCenterYConstraint?.isActive = true
         saveImageFrontViewWidthConstraint?.isActive = true
@@ -193,36 +215,6 @@ class DetailViewController: UIViewController, HasCoordinatable {
         guard let url = castedCoordinator?.detailData?.url else { return }
         viewModel.action(.viewDidLoad(url))
     }
-    
-    private func resizeHeight() -> CGFloat {
-        guard let height = castedCoordinator?.detailData?.height,
-              let width = castedCoordinator?.detailData?.width else { return 0 }
-        let convertHeight = CGFloat(Int(height) ?? 0)
-        let convertWidth = CGFloat(Int(width) ?? 0)
-        let resizeWidth = UIScreen.main.bounds.maxX
-        
-        if convertWidth > resizeWidth {
-            let result = (resizeWidth*convertHeight) / convertWidth
-            return result
-        } else {
-            return convertHeight
-        }
-    }
-    
-    private func resizeWidth() -> CGFloat {
-        guard let height = castedCoordinator?.detailData?.height,
-              let width = castedCoordinator?.detailData?.width else { return 0 }
-        let convertHeight = CGFloat(Int(height) ?? 0)
-        let convertWidth = CGFloat(Int(width) ?? 0)
-        let resizeWidth = UIScreen.main.bounds.maxX
-
-        if convertWidth > resizeWidth {
-            let result = (resizeHeight()*convertWidth) / convertHeight
-            return result
-        } else {
-            return convertWidth
-        }
-    }
 }
 
 extension DetailViewController: UIGestureRecognizerDelegate {
@@ -262,7 +254,8 @@ extension DetailViewController: UIGestureRecognizerDelegate {
     
     private func animateSaveImage() {
         saveImageFrontViewCenterYConstraint?.constant = 0
-        saveImageFrontViewHeightConstraint?.constant = resizeHeight()
+        saveImageFrontViewHeightConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
+                                                                            width: viewModel.retrieveDetailWidthData())
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn) {
             self.imageView.layoutIfNeeded()
