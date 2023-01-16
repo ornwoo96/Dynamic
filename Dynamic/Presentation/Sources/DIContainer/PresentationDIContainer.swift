@@ -189,7 +189,9 @@ extension PresentationDIContainer {
         let coordinator = ParentCustomCoordinator.init(parentCoordinator: nil,
                                                        viewController: viewController)
         let viewControllers: [CustomViewController] = createCustomCategoryViewControllers()
-        coordinator.navigationController = UINavigationController()
+        let navigationController = UINavigationController()
+        navigationController.isNavigationBarHidden = true
+        coordinator.navigationController = navigationController
         coordinator.childViewControllers = viewControllers
         container.registerValue(CodiKeys.parentCustom.rawValue, coordinator)
     }
@@ -199,7 +201,9 @@ extension PresentationDIContainer {
         let coordinator = ParentCompositionalCoordinator(parentCoordinator: nil,
                                                          viewController: viewController)
         let viewControllers: [ChildCompositionalViewController] = createCategoryViewControllers()
-        coordinator.navigationController = UINavigationController()
+        let navigationController = UINavigationController()
+        navigationController.isNavigationBarHidden = true
+        coordinator.navigationController = navigationController
         coordinator.childViewControllers = viewControllers
         container.registerValue(CodiKeys.parentCompo.rawValue, coordinator)
     }
@@ -208,7 +212,9 @@ extension PresentationDIContainer {
         guard let viewController: SwiftUIViewController = container.resolveValue(VCKeys.swiftUI.rawValue) else { return }
         let coordinator = SwiftUICoordinator(parentCoordinator: nil,
                                              viewController: viewController)
-        coordinator.navigationController = UINavigationController()
+        let navigationController = UINavigationController()
+        navigationController.isNavigationBarHidden = true
+        coordinator.navigationController = navigationController
         container.registerValue(CodiKeys.swift.rawValue, coordinator)
     }
     
@@ -233,7 +239,9 @@ extension PresentationDIContainer {
             let coordinator = ChildCompositionalCoordinator(parentCoordinator: nil,
                                                             viewController: $0)
             $0.coordinator = coordinator
-            coordinator.navigationController = UINavigationController()
+            let navigationController = UINavigationController()
+            navigationController.isNavigationBarHidden = true
+            coordinator.navigationController = navigationController
             viewControllerArray.append($0)
         }
         
@@ -245,7 +253,9 @@ extension PresentationDIContainer {
         viewControllers.forEach {
             let coordinator = CustomCoordinator(parentCoordinator: nil, viewController: $0)
             $0.coordinator = coordinator
-            coordinator.navigationController = UINavigationController()
+            let navigationController = UINavigationController()
+            navigationController.isNavigationBarHidden = true
+            coordinator.navigationController = navigationController
             viewControllerArray.append($0)
         }
         
@@ -259,10 +269,6 @@ extension PresentationDIContainer {
         guard let customCoordinator: ParentCustomCoordinator = container.resolveValue(CodiKeys.parentCustom.rawValue),
               let compositionalCoordinator: ParentCompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCompo.rawValue),
               let swiftCoordinator: SwiftUICoordinator = container.resolveValue(CodiKeys.swift.rawValue) else { return }
-        
-        customCoordinator.navigationController = UINavigationController()
-        compositionalCoordinator.navigationController = UINavigationController()
-        swiftCoordinator.navigationController = UINavigationController()
         
         guard let customNavigationController: UINavigationController = customCoordinator.navigationController,
               let compositionalNavigationController: UINavigationController = compositionalCoordinator.navigationController,

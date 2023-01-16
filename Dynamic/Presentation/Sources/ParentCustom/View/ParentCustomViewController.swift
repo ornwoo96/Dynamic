@@ -39,7 +39,6 @@ final class ParentCustomViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.action(.viewDidLoad)
-        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupUI() {

@@ -224,7 +224,6 @@ class DetailViewController: UIViewController, HasCoordinatable {
 }
 
 extension DetailViewController: UIGestureRecognizerDelegate {
-    
     private func setupLongGestureRecognizerOnCollection() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self,
                                                               action: #selector(LongPressCell(_:)))

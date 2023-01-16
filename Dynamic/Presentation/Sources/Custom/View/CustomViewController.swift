@@ -42,11 +42,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -58,11 +53,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupViewController()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         viewModel.action(.viewWillAppear)
     }
     
@@ -71,10 +61,6 @@ class CustomViewController: UIViewController, HasCoordinatable {
         setupCollectionView()
         setupLongGestureRecognizerOnCollection()
         setupLoadingView()
-    }
-    
-    private func setupViewController() {
-        navigationController?.isNavigationBarHidden = true
     }
     
     private func setupBlackBackgroundView() {
@@ -290,12 +276,6 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.clear()
     }
     
-}
-
-extension CustomViewController: CustomNavigationBarDelegate {
-    func favoritesButtonTapped() {
-        castedCoordinator?.pushPickListView()
-    }
 }
 
 extension CustomViewController: UIGestureRecognizerDelegate {

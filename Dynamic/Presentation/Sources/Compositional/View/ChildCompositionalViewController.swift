@@ -36,7 +36,6 @@ class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.action(.viewWillAppear)
-        navigationController?.navigationBar.isHidden = true
     }
     
     init(viewModel: ChildCompositionalViewModelProtocol,
