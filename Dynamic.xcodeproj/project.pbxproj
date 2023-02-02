@@ -53,20 +53,6 @@
 			remoteGlobalIDString = 0BB52A1A2945AC90005FC30F;
 			remoteInfo = DynamicPresentationTests;
 		};
-		0B72320629461028009D3EDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0B19C8592942358900909F8D /* DynamicCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0B19C83F2942358900909F8D;
-			remoteInfo = DynamicCore;
-		};
-		0B72320829461028009D3EDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0B19C8592942358900909F8D /* DynamicCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0B19C8492942358900909F8D;
-			remoteInfo = DynamicCoreTests;
-		};
 		0BB52B9129460354005FC30F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */;
@@ -126,7 +112,6 @@
 		0B19C79B294232AA00909F8D /* DynamicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B19C79F294232AA00909F8D /* DynamicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUITests.swift; sourceTree = "<group>"; };
 		0B19C7A1294232AA00909F8D /* DynamicUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0B19C8592942358900909F8D /* DynamicCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicCore.xcodeproj; path = Dynamic/Core/DynamicCore.xcodeproj; sourceTree = "<group>"; };
 		0BB52A2A2945AC90005FC30F /* DynamicPresentation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicPresentation.xcodeproj; path = Dynamic/Presentation/DynamicPresentation.xcodeproj; sourceTree = "<group>"; };
 		0BB52B202945B509005FC30F /* DynamicCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB52B212945B509005FC30F /* DynamicData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,7 +158,6 @@
 				0B19C79E294232AA00909F8D /* DynamicUITests */,
 				0B19C779294232A700909F8D /* Products */,
 				0B19C8622942372500909F8D /* Frameworks */,
-				0B19C8592942358900909F8D /* DynamicCore.xcodeproj */,
 				0BB52BB929460367005FC30F /* DynamicData.xcodeproj */,
 				0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */,
 				0BB52A2A2945AC90005FC30F /* DynamicPresentation.xcodeproj */,
@@ -232,15 +216,6 @@
 			children = (
 				0B7231FF29461028009D3EDF /* DynamicPresentation.framework */,
 				0B72320129461028009D3EDF /* DynamicPresentationTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		0B72320229461028009D3EDF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0B72320729461028009D3EDF /* DynamicCore.framework */,
-				0B72320929461028009D3EDF /* DynamicCoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -383,10 +358,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 0B72320229461028009D3EDF /* Products */;
-					ProjectRef = 0B19C8592942358900909F8D /* DynamicCore.xcodeproj */;
-				},
-				{
 					ProductGroup = 0BB52BBA29460367005FC30F /* Products */;
 					ProjectRef = 0BB52BB929460367005FC30F /* DynamicData.xcodeproj */;
 				},
@@ -421,20 +392,6 @@
 			fileType = wrapper.cfbundle;
 			path = DynamicPresentationTests.xctest;
 			remoteRef = 0B72320029461028009D3EDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0B72320729461028009D3EDF /* DynamicCore.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DynamicCore.framework;
-			remoteRef = 0B72320629461028009D3EDF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0B72320929461028009D3EDF /* DynamicCoreTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DynamicCoreTests.xctest;
-			remoteRef = 0B72320829461028009D3EDF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0BB52B9229460354005FC30F /* DynamicDomain.framework */ = {
