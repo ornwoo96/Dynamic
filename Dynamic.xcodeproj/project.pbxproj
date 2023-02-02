@@ -22,6 +22,8 @@
 		0BB52B252945B509005FC30F /* DynamicData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B212945B509005FC30F /* DynamicData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B2A2945B50F005FC30F /* DynamicPresentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0BFE5900298C0ECF00A4509E /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE58FD298C0E6500A4509E /* DynamicCore.framework */; };
+		0BFE5901298C0ECF00A4509E /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE58FD298C0E6500A4509E /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,20 @@
 			remoteGlobalIDString = 0BB52BA929460367005FC30F;
 			remoteInfo = DynamicDataTests;
 		};
+		0BFE58FC298C0E6500A4509E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0BFE58DD298C0E6400A4509E;
+			remoteInfo = DynamicCore;
+		};
+		0BFE58FE298C0E6500A4509E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0BFE58E7298C0E6400A4509E;
+			remoteInfo = DynamicCoreTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,6 +109,7 @@
 				0B7A580029600B25008BCF05 /* DynamicDomain.framework in Embed Frameworks */,
 				0BB52B252945B509005FC30F /* DynamicData.framework in Embed Frameworks */,
 				0BB52B232945B509005FC30F /* DynamicCore.framework in Embed Frameworks */,
+				0BFE5901298C0ECF00A4509E /* DynamicCore.framework in Embed Frameworks */,
 				0BB52B2A2945B50F005FC30F /* DynamicPresentation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -119,6 +136,7 @@
 		0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicDomain.xcodeproj; path = Dynamic/DynamicDomain/DynamicDomain.xcodeproj; sourceTree = "<group>"; };
 		0BB52BB929460367005FC30F /* DynamicData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicData.xcodeproj; path = Dynamic/DynamicData/DynamicData.xcodeproj; sourceTree = "<group>"; };
 		0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamicDomain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/DynamicDomain.framework"; sourceTree = "<group>"; };
+		0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicCore.xcodeproj; path = Dynamic/DynamicCore/DynamicCore.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +147,7 @@
 				0B7A57FF29600B25008BCF05 /* DynamicDomain.framework in Frameworks */,
 				0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */,
 				0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */,
+				0BFE5900298C0ECF00A4509E /* DynamicCore.framework in Frameworks */,
 				0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +172,7 @@
 		0B19C76F294232A700909F8D = {
 			isa = PBXGroup;
 			children = (
+				0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */,
 				0B19C77A294232A700909F8D /* Dynamic */,
 				0B19C794294232AA00909F8D /* DynamicTests */,
 				0B19C79E294232AA00909F8D /* DynamicUITests */,
@@ -265,6 +285,15 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		0BFE58F8298C0E6400A4509E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE58FD298C0E6500A4509E /* DynamicCore.framework */,
+				0BFE58FF298C0E6500A4509E /* DynamicCoreTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -358,6 +387,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 0BFE58F8298C0E6400A4509E /* Products */;
+					ProjectRef = 0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */;
+				},
+				{
 					ProductGroup = 0BB52BBA29460367005FC30F /* Products */;
 					ProjectRef = 0BB52BB929460367005FC30F /* DynamicData.xcodeproj */;
 				},
@@ -420,6 +453,20 @@
 			fileType = wrapper.cfbundle;
 			path = DynamicDataTests.xctest;
 			remoteRef = 0BB52BC029460368005FC30F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0BFE58FD298C0E6500A4509E /* DynamicCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DynamicCore.framework;
+			remoteRef = 0BFE58FC298C0E6500A4509E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0BFE58FF298C0E6500A4509E /* DynamicCoreTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DynamicCoreTests.xctest;
+			remoteRef = 0BFE58FE298C0E6500A4509E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

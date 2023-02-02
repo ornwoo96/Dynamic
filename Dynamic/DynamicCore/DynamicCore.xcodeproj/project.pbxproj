@@ -11,6 +11,10 @@
 		0BFE58E8298C0E6400A4509E /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE58DD298C0E6400A4509E /* DynamicCore.framework */; };
 		0BFE58ED298C0E6400A4509E /* DynamicCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE58EC298C0E6400A4509E /* DynamicCoreTests.swift */; };
 		0BFE58EE298C0E6400A4509E /* DynamicCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BFE58E0298C0E6400A4509E /* DynamicCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0BFE5907298C0F5800A4509E /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5906298C0F5800A4509E /* DIContainer.swift */; };
+		0BFE590A298C0F6B00A4509E /* RegisterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5909298C0F6B00A4509E /* RegisterKeys.swift */; };
+		0BFE5910298C102C00A4509E /* BMOInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE590F298C102C00A4509E /* BMOInject.swift */; };
+		0BFE5912298C107200A4509E /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5911298C107200A4509E /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		0BFE58E1298C0E6400A4509E /* DynamicCore.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicCore.docc; sourceTree = "<group>"; };
 		0BFE58E7298C0E6400A4509E /* DynamicCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamicCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFE58EC298C0E6400A4509E /* DynamicCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCoreTests.swift; sourceTree = "<group>"; };
+		0BFE5906298C0F5800A4509E /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		0BFE5909298C0F6B00A4509E /* RegisterKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterKeys.swift; sourceTree = "<group>"; };
+		0BFE590F298C102C00A4509E /* BMOInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMOInject.swift; sourceTree = "<group>"; };
+		0BFE5911298C107200A4509E /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +79,8 @@
 		0BFE58DF298C0E6400A4509E /* DynamicCore */ = {
 			isa = PBXGroup;
 			children = (
-				0BFE58E0298C0E6400A4509E /* DynamicCore.h */,
-				0BFE58E1298C0E6400A4509E /* DynamicCore.docc */,
+				0BFE5902298C0EEE00A4509E /* Resource */,
+				0BFE5903298C0EF600A4509E /* Source */,
 			);
 			path = DynamicCore;
 			sourceTree = "<group>";
@@ -81,8 +89,52 @@
 			isa = PBXGroup;
 			children = (
 				0BFE58EC298C0E6400A4509E /* DynamicCoreTests.swift */,
+				0BFE5911298C107200A4509E /* TestViewController.swift */,
 			);
 			path = DynamicCoreTests;
+			sourceTree = "<group>";
+		};
+		0BFE5902298C0EEE00A4509E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE58E0298C0E6400A4509E /* DynamicCore.h */,
+				0BFE58E1298C0E6400A4509E /* DynamicCore.docc */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		0BFE5903298C0EF600A4509E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE5908298C0F5F00A4509E /* Keys */,
+				0BFE5904298C0F2C00A4509E /* DIContainer */,
+				0BFE5905298C0F3800A4509E /* Inject */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		0BFE5904298C0F2C00A4509E /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE5906298C0F5800A4509E /* DIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		0BFE5905298C0F3800A4509E /* Inject */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE590F298C102C00A4509E /* BMOInject.swift */,
+			);
+			path = Inject;
+			sourceTree = "<group>";
+		};
+		0BFE5908298C0F5F00A4509E /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE5909298C0F6B00A4509E /* RegisterKeys.swift */,
+			);
+			path = Keys;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,7 +246,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFE5907298C0F5800A4509E /* DIContainer.swift in Sources */,
+				0BFE5910298C102C00A4509E /* BMOInject.swift in Sources */,
 				0BFE58E2298C0E6400A4509E /* DynamicCore.docc in Sources */,
+				0BFE590A298C0F6B00A4509E /* RegisterKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFE5912298C107200A4509E /* TestViewController.swift in Sources */,
 				0BFE58ED298C0E6400A4509E /* DynamicCoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +406,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -359,9 +416,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamic.DynamicCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -378,6 +438,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,15 +448,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamic.DynamicCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		0BFE58F5298C0E6400A4509E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;
@@ -412,6 +477,7 @@
 		0BFE58F6298C0E6400A4509E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;
