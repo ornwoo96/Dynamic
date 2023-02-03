@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B23526F298CF911003D1336 /* DynamicGIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B23526E298CF911003D1336 /* DynamicGIF.framework */; };
+		0B235270298CF911003D1336 /* DynamicGIF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B23526E298CF911003D1336 /* DynamicGIF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BFE5922298C168C00A4509E /* DynamicPresentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5921298C168C00A4509E /* DynamicPresentation.docc */; };
 		0BFE5928298C168C00A4509E /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE591D298C168C00A4509E /* DynamicPresentation.framework */; };
 		0BFE592D298C168C00A4509E /* DynamicPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE592C298C168C00A4509E /* DynamicPresentationTests.swift */; };
@@ -83,7 +85,6 @@
 		0BFE5A00298CDFB700A4509E /* PickListViewModel+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE59FF298CDFB700A4509E /* PickListViewModel+Action.swift */; };
 		0BFE5A02298CDFC000A4509E /* PickListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A01298CDFC000A4509E /* PickListViewModel.swift */; };
 		0BFE5A04298CDFCF00A4509E /* PickListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A03298CDFCF00A4509E /* PickListCoordinator.swift */; };
-		0BFE5A0B298CE03B00A4509E /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A0A298CE03B00A4509E /* UIImage+GIF.swift */; };
 		0BFE5A0D298CE04A00A4509E /* UIView+Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A0C298CE04A00A4509E /* UIView+Ratio.swift */; };
 		0BFE5A0F298CE05600A4509E /* UIView+Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A0E298CE05600A4509E /* UIView+Radius.swift */; };
 		0BFE5A11298CE06000A4509E /* UIViewController+Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A10298CE06000A4509E /* UIViewController+Ratio.swift */; };
@@ -112,6 +113,7 @@
 			files = (
 				0BFE5956298C186800A4509E /* DynamicDomain.framework in Embed Frameworks */,
 				0BFE5954298C186700A4509E /* DynamicCore.framework in Embed Frameworks */,
+				0B235270298CF911003D1336 /* DynamicGIF.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B23526E298CF911003D1336 /* DynamicGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DynamicGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFE591D298C168C00A4509E /* DynamicPresentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicPresentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFE5920298C168C00A4509E /* DynamicPresentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentation.h; sourceTree = "<group>"; };
 		0BFE5921298C168C00A4509E /* DynamicPresentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicPresentation.docc; sourceTree = "<group>"; };
@@ -194,7 +197,6 @@
 		0BFE59FF298CDFB700A4509E /* PickListViewModel+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PickListViewModel+Action.swift"; sourceTree = "<group>"; };
 		0BFE5A01298CDFC000A4509E /* PickListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListViewModel.swift; sourceTree = "<group>"; };
 		0BFE5A03298CDFCF00A4509E /* PickListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListCoordinator.swift; sourceTree = "<group>"; };
-		0BFE5A0A298CE03B00A4509E /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
 		0BFE5A0C298CE04A00A4509E /* UIView+Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ratio.swift"; sourceTree = "<group>"; };
 		0BFE5A0E298CE05600A4509E /* UIView+Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Radius.swift"; sourceTree = "<group>"; };
 		0BFE5A10298CE06000A4509E /* UIViewController+Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ratio.swift"; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			files = (
 				0BFE5955298C186700A4509E /* DynamicDomain.framework in Frameworks */,
 				0BFE5953298C186600A4509E /* DynamicCore.framework in Frameworks */,
+				0B23526F298CF911003D1336 /* DynamicGIF.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +434,7 @@
 		0BFE5950298C186600A4509E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B23526E298CF911003D1336 /* DynamicGIF.framework */,
 				0BFE5951298C186600A4509E /* DynamicCore.framework */,
 				0BFE5952298C186600A4509E /* DynamicDomain.framework */,
 			);
@@ -742,7 +746,6 @@
 		0BFE5A05298CE00500A4509E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0BFE5A0A298CE03B00A4509E /* UIImage+GIF.swift */,
 				0BFE5A0C298CE04A00A4509E /* UIView+Ratio.swift */,
 				0BFE5A0E298CE05600A4509E /* UIView+Radius.swift */,
 				0BFE5A10298CE06000A4509E /* UIViewController+Ratio.swift */,
@@ -895,7 +898,6 @@
 				0BFE59B0298CDCAE00A4509E /* ChildCompositionalViewModel+Category.swift in Sources */,
 				0BFE59D3298CDE3D00A4509E /* CustomCoordinator.swift in Sources */,
 				0BFE59FE298CDFAD00A4509E /* PickListViewModel+Event.swift in Sources */,
-				0BFE5A0B298CE03B00A4509E /* UIImage+GIF.swift in Sources */,
 				0BFE5A17298CE08E00A4509E /* UIView+Shadow.swift in Sources */,
 				0BFE59F4298CDF3F00A4509E /* DetailViewController.swift in Sources */,
 				0BFE59E3298CDE8400A4509E /* CustomCollectionViewCell.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DynamicGIF
 
 public class GIFImageView: UIImageView {
     

@@ -25,6 +25,7 @@ public struct FactoryItems {
     }
 }
 
+
 public class CompositionalItemFactory {
     private var columnHeights: [CGFloat] = []
     private let columnCount: CGFloat

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235266298CF666003D1336 /* UIImage+GIF.swift */; };
+		0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235268298CF7BE003D1336 /* GIFFrame.swift */; };
+		0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526A298CF7E5003D1336 /* GIFImageView.swift */; };
+		0B23526D298CF7FE003D1336 /* GIFAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */; };
 		0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A28298CE42000A4509E /* DynamicGIF.docc */; };
 		0BFE5A2F298CE42000A4509E /* DynamicGIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE5A24298CE42000A4509E /* DynamicGIF.framework */; };
 		0BFE5A34298CE42000A4509E /* DynamicGIFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A33298CE42000A4509E /* DynamicGIFTests.swift */; };
@@ -24,6 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B235266298CF666003D1336 /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
+		0B235268298CF7BE003D1336 /* GIFFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
+		0B23526A298CF7E5003D1336 /* GIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
+		0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFAnimatable.swift; sourceTree = "<group>"; };
 		0BFE5A24298CE42000A4509E /* DynamicGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFE5A27298CE42000A4509E /* DynamicGIF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicGIF.h; sourceTree = "<group>"; };
 		0BFE5A28298CE42000A4509E /* DynamicGIF.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicGIF.docc; sourceTree = "<group>"; };
@@ -50,6 +58,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B235264298CF621003D1336 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0B235266298CF666003D1336 /* UIImage+GIF.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0B235265298CF634003D1336 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0B235268298CF7BE003D1336 /* GIFFrame.swift */,
+				0B23526A298CF7E5003D1336 /* GIFImageView.swift */,
+				0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		0BFE5A1A298CE42000A4509E = {
 			isa = PBXGroup;
 			children = (
@@ -71,8 +97,8 @@
 		0BFE5A26298CE42000A4509E /* DynamicGIF */ = {
 			isa = PBXGroup;
 			children = (
-				0BFE5A27298CE42000A4509E /* DynamicGIF.h */,
-				0BFE5A28298CE42000A4509E /* DynamicGIF.docc */,
+				0BFE5A5E298CF23300A4509E /* Resource */,
+				0BFE5A5F298CF24900A4509E /* Source */,
 			);
 			path = DynamicGIF;
 			sourceTree = "<group>";
@@ -83,6 +109,24 @@
 				0BFE5A33298CE42000A4509E /* DynamicGIFTests.swift */,
 			);
 			path = DynamicGIFTests;
+			sourceTree = "<group>";
+		};
+		0BFE5A5E298CF23300A4509E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE5A27298CE42000A4509E /* DynamicGIF.h */,
+				0BFE5A28298CE42000A4509E /* DynamicGIF.docc */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		0BFE5A5F298CF24900A4509E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0B235264298CF621003D1336 /* Extensions */,
+				0B235265298CF634003D1336 /* Classes */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,7 +238,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */,
+				0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */,
+				0B23526D298CF7FE003D1336 /* GIFAnimatable.swift in Sources */,
 				0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */,
+				0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +398,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -359,9 +408,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamic.DynamicGIF;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -378,6 +430,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,15 +440,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamic.DynamicGIF;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		0BFE5A3C298CE42000A4509E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;
@@ -412,6 +469,7 @@
 		0BFE5A3D298CE42000A4509E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DAG6F8V8UR;
