@@ -83,6 +83,20 @@
 			remoteGlobalIDString = 0BFE58E7298C0E6400A4509E;
 			remoteInfo = DynamicCoreTests;
 		};
+		0BFE593C298C168D00A4509E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0BFE591D298C168C00A4509E;
+			remoteInfo = DynamicPresentation;
+		};
+		0BFE593E298C168D00A4509E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0BFE5927298C168C00A4509E;
+			remoteInfo = DynamicPresentationTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -122,6 +136,7 @@
 		0BB52BB929460367005FC30F /* DynamicData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicData.xcodeproj; path = Dynamic/DynamicData/DynamicData.xcodeproj; sourceTree = "<group>"; };
 		0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamicDomain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/DynamicDomain.framework"; sourceTree = "<group>"; };
 		0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicCore.xcodeproj; path = Dynamic/DynamicCore/DynamicCore.xcodeproj; sourceTree = "<group>"; };
+		0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicPresentation.xcodeproj; path = Dynamic/DynamicPresentation/DynamicPresentation.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +180,7 @@
 				0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */,
 				0BB52BB929460367005FC30F /* DynamicData.xcodeproj */,
 				0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */,
+				0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,6 +281,15 @@
 			children = (
 				0BFE58FD298C0E6500A4509E /* DynamicCore.framework */,
 				0BFE58FF298C0E6500A4509E /* DynamicCoreTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0BFE5938298C168C00A4509E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE593D298C168D00A4509E /* DynamicPresentation.framework */,
+				0BFE593F298C168D00A4509E /* DynamicPresentationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -373,6 +398,10 @@
 					ProductGroup = 0BB52B8D29460354005FC30F /* Products */;
 					ProjectRef = 0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */;
 				},
+				{
+					ProductGroup = 0BFE5938298C168C00A4509E /* Products */;
+					ProjectRef = 0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -424,6 +453,20 @@
 			fileType = wrapper.cfbundle;
 			path = DynamicCoreTests.xctest;
 			remoteRef = 0BFE58FE298C0E6500A4509E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0BFE593D298C168D00A4509E /* DynamicPresentation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DynamicPresentation.framework;
+			remoteRef = 0BFE593C298C168D00A4509E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0BFE593F298C168D00A4509E /* DynamicPresentationTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DynamicPresentationTests.xctest;
+			remoteRef = 0BFE593E298C168D00A4509E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
