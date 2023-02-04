@@ -54,7 +54,7 @@
 
 ## ⚒️ Architecture
 
-<img src = "https://user-images.githubusercontent.com/73861795/211819647-c4231fbd-753b-4efe-a64d-a870a1df6865.png" width="817" height="458"/>
+<img src = "https://user-images.githubusercontent.com/73861795/211819647-c4231fbd-753b-4efe-a64d-a870a1df6865.png"/>
 
 - Dynamic의 프로젝트 구조를 도식화했습니다.
 
@@ -66,7 +66,7 @@
 
 <br/>
 
-<img src = "https://user-images.githubusercontent.com/73861795/210164511-7b747ae0-de84-4f3f-b752-82d9b875182f.png" width="817" height="458"/>
+<img src = "https://user-images.githubusercontent.com/73861795/210164511-7b747ae0-de84-4f3f-b752-82d9b875182f.png" />
 
 >### 헥사고날 아키텍처(클린 아키텍처)
 
