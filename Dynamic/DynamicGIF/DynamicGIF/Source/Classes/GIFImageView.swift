@@ -8,5 +8,6 @@
 import UIKit
 
 public class GIFImageView: UIImageView, GIFAnimatable {
-
+    
+    
 }

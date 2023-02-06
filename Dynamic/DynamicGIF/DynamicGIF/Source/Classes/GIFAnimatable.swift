@@ -7,10 +7,20 @@
 
 import UIKit
 
-public protocol GIFAnimatable: AnyObject {
+internal enum GIFError: Error {
+    case noImages
+}
 
+public enum GIFQuality: CGFloat {
+    case defaultQuality = 1
+}
+
+public protocol GIFAnimatable: AnyObject {
+    
 }
 
 extension GIFAnimatable {
-
+    public func animate(withGIFData: Data) {
+        
+    }
 }
