@@ -10,7 +10,7 @@
 		0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235266298CF666003D1336 /* UIImage+GIF.swift */; };
 		0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235268298CF7BE003D1336 /* GIFFrame.swift */; };
 		0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526A298CF7E5003D1336 /* GIFImageView.swift */; };
-		0B23526D298CF7FE003D1336 /* GIFAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */; };
+		0B23526D298CF7FE003D1336 /* GIFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526C298CF7FE003D1336 /* GIFImage.swift */; };
 		0BBDCC622991057B0014CA94 /* CGImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC612991057B0014CA94 /* CGImageSource.swift */; };
 		0BBDCC642991084B0014CA94 /* GIFFrameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC632991084B0014CA94 /* GIFFrameFactory.swift */; };
 		0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A28298CE42000A4509E /* DynamicGIF.docc */; };
@@ -33,7 +33,7 @@
 		0B235266298CF666003D1336 /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
 		0B235268298CF7BE003D1336 /* GIFFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
 		0B23526A298CF7E5003D1336 /* GIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
-		0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFAnimatable.swift; sourceTree = "<group>"; };
+		0B23526C298CF7FE003D1336 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
 		0BBDCC612991057B0014CA94 /* CGImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageSource.swift; sourceTree = "<group>"; };
 		0BBDCC632991084B0014CA94 /* GIFFrameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFFrameFactory.swift; sourceTree = "<group>"; };
 		0BFE5A24298CE42000A4509E /* DynamicGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,8 +76,8 @@
 			children = (
 				0B235268298CF7BE003D1336 /* GIFFrame.swift */,
 				0BBDCC632991084B0014CA94 /* GIFFrameFactory.swift */,
+				0B23526C298CF7FE003D1336 /* GIFImage.swift */,
 				0B23526A298CF7E5003D1336 /* GIFImageView.swift */,
-				0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 				0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */,
 				0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */,
 				0BBDCC622991057B0014CA94 /* CGImageSource.swift in Sources */,
-				0B23526D298CF7FE003D1336 /* GIFAnimatable.swift in Sources */,
+				0B23526D298CF7FE003D1336 /* GIFImage.swift in Sources */,
 				0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */,
 				0BBDCC642991084B0014CA94 /* GIFFrameFactory.swift in Sources */,
 				0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */,

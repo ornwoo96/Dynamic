@@ -35,26 +35,32 @@ extension UIImage {
     class func delayForImageAtIndex(_ index: Int,
                                     source: CGImageSource!) -> Double {
         var delay = 0.1
+        
         // MARK: Image source 에 있는 모든 이미지 정보 속성들을 추출할 수 있도록 딕셔너리를 제공
         let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
+        
         // Unmanaged.passUnretained(객체).toOpaque()
         // 로 해당 객체의 메모리 주소를 프린트 할 수 있습니다.
         let gifProperties: CFDictionary = unsafeBitCast(
             CFDictionaryGetValue(cfProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
             to: CFDictionary.self)
+        
         // kCGImagePropertyGIFUnclampedDelayTime 값을 통해 GIF Image Data 안에 있는 index 값으로 delay 타임의 딕셔너리를 알수 있음
         var delayObject: AnyObject = unsafeBitCast(
             CFDictionaryGetValue(gifProperties,
                                  Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
             to: AnyObject.self)
+        
         // kCGImagePropertyGIFDelayTime 딜레이 값이 100밀리초로 고정해놓고 보낸다.
         if delayObject.doubleValue == 0 {
             delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
                                                              Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()),
                                         to: AnyObject.self)
         }
+        
         delay = delayObject as! Double
+        
         if delay < 0.1 {
             delay = 0.1
         }

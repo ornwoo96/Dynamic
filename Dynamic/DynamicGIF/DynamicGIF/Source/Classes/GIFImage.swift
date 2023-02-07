@@ -1,5 +1,5 @@
 //
-//  GIFAnimatable.swift
+//  GIFImage.swift
 //  DynamicGIF
 //
 //  Created by 김동우 on 2023/02/03.
@@ -15,12 +15,18 @@ public enum GIFQuality: CGFloat {
     case defaultQuality = 1
 }
 
-public protocol GIFAnimatable: AnyObject {
+class GIFImage {
+    var frameFactory: GIFFrameFactory?
     
-}
-
-extension GIFAnimatable {
     public func animate(withGIFData: Data) {
+        
+    }
+    
+    public func animate(withGIFUrl: String) {
+        
+    }
+    
+    public func animate(GIFName: String) {
         
     }
 }
