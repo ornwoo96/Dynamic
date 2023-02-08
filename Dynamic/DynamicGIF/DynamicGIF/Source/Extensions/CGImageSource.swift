@@ -17,4 +17,9 @@ extension CGImageSource {
         }
         return imageProperties[String(kCGImagePropertyGIFDictionary)] as? GIFProperties
     }
+    
+    
+    
 }
+
+
