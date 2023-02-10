@@ -8,6 +8,6 @@
 import UIKit
 
 struct GIFFrame {
-    let image: UIImage?
-    let duration: TimeInterval
+    let image: CGImage?
+    let duration: Double
 }
