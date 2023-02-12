@@ -31,6 +31,7 @@ internal class GIFFrameFactory {
     var imageSize: CGSize
     var contentMode: UIView.ContentMode
     var loopCount: Int
+    var totalFrameCount: Int
     
     init(data: Data,
          size: CGSize,
@@ -44,6 +45,9 @@ internal class GIFFrameFactory {
         setupGIFFrames()
     }
     
+    func setupFrames() {
+        
+    }
     
     func setupGIFFromData(level: GIFMemoryReduce = .resizing(.highLevel)) -> [GIFFrame] {
         switch level {

@@ -38,3 +38,9 @@ public class GIFImageView: UIImageView {
     }
     
 }
+
+extension GIFImageView: GIFAnimatorImageUpdateDelegate {
+    func animationImageUpdate(_ image: UIImage) {
+        self.image = image
+    }
+}
