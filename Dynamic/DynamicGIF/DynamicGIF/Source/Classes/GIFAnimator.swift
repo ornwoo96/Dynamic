@@ -21,8 +21,6 @@ class GIFAnimator {
         
         return displayLink
     }()
-    private var index: Int = 0
-    private var images: [UIImage] = []
     private var delegate: GIFAnimatorImageUpdateDelegate?
     private var frameFactory: GIFFrameFactory?
     
@@ -77,22 +75,13 @@ class GIFAnimator {
         displayLink.add(to: .main, forMode: .common)
     }
     
-    @objc private func updateImage() {
-        if index >= images.count {
-            index = 0
-        }
-        delegate?.animationImageUpdate(self.images[index])
-        index += 1
-    }
     
     func startAnimating() {
         displayLink.isPaused = false
     }
     
-    func clearAnimator() {
+    func clear() {
         displayLink.invalidate()
-        index = 0
-        images = []
     }
     
     func stopAnimation() {

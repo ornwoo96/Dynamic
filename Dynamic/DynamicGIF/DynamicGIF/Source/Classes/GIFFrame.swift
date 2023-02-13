@@ -8,6 +8,7 @@
 import UIKit
 
 struct GIFFrame {
-    let image: CGImage?
-    let duration: Double
+    static let empty: Self = .init(image: CGImage(), duration: 0.0)
+    var image: CGImage?
+    var duration: Double
 }
