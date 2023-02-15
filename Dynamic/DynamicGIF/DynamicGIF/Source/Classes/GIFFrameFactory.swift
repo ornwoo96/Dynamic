@@ -13,12 +13,6 @@ internal enum GIFError: Error {
     case noImages
 }
 
-public enum GIFMemoryReduce {
-    case frameDown(GIFFrameReduceLevel)
-    case downSampling(GIFFrameReduceLevel)
-    case resizing(GIFFrameReduceLevel)
-}
-
 public enum GIFFrameReduceLevel {
     case highLevel
     case middleLevel
@@ -27,11 +21,18 @@ public enum GIFFrameReduceLevel {
 
 internal class GIFFrameFactory {
     var animationFrames: [GIFFrame] = []
+    
     var imageSource: CGImageSource
+    
     var imageSize: CGSize
+    
     var contentMode: UIView.ContentMode
+    
     var loopCount: Int
+    
     var totalFrameCount: Int?
+    
+    var isResizing: Bool = false
     
     init(data: Data,
          size: CGSize,
@@ -49,19 +50,15 @@ internal class GIFFrameFactory {
         
     }
     
-    private func setupGIFFromData(level: GIFMemoryReduce = .frameDown(.highLevel)) -> [GIFFrame] {
-        switch level {
-        case .frameDown(let gIFFrameReduceLevel):
-            let result = reduceFrames(GIFFrames: self.animationFrames, level: gIFFrameReduceLevel)
-            return result
-        case .downSampling(let gIFFrameReduceLevel):
+    private func setupGIFFromData(level: GIFFrameReduceLevel = .highLevel) -> [GIFFrame] {
+        if isResizing {
             
-            return []
-        case .resizing(let gIFFrameReduceLevel):
-            
-            return []
         }
+        
+        
     }
+    
+    private func resize
     
     private func setupGIFFrames() {
         let frameCount = CGImageSourceGetCount(self.imageSource)
@@ -114,21 +111,6 @@ internal class GIFFrameFactory {
         return reducedFrameProperties
     }
     
-    private func downSamplingImages(GIFFrames: [GIFFrame]) -> [GIFFrame] {
-        for i in 0..<GIFFrames.count {
-            // Get the current frame
-            let cgImage = CGImageSourceCreateImageAtIndex(imageSource, i, nil)!
-
-            // Down-sample the image
-            let downSampledImage = cgImage.downsample(factor: 0.5)
-            
-            // Add the down-sampled image to the array
-            downSampledFrames.append(downSampledImage)
-        }
-        
-        return []
-    }
-    
     private func resize(size: CGSize) -> CGImageSource {
         let options: [CFString: Any] = [
             kCGImageSourceCreateThumbnailWithTransform: true,
@@ -136,19 +118,8 @@ internal class GIFFrameFactory {
             kCGImageSourceThumbnailMaxPixelSize: max(Int(size.width), Int(size.height))
         ]
         
-        let resizedImageSource = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
-        
+        let resizedImageSource = CGImㄷㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
+          ㄴㅁㄴ ㅁㄴ  ㄴㄴㅁㄴ
         return resizedImageSource as! CGImageSource
-    }
-    
-    private func convertType(level: GIFFrameReduceLevel) -> Int {
-        switch level {
-        case .highLevel:
-            return 1
-        case .middleLevel:
-            return 2
-        case .lowLevel:
-            return 3
-        }
     }
 }
