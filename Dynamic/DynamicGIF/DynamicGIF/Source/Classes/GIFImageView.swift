@@ -12,8 +12,6 @@ import UIKit
 // MARK: 캐싱 작업
 
 public class GIFImageView: UIImageView {
-    private var gifImage: GIFImage?
-    private var imageSize = false
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -21,17 +19,6 @@ public class GIFImageView: UIImageView {
     
     // MARK: func으로 image setup - 필요 객체 : Data, Size
     
-    public func setupImage(GIFData: Data) {
-        gifImage?.animate(withGIFData: GIFData)
-    }
-    
-    public func setupImage(GIFUrl: String) {
-        gifImage?.animate(withGIFUrl: GIFUrl)
-    }
-    
-    public func setupImage(GIFFileName: String) {
-        gifImage?.animate(GIFName: GIFFileName)
-    }
     
     public func clearImageView() {
         self.image = nil

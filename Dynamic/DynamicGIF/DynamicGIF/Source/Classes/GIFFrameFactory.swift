@@ -35,13 +35,16 @@ internal class GIFFrameFactory {
         self.animationFrames = convertCGImageSourceToGIFFrameArray(source: self.imageSource)
     }
     
-    public func setupGIFImageFrames(level: GIFFrameReduceLevel = .highLevel) -> [GIFFrame] {
+    internal func setupGIFImageFrames(level: GIFFrameReduceLevel = .highLevel,
+                                      _ onReady: (() -> Void)? = nil) {
         if isResizing {
             let resizedFrames = resize(size: self.imageSize)
             let convertFramesArray = convertCGImageSourceToGIFFrameArray(source: resizedFrames)
-            return getLevelFrame(level: level, frames: convertFramesArray)
+            self.animationFrames = getLevelFrame(level: level, frames: convertFramesArray)
+            onReady?()
         } else {
-            return getLevelFrame(level: level, frames: self.animationFrames)
+            self.animationFrames = getLevelFrame(level: level, frames: self.animationFrames)
+            onReady?()
         }
     }
     
@@ -66,18 +69,28 @@ internal class GIFFrameFactory {
                 continue
             }
             
-            let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil) as? [String: Any]
-            
-            var duration = 0.1
-            
-            if let gifProperties = properties?[kCGImagePropertyGIFDictionary as String] as? [String: Any] {
-                duration = gifProperties[kCGImagePropertyGIFDelayTime as String] as? Double ?? 0.1
+            guard let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil) as? [String: Any] else {
+                return []
             }
             
-            frameProperties.append(GIFFrame(image: image, duration: duration))
+            frameProperties.append(GIFFrame(image: image, duration: applyMinimumDelayTime(properties)))
         }
         
         return frameProperties
+    }
+    
+    private func applyMinimumDelayTime(_ properties: [String: Any]) -> Double {
+        var duration = 0.1
+
+        if let gifProperties = properties[kCGImagePropertyGIFDictionary as String] as? [String: Any] {
+            duration = gifProperties[kCGImagePropertyGIFDelayTime as String] as? Double ?? 0.1
+        }
+        
+        if duration < 0.1 {
+            return 0.1
+        }
+        
+        return duration
     }
     
     private func reduceFrames(GIFFrames: [GIFFrame],
@@ -113,4 +126,5 @@ internal class GIFFrameFactory {
         
         return resizedImageSource as! CGImageSource
     }
+    
 }

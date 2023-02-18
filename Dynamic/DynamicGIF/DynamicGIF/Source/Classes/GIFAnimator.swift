@@ -15,66 +15,51 @@ protocol GIFAnimatorImageUpdateDelegate {
 class GIFAnimator {
     private var currentFrameIndex = 0
     private var currentFrameStartTime: Double = 0.0
+    private var loopCount: Int = 0
+    private var currentLoop: Int = 0
     private lazy var displayLink: CADisplayLink = { [unowned self] in
-        let displayLink = CADisplayLink(target: self, selector: #selector(updateImage))
+        let displayLink = CADisplayLink(target: self, selector: #selector(updateFrame))
         displayLink.isPaused = true
         
         return displayLink
     }()
+    
     private var delegate: GIFAnimatorImageUpdateDelegate?
     private var frameFactory: GIFFrameFactory?
     
-    // MARK: 1. frameFactory - setup
     func setupForAnimation(data: Data,
                            size: CGSize,
                            loopCount: Int = 0,
-                           contentMode: UIView.ContentMode) {
+                           contentMode: UIView.ContentMode,
+                           level: GIFFrameReduceLevel = .highLevel) {
         frameFactory = GIFFrameFactory(data: data,
                                        size: size,
-                                       contentMode: contentMode,
-                                       loopCount: loopCount)
-        frameFactory?.setupFrames()
+                                       contentMode: contentMode)
+        self.loopCount = loopCount
+        frameFactory?.setupGIFImageFrames(level: level)
         setupDisplayRunLoop()
     }
     
-    
-    
-    
-    private func playGIF(data: Data) {
-        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else { return }
-        let count = CGImageSourceGetCount(source)
-        
-        for i in 0..<count {
-            guard let image = CGImageSourceCreateImageAtIndex(source, i, nil) else { return }
-            images.append(UIImage(cgImage: image))
-        }
-    }
-    
     @objc func updateFrame() {
-        if (frameFactory?.totalFrameCount)! > 0 {
-            let currentTime = CACurrentMediaTime()
-            if currentFrameStartTime == 0.0 {
-                currentFrameStartTime = currentTime
-            }
-            
-            let elapsedTime = currentTime - currentFrameStartTime
-            
-            if elapsedTime >= frameDurationArray[currentFrameIndex] {
-                currentFrameStartTime = currentTime
-                currentFrameIndex = (currentFrameIndex + 1) % totalFrameCount
-                if let imageSource = CGImageSourceCreateWithData(data as CFData, nil) {
-                    if let imageRef = CGImageSourceCreateImageAtIndex(imageSource, currentFrameIndex, nil) {
-                        self.image = UIImage(cgImage: imageRef)
-                    }
-                }
-            }
+        guard let animationFrameCount = frameFactory?.animationFrames.count else { return }
+        
+        if currentFrameIndex >= animationFrameCount {
+            currentFrameIndex = 0
+            currentLoop += 1
         }
+        
+        // MARK: CurrentFrameIndex 값이 GIFFrame.count 값 보다 크거나 같으면 loop 추가 로직
+        
+        if loopCount != 0 && currentLoop >= loopCount {
+            stopAnimation()
+            return
+        }
+        
     }
     
     private func setupDisplayRunLoop() {
         displayLink.add(to: .main, forMode: .common)
     }
-    
     
     func startAnimating() {
         displayLink.isPaused = false
@@ -87,4 +72,6 @@ class GIFAnimator {
     func stopAnimation() {
         displayLink.isPaused = true
     }
+    
+    
 }
