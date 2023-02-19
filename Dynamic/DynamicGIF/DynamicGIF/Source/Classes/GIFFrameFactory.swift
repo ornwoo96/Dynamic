@@ -27,24 +27,33 @@ internal class GIFFrameFactory {
     
     init(data: Data,
          size: CGSize,
-         contentMode: UIView.ContentMode = .scaleAspectFill) {
+         contentMode: UIView.ContentMode = .scaleAspectFill,
+         isResizing: Bool = false) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.imageSize = size
         self.contentMode = contentMode
         self.animationFrames = convertCGImageSourceToGIFFrameArray(source: self.imageSource)
+        self.isResizing = isResizing
     }
     
-    internal func setupGIFImageFrames(level: GIFFrameReduceLevel = .highLevel,
-                                      _ onReady: (() -> Void)? = nil) {
+    internal func clearFactory() {
+        self.animationFrames = []
+        self.imageSource = UIImage().cgImage as! CGImageSource
+        self.totalFrameCount = 0
+        self.isResizing = false
+    }
+    
+    internal func setupGIFImageFrames(level: GIFFrameReduceLevel,
+                                      animationOnReady: (() -> Void)? = nil) {
         if isResizing {
             let resizedFrames = resize(size: self.imageSize)
             let convertFramesArray = convertCGImageSourceToGIFFrameArray(source: resizedFrames)
             self.animationFrames = getLevelFrame(level: level, frames: convertFramesArray)
-            onReady?()
+            animationOnReady?()
         } else {
             self.animationFrames = getLevelFrame(level: level, frames: self.animationFrames)
-            onReady?()
+            animationOnReady?()
         }
     }
     
@@ -126,5 +135,4 @@ internal class GIFFrameFactory {
         
         return resizedImageSource as! CGImageSource
     }
-    
 }

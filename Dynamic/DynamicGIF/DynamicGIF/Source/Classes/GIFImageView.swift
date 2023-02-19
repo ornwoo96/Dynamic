@@ -8,26 +8,58 @@
 import UIKit
 
 // MARK: setup image data
-// MARK: 그다음 애니메이션 스타트, 중지
 // MARK: 캐싱 작업
 
-public class GIFImageView: UIImageView {
+public class GIFImageView2: UIImageView {
+    private var animator = GIFAnimator()
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // Setup - GIF URL
+    public func setupGIFImage(URL: URL,
+                              size: CGSize,
+                              loopCount: Int = 0,
+                              contentMode: UIView.ContentMode,
+                              level: GIFFrameReduceLevel = .highLevel,
+                              isResizing: Bool = false) {
+        
     }
     
-    // MARK: func으로 image setup - 필요 객체 : Data, Size
+    // Setup - GIF Data
+    public func setupGIFImage(data: Data,
+                              size: CGSize,
+                              loopCount: Int = 0,
+                              contentMode: UIView.ContentMode,
+                              level: GIFFrameReduceLevel = .highLevel,
+                              isResizing: Bool = false,
+                              animationOnReady: (() -> Void)? = nil) {
+        animator.delegate = self
+        animator.setupForAnimation(data: data,
+                                   size: size,
+                                   loopCount: loopCount,
+                                   contentMode: contentMode,
+                                   level: level,
+                                   isResizing: isResizing,
+                                   animationOnReady: animationOnReady)
+    }
     
+    public func startAnimation() {
+        animator.startAnimating()
+    }
     
     public func clearImageView() {
+        self.animator.stopAnimation()
         self.image = nil
+        self.animator.clear()
     }
     
+    private func setupImage(image: UIImage) {
+        
+    }
 }
 
-extension GIFImageView: GIFAnimatorImageUpdateDelegate {
-    func animationImageUpdate(_ image: UIImage) {
-        self.image = image
+extension GIFImageView2: GIFAnimatorImageUpdateDelegate {
+    func animationImageUpdate(_ image: CGImage) {
+        DispatchQueue.main.async { [weak self] in
+            self?.image = UIImage(cgImage: image)
+        }
     }
 }

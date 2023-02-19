@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DynamicGIF
 
 public struct CustomCellItem {
     let favorite: Bool
@@ -17,8 +18,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private var cellGradientLayer = CAGradientLayer()
     
-    private lazy var gifImageView: GIFImageView = {
-        let imageView = GIFImageView(frame: .zero)
+    private lazy var gifImageView: GIFImageView2 = {
+        let imageView = GIFImageView2()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -52,13 +53,27 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ item: CustomCellItem) {
-        gifImageView.configure(url: item.imageUrl)
+//        gifImageView.configure(url: item.imageUrl)
+        configure(url: item.imageUrl)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
     }
     
+    private func configure(url: String) {
+        Task { [weak self] in
+            let image = try await ImageCacheManager.shared.imageLoad(url)
+            
+            self?.gifImageView.setupGIFImage(data: image,
+                                             size: CGSize(),
+                                             contentMode: .scaleAspectFill) { [weak self] in
+                self?.gifImageView.startAnimation()
+            }
+        }
+    }
+    
     public func clear() {
-        gifImageView.clear()
+//        gifImageView.clear()
+        gifImageView.clearImageView()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
     }

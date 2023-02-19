@@ -9,12 +9,13 @@ import UIKit
 import ImageIO
 
 protocol GIFAnimatorImageUpdateDelegate {
-    func animationImageUpdate(_ image: UIImage)
+    func animationImageUpdate(_ image: CGImage)
 }
 
 class GIFAnimator {
     private var currentFrameIndex = 0
     private var currentFrameStartTime: Double = 0.0
+    private var lastFrameTime: Double = 0.0
     private var loopCount: Int = 0
     private var currentLoop: Int = 0
     private lazy var displayLink: CADisplayLink = { [unowned self] in
@@ -24,41 +25,65 @@ class GIFAnimator {
         return displayLink
     }()
     
-    private var delegate: GIFAnimatorImageUpdateDelegate?
+    internal var delegate: GIFAnimatorImageUpdateDelegate?
     private var frameFactory: GIFFrameFactory?
     
     func setupForAnimation(data: Data,
                            size: CGSize,
                            loopCount: Int = 0,
                            contentMode: UIView.ContentMode,
-                           level: GIFFrameReduceLevel = .highLevel) {
+                           level: GIFFrameReduceLevel,
+                           isResizing: Bool,
+                           animationOnReady: (() -> Void)? = nil) {
+        startAnimating()
+        frameFactory = nil
         frameFactory = GIFFrameFactory(data: data,
                                        size: size,
-                                       contentMode: contentMode)
+                                       contentMode: contentMode,
+                                       isResizing: isResizing)
         self.loopCount = loopCount
-        frameFactory?.setupGIFImageFrames(level: level)
-        setupDisplayRunLoop()
+        frameFactory?.setupGIFImageFrames(level: level) { [weak self] in
+            self?.setupDisplayRunLoop(onReady: animationOnReady)
+        }
     }
     
     @objc func updateFrame() {
-        guard let animationFrameCount = frameFactory?.animationFrames.count else { return }
+        guard let frames = frameFactory?.animationFrames else {
+            return
+        }
         
-        if currentFrameIndex >= animationFrameCount {
+        currentFrameIndex += 1
+        
+        if currentFrameIndex >= frames.count {
             currentFrameIndex = 0
             currentLoop += 1
         }
         
-        // MARK: CurrentFrameIndex 값이 GIFFrame.count 값 보다 크거나 같으면 loop 추가 로직
+        let elapsed = displayLink.timestamp - lastFrameTime
         
-        if loopCount != 0 && currentLoop >= loopCount {
+        guard elapsed >= frames[currentFrameIndex].duration else { return }
+        
+        
+        if loopCount == 0 {
+            currentFrameIndex = 0
+        } else if currentLoop >= loopCount {
+            currentFrameIndex = 0
             stopAnimation()
             return
         }
         
+        guard let currentImage = frames[currentFrameIndex].image else {
+            return
+        }
+        
+        delegate?.animationImageUpdate(currentImage)
+        
+        lastFrameTime = displayLink.timestamp
     }
     
-    private func setupDisplayRunLoop() {
+    private func setupDisplayRunLoop(onReady: (() -> Void)? = nil) {
         displayLink.add(to: .main, forMode: .common)
+        onReady?()
     }
     
     func startAnimating() {

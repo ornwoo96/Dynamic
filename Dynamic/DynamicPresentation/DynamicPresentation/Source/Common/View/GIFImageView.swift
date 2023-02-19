@@ -30,6 +30,7 @@ public class GIFImageView: UIImageView {
             
             guard let imageData = UIImage.gifImageWithData(image) else { return }
             
+            
             await MainActor.run {
                 self?.image = imageData
             }
