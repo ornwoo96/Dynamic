@@ -53,21 +53,30 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ item: CustomCellItem) {
-//        gifImageView.configure(url: item.imageUrl)
+        //        gifImageView.configure(url: item.imageUrl)
         configure(url: item.imageUrl)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
     }
     
     private func configure(url: String) {
-        Task { [weak self] in
-            let image = try await ImageCacheManager.shared.imageLoad(url)
-            
-            self?.gifImageView.setupGIFImage(data: image,
-                                             size: CGSize(),
-                                             contentMode: .scaleAspectFill) { [weak self] in
-                self?.gifImageView.startAnimation()
+        DispatchQueue.global(qos: .background).async {
+            Task {
+                let image = try await ImageCacheManager.shared.imageLoad(url)
+                
+                self.gifImageView.setupGIFImage(data: image,
+                                                 size: CGSize(),
+                                                 contentMode: .scaleAspectFill) { [weak self] in
+                    self?.delay()
+                }
             }
+        }
+    }
+    
+    
+    private func delay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            self?.gifImageView.startAnimation()
         }
     }
     

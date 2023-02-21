@@ -39,6 +39,7 @@ public class GIFImageView2: UIImageView {
                                    level: level,
                                    isResizing: isResizing,
                                    animationOnReady: animationOnReady)
+        
     }
     
     public func startAnimation() {

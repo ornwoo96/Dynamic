@@ -18,12 +18,7 @@ class GIFAnimator {
     private var lastFrameTime: Double = 0.0
     private var loopCount: Int = 0
     private var currentLoop: Int = 0
-    private lazy var displayLink: CADisplayLink = { [unowned self] in
-        let displayLink = CADisplayLink(target: self, selector: #selector(updateFrame))
-        displayLink.isPaused = true
-        
-        return displayLink
-    }()
+    private var displayLink: CADisplayLink?
     
     internal var delegate: GIFAnimatorImageUpdateDelegate?
     private var frameFactory: GIFFrameFactory?
@@ -35,6 +30,8 @@ class GIFAnimator {
                            level: GIFFrameReduceLevel,
                            isResizing: Bool,
                            animationOnReady: (() -> Void)? = nil) {
+        displayLink = CADisplayLink(target: self, selector: #selector(updateFrame))
+        displayLink!.add(to: .current, forMode: .common)
         startAnimating()
         frameFactory = nil
         frameFactory = GIFFrameFactory(data: data,
@@ -59,7 +56,9 @@ class GIFAnimator {
             currentLoop += 1
         }
         
-        let elapsed = displayLink.timestamp - lastFrameTime
+        guard let elapsedTime = displayLink?.timestamp else { return }
+        
+        let elapsed = elapsedTime - lastFrameTime
         
         guard elapsed >= frames[currentFrameIndex].duration else { return }
         
@@ -78,24 +77,24 @@ class GIFAnimator {
         
         delegate?.animationImageUpdate(currentImage)
         
-        lastFrameTime = displayLink.timestamp
+        lastFrameTime = displayLink!.timestamp
     }
     
     private func setupDisplayRunLoop(onReady: (() -> Void)? = nil) {
-        displayLink.add(to: .main, forMode: .common)
+//        displayLink!.add(to: .current, forMode: .common)
         onReady?()
     }
     
-    func startAnimating() {
-        displayLink.isPaused = false
+    internal func startAnimating() {
+        displayLink!.isPaused = false
     }
     
-    func clear() {
-        displayLink.invalidate()
+    internal func clear() {
+        displayLink!.invalidate()
     }
     
     func stopAnimation() {
-        displayLink.isPaused = true
+        displayLink!.isPaused = true
     }
     
     
