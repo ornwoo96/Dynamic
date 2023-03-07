@@ -18,8 +18,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private var cellGradientLayer = CAGradientLayer()
     
-    private lazy var gifImageView: GIFImageView2 = {
-        let imageView = GIFImageView2()
+    private lazy var imageView: GIFOImageView = {
+        let imageView = GIFOImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -60,29 +60,22 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure(url: String) {
+        self.imageView.clearImageView()
         DispatchQueue.global(qos: .background).async {
-            Task {
-                let image = try await ImageCacheManager.shared.imageLoad(url)
-                
-                self.gifImageView.setupGIFImage(data: image,
-                                                 size: CGSize(),
-                                                 contentMode: .scaleAspectFill) { [weak self] in
-                    self?.delay()
-                }
+            self.imageView.setupGIFImage(url: url,
+                                         cacheKey: url,
+                                         size: CGSize(width: 100, height: 100),
+                                         loopCount: 0,
+                                         contentMode: UIView.ContentMode.scaleAspectFill,
+                                         level: .highLevel,
+                                         isResizing: false) {
+                self.imageView.startAnimation()
             }
         }
     }
     
-    
-    private func delay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.gifImageView.startAnimation()
-        }
-    }
-    
     public func clear() {
-//        gifImageView.clear()
-        gifImageView.clearImageView()
+        imageView.clearImageView()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
     }
@@ -113,18 +106,18 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupImageView() {
-        contentView.addSubview(gifImageView)
-        gifImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            gifImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            gifImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            gifImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            gifImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
     private func setupHeartView() {
-        gifImageView.addSubview(heartView)
+        imageView.addSubview(heartView)
         heartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heartView.topAnchor.constraint(equalTo: contentView.topAnchor),

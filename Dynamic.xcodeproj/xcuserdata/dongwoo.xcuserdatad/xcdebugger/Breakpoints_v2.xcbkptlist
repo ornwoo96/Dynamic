@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "setupGIFImage(data:cacheKey:size:loopCount:contentMode:level:isResizing:animationOnReady:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5 - d88d9a612012674e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DynamicGIF.GIFOImageView.setupGIFImage(data: Foundation.Data, cacheKey: Swift.String, size: __C.CGSize, loopCount: Swift.Int, contentMode: __C.UIViewContentMode, level: DynamicGIF.GIFFrameReduceLevel, isResizing: Swift.Bool, animationOnReady: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "DynamicGIF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "583">
+               </Location>
+               <Location
+                  uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5 - d88d9a612012672f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DynamicGIF.GIFOImageView.setupGIFImage(data: Foundation.Data, cacheKey: Swift.String, size: __C.CGSize, loopCount: Swift.Int, contentMode: __C.UIViewContentMode, level: DynamicGIF.GIFFrameReduceLevel, isResizing: Swift.Bool, animationOnReady: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "DynamicGIF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
+                  offsetFromSymbolStart = "583">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

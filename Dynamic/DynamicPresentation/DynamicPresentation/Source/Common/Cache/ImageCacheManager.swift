@@ -29,9 +29,11 @@ public final class ImageCacheManager {
     }
     
     public func imageLoad(_ url: String) async throws -> Data {
+        
         if let cachedImage = matchImage(url) {
             return cachedImage
         }
+        print(url)
         
         let data = try await self.fetchImageData(url)
         

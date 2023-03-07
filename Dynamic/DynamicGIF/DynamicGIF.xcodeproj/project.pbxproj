@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235266298CF666003D1336 /* UIImage+GIF.swift */; };
-		0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235268298CF7BE003D1336 /* GIFFrame.swift */; };
-		0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526A298CF7E5003D1336 /* GIFImageView.swift */; };
-		0BBDCC642991084B0014CA94 /* GIFFrameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC632991084B0014CA94 /* GIFFrameFactory.swift */; };
-		0BBDCC662997D4110014CA94 /* GIFAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC652997D4110014CA94 /* GIFAnimator.swift */; };
+		0B235269298CF7BE003D1336 /* GIFOFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235268298CF7BE003D1336 /* GIFOFrame.swift */; };
+		0B23526B298CF7E5003D1336 /* GIFOImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526A298CF7E5003D1336 /* GIFOImageView.swift */; };
+		0BBDCC642991084B0014CA94 /* GIFOFrameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */; };
+		0BBDCC662997D4110014CA94 /* GIFOAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */; };
+		0BE7769F29B723B4004FFB75 /* GIFOImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE7769E29B723B4004FFB75 /* GIFOImageCache.swift */; };
+		0BE776A129B723BF004FFB75 /* GIFOImageCacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */; };
+		0BE776A329B723CA004FFB75 /* GIFODownLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */; };
 		0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A28298CE42000A4509E /* DynamicGIF.docc */; };
 		0BFE5A2F298CE42000A4509E /* DynamicGIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE5A24298CE42000A4509E /* DynamicGIF.framework */; };
 		0BFE5A34298CE42000A4509E /* DynamicGIFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A33298CE42000A4509E /* DynamicGIFTests.swift */; };
@@ -30,10 +33,13 @@
 
 /* Begin PBXFileReference section */
 		0B235266298CF666003D1336 /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
-		0B235268298CF7BE003D1336 /* GIFFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
-		0B23526A298CF7E5003D1336 /* GIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
-		0BBDCC632991084B0014CA94 /* GIFFrameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFFrameFactory.swift; sourceTree = "<group>"; };
-		0BBDCC652997D4110014CA94 /* GIFAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFAnimator.swift; sourceTree = "<group>"; };
+		0B235268298CF7BE003D1336 /* GIFOFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOFrame.swift; sourceTree = "<group>"; };
+		0B23526A298CF7E5003D1336 /* GIFOImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOImageView.swift; sourceTree = "<group>"; };
+		0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOFrameFactory.swift; sourceTree = "<group>"; };
+		0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOAnimator.swift; sourceTree = "<group>"; };
+		0BE7769E29B723B4004FFB75 /* GIFOImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOImageCache.swift; sourceTree = "<group>"; };
+		0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOImageCacheItem.swift; sourceTree = "<group>"; };
+		0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFODownLoader.swift; sourceTree = "<group>"; };
 		0BFE5A24298CE42000A4509E /* DynamicGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFE5A27298CE42000A4509E /* DynamicGIF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicGIF.h; sourceTree = "<group>"; };
 		0BFE5A28298CE42000A4509E /* DynamicGIF.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicGIF.docc; sourceTree = "<group>"; };
@@ -71,10 +77,13 @@
 		0B235265298CF634003D1336 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0B235268298CF7BE003D1336 /* GIFFrame.swift */,
-				0BBDCC632991084B0014CA94 /* GIFFrameFactory.swift */,
-				0BBDCC652997D4110014CA94 /* GIFAnimator.swift */,
-				0B23526A298CF7E5003D1336 /* GIFImageView.swift */,
+				0B235268298CF7BE003D1336 /* GIFOFrame.swift */,
+				0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */,
+				0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */,
+				0B23526A298CF7E5003D1336 /* GIFOImageView.swift */,
+				0BE7769E29B723B4004FFB75 /* GIFOImageCache.swift */,
+				0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */,
+				0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -242,11 +251,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */,
-				0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */,
+				0B23526B298CF7E5003D1336 /* GIFOImageView.swift in Sources */,
+				0BE776A329B723CA004FFB75 /* GIFODownLoader.swift in Sources */,
 				0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */,
-				0BBDCC662997D4110014CA94 /* GIFAnimator.swift in Sources */,
-				0BBDCC642991084B0014CA94 /* GIFFrameFactory.swift in Sources */,
-				0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */,
+				0BE7769F29B723B4004FFB75 /* GIFOImageCache.swift in Sources */,
+				0BBDCC662997D4110014CA94 /* GIFOAnimator.swift in Sources */,
+				0BBDCC642991084B0014CA94 /* GIFOFrameFactory.swift in Sources */,
+				0BE776A129B723BF004FFB75 /* GIFOImageCacheItem.swift in Sources */,
+				0B235269298CF7BE003D1336 /* GIFOFrame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

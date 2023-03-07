@@ -28,8 +28,9 @@ public class GIFImageView: UIImageView {
         Task { [weak self] in
             let image = try await ImageCacheManager.shared.imageLoad(url)
             
-            guard let imageData = UIImage.gifImageWithData(image) else { return }
-            
+            guard let imageData = UIImage.gifImageWithData(image) else {
+                return
+            }
             
             await MainActor.run {
                 self?.image = imageData
