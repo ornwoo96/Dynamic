@@ -67,7 +67,6 @@ extension UIImage {
         return delay
     }
     
-    // MARK: 어떤 작업 때문에 하는 것일까?
     class func gcdForPair(_ a: Int?, _ b: Int?) -> Int {
         var a = a
         var b = b
@@ -128,6 +127,7 @@ extension UIImage {
             }
             return sum
         }()
+        
         let gcd = gcdForArray(delays)
         var frames = [UIImage]()
         var frame: UIImage
@@ -139,6 +139,7 @@ extension UIImage {
                 frames.append(frame)
             }
         }
+        
         let animation = UIImage.animatedImage(with: frames,
                                               duration: Double(duration) / 1000.0)
         return animation

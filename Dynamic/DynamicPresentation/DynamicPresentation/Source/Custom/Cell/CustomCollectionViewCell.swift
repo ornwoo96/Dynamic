@@ -60,7 +60,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure(url: String) {
-        self.imageView.clearImageView()
+        self.imageView.stopAnimation()
+        
         DispatchQueue.global(qos: .background).async {
             self.imageView.setupGIFImage(url: url,
                                          cacheKey: url,
@@ -75,6 +76,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func clear() {
+        
         imageView.clearImageView()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)

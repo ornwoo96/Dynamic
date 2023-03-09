@@ -30,6 +30,7 @@ internal class GIFODownloader {
             
             return data
         } catch {
+            print(GIFODownLoaderError.failedRequest)
             throw GIFODownLoaderError.failedRequest
         }
     }

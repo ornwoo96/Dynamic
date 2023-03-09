@@ -31,10 +31,10 @@ internal class GIFOAnimator {
                                     animationOnReady: (() -> Void)? = nil) {
         frameFactory = nil
         frameFactory = GIFOFrameFactory(data: data,
-                                       size: size,
-                                       contentMode: contentMode,
-                                       isResizing: isResizing,
-                                       cacheKey: cacheKey)
+                                        size: size,
+                                        contentMode: contentMode,
+                                        isResizing: isResizing,
+                                        cacheKey: cacheKey)
         self.loopCount = loopCount
         
         frameFactory?.setupGIFImageFrames(level: level) { [weak self] in
@@ -103,31 +103,20 @@ internal class GIFOAnimator {
     }
     
     internal func startAnimation() {
-        guard let displayLink = displayLink else {
-            return
+        DispatchQueue.main.async { [weak self] in
+            self?.displayLink!.isPaused = false
         }
-        
-        DispatchQueue.main.async {
-            displayLink.isPaused = false
-        }
-        
     }
     
     internal func clear() {
-        guard let displayLink = displayLink else {
-            return
-        }
-        displayLink.invalidate()
+        displayLink!.invalidate()
+        displayLink = nil
         frameFactory?.clearFactory()
     }
     
     internal func stopAnimation() {
-        guard let displayLink = displayLink else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            displayLink.isPaused = true
+        DispatchQueue.main.async { [weak self] in
+            self?.displayLink!.isPaused = true
         }
     }
     

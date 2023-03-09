@@ -55,7 +55,7 @@ internal class GIFOFrameFactory {
             }
             
             self.animationFrames = cgImages
-            
+            self.totalFrameCount = cgImages.count
             animationOnReady?()
             return
         }

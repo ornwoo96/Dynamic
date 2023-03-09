@@ -275,7 +275,6 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         cell.clear()
     }
-    
 }
 
 extension CustomViewController: UIGestureRecognizerDelegate {

@@ -19,7 +19,6 @@ public class GIFOImageView: UIImageView {
                               level: GIFFrameReduceLevel = .highLevel,
                               isResizing: Bool = false,
                               animationOnReady: (() -> Void)? = nil) {
-        self.clearImage()
         animator.delegate = self
         
         if animator.checkCachingStatus() {
