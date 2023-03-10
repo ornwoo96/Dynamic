@@ -11,7 +11,8 @@ public class GIFOImageView: UIImageView {
     private var animator = GIFOAnimator()
     
     // Setup - GIF URL
-    public func setupGIFImage(url: String,
+    public func setupGIFImage(index: Int,
+                              url: String,
                               cacheKey: String,
                               size: CGSize = CGSize(),
                               loopCount: Int = 0,
@@ -23,7 +24,10 @@ public class GIFOImageView: UIImageView {
         
         if animator.checkCachingStatus() {
             
-            animator.setupCachedImages(animationOnReady: animationOnReady)
+            animator.setupCachedImages {
+                print("\(index)번째 GIF Setup Cached Images 완료")
+                animationOnReady?()
+            }
             return
         }
         
@@ -36,8 +40,10 @@ public class GIFOImageView: UIImageView {
                                             contentMode: contentMode,
                                             level: level,
                                             isResizing: isResizing,
-                                            cacheKey: cacheKey,
-                                            animationOnReady: animationOnReady)
+                                            cacheKey: cacheKey) {
+                print("\(index)번째 GIF create and setup 완료")
+                animationOnReady?()
+            }
         }
     }
     
@@ -105,15 +111,17 @@ public class GIFOImageView: UIImageView {
         animator.startAnimation()
     }
     
-    public func stopAnimation() {
+    public func stopAnimation(index: Int) {
         animator.stopAnimation()
     }
     
-    public func clearImageView() {
+    public func clearImageView(index: Int) {
+        stopAnimation(index: index)
         DispatchQueue.main.async { [weak self] in
             self?.image = nil
             self?.animator.clear()
         }
+        print("\(index)번째 GIF ImageView clear")
     }
     
     private func clearImage() {

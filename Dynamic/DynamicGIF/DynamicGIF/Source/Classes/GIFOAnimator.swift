@@ -61,7 +61,6 @@ internal class GIFOAnimator {
     }
     
     @objc private func updateFrame() {
-        
         guard let frames = frameFactory?.animationFrames else {
             return
         }
@@ -103,20 +102,33 @@ internal class GIFOAnimator {
     }
     
     internal func startAnimation() {
-        DispatchQueue.main.async { [weak self] in
-            self?.displayLink!.isPaused = false
+        guard let displayLink = self.displayLink else {
+            print("displayLink not found - startAnimation")
+            return
+        }
+        
+        DispatchQueue.main.async {
+            displayLink.isPaused = false
         }
     }
     
     internal func clear() {
-        displayLink!.invalidate()
-        displayLink = nil
+        guard let displayLink = self.displayLink else {
+            print("displayLink not found - clear")
+            return
+        }
+        
+        displayLink.invalidate()
         frameFactory?.clearFactory()
     }
     
     internal func stopAnimation() {
-        DispatchQueue.main.async { [weak self] in
-            self?.displayLink!.isPaused = true
+        guard let displayLink = self.displayLink else {
+            print("displayLink not found - stopAnimation")
+            return
+        }
+        DispatchQueue.main.async {
+            displayLink.isPaused = true
         }
     }
     

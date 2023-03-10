@@ -249,7 +249,8 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return UICollectionViewCell()
         }
         
-        cell.configure(viewModel.retrieveCustomCellItem(indexPath))
+        cell.configure(viewModel.retrieveCustomCellItem(indexPath),
+                       index: indexPath.row)
         
         return cell
     }
@@ -273,7 +274,7 @@ extension CustomViewController: UICollectionViewDelegate, UICollectionViewDataSo
             for: indexPath) as? CustomCollectionViewCell else {
             return
         }
-        cell.clear()
+        cell.clear(index: indexPath.item)
     }
 }
 

@@ -30,13 +30,13 @@
             filePath = "Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "setupGIFImage(data:cacheKey:size:loopCount:contentMode:level:isResizing:animationOnReady:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5 - d88d9a6120126769"
+                  uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5 - d88d9a61201261da"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "89"
-                  endingLineNumber = "89"
-                  offsetFromSymbolStart = "521">
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "793">
                </Location>
                <Location
-                  uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5 - d88d9a612012674e"
+                  uuid = "12678C76-CD96-478A-ACAF-DAC4C9F799E5 - d88d9a6120126690"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,8 +61,8 @@
                   urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
                   offsetFromSymbolStart = "583">
                </Location>
             </Locations>

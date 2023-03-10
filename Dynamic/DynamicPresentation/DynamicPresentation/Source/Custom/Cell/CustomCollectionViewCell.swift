@@ -49,21 +49,20 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        clear()
     }
     
-    public func configure(_ item: CustomCellItem) {
+    public func configure(_ item: CustomCellItem, index: Int) {
         //        gifImageView.configure(url: item.imageUrl)
-        configure(url: item.imageUrl)
+        configure(url: item.imageUrl, index: index)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
     }
     
-    private func configure(url: String) {
-        self.imageView.stopAnimation()
-        
+    private func configure(url: String,
+                           index: Int) {
         DispatchQueue.global(qos: .background).async {
-            self.imageView.setupGIFImage(url: url,
+            self.imageView.setupGIFImage(index: index,
+                                         url: url,
                                          cacheKey: url,
                                          size: CGSize(width: 100, height: 100),
                                          loopCount: 0,
@@ -71,13 +70,13 @@ class CustomCollectionViewCell: UICollectionViewCell {
                                          level: .highLevel,
                                          isResizing: false) {
                 self.imageView.startAnimation()
+                print("\(index)번째 GIF Animation func 실행")
             }
         }
     }
     
-    public func clear() {
-        
-        imageView.clearImageView()
+    public func clear(index: Int) {
+        imageView.clearImageView(index: index)
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
     }
