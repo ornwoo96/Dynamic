@@ -49,6 +49,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageView.clearImageView(index: 0)
     }
     
     public func configure(_ item: CustomCellItem, index: Int) {
@@ -60,7 +61,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func configure(url: String,
                            index: Int) {
+        
         DispatchQueue.global(qos: .background).async {
+            
             self.imageView.setupGIFImage(index: index,
                                          url: url,
                                          cacheKey: url,

@@ -20,15 +20,11 @@ internal class GIFOFrameFactory {
     private var contentMode: UIView.ContentMode
     internal var totalFrameCount: Int?
     private var isResizing: Bool = false
-    internal var isCached: Bool = false
-    private var cacheKey: String = ""
     
     init(data: Data,
          size: CGSize,
          contentMode: UIView.ContentMode = .scaleAspectFill,
-         isResizing: Bool = false,
-         cacheKey: String) {
-        self.cacheKey = cacheKey
+         isResizing: Bool = false) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.imageSize = size
@@ -43,20 +39,10 @@ internal class GIFOFrameFactory {
         self.isResizing = false
     }
     
-    internal func setupGIFImageFrames(level: GIFFrameReduceLevel = .highLevel,
-                                      animationOnReady: (() -> Void)? = nil) {
+    internal func setupGIFImageFrames(cacheKey: String,
+                                      level: GIFFrameReduceLevel = .highLevel,
+                                      animationOnReady: @escaping () -> Void) {
         guard let imageSource = self.imageSource else {
-            return
-        }
-        
-        if isCached {
-            guard let cgImages = GIFOImageCache.shared.getGIFImages(forKey: self.cacheKey) else {
-                return
-            }
-            
-            self.animationFrames = cgImages
-            self.totalFrameCount = cgImages.count
-            animationOnReady?()
             return
         }
         
@@ -64,8 +50,21 @@ internal class GIFOFrameFactory {
         let levelFrames = getLevelFrame(level: level, frames: frames)
         self.animationFrames = levelFrames
         
-        saveCacheImageFrames(frames: levelFrames)
-        animationOnReady?()
+        saveCacheImageFrames(cacheKey: cacheKey,
+                             frames: levelFrames)
+        animationOnReady()
+    }
+    
+    internal func setupCachedImageFrames(cacheKey: String,
+                                         level: GIFFrameReduceLevel = .highLevel,
+                                         animationOnReady: @escaping () -> Void) {
+        guard let cgImages = GIFOImageCache.shared.getGIFImages(forKey: cacheKey) else {
+            print("get cachedImages - failure")
+            return
+        }
+        self.animationFrames = cgImages
+        self.totalFrameCount = cgImages.count
+        animationOnReady()
     }
     
     private func getLevelFrame(level: GIFFrameReduceLevel,
@@ -111,9 +110,9 @@ internal class GIFOFrameFactory {
         return frameProperties
     }
     
-    private func saveCacheImageFrames(frames: [GIFOFrame]) {
-        GIFOImageCache.shared.addGIFImages(frames, forKey: self.cacheKey)
-        isCached = true
+    private func saveCacheImageFrames(cacheKey: String,
+                                      frames: [GIFOFrame]) {
+        GIFOImageCache.shared.addGIFImages(frames, forKey: cacheKey)
     }
     
     private func applyMinimumDelayTime(_ properties: [String: Any]) -> Double {

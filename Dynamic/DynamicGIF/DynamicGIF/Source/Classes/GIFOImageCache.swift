@@ -22,6 +22,14 @@ internal class GIFOImageCache {
         return item.images
     }
     
+    internal func checkCachedImage(forKey key: String) -> Bool {
+        if self.cache.object(forKey: key as NSString) != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     internal func removeGIFImage(forKey key: String) {
         cache.removeObject(forKey: key as NSString)
     }
