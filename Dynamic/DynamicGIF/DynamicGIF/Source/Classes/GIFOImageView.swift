@@ -7,8 +7,11 @@
 
 import UIKit
 
-public class GIFOImageView: UIImageView {
+public class GIFOImageView: UIView {
     private var animator: GIFOAnimator = GIFOAnimator(index: 0)
+    private var animationContainerLayer = CALayer()
+    private var animationLayer = CALayer()
+    private var previousImage: CGImage?
     
     // Setup - GIF URL
     public func setupGIFImage(index: Int,
@@ -19,21 +22,22 @@ public class GIFOImageView: UIImageView {
                               contentMode: UIView.ContentMode = .scaleAspectFill,
                               level: GIFFrameReduceLevel = .highLevel,
                               isResizing: Bool = false,
-                              animationOnReady: @escaping () -> Void) {
-        
+                              animationOnReady: (() -> Void)? = nil) {
+        clearImageView(index: index)
         animator.delegate = self
         animator.index = index
-        
+        setupAnimationLayer()
+
         if GIFOImageCache.shared.checkCachedImage(forKey: cacheKey) {
             self.animator.setupCachedImages(cacheKey: cacheKey) {
                 print("\(index)번째 GIF Setup Cached Images 완료")
-                animationOnReady()
+                animationOnReady?()
             }
         }
         
         Task {
             let image = try await GIFODownloader.fetchImageData(url)
-
+            
             self.animator.setupForAnimation(data: image,
                                             size: size,
                                             loopCount: loopCount,
@@ -42,7 +46,9 @@ public class GIFOImageView: UIImageView {
                                             isResizing: isResizing,
                                             cacheKey: cacheKey) {
                 print("\(index)번째 GIF create and setup 완료")
-                animationOnReady()
+                self.startAnimation()
+                print("\(index)번째 GIF Animation func 실행")
+                animationOnReady?()
             }
         }
     }
@@ -108,6 +114,10 @@ public class GIFOImageView: UIImageView {
 //                                   animationOnReady: animationOnReady)
 //    }
     
+    public func prepareForReuse() {
+        
+    }
+    
     public func startAnimation() {
         animator.startAnimation()
     }
@@ -118,16 +128,19 @@ public class GIFOImageView: UIImageView {
     }
     
     public func clearImageView(index: Int) {
-        DispatchQueue.main.async { [weak self] in
-            self?.image = nil
-            self?.animator.clear()
-            print("\(index)번째 GIF ImageView clear")
-        }
+        animator.clear()
+        print("\(index)번째 GIF ImageView clear")
     }
     
-    private func clearImage() {
+    private func setupAnimationLayer() {
         DispatchQueue.main.async { [weak self] in
-            self?.image = nil
+            guard let strongSelf = self else { return }
+            self?.animationContainerLayer.frame = strongSelf.bounds
+            self?.animationContainerLayer.backgroundColor = .init(red: 0, green: 0, blue: 1, alpha: 0.5)
+            self?.layer.addSublayer(strongSelf.animationContainerLayer)
+            
+            self?.animationLayer.frame = strongSelf.bounds
+            self?.animationContainerLayer.addSublayer(strongSelf.animationLayer)
         }
     }
 }
@@ -135,7 +148,28 @@ public class GIFOImageView: UIImageView {
 extension GIFOImageView: GIFOAnimatorImageUpdateDelegate {
     func animationImageUpdate(_ image: CGImage) {
         DispatchQueue.main.async { [weak self] in
-            self?.image = UIImage(cgImage: image)
+            //            self?.animationLayer.contents = nil
+            //
+            //            self?.animationLayer.setNeedsDisplay()
+            //
+            //            self?.animationLayer.contents = image
+            
+            guard let self = self else { return }
+            
+            // Create a new CALayer
+            let newLayer = CALayer()
+            newLayer.frame = self.frame
+            newLayer.contentsGravity = .resizeAspect
+            newLayer.contentsScale = UIScreen.main.scale
+//            newLayer.contents = image
+            
+            // Add the new CALayer and remove the old one
+            self.animationContainerLayer.addSublayer(newLayer)
+            self.animationLayer.removeFromSuperlayer()
+            self.animationLayer = newLayer
+            
+            // Set the new layer to display immediately
+            self.animationContainerLayer.displayIfNeeded()
         }
     }
 }

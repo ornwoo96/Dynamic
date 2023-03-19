@@ -33,10 +33,10 @@ internal class GIFOFrameFactory {
     }
     
     internal func clearFactory() {
-        self.animationFrames = []
-        self.imageSource = nil
-        self.totalFrameCount = 0
-        self.isResizing = false
+        animationFrames = []
+        imageSource = nil
+        totalFrameCount = 0
+        isResizing = false
     }
     
     internal func setupGIFImageFrames(cacheKey: String,
@@ -62,8 +62,8 @@ internal class GIFOFrameFactory {
             print("get cachedImages - failure")
             return
         }
-        self.animationFrames = cgImages
-        self.totalFrameCount = cgImages.count
+        animationFrames = cgImages
+        totalFrameCount = cgImages.count
         animationOnReady()
     }
     

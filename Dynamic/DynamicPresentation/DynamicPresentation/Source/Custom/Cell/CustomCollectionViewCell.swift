@@ -53,7 +53,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ item: CustomCellItem, index: Int) {
-        //        gifImageView.configure(url: item.imageUrl)
+        print(item.imageUrl)
         configure(url: item.imageUrl, index: index)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
@@ -71,10 +71,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
                                          loopCount: 0,
                                          contentMode: UIView.ContentMode.scaleAspectFill,
                                          level: .highLevel,
-                                         isResizing: false) {
-                self.imageView.startAnimation()
-                print("\(index)번째 GIF Animation func 실행")
-            }
+                                         isResizing: false)
         }
     }
     

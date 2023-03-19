@@ -45,7 +45,9 @@ internal class GIFOAnimator {
         frameFactory?.setupGIFImageFrames(cacheKey: cacheKey,
                                           level: level) { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.setupDisplayLink()
+//            DispatchQueue.main.async {
+                strongSelf.setupDisplayLink()
+//            }
             animationOnReady()
         }
     }
@@ -55,7 +57,8 @@ internal class GIFOAnimator {
         gifDisplay.preferredFramesPerSecond = 10
         gifDisplay.isPaused = true
         gifDisplay.add(to: .current, forMode: .common)
-        self.displayLink = gifDisplay
+        displayLink = gifDisplay
+        print("\(index)번째 displayLink")
     }
     
     internal func setupCachedImages(cacheKey: String,
@@ -86,7 +89,7 @@ internal class GIFOAnimator {
         }
         
         let elapsed = elapsedTime - lastFrameTime
-        print("\(index)번째 애니메이터")
+        
         guard elapsed >= frames[currentFrameIndex].duration else {
             return
         }
@@ -123,10 +126,9 @@ internal class GIFOAnimator {
     
     internal func clear() {
         guard let displayLink = self.displayLink else {
-            print("displayLink not found - startAnimation")
+            print("displayLink not found - Clear")
             return
         }
-        
         isPaused = true
         displayLink.invalidate()
         frameFactory?.clearFactory()
@@ -137,7 +139,10 @@ internal class GIFOAnimator {
             print("\(index)displayLink not found - stopAnimation")
             return
         }
-        isPaused = true
-        displayLink.isPaused = true
+        DispatchQueue.main.async { [weak self] in
+            self?.isPaused = true
+            displayLink.isPaused = true
+            self?.frameFactory?.clearFactory()
+        }
     }
 }
