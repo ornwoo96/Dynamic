@@ -7,10 +7,9 @@
 
 import UIKit
 
-public class GIFOImageView: UIView {
+public class GIFOImageView: UIImageView {
     private var animator: GIFOAnimator = GIFOAnimator(index: 0)
-    private var animationContainerLayer = CALayer()
-    private var animationLayer = CALayer()
+    private var animationLayer: CALayer?
     private var previousImage: CGImage?
     
     // Setup - GIF URL
@@ -23,11 +22,12 @@ public class GIFOImageView: UIView {
                               level: GIFFrameReduceLevel = .highLevel,
                               isResizing: Bool = false,
                               animationOnReady: (() -> Void)? = nil) {
-        clearImageView(index: index)
+//        clearImageView(index: index)
+        animationLayer = nil
         animator.delegate = self
         animator.index = index
         setupAnimationLayer()
-
+        
         if GIFOImageCache.shared.checkCachedImage(forKey: cacheKey) {
             self.animator.setupCachedImages(cacheKey: cacheKey) {
                 print("\(index)번째 GIF Setup Cached Images 완료")
@@ -129,18 +129,38 @@ public class GIFOImageView: UIView {
     
     public func clearImageView(index: Int) {
         animator.clear()
-        print("\(index)번째 GIF ImageView clear")
+        DispatchQueue.main.async { [weak self] in
+            self?.layer.setNeedsDisplay()
+            self?.layer.contents = nil
+            self?.layer.display()
+            self?.animationLayer = nil
+            self?.animationLayer?.removeAllAnimations()
+            self?.animationLayer?.removeFromSuperlayer()
+            
+        }
+        
+        let bool2 = self.animationLayer?.contents
+        
+        if (bool2 != nil) {
+            print("캐싱된 이미지 있음")
+        } else {
+            print("\(index)번째 캐싱된 이미지 없음")
+        }
     }
     
     private func setupAnimationLayer() {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            self?.animationContainerLayer.frame = strongSelf.bounds
-            self?.animationContainerLayer.backgroundColor = .init(red: 0, green: 0, blue: 1, alpha: 0.5)
-            self?.layer.addSublayer(strongSelf.animationContainerLayer)
+            let calayer = CALayer()
+            calayer.frame = self?.bounds ?? CGRect(origin: .zero, size: .zero)
+            calayer.contents = nil
+            self?.animationLayer = calayer
             
-            self?.animationLayer.frame = strongSelf.bounds
-            self?.animationContainerLayer.addSublayer(strongSelf.animationLayer)
+            guard let animationLayer = self?.animationLayer else {
+                print("왜 바운드스가 안되냐!?")
+                return
+            }
+
+            self?.layer.addSublayer(animationLayer)
         }
     }
 }
@@ -148,28 +168,9 @@ public class GIFOImageView: UIView {
 extension GIFOImageView: GIFOAnimatorImageUpdateDelegate {
     func animationImageUpdate(_ image: CGImage) {
         DispatchQueue.main.async { [weak self] in
-            //            self?.animationLayer.contents = nil
-            //
-            //            self?.animationLayer.setNeedsDisplay()
-            //
-            //            self?.animationLayer.contents = image
-            
-            guard let self = self else { return }
-            
-            // Create a new CALayer
-            let newLayer = CALayer()
-            newLayer.frame = self.frame
-            newLayer.contentsGravity = .resizeAspect
-            newLayer.contentsScale = UIScreen.main.scale
-//            newLayer.contents = image
-            
-            // Add the new CALayer and remove the old one
-            self.animationContainerLayer.addSublayer(newLayer)
-            self.animationLayer.removeFromSuperlayer()
-            self.animationLayer = newLayer
-            
-            // Set the new layer to display immediately
-            self.animationContainerLayer.displayIfNeeded()
+            guard let cgImageAutoreleasePool = autoreleasepool(invoking: { image.copy() }) else { return }
+            self?.layer.contents = cgImageAutoreleasePool
+            self?.display(self!.layer)
         }
     }
 }

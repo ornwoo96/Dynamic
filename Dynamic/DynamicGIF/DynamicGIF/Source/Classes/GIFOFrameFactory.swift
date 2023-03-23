@@ -33,10 +33,12 @@ internal class GIFOFrameFactory {
     }
     
     internal func clearFactory() {
-        animationFrames = []
-        imageSource = nil
-        totalFrameCount = 0
-        isResizing = false
+        DispatchQueue.main.async {
+            self.animationFrames = []
+            self.imageSource = nil
+            self.totalFrameCount = 0
+            self.isResizing = false
+        }
     }
     
     internal func setupGIFImageFrames(cacheKey: String,
@@ -48,6 +50,7 @@ internal class GIFOFrameFactory {
         
         let frames = convertCGImageSourceToGIFFrameArray(source: imageSource)
         let levelFrames = getLevelFrame(level: level, frames: frames)
+        
         self.animationFrames = levelFrames
         
         saveCacheImageFrames(cacheKey: cacheKey,

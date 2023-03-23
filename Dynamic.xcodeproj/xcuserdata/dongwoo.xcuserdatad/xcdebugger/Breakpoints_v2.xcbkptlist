@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "10168827-6030-42C3-AA6A-055FC4F48FB8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "clearImageView(index:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "10168827-6030-42C3-AA6A-055FC4F48FB8 - 7492da99fd0f8ae5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DynamicGIF.GIFOImageView.clearImageView(index: Swift.Int) -&gt; ()"
+                  moduleName = "DynamicGIF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "944">
+               </Location>
+               <Location
+                  uuid = "10168827-6030-42C3-AA6A-055FC4F48FB8 - 7492da99fd0f8ae5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DynamicGIF.GIFOImageView.clearImageView(index: Swift.Int) -&gt; ()"
+                  moduleName = "DynamicGIF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/GIFOImageView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "1032">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

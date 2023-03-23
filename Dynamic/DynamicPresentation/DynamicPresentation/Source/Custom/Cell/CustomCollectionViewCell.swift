@@ -61,7 +61,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func configure(url: String,
                            index: Int) {
-        
+        let pointer = Unmanaged.passUnretained(self).toOpaque()
         DispatchQueue.global(qos: .background).async {
             
             self.imageView.setupGIFImage(index: index,
