@@ -9,18 +9,31 @@ import UIKit
 import ImageIO
 
 internal protocol GIFOAnimatorImageUpdateDelegate {
-    func animationImageUpdate(_ image: CGImage)
+    func animationImageUpdate(image: UIImage)
+    func animationStoped()
 }
 
 internal class GIFOAnimator {
     private var currentFrameIndex = 0
-    private var lastFrameTime: Double = 0.0
     private var loopCount: Int = 0
     private var currentLoop: Int = 0
-    private var displayLink: CADisplayLink?
+    private var timer: Timer?
     internal var delegate: GIFOAnimatorImageUpdateDelegate?
     private var frameFactory: GIFOFrameFactory?
-    private var isPaused = false
+    internal var isPaused = false
+    
+    private let frameDuration = 0.1
+    
+    internal var currentImage: GIFOFrame?
+    
+    internal var isAnimationStoped: Bool = false {
+        didSet {
+            if self.isAnimationStoped {
+                delegate?.animationStoped()
+            }
+        }
+    }
+    
     var index = 0
     
     init(index: Int) {
@@ -43,43 +56,23 @@ internal class GIFOAnimator {
         self.loopCount = loopCount
         
         frameFactory?.setupGIFImageFrames(cacheKey: cacheKey,
-                                          level: level) { [weak self] in
-            guard let strongSelf = self else { return }
-//            DispatchQueue.main.async {
-                strongSelf.setupDisplayLink()
-//            }
-            animationOnReady()
-        }
-    }
-    
-    private func setupDisplayLink() {
-        let gifDisplay = CADisplayLink(target: self, selector: #selector(updateFrame))
-        gifDisplay.preferredFramesPerSecond = 10
-        gifDisplay.isPaused = true
-        gifDisplay.add(to: .current, forMode: .common)
-        displayLink = gifDisplay
-        print("\(index)번째 displayLink")
+                                          level: level,
+                                          animationOnReady: animationOnReady)
     }
     
     internal func setupCachedImages(cacheKey: String,
                                     animationOnReady: @escaping () -> Void) {
-        frameFactory?.setupCachedImageFrames(cacheKey: cacheKey) { [weak self] in
-            guard let strongSelf = self else { return }
-//            strongSelf.setupDisplayLink()
-            animationOnReady()
-        }
+        frameFactory?.setupCachedImageFrames(cacheKey: cacheKey, animationOnReady: animationOnReady)
     }
     
     @objc private func updateFrame() {
         if isPaused {
-            return
+            self.frameFactory?.clearFactory {
+                return
+            }
         }
         
         guard let frames = frameFactory?.animationFrames else {
-            return
-        }
-        
-        guard let elapsedTime = displayLink?.timestamp else {
             return
         }
         
@@ -88,61 +81,66 @@ internal class GIFOAnimator {
             currentLoop += 1
         }
         
-        let elapsed = elapsedTime - lastFrameTime
-        
-        guard elapsed >= frames[currentFrameIndex].duration else {
-            return
-        }
-        
-        
         if loopCount != 0 && currentLoop >= loopCount {
             currentFrameIndex = 0
             stopAnimation()
             return
         }
         
-        guard let currentImage = frames[currentFrameIndex].image else {
+        guard let currentImage = frameFactory?.animationFrames[currentFrameIndex].image else {
             return
         }
         
-        delegate?.animationImageUpdate(currentImage)
+        delegate?.animationImageUpdate(image: currentImage)
         
-        guard let displayLinkLastFrameTime = displayLink?.timestamp else {
-            return
-        }
         
         currentFrameIndex += 1
-        lastFrameTime = displayLinkLastFrameTime
     }
     
     internal func startAnimation() {
-        guard let displayLink = self.displayLink else {
-            print("displayLink not found - startAnimation")
+        timer = nil
+        isPaused = false
+        
+        let newTimer = Timer(timeInterval: frameDuration,
+                             target: self,
+                             selector: #selector(updateFrame),
+                             userInfo: nil,
+                             repeats: true)
+        timer = newTimer
+        
+        guard let timer = self.timer else {
             return
         }
-        isPaused = false
-        displayLink.isPaused = false
+        
+        RunLoop.current.add(timer, forMode: .common)
+        print("\(index)번째 Timer Start")
     }
     
-    internal func clear() {
-        guard let displayLink = self.displayLink else {
-            print("displayLink not found - Clear")
-            return
+    internal func clear(completed: @escaping ()->Void) {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let timer = self?.timer else {
+                print("timer not found - Clear")
+                return
+            }
+            
+            self?.isPaused = true
+            timer.invalidate()
+            self?.frameFactory?.clearFactory(completed: completed)
+            self?.frameFactory = nil
         }
-        isPaused = true
-        displayLink.invalidate()
-        frameFactory?.clearFactory()
     }
     
     internal func stopAnimation() {
-        guard let displayLink = self.displayLink else {
-            print("\(index)displayLink not found - stopAnimation")
+        guard let timer = self.timer else {
+            print("\(index)timer not found - stopAnimation")
             return
         }
+        
         DispatchQueue.main.async { [weak self] in
             self?.isPaused = true
-            displayLink.isPaused = true
-            self?.frameFactory?.clearFactory()
+            timer.invalidate()
+            self?.isAnimationStoped = true
         }
     }
 }

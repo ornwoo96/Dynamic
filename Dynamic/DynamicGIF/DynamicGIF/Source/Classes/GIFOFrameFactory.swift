@@ -20,6 +20,9 @@ internal class GIFOFrameFactory {
     private var contentMode: UIView.ContentMode
     internal var totalFrameCount: Int?
     private var isResizing: Bool = false
+    private var cacheKey = ""
+    
+    private let cache = GIFOImageCache.shared
     
     init(data: Data,
          size: CGSize,
@@ -32,13 +35,16 @@ internal class GIFOFrameFactory {
         self.isResizing = isResizing
     }
     
-    internal func clearFactory() {
-        DispatchQueue.main.async {
-            self.animationFrames = []
-            self.imageSource = nil
-            self.totalFrameCount = 0
-            self.isResizing = false
-        }
+    internal func clearFactory(completed: @escaping ()->Void) {
+        
+        self.animationFrames = []
+//        self.cacheKey = ""
+        self.imageSource = nil
+        self.totalFrameCount = 0
+        self.isResizing = false
+        
+        cache.removeGIFImage(forKey: self.cacheKey)
+        completed()
     }
     
     internal func setupGIFImageFrames(cacheKey: String,
@@ -47,7 +53,7 @@ internal class GIFOFrameFactory {
         guard let imageSource = self.imageSource else {
             return
         }
-        
+        self.cacheKey = cacheKey
         let frames = convertCGImageSourceToGIFFrameArray(source: imageSource)
         let levelFrames = getLevelFrame(level: level, frames: frames)
         
@@ -65,7 +71,8 @@ internal class GIFOFrameFactory {
             print("get cachedImages - failure")
             return
         }
-        animationFrames = cgImages
+        self.cacheKey = cacheKey
+        animationFrames = Array(cgImages)
         totalFrameCount = cgImages.count
         animationOnReady()
     }
@@ -100,12 +107,12 @@ internal class GIFOFrameFactory {
                 
                 frameProperties.append(
                     GIFOFrame(image: resizeImage,
-                             duration: applyMinimumDelayTime(properties))
+                              duration: applyMinimumDelayTime(properties))
                 )
             } else {
                 frameProperties.append(
                     GIFOFrame(image: image,
-                             duration: applyMinimumDelayTime(properties))
+                              duration: applyMinimumDelayTime(properties))
                 )
             }
         }
@@ -115,7 +122,15 @@ internal class GIFOFrameFactory {
     
     private func saveCacheImageFrames(cacheKey: String,
                                       frames: [GIFOFrame]) {
-        GIFOImageCache.shared.addGIFImages(frames, forKey: cacheKey)
+        var newFrames: [GIFOFrame] = []
+        
+        frames.forEach {
+            guard let newImage = $0.image.cgImage?.copy() else { return }
+            let frame = GIFOFrame.init(image: newImage, duration: $0.duration)
+            newFrames.append(frame)
+        }
+        
+        cache.addGIFImages(newFrames, forKey: cacheKey)
     }
     
     private func applyMinimumDelayTime(_ properties: [String: Any]) -> Double {

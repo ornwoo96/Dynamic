@@ -7,10 +7,23 @@
 
 import UIKit
 
-struct GIFOFrame {
-    static let empty: Self = .init(image: UIImage().cgImage,
+internal struct GIFOFrame {
+    static let empty: Self = .init(image: UIImage().cgImage!,
                                    duration: 0.0)
     
-    var image: CGImage?
+    var image: UIImage
     var duration: Double
+    
+    init(image: CGImage,
+         duration: Double) {
+        self.image = UIImage(cgImage: image)
+        self.duration = duration
+    }
+    
+    init(image: UIImage,
+         duration: Double) {
+        self.image = image
+        self.duration = duration
+    }
 }
+

@@ -49,11 +49,11 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.clearImageView(index: 0)
+        imageView.prepareForReuse()
+//        self.imageView.removeFromSuperview()
     }
     
     public func configure(_ item: CustomCellItem, index: Int) {
-        print(item.imageUrl)
         configure(url: item.imageUrl, index: index)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
@@ -61,14 +61,13 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func configure(url: String,
                            index: Int) {
-        let pointer = Unmanaged.passUnretained(self).toOpaque()
         DispatchQueue.global(qos: .background).async {
             
             self.imageView.setupGIFImage(index: index,
                                          url: url,
                                          cacheKey: url,
                                          size: CGSize(width: 100, height: 100),
-                                         loopCount: 0,
+                                         loopCount: 3,
                                          contentMode: UIView.ContentMode.scaleAspectFill,
                                          level: .highLevel,
                                          isResizing: false)
@@ -76,9 +75,12 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     public func clear(index: Int) {
-        imageView.clearImageView(index: index)
-        heartView.isHidden = true
-        heartView.setupHeartViewImage(bool: false)
+        DispatchQueue.main.async {
+            self.imageView.clearImageView(index: index)
+            self.heartView.isHidden = true
+            self.heartView.setupHeartViewImage(bool: false)
+            self.imageView.removeFromSuperview()
+        }
     }
     
     private func setupCellGradient() {

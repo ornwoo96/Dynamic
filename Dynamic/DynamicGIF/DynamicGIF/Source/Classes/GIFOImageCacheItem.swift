@@ -1,16 +1,16 @@
 //
-//  GIFOImageCacheItem.swift
-//  DynamicGIF
+//  GIfImageCacheItem.swift
+//  BMOGIF
 //
-//  Created by 김동우 on 2023/03/07.
+//  Created by 김동우 on 2023/02/28.
 //
 
 import UIKit
 
 internal class GIFOImageCacheItem {
-    let images: [GIFOFrame]
+    let layers: [GIFOFrame]
 
-    init(images: [GIFOFrame]) {
-        self.images = images
+    init(layers: [GIFOFrame]) {
+        self.layers = layers
     }
 }
