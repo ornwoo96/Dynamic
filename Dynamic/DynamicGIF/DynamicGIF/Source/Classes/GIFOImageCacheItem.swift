@@ -8,9 +8,9 @@
 import UIKit
 
 internal class GIFOImageCacheItem {
-    let layers: [GIFOFrame]
+    let frames: [GIFOFrame]
 
-    init(layers: [GIFOFrame]) {
-        self.layers = layers
+    init(frames: [GIFOFrame]) {
+        self.frames = frames
     }
 }

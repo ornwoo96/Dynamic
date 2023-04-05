@@ -9,181 +9,126 @@ import UIKit
 
 public class GIFOImageView: UIImageView {
     private var animator: GIFOAnimator?
-    private var imageView = UIImageView()
-    private var previousImage: CGImage?
     private var animationLayer: CALayer?
-    private var index = 0
-    let queue = DispatchQueue(label: "memoryCleanupQueue", qos: .background)
-
+    private var frameFactory: GIFOFrameFactory?
+    
     // Setup - GIF URL
-    public func setupGIFImage(index: Int,
-                              url: String,
-                              cacheKey: String,
-                              size: CGSize = CGSize(),
-                              loopCount: Int = 0,
-                              contentMode: UIView.ContentMode = .scaleAspectFill,
-                              level: GIFFrameReduceLevel = .highLevel,
-                              isResizing: Bool = false,
-                              animationOnReady: (() -> Void)? = nil) {
-        animator = GIFOAnimator(index: index)
+    public func setupGIFImageWithDisplayLink(url: String,
+                                             cacheKey: String,
+                                             size: CGSize = CGSize(),
+                                             loopCount: Int = 0,
+                                             contentMode: UIView.ContentMode = .scaleAspectFill,
+                                             level: GIFFrameReduceLevel = .highLevel,
+                                             isResizing: Bool = false,
+                                             animationOnReady: (() -> Void)? = nil) {
+        clearGIFOFrameData()
+        animator = GIFOAnimator()
         animator?.delegate = self
-        animator?.index = index
-        stopAnimation(index: index)
-        clearImageView(index: index)
-        setupAnimationLayer()
+        checkCachedImagesWithGIFOFrame(cacheKey, animationOnReady: animationOnReady)
         
-        self.index = index
-        self.animator?.index = index
-
-        if GIFOImageCache.shared.checkCachedImage(forKey: cacheKey) {
-            self.animator?.setupCachedImages(cacheKey: cacheKey) {
-                print("\(index)번째 GIF Setup Cached Images 완료")
-                animationOnReady?()
-            }
-        }
-        
-        Task {
+        Task { [weak self] in
             let image = try await GIFODownloader.fetchImageData(url)
             
-            self.animator?.setupForAnimation(data: image,
-                                             size: size,
-                                             loopCount: loopCount,
-                                             contentMode: contentMode,
-                                             level: level,
-                                             isResizing: isResizing,
-                                             cacheKey: cacheKey) {
-                print("\(index)번째 GIF create and setup 완료")
-                self.startAnimation()
-                print("\(index)번째 GIF Animation func 실행")
+            self?.animator?.setupForAnimation(data: image,
+                                              size: size,
+                                              loopCount: loopCount,
+                                              contentMode: contentMode,
+                                              level: level,
+                                              isResizing: isResizing,
+                                              cacheKey: cacheKey) {
+                self?.startAnimation()
                 animationOnReady?()
             }
         }
     }
     
-    // Setup - GIF Name
-//    public func setupGIFImage(name: String,
-//                              cacheKey: String,
-//                              size: CGSize = CGSize(),
-//                              loopCount: Int = 0,
-//                              contentMode: UIView.ContentMode = .scaleAspectFill,
-//                              level: GIFFrameReduceLevel = .highLevel,
-//                              isResizing: Bool = false,
-//                              animationOnReady: (() -> Void)? = nil) {
-//        animator.delegate = self
-//
-//        if animator.checkCachingStatus() {
-//            animator.setupCachedImages(animationOnReady: animationOnReady)
-//            return
-//        }
-//
-//        do {
-//            guard let data = try GIFODownloader.getDataFromAsset(named: name) else {
-//                return
-//            }
-//
-//            self.animator.setupForAnimation(data: data,
-//                                            size: size,
-//                                            loopCount: loopCount,
-//                                            contentMode: contentMode,
-//                                            level: level,
-//                                            isResizing: isResizing,
-//                                            cacheKey: cacheKey,
-//                                            animationOnReady: animationOnReady)
-//        } catch {
-//            print("")
-//        }
-//    }
-//
-//    // Setup - GIF Data
-//    public func setupGIFImage(data: Data,
-//                              cacheKey: String,
-//                              size: CGSize = CGSize(),
-//                              loopCount: Int = 0,
-//                              contentMode: UIView.ContentMode = .scaleAspectFill,
-//                              level: GIFFrameReduceLevel = .highLevel,
-//                              isResizing: Bool = false,
-//                              animationOnReady: (() -> Void)? = nil) {
-//        animator.delegate = self
-//
-//        if animator.checkCachingStatus() {
-//
-//            animator.setupCachedImages(animationOnReady: animationOnReady)
-//            return
-//        }
-//
-//        animator.setupForAnimation(data: data,
-//                                   size: size,
-//                                   loopCount: loopCount,
-//                                   contentMode: contentMode,
-//                                   level: level,
-//                                   isResizing: isResizing,
-//                                   cacheKey: cacheKey,
-//                                   animationOnReady: animationOnReady)
-//    }
-    
-    private func setupAnimationLayer() {
-        DispatchQueue.main.async { [weak self] in
-            self?.animationLayer = nil
-            self?.animationLayer?.removeFromSuperlayer()
-            let newLayer = CALayer()
-            newLayer.frame = self?.bounds ?? CGRect(origin: .zero, size: .zero)
-            self?.animationLayer = newLayer
-            self?.layer.addSublayer((self?.animationLayer!)!)
-        }
-    }
-    
-    public func prepareForReuse() {
-        clearImageView(index: index)
-    }
     
     public func startAnimation() {
         animator?.startAnimation()
     }
     
-    public func stopAnimation(index: Int) {
+    public func stopAnimation() {
         animator?.stopAnimation()
-        print("\(index) stop 완료")
     }
     
-    public func clearImageView(index: Int) {
-        self.clearAnimationLayer()
-        animator?.clear {
+    public func clearGIFOFrameData() {
+        animator?.clear { [weak self] in
+            self?.clearAnimationLayer()
         }
-        
     }
     
     private func clearAnimationLayer() {
-        
-        self.animationLayer?.contents = nil
-        self.animationLayer?.removeFromSuperlayer()
-        self.animationLayer = nil
-        
-        guard let bool1 = self.animationLayer?.contents else {
-            return
+        DispatchQueue.main.async { [weak self] in
+            self?.layer.setNeedsDisplay()
+            self?.layer.contents = nil
+            self?.layer.removeFromSuperlayer()
         }
-        
-        if bool1 as! Bool {
-            print("\(self.index)번째캐싱된 메모리가 있네?")
-        } else {
-            
+    }
+    
+    private func checkCachedImagesWithGIFOFrame(_ key: String,
+                                                animationOnReady: (() -> Void)? = nil) {
+        if GIFOImageCache.shared.checkCachedImageWithGIFOFrame(forKey: key) {
+            self.animator?.setupCachedImages(cacheKey: key) {
+                self.startAnimation()
+                animationOnReady?()
+            }
         }
-        
-        
     }
 }
 
 extension GIFOImageView: GIFOAnimatorImageUpdateDelegate {
-    func animationStoped() {
-        self.clearImageView(index: index)
+    func animationImageUpdate(image: UIImage) {
+        self.layer.setNeedsDisplay()
+        self.layer.contents = image.cgImage
+    }
+}
+
+extension GIFOImageView {
+    public func setupGIFImageWithAnimation(url: String,
+                                           cacheKey: String,
+                                           size: CGSize = CGSize(),
+                                           loopCount: Int = 0,
+                                           contentMode: UIView.ContentMode = .scaleAspectFill,
+                                           level: GIFFrameReduceLevel = .highLevel,
+                                           isResizing: Bool = false,
+                                           animationOnReady: (() -> Void)? = nil) {
+        clearGIFOFrameData()
+        Task { [weak self] in
+            let image = try await GIFODownloader.fetchImageData(url)
+            
+            self?.frameFactory = GIFOFrameFactory(data: image,
+                                                  size: size,
+                                                  contentMode: contentMode,
+                                                  isResizing: isResizing)
+            
+            self?.frameFactory?.setupGIFImageFramesWithUIImage(cacheKey: cacheKey,
+                                                               level: level) {
+                let frames = self?.frameFactory?.animationUIImageFrames
+                let duration = self?.frameFactory?.animationTotalDuration
+                self?.animationImages = frames
+                self?.animationDuration = duration ?? 0.0
+                self?.startAnimating()
+                animationOnReady?()
+            }
+        }
     }
     
-    func animationImageUpdate(image: UIImage) {
-        
-//        if ((self.animator?.isPaused) != nil) {
-//            return
-//        }
-        
-        self.setNeedsDisplay()
-        self.animationLayer?.contents = image.cgImage
+    private func checkCachedImagesWithUIImage(_ key: String,
+                                              animationOnReady: (() -> Void)? = nil) {
+        if GIFOImageCache.shared.checkCachedImageWithUIImage(forKey: key) {
+            self.animator?.setupCachedImages(cacheKey: key) {
+                self.startAnimation()
+                animationOnReady?()
+            }
+        }
+    }
+    
+    public func clearUIImageData() {
+        frameFactory?.clearFactoryWithUIImage {
+            DispatchQueue.main.async {
+                self.animationImages = nil
+                self.image = nil
+            }
+        }
     }
 }

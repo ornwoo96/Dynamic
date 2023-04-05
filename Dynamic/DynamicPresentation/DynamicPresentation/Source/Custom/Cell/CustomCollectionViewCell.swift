@@ -49,7 +49,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.prepareForReuse()
+//        imageView.prepareForReuse()
 //        self.imageView.removeFromSuperview()
     }
     
@@ -63,20 +63,19 @@ class CustomCollectionViewCell: UICollectionViewCell {
                            index: Int) {
         DispatchQueue.global(qos: .background).async {
             
-            self.imageView.setupGIFImage(index: index,
-                                         url: url,
-                                         cacheKey: url,
-                                         size: CGSize(width: 100, height: 100),
-                                         loopCount: 3,
-                                         contentMode: UIView.ContentMode.scaleAspectFill,
-                                         level: .highLevel,
-                                         isResizing: false)
+            self.imageView.setupGIFImageWithAnimation(url: url,
+                                                      cacheKey: url,
+                                                      size: CGSize(width: 100, height: 100),
+                                                      loopCount: 3,
+                                                      contentMode: UIView.ContentMode.scaleAspectFill,
+                                                      level: .highLevel,
+                                                      isResizing: false)
         }
     }
     
     public func clear(index: Int) {
         DispatchQueue.main.async {
-            self.imageView.clearImageView(index: index)
+            self.imageView.clearUIImageData()
             self.heartView.isHidden = true
             self.heartView.setupHeartViewImage(bool: false)
             self.imageView.removeFromSuperview()
