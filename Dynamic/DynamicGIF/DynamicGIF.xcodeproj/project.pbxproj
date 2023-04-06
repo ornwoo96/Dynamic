@@ -70,6 +70,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2196AF29DED62900414C14 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				0BE7769E29B723B4004FFB75 /* GIFOImageCache.swift */,
+				0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */,
+				0B2196AB29DD287B00414C14 /* UIImageCacheItem.swift */,
+				0B2196AD29DDC22900414C14 /* CacheItemWithTimestamp.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		0B2196B029DED65100414C14 /* FrameFactory */ = {
+			isa = PBXGroup;
+			children = (
+				0B235268298CF7BE003D1336 /* GIFOFrame.swift */,
+				0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */,
+			);
+			path = FrameFactory;
+			sourceTree = "<group>";
+		};
+		0B2196B129DED67000414C14 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0B2196B229DED68100414C14 /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */,
+				0B23526A298CF7E5003D1336 /* GIFOImageView.swift */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
 		0B235264298CF621003D1336 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,15 +118,10 @@
 		0B235265298CF634003D1336 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0B235268298CF7BE003D1336 /* GIFOFrame.swift */,
-				0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */,
-				0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */,
-				0B23526A298CF7E5003D1336 /* GIFOImageView.swift */,
-				0BE7769E29B723B4004FFB75 /* GIFOImageCache.swift */,
-				0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */,
-				0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */,
-				0B2196AB29DD287B00414C14 /* UIImageCacheItem.swift */,
-				0B2196AD29DDC22900414C14 /* CacheItemWithTimestamp.swift */,
+				0B2196B129DED67000414C14 /* Network */,
+				0B2196B229DED68100414C14 /* Animator */,
+				0B2196B029DED65100414C14 /* FrameFactory */,
+				0B2196AF29DED62900414C14 /* Cache */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

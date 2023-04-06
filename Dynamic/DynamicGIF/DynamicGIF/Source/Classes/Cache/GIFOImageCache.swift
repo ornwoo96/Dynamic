@@ -12,7 +12,7 @@ internal class GIFOImageCache: NSObject {
 
     private let GIFOFrameCache = NSCache<NSString, GIFOImageCacheItem>()
     private let UIImageCache = NSCache<NSString, UIImageCacheItem>()
-    
+    private var CacheItemWithTimestampArray: [CacheItemWithTimestamp]?
     private var totalCost = 0
     private let maxCost = 300 * 1024 * 1024
     
@@ -74,6 +74,7 @@ internal class GIFOImageCache: NSObject {
     }
     
     private func removeOldData() {
+        
     }
 }
 
@@ -83,5 +84,30 @@ extension GIFOImageCache: NSCacheDelegate {
             totalCost -= nsData.length
             print("Removed data from cache")
         }
+    }
+    
+    private func removeOldestObjectFromCacheWithUIImage() {
+        let oldestItem = CacheItemWithTimestampArray?
+            .sorted { $0.createdTimestamp < $1.createdTimestamp }
+            .first
+        
+        if let oldestItem = oldestItem {
+            UIImageCache.removeObject(forKey: oldestItem.key)
+        }
+    }
+    
+    private func removeOldestObjectFromCacheWithGIFOFrame() {
+        let oldestItem = CacheItemWithTimestampArray?
+            .sorted { $0.createdTimestamp < $1.createdTimestamp }
+            .first
+        
+        if let oldestItem = oldestItem {
+            GIFOFrameCache.removeObject(forKey: oldestItem.key)
+        }
+    }
+    
+    private func addCacheItemWithTimestampArray(_ key: String) {
+        let item = CacheItemWithTimestamp(key: key as NSString, createdTimestamp: Date())
+        CacheItemWithTimestampArray?.append(item)
     }
 }

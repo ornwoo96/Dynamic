@@ -39,26 +39,21 @@ internal class GIFOFrameFactory {
     }
     
     internal func clearFactory(completion: @escaping ()->Void) {
-        DispatchQueue.main.async {
-            self.animationGIFOFrames = []
-            self.imageSource = nil
-            self.totalFrameCount = 0
-            self.isResizing = false
-            GIFOImageCache.shared.removeGIFImageWithGIFOFrame(forKey: self.cacheKey!)
-            completion()
-        }
+        self.animationGIFOFrames = []
+        self.imageSource = nil
+        self.totalFrameCount = 0
+        self.isResizing = false
+        clearGIFOFrameCache(self.cacheKey!)
+        completion()
     }
     
     internal func clearFactoryWithUIImage(completion: @escaping ()->Void) {
-        
-        DispatchQueue.main.async {
-            self.animationUIImageFrames = []
-            self.imageSource = nil
-            self.totalFrameCount = 0
-            self.isResizing = false
-            GIFOImageCache.shared.removeGIFImageWithUIImage(forKey: self.cacheKey!)
-            completion()
-        }
+        self.animationUIImageFrames = []
+        self.imageSource = nil
+        self.totalFrameCount = 0
+        self.isResizing = false
+//        clearUIImageCache(self.cacheKey!)
+        completion()
     }
     
     internal func clearGIFOFrameCache(_ key: String) {
@@ -66,7 +61,7 @@ internal class GIFOFrameFactory {
     }
     
     internal func clearUIImageCache(_ key: String) {
-//        GIFOImageCache.shared.removeGIFImageWithUIImage(forKey: key)
+        GIFOImageCache.shared.removeGIFImageWithUIImage(forKey: key)
     }
     
     internal func setupGIFImageFramesWithGIFOFrame(cacheKey: String,
@@ -207,7 +202,7 @@ internal class GIFOFrameFactory {
     
     private func saveCacheImageFramesWithUIImage(cacheKey: String,
                                                  frames: [UIImage]) {
-//        GIFOImageCache.shared.addGIFImagesWithUIImage(frames, forKey: cacheKey)
+        GIFOImageCache.shared.addGIFImagesWithUIImage(frames, forKey: cacheKey)
     }
     
     private func applyMinimumDelayTime(_ properties: [String: Any]) -> Double {
