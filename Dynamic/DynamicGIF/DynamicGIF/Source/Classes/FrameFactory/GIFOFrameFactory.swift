@@ -43,7 +43,6 @@ internal class GIFOFrameFactory {
         self.imageSource = nil
         self.totalFrameCount = 0
         self.isResizing = false
-        clearGIFOFrameCache(self.cacheKey!)
         completion()
     }
     
@@ -52,16 +51,7 @@ internal class GIFOFrameFactory {
         self.imageSource = nil
         self.totalFrameCount = 0
         self.isResizing = false
-//        clearUIImageCache(self.cacheKey!)
         completion()
-    }
-    
-    internal func clearGIFOFrameCache(_ key: String) {
-        GIFOImageCache.shared.removeGIFImageWithGIFOFrame(forKey: key)
-    }
-    
-    internal func clearUIImageCache(_ key: String) {
-        GIFOImageCache.shared.removeGIFImageWithUIImage(forKey: key)
     }
     
     internal func setupGIFImageFramesWithGIFOFrame(cacheKey: String,
@@ -77,8 +67,9 @@ internal class GIFOFrameFactory {
         
         self.animationGIFOFrames = levelFrames
         
-        saveCacheImageFramesWithGIFOFrame(cacheKey: cacheKey,
-                                          frames: levelFrames)
+        GIFOImageCacheManager.shared.addGIFImages(.GIFFrame,
+                                           images: levelFrames,
+                                           forKey: cacheKey)
         animationOnReady()
     }
     
@@ -95,8 +86,7 @@ internal class GIFOFrameFactory {
         
         self.animationUIImageFrames = levelFraems
         
-        saveCacheImageFramesWithUIImage(cacheKey: cacheKey,
-                                        frames: frames)
+        GIFOImageCacheManager.shared.addGIFImages(.UIImage, images: levelFraems, forKey: cacheKey)
         
         animationOnReady()
     }
@@ -104,7 +94,8 @@ internal class GIFOFrameFactory {
     internal func setupCachedImageFramesWithGIFOFrame(cacheKey: String,
                                                       level: GIFFrameReduceLevel = .highLevel,
                                                       animationOnReady: @escaping () -> Void) {
-        guard let cgImages = GIFOImageCache.shared.getGIFImagesWithGIFOFrame(forKey: cacheKey) else {
+        guard let cgImages = GIFOImageCacheManager.shared.getGIFImages(.GIFFrame,
+                                                                forKey: cacheKey) as? [GIFOFrame] else {
             print("get cachedImages - failure")
             return
         }
@@ -193,16 +184,6 @@ internal class GIFOFrameFactory {
         }
         
         return frameProperties
-    }
-    
-    private func saveCacheImageFramesWithGIFOFrame(cacheKey: String,
-                                                   frames: [GIFOFrame]) {
-        GIFOImageCache.shared.addGIFImagesWithGIFOFrame(frames, forKey: cacheKey)
-    }
-    
-    private func saveCacheImageFramesWithUIImage(cacheKey: String,
-                                                 frames: [UIImage]) {
-        GIFOImageCache.shared.addGIFImagesWithUIImage(frames, forKey: cacheKey)
     }
     
     private func applyMinimumDelayTime(_ properties: [String: Any]) -> Double {

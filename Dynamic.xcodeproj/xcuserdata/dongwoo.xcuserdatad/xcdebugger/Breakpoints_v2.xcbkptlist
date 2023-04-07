@@ -20,5 +20,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28E84968-EC4F-43A0-9038-56A408B08D5F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/GIFOImageCache.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "addGIFImages(_:images:forKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "519E1569-C09F-4482-926E-F56125806336"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/CacheItemWithTimestamp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "==(lhs:rhs:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "519E1569-C09F-4482-926E-F56125806336 - d56d3b4bad342a62"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static DynamicGIF.CacheItemWithTimestamp.== infix(DynamicGIF.CacheItemWithTimestamp, DynamicGIF.CacheItemWithTimestamp) -&gt; Swift.Bool"
+                  moduleName = "DynamicGIF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/CacheItemWithTimestamp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  uuid = "519E1569-C09F-4482-926E-F56125806336 - d56d3b4bad342a83"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static DynamicGIF.CacheItemWithTimestamp.== infix(DynamicGIF.CacheItemWithTimestamp, DynamicGIF.CacheItemWithTimestamp) -&gt; Swift.Bool"
+                  moduleName = "DynamicGIF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/CacheItemWithTimestamp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "46">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

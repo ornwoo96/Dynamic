@@ -24,7 +24,9 @@ public class GIFOImageView: UIImageView {
         clearGIFOFrameData()
         animator = GIFOAnimator()
         animator?.delegate = self
-        checkCachedImagesWithGIFOFrame(cacheKey, animationOnReady: animationOnReady)
+        checkCachedImages(.GIFFrame,
+                          cacheKey,
+                          animationOnReady: animationOnReady)
         
         Task { [weak self] in
             let image = try await GIFODownloader.fetchImageData(url)
@@ -65,9 +67,10 @@ public class GIFOImageView: UIImageView {
         }
     }
     
-    private func checkCachedImagesWithGIFOFrame(_ key: String,
-                                                animationOnReady: (() -> Void)? = nil) {
-        if GIFOImageCache.shared.checkCachedImageWithGIFOFrame(forKey: key) {
+    private func checkCachedImages(_ type: GIFOImageCacheManager.CacheType,
+                                   _ key: String,
+                                   animationOnReady: (() -> Void)? = nil) {
+        if GIFOImageCacheManager.shared.checkCachedImage(type,forKey: key) {
             self.animator?.setupCachedImages(cacheKey: key) {
                 self.startAnimation()
                 animationOnReady?()
@@ -108,16 +111,6 @@ extension GIFOImageView {
                 self?.animationImages = frames
                 self?.animationDuration = duration ?? 0.0
                 self?.startAnimating()
-                animationOnReady?()
-            }
-        }
-    }
-    
-    private func checkCachedImagesWithUIImage(_ key: String,
-                                              animationOnReady: (() -> Void)? = nil) {
-        if GIFOImageCache.shared.checkCachedImageWithUIImage(forKey: key) {
-            self.animator?.setupCachedImages(cacheKey: key) {
-                self.startAnimation()
                 animationOnReady?()
             }
         }
