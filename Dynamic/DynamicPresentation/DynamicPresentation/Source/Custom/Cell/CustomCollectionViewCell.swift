@@ -63,16 +63,16 @@ class CustomCollectionViewCell: UICollectionViewCell {
                            index: Int) {
         DispatchQueue.global(qos: .background).async {
             
-            self.imageView.setupGIFImageWithAnimation(url: url,
-                                                      cacheKey: url,
-                                                      level: .highLevel,
-                                                      isResizing: false)
+            self.imageView.setupGIFImageWithUIImage(url: url,
+                                                    cacheKey: url,
+                                                    level: .highLevel,
+                                                    isResizing: false)
         }
     }
     
     public func clear(index: Int) {
         DispatchQueue.main.async {
-            self.imageView.clearUIImageData()
+            self.imageView.clearDataWithUIImage()
             self.heartView.isHidden = true
             self.heartView.setupHeartViewImage(bool: false)
             self.imageView.removeFromSuperview()

@@ -34,20 +34,18 @@ internal class GIFOAnimator {
         frameFactory = GIFOFrameFactory(data: data,
                                         size: size,
                                         isResizing: isResizing)
+        setupDisplayLink()
         self.loopCount = loopCount
         frameFactory?.setupGIFImageFramesWithGIFOFrame(cacheKey: cacheKey,
-                                                      level: level) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.setupDisplayLink()
-            animationOnReady()
-        }
+                                                       level: level,
+                                                       animationOnReady: animationOnReady)
     }
     
-    private func setupDisplayLink() {
+    public func setupDisplayLink() {
         let gifDisplay = CADisplayLink(target: self, selector: #selector(updateFrame))
         gifDisplay.preferredFramesPerSecond = 10
         gifDisplay.isPaused = true
-        gifDisplay.add(to: .current, forMode: .common)
+        gifDisplay.add(to: .main, forMode: .common)
         displayLink = gifDisplay
     }
     
@@ -109,18 +107,23 @@ internal class GIFOAnimator {
         guard let displayLink = self.displayLink else {
             return
         }
-        isPaused = false
-        displayLink.isPaused = false
+        DispatchQueue.main.async { [weak self] in
+            self?.isPaused = false
+            displayLink.isPaused = false
+        }
     }
     
     internal func clear(completion: @escaping ()->Void) {
         guard let displayLink = self.displayLink else {
             return
         }
-        self.isPaused = true
-        displayLink.isPaused = true
-        displayLink.invalidate()
-        self.frameFactory?.clearFactory(completion: completion)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.isPaused = true
+            displayLink.isPaused = true
+            displayLink.invalidate()
+            self?.frameFactory?.clearFactory(completion: completion)
+        }
     }
     
     internal func stopAnimation() {

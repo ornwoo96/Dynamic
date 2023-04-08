@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DynamicGIF
 
 public class CompositionalCellItem: BaseCellItem {
     let url: String
@@ -28,8 +29,8 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     static let identifier = "CompositionalCollectionViewCell"
     private var cellGradientLayer = CAGradientLayer()
     
-    public lazy var gifImageView: GIFImageView = {
-        let imageView = GIFImageView(frame: .zero)
+    public lazy var gifImageView: GIFOImageView = {
+        let imageView = GIFOImageView(frame: .zero)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -62,13 +63,13 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ item: CompositionalCellItem) {
-        gifImageView.configure(url: item.url)
+        gifImageView.setupGIFImageWithUIImage(url: item.url, cacheKey: item.url)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
     }
     
     public func clear() {
-        gifImageView.clear()
+        gifImageView.clearDataWithUIImage()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
     }

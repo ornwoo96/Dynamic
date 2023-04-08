@@ -40,7 +40,7 @@ internal class GIFOFrameFactory {
         self.imageSource = nil
         self.totalFrameCount = 0
         self.isResizing = false
-        GIFOImageCacheManager.shared.removeAllImageCache(.GIFFrame)
+        GIFOImageCacheManager.shared.removeImageCache(.GIFFrame, forKey: self.cacheKey!)
         completion()
     }
     
@@ -61,7 +61,7 @@ internal class GIFOFrameFactory {
         }
         
         let frames = convertCGImageSourceToGIFOFrameArray(source: imageSource)
-        let levelFrames = getLevelFrameWithGIFFrame(level: level, frames: frames)
+        let levelFrames = getLevelFrameWithGIFOFrame(level: level, frames: frames)
         
         self.animationGIFOFrames = levelFrames
         
@@ -70,9 +70,9 @@ internal class GIFOFrameFactory {
         animationOnReady()
     }
     
-    internal func setupGIFImageFramesWithUIImage(cacheKey: String,
-                                                 level: GIFFrameReduceLevel = .highLevel,
-                                                 animationOnReady: @escaping (UIImage) -> Void) {
+    internal func getGIFImageWithUIImage(cacheKey: String,
+                                         level: GIFFrameReduceLevel = .highLevel,
+                                         animationOnReady: @escaping (UIImage) -> Void) {
         self.cacheKey = cacheKey
         guard let imageSource = self.imageSource else {
             return
@@ -101,7 +101,7 @@ internal class GIFOFrameFactory {
         animationOnReady()
     }
     
-    private func getLevelFrameWithGIFFrame(level: GIFFrameReduceLevel,
+    private func getLevelFrameWithGIFOFrame(level: GIFFrameReduceLevel,
                                            frames: [GIFOFrame]) -> [GIFOFrame] {
         switch level {
         case .highLevel:

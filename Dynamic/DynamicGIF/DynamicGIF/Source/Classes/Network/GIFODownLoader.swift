@@ -15,25 +15,34 @@ enum GIFODownLoaderError: Error {
 }
 
 internal class GIFODownloader {
-    static func fetchImageData(_ url: String) async throws -> Data {
-        guard let stringToURL = URL(string: url) else {
-            throw GIFODownLoaderError.invalidURL
-        }
-        
-        do {
-            let (data, response) = try await URLSession.shared.data(from: stringToURL)
-            
-            guard let response = response as? HTTPURLResponse,
-                  response.statusCode == 200 else {
-                throw GIFODownLoaderError.invalidResponse
+    static func fetchImageData(_ url: String,
+                               completion: @escaping (Result<Data, GIFODownLoaderError>) -> Void) {
+            guard let stringToURL = URL(string: url) else {
+                completion(.failure(.invalidURL))
+                return
             }
-            
-            return data
-        } catch {
-            print(GIFODownLoaderError.failedRequest)
-            throw GIFODownLoaderError.failedRequest
+
+            URLSession.shared.dataTask(with: stringToURL) { data, response, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(.failure(.failedRequest))
+                    return
+                }
+
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200 else {
+                    completion(.failure(.invalidResponse))
+                    return
+                }
+
+                guard let imageData = data else {
+                    completion(.failure(.noData))
+                    return
+                }
+
+                completion(.success(imageData))
+            }.resume()
         }
-    }
     
     static func getDataFromAsset(named fileName: String) throws -> Data? {
         guard let asset = NSDataAsset(name: fileName) else {

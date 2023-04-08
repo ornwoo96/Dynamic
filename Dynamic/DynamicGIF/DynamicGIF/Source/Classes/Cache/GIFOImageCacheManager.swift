@@ -16,7 +16,7 @@ internal class GIFOImageCacheManager: NSObject {
     override init() {
         super.init()
         self.UIImageCache.countLimit = 40
-        self.GIFOFrameCache.countLimit = 40
+        self.GIFOFrameCache.countLimit = 3
     }
     
     internal enum CacheType {

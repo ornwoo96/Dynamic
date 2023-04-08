@@ -80,7 +80,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        imageView.image = nil
+        imageView.clearGIFOFrameData()
         castedCoordinator?.detailData = nil
         saveImageFrontView.isHidden = true
         saveImageLabel.alpha = 0
@@ -119,19 +119,27 @@ class DetailViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupResizeImageView() {
-        imageViewHeightConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
-                                                                   width: viewModel.retrieveDetailWidthData())
-        imageViewWidthConstraint?.constant = CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
-                                                                 width: viewModel.retrieveDetailWidthData())
+        imageViewHeightConstraint?.constant = CGFloat.resizeHeight(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
+        imageViewWidthConstraint?.constant = CGFloat.resizeWidth(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
         
         self.view.layoutIfNeeded()
     }
     
     private func setupResizeImageFrontView() {
-        saveImageFrontViewWidthConstraint?.constant = CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
-                                                                          width: viewModel.retrieveDetailWidthData())
-        saveImageFrontViewCenterYConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
-                                                                             width:viewModel.retrieveDetailWidthData())/2
+        saveImageFrontViewWidthConstraint?.constant = CGFloat.resizeWidth(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
+        saveImageFrontViewCenterYConstraint?.constant = CGFloat.resizeHeight(
+            height: viewModel.retrieveDetailHeightData(),
+            width:viewModel.retrieveDetailWidthData()
+        )/2
         saveImageFrontViewHeightConstraint?.constant = 0
     }
     
