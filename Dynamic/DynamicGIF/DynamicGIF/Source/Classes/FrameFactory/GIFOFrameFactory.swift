@@ -67,35 +67,34 @@ internal class GIFOFrameFactory {
         
         self.animationGIFOFrames = levelFrames
         
-        GIFOImageCacheManager.shared.addGIFImages(.GIFFrame,
-                                           images: levelFrames,
-                                           forKey: cacheKey)
+        GIFOImageCacheManager.shared.addGIFImages(images: levelFrames,
+                                                  forKey: cacheKey)
         animationOnReady()
     }
     
     internal func setupGIFImageFramesWithUIImage(cacheKey: String,
                                                  level: GIFFrameReduceLevel = .highLevel,
-                                                 animationOnReady: @escaping () -> Void) {
+                                                 animationOnReady: @escaping (UIImage) -> Void) {
         self.cacheKey = cacheKey
         guard let imageSource = self.imageSource else {
             return
         }
         
         let frames = convertCGImageSourceToUIImageArray(imageSource)
-        let levelFraems = getLevelFrameWithUIImage(level: level, frames: frames)
+        let levelFrames = getLevelFrameWithUIImage(level: level, frames: frames)
         
-        self.animationUIImageFrames = levelFraems
+        guard let animatedImage = UIImage.animatedImage(with: levelFrames, duration: self.animationTotalDuration) else { return }
         
-        GIFOImageCacheManager.shared.addGIFImages(.UIImage, images: levelFraems, forKey: cacheKey)
+        GIFOImageCacheManager.shared.addGIFUIImage(image: animatedImage,
+                                                   forKey: cacheKey)
         
-        animationOnReady()
+        animationOnReady(animatedImage)
     }
     
     internal func setupCachedImageFramesWithGIFOFrame(cacheKey: String,
                                                       level: GIFFrameReduceLevel = .highLevel,
                                                       animationOnReady: @escaping () -> Void) {
-        guard let cgImages = GIFOImageCacheManager.shared.getGIFImages(.GIFFrame,
-                                                                forKey: cacheKey) as? [GIFOFrame] else {
+        guard let cgImages = GIFOImageCacheManager.shared.getGIFImages(forKey: cacheKey) else {
             print("get cachedImages - failure")
             return
         }

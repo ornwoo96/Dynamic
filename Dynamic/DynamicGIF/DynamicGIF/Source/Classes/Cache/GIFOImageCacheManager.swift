@@ -12,12 +12,12 @@ internal class GIFOImageCacheManager: NSObject {
 
     private let GIFOFrameCache = NSCache<NSString, GIFOImageCacheItem>()
     private let UIImageCache = NSCache<NSString, UIImageCacheItem>()
-    private var GIFOFrameCacheItemWithTimestampArray: [CacheItemWithTimestamp]?
-    private var UIImageCacheItemWithTimestampArray: [CacheItemWithTimestamp]?
+    private var GIFOFrameCacheItemWithTimestampArray: [CacheItemWithTimestamp] = []
+    private var UIImageCacheItemWithTimestampArray: [CacheItemWithTimestamp] = []
     private var GIFOFrameTotalCost = 0
     private var UIImageTotalCost = 0
-    private let UIImageCacheMaxCost = 25 * 1024 * 1024
-    private let GIFOFrameCacheMaxCost = 25 * 1024 * 1024
+    private let UIImageCacheMaxCost = 10 * 350 * 350
+    private let GIFOFrameCacheMaxCost = 10 * 350 * 350
     
     override init() {
         super.init()
@@ -32,36 +32,36 @@ internal class GIFOImageCacheManager: NSObject {
         case UIImage
     }
     
-    internal func addGIFImages(_ cacheType: CacheType,
-                               images: [Any],
+    internal func addGIFImages(images: [GIFOFrame],
                                forKey key: String) {
-    
-        switch cacheType {
-        case .GIFFrame:
-            guard let images = images as? [GIFOFrame] else { return }
-            let item = GIFOImageCacheItem(frames: images)
-            addCacheItemWithTimestampArray(.GIFFrame, key)
-            addCost(cacheType, item.sizeInBytes ?? 0)
-            GIFOFrameCache.setObject(item, forKey: key as NSString)
-        case .UIImage:
-            guard let images = images as? [UIImage] else { return }
-            let item = UIImageCacheItem(frames: images)
-            addCacheItemWithTimestampArray(.UIImage, key)
-            addCost(cacheType, item.sizeInBytes ?? 0)
-            UIImageCache.setObject(item, forKey: key as NSString)
-        }
+        let item = GIFOImageCacheItem(frames: images)
+        addCacheItemWithTimestampArray(.GIFFrame, key)
+        addCost(.GIFFrame, item.sizeInBytes ?? 0)
+        GIFOFrameCache.setObject(item, forKey: key as NSString)
     }
     
-    internal func getGIFImages(_ type: CacheType,
-                               forKey key: String) -> [Any]? {
-        switch type {
-        case .GIFFrame:
-            guard let item = GIFOFrameCache.object(forKey: key as NSString) else { return nil }
-            return item.frames
-        case .UIImage:
-            guard let item = UIImageCache.object(forKey: key as NSString) else { return nil }
-            return item.frames
+    internal func addGIFUIImage(image: UIImage,
+                                forKey key: String) {
+        let item = UIImageCacheItem(frame: image)
+        addCacheItemWithTimestampArray(.UIImage, key)
+        addCost(.UIImage, item.sizeInBytes ?? 0)
+        UIImageCache.setObject(item, forKey: key as NSString)
+        print("addCacheObject")
+    }
+    
+    internal func getGIFImages(forKey key: String) -> [GIFOFrame]? {
+        guard let item = GIFOFrameCache.object(forKey: key as NSString) else {
+            return nil
         }
+        return item.frames
+    }
+    
+    internal func getGIFUIImage(forKey key: String) -> UIImage? {
+        guard let item = UIImageCache.object(forKey: key as NSString) else {
+            return nil
+        }
+        
+        return item.frame
     }
     
     internal func checkCachedImage(_ type: CacheType,
@@ -103,6 +103,7 @@ internal class GIFOImageCacheManager: NSObject {
 extension GIFOImageCacheManager: NSCacheDelegate {
     func cache(_ cache: NSCache<AnyObject, AnyObject>,
                willEvictObject obj: Any) {
+        
         switch obj {
         case _ as GIFOImageCacheItem:
             if let cacheItem = obj as? GIFOImageCacheItem {
@@ -120,6 +121,7 @@ extension GIFOImageCacheManager: NSCacheDelegate {
     
     private func addCost(_ cacheType: CacheType,
                          _ sizeInBytes: Int) {
+        
         switch cacheType {
         case .GIFFrame:
             self.GIFOFrameTotalCost += sizeInBytes
@@ -130,6 +132,7 @@ extension GIFOImageCacheManager: NSCacheDelegate {
             self.UIImageTotalCost += sizeInBytes
             if self.UIImageTotalCost > self.UIImageCacheMaxCost {
                 removeOldestCacheItem(cacheType)
+                print("remove cacheItem")
             }
         }
     }
@@ -141,12 +144,12 @@ extension GIFOImageCacheManager: NSCacheDelegate {
             let item = CacheItemWithTimestamp(key: key as NSString,
                                               createdTimestamp: Date())
             
-            GIFOFrameCacheItemWithTimestampArray?.append(item)
+            GIFOFrameCacheItemWithTimestampArray.append(item)
         case .UIImage:
             let item = CacheItemWithTimestamp(key: key as NSString,
                                               createdTimestamp: Date())
             
-            UIImageCacheItemWithTimestampArray?.append(item)
+            UIImageCacheItemWithTimestampArray.append(item)
         }
     }
     
@@ -154,22 +157,27 @@ extension GIFOImageCacheManager: NSCacheDelegate {
         switch type {
         case .GIFFrame:
             guard let oldestItem = getOldestItem(type) as? CacheItemWithTimestamp,
-                  let oldestItemIndex = getOldestIndex(type, oldestItem) else { return }
+                  let oldestItemIndex = getOldestIndex(type, oldestItem) else {
+                return
+            }
             GIFOFrameCache.removeObject(forKey: oldestItem.key)
-            GIFOFrameCacheItemWithTimestampArray?.remove(at: oldestItemIndex)
+            GIFOFrameCacheItemWithTimestampArray.remove(at: oldestItemIndex)
             
         case .UIImage:
             guard let oldestItem = getOldestItem(type) as? CacheItemWithTimestamp,
-                  let oldestItemIndex = getOldestIndex(type, oldestItem) else { return }
+                  let oldestItemIndex = getOldestIndex(type, oldestItem) else {
+                return
+            }
+            
             UIImageCache.removeObject(forKey: oldestItem.key)
-            UIImageCacheItemWithTimestampArray?.remove(at: oldestItemIndex)
+            UIImageCacheItemWithTimestampArray.remove(at: oldestItemIndex)
         }
     }
     
     private func getOldestItem(_ type: CacheType) -> Any? {
         switch type {
         case .GIFFrame:
-            if let oldestItem = GIFOFrameCacheItemWithTimestampArray?.min(by: {
+            if let oldestItem = GIFOFrameCacheItemWithTimestampArray.min(by: {
                 $0.createdTimestamp < $1.createdTimestamp
             }) {
                 return oldestItem
@@ -177,7 +185,7 @@ extension GIFOImageCacheManager: NSCacheDelegate {
             return nil
             
         case .UIImage:
-            if let oldestItem = UIImageCacheItemWithTimestampArray?.min(by: {
+            if let oldestItem = UIImageCacheItemWithTimestampArray.min(by: {
                 $0.createdTimestamp < $1.createdTimestamp
             }) {
                 return oldestItem
@@ -190,15 +198,15 @@ extension GIFOImageCacheManager: NSCacheDelegate {
                                 _ oldestItem: CacheItemWithTimestamp) -> Int? {
         switch type {
         case .GIFFrame:
-            if let index = GIFOFrameCacheItemWithTimestampArray?.firstIndex(where: {
+            if let index = GIFOFrameCacheItemWithTimestampArray.firstIndex(where: {
                 $0.key == oldestItem.key
             }) {
                 return index
             }
-            return nil
+            return 0
             
         case .UIImage:
-            if let index = UIImageCacheItemWithTimestampArray?.firstIndex(where: {
+            if let index = UIImageCacheItemWithTimestampArray.firstIndex(where: {
                 $0.key == oldestItem.key
             }) {
                 return index

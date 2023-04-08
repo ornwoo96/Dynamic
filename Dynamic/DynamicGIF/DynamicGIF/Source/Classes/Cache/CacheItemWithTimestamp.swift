@@ -17,7 +17,6 @@ struct CacheItemWithTimestamp: Hashable {
     
     static func == (lhs: CacheItemWithTimestamp,
                     rhs: CacheItemWithTimestamp) -> Bool {
-        
         return lhs.key == rhs.key
     }
 }

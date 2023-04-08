@@ -8,14 +8,12 @@
 import UIKit
 
 internal class UIImageCacheItem {
-    let frames: [UIImage]
+    let frame: UIImage
     let sizeInBytes: Int?
     
-    init(frames: [UIImage]) {
-        self.frames = frames
-        self.sizeInBytes = frames.reduce(0) {
-            $0 + UIImageCacheItem.convertFramesToData($1).count
-        }
+    init(frame: UIImage) {
+        self.frame = frame
+        self.sizeInBytes = UIImageCacheItem.convertFramesToData(frame).count
     }
     
     static func convertFramesToData(_ frame: UIImage) -> Data {

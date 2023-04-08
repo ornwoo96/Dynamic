@@ -96,6 +96,16 @@ extension GIFOImageView {
                                            isResizing: Bool = false,
                                            animationOnReady: (() -> Void)? = nil) {
         clearGIFOFrameData()
+        
+        if let image = GIFOImageCacheManager.shared.getGIFUIImage(forKey: cacheKey) {
+            DispatchQueue.main.async { [weak self] in
+                self?.image = nil
+                self?.image = image
+            }
+            animationOnReady?()
+            return
+        }
+        
         Task { [weak self] in
             let image = try await GIFODownloader.fetchImageData(url)
             
@@ -105,12 +115,11 @@ extension GIFOImageView {
                                                   isResizing: isResizing)
             
             self?.frameFactory?.setupGIFImageFramesWithUIImage(cacheKey: cacheKey,
-                                                               level: level) {
-                let frames = self?.frameFactory?.animationUIImageFrames
-                let duration = self?.frameFactory?.animationTotalDuration
-                self?.animationImages = frames
-                self?.animationDuration = duration ?? 0.0
-                self?.startAnimating()
+                                                               level: level) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.image = nil
+                    self?.image = image
+                }
                 animationOnReady?()
             }
         }
@@ -119,7 +128,6 @@ extension GIFOImageView {
     public func clearUIImageData() {
         frameFactory?.clearFactoryWithUIImage {
             DispatchQueue.main.async {
-                self.animationImages = nil
                 self.image = nil
             }
         }
