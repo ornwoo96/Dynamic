@@ -26,7 +26,6 @@ internal class GIFOAnimator {
     internal func setupForAnimation(data: Data,
                                     size: CGSize,
                                     loopCount: Int,
-                                    contentMode: UIView.ContentMode,
                                     level: GIFFrameReduceLevel,
                                     isResizing: Bool,
                                     cacheKey: String,
@@ -34,7 +33,6 @@ internal class GIFOAnimator {
         frameFactory = nil
         frameFactory = GIFOFrameFactory(data: data,
                                         size: size,
-                                        contentMode: contentMode,
                                         isResizing: isResizing)
         self.loopCount = loopCount
         frameFactory?.setupGIFImageFramesWithGIFOFrame(cacheKey: cacheKey,
@@ -119,15 +117,10 @@ internal class GIFOAnimator {
         guard let displayLink = self.displayLink else {
             return
         }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.isPaused = true
-            displayLink.isPaused = true
-            displayLink.invalidate()
-            self?.frameFactory?.clearFactory() {
-                completion()
-            }
-        }
+        self.isPaused = true
+        displayLink.isPaused = true
+        displayLink.invalidate()
+        self.frameFactory?.clearFactory(completion: completion)
     }
     
     internal func stopAnimation() {

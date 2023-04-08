@@ -16,7 +16,6 @@ public enum GIFFrameReduceLevel {
 internal class GIFOFrameFactory {
     private var imageSource: CGImageSource?
     private var imageSize: CGSize
-    private var contentMode: UIView.ContentMode
     private var isResizing: Bool = false
     private var cacheKey: String?
     private var frameDurations: [Double]?
@@ -29,12 +28,10 @@ internal class GIFOFrameFactory {
     
     init(data: Data,
          size: CGSize,
-         contentMode: UIView.ContentMode = .scaleAspectFill,
          isResizing: Bool = false) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.imageSize = size
-        self.contentMode = contentMode
         self.isResizing = isResizing
     }
     
@@ -43,6 +40,7 @@ internal class GIFOFrameFactory {
         self.imageSource = nil
         self.totalFrameCount = 0
         self.isResizing = false
+        GIFOImageCacheManager.shared.removeAllImageCache(.GIFFrame)
         completion()
     }
     

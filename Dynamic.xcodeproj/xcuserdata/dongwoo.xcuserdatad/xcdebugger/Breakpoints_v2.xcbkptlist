@@ -36,53 +36,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "04B1EA51-2528-4C86-B350-C670C96CFE5A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/GIFOImageCacheManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "addCost(_:_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "04B1EA51-2528-4C86-B350-C670C96CFE5A - b6b363c4494d3271"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DynamicGIF.GIFOImageCacheManager.addCost(DynamicGIF.GIFOImageCacheManager.CacheType, Swift.Int) -&gt; ()"
-                  moduleName = "DynamicGIF"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/GIFOImageCacheManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "243">
-               </Location>
-               <Location
-                  uuid = "04B1EA51-2528-4C86-B350-C670C96CFE5A - b6b363c4494d3271"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DynamicGIF.GIFOImageCacheManager.addCost(DynamicGIF.GIFOImageCacheManager.CacheType, Swift.Int) -&gt; ()"
-                  moduleName = "DynamicGIF"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dongwoo/Desktop/Projects/Dynamic/Dynamic/DynamicGIF/DynamicGIF/Source/Classes/Cache/GIFOImageCacheManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "233">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

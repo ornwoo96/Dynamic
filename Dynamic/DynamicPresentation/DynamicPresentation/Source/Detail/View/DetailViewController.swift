@@ -10,6 +10,7 @@ import Combine
 
 import Photos
 import AVFoundation
+import DynamicGIF
 
 class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
@@ -17,8 +18,8 @@ class DetailViewController: UIViewController, HasCoordinatable {
     private var cancellables: Set<AnyCancellable> = .init()
     private let viewModel: DetailViewModelProtocol
     
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var imageView: GIFOImageView = {
+        let imageView = GIFOImageView()
         imageView.contentMode = .scaleToFill
         return imageView
     }()
@@ -173,18 +174,9 @@ class DetailViewController: UIViewController, HasCoordinatable {
     }
     
     private func bind() {
-        bindImageData()
         bindEvent()
     }
     
-    private func bindImageData() {
-        viewModel.imageDataSubject
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] in
-                self?.imageView.image = UIImage.gifImageWithData($0)
-            })
-            .store(in: &cancellables)
-    }
     
     private func bindEvent() {
         viewModel.event
@@ -214,6 +206,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
         viewModel.action(.viewDidLoad(url))
+        imageView.setupGIFImageWithDisplayLink(url: url, cacheKey: url)
     }
     
     private func dismissViewController() {

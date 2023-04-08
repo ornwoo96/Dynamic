@@ -49,7 +49,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        imageView.prepareForReuse()
+        imageView.prepareForReuse()
 //        self.imageView.removeFromSuperview()
     }
     
@@ -65,9 +65,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
             
             self.imageView.setupGIFImageWithAnimation(url: url,
                                                       cacheKey: url,
-                                                      size: CGSize(width: 100, height: 100),
-                                                      loopCount: 3,
-                                                      contentMode: UIView.ContentMode.scaleAspectFill,
                                                       level: .highLevel,
                                                       isResizing: false)
         }

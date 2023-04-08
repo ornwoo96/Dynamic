@@ -17,7 +17,6 @@ public class GIFOImageView: UIImageView {
                                              cacheKey: String,
                                              size: CGSize = CGSize(),
                                              loopCount: Int = 0,
-                                             contentMode: UIView.ContentMode = .scaleAspectFill,
                                              level: GIFFrameReduceLevel = .highLevel,
                                              isResizing: Bool = false,
                                              animationOnReady: (() -> Void)? = nil) {
@@ -34,7 +33,6 @@ public class GIFOImageView: UIImageView {
             self?.animator?.setupForAnimation(data: image,
                                               size: size,
                                               loopCount: loopCount,
-                                              contentMode: contentMode,
                                               level: level,
                                               isResizing: isResizing,
                                               cacheKey: cacheKey) {
@@ -56,6 +54,12 @@ public class GIFOImageView: UIImageView {
     public func clearGIFOFrameData() {
         animator?.clear { [weak self] in
             self?.clearAnimationLayer()
+        }
+    }
+    
+    public func prepareForReuse() {
+        DispatchQueue.main.async {
+            self.image = nil
         }
     }
     
@@ -90,8 +94,6 @@ extension GIFOImageView {
     public func setupGIFImageWithAnimation(url: String,
                                            cacheKey: String,
                                            size: CGSize = CGSize(),
-                                           loopCount: Int = 0,
-                                           contentMode: UIView.ContentMode = .scaleAspectFill,
                                            level: GIFFrameReduceLevel = .highLevel,
                                            isResizing: Bool = false,
                                            animationOnReady: (() -> Void)? = nil) {
@@ -111,7 +113,6 @@ extension GIFOImageView {
             
             self?.frameFactory = GIFOFrameFactory(data: image,
                                                   size: size,
-                                                  contentMode: contentMode,
                                                   isResizing: isResizing)
             
             self?.frameFactory?.setupGIFImageFramesWithUIImage(cacheKey: cacheKey,
