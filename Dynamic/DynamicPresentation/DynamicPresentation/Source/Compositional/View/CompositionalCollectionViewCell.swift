@@ -69,7 +69,7 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
     }
     
     public func clear() {
-        gifImageView.clearDataWithUIImage()
+        gifImageView.clearWithUIImage()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
     }

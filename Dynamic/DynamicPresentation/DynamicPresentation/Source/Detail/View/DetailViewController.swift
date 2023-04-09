@@ -66,6 +66,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.action(.viewWillAppear)
         imageView.image = nil
         setupDetailSize()
     }
@@ -80,7 +81,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        imageView.clearGIFOFrameData()
+        imageView.clearWithDisplayLink()
         castedCoordinator?.detailData = nil
         saveImageFrontView.isHidden = true
         saveImageLabel.alpha = 0
@@ -213,8 +214,9 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
-        viewModel.action(.viewDidLoad(url))
-        imageView.setupGIFImageWithDisplayLink(url: url, cacheKey: url)
+        imageView.setupGIFImageWithDisplayLink(url: url, cacheKey: url, isCache: false) {
+            self.viewModel.event.send(.hideLoading)
+        }
     }
     
     private func dismissViewController() {
@@ -261,8 +263,10 @@ extension DetailViewController: UIGestureRecognizerDelegate {
     
     private func animateSaveImage() {
         saveImageFrontViewCenterYConstraint?.constant = 0
-        saveImageFrontViewHeightConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
-                                                                            width: viewModel.retrieveDetailWidthData())
+        saveImageFrontViewHeightConstraint?.constant = CGFloat.resizeHeight(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn) {
             self.imageView.layoutIfNeeded()

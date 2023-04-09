@@ -19,7 +19,7 @@ internal class GIFOFrameFactory {
     private var isResizing: Bool = false
     private var cacheKey: String?
     private var frameDurations: [Double]?
-    private var memoryLimit = 300
+    private var isCache = true
     
     internal var animationGIFOFrames: [GIFOFrame]?
     internal var animationUIImageFrames: [UIImage]?
@@ -28,11 +28,13 @@ internal class GIFOFrameFactory {
     
     init(data: Data,
          size: CGSize,
-         isResizing: Bool = false) {
+         isResizing: Bool = false,
+         isCache: Bool = true) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.imageSize = size
         self.isResizing = isResizing
+        self.isCache = isCache
     }
     
     internal func clearFactory(completion: @escaping ()->Void) {
@@ -40,7 +42,6 @@ internal class GIFOFrameFactory {
         self.imageSource = nil
         self.totalFrameCount = 0
         self.isResizing = false
-        GIFOImageCacheManager.shared.removeImageCache(.GIFFrame, forKey: self.cacheKey!)
         completion()
     }
     
@@ -64,9 +65,10 @@ internal class GIFOFrameFactory {
         let levelFrames = getLevelFrameWithGIFOFrame(level: level, frames: frames)
         
         self.animationGIFOFrames = levelFrames
-        
-        GIFOImageCacheManager.shared.addGIFImages(images: levelFrames,
-                                                  forKey: cacheKey)
+        if isCache {
+            GIFOImageCacheManager.shared.addGIFImages(images: levelFrames,
+                                                      forKey: cacheKey)
+        }
         animationOnReady()
     }
     

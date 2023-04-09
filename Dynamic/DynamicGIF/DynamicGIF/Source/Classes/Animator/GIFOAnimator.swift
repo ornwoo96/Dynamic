@@ -29,11 +29,13 @@ internal class GIFOAnimator {
                                     level: GIFFrameReduceLevel,
                                     isResizing: Bool,
                                     cacheKey: String,
+                                    isCache: Bool,
                                     animationOnReady: @escaping () -> Void) {
         frameFactory = nil
         frameFactory = GIFOFrameFactory(data: data,
                                         size: size,
-                                        isResizing: isResizing)
+                                        isResizing: isResizing,
+                                        isCache: isCache)
         setupDisplayLink()
         self.loopCount = loopCount
         frameFactory?.setupGIFImageFramesWithGIFOFrame(cacheKey: cacheKey,

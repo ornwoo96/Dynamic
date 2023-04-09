@@ -17,32 +17,32 @@ enum GIFODownLoaderError: Error {
 internal class GIFODownloader {
     static func fetchImageData(_ url: String,
                                completion: @escaping (Result<Data, GIFODownLoaderError>) -> Void) {
-            guard let stringToURL = URL(string: url) else {
-                completion(.failure(.invalidURL))
+        guard let stringToURL = URL(string: url) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: stringToURL) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(.failure(.failedRequest))
                 return
             }
-
-            URLSession.shared.dataTask(with: stringToURL) { data, response, error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    completion(.failure(.failedRequest))
-                    return
-                }
-
-                guard let httpResponse = response as? HTTPURLResponse,
-                      httpResponse.statusCode == 200 else {
-                    completion(.failure(.invalidResponse))
-                    return
-                }
-
-                guard let imageData = data else {
-                    completion(.failure(.noData))
-                    return
-                }
-
-                completion(.success(imageData))
-            }.resume()
-        }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let imageData = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            completion(.success(imageData))
+        }.resume()
+    }
     
     static func getDataFromAsset(named fileName: String) throws -> Data? {
         guard let asset = NSDataAsset(name: fileName) else {

@@ -104,10 +104,17 @@
 			isa = PBXGroup;
 			children = (
 				0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */,
-				0B23526A298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift */,
-				0B2196B329E1A81400414C14 /* GIFOImageView+UIImage.swift */,
 			);
 			path = Animator;
+			sourceTree = "<group>";
+		};
+		0B2196B529E2731B00414C14 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0B2196B329E1A81400414C14 /* GIFOImageView+UIImage.swift */,
+				0B23526A298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift */,
+			);
+			path = ImageView;
 			sourceTree = "<group>";
 		};
 		0B235264298CF621003D1336 /* Extensions */ = {
@@ -122,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2196B129DED67000414C14 /* Network */,
+				0B2196B529E2731B00414C14 /* ImageView */,
 				0B2196B229DED68100414C14 /* Animator */,
 				0B2196B029DED65100414C14 /* FrameFactory */,
 				0B2196AF29DED62900414C14 /* Cache */,

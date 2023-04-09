@@ -49,8 +49,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.prepareForReuse()
-//        self.imageView.removeFromSuperview()
+        imageView.clearWithUIImage()
     }
     
     public func configure(_ item: CustomCellItem, index: Int) {
@@ -72,7 +71,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     public func clear(index: Int) {
         DispatchQueue.main.async {
-            self.imageView.clearDataWithUIImage()
+            self.imageView.clearWithUIImage()
             self.heartView.isHidden = true
             self.heartView.setupHeartViewImage(bool: false)
             self.imageView.removeFromSuperview()

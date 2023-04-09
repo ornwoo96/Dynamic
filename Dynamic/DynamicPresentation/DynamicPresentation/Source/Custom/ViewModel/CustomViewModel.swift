@@ -125,7 +125,6 @@ public class CustomViewModel: CustomViewModelProtocol {
         previewContents.removeAll()
         originalContents.removeAll()
         offset = 20
-        ImageCacheManager.shared.removeCacheData()
     }
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {

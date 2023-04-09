@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import DynamicGIF
 
 class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
     private var cellGradientLayer = CAGradientLayer()
 
-    public lazy var gifImageView: GIFImageView = {
-        let imageView = GIFImageView(frame: .zero)
+    public lazy var gifImageView: GIFOImageView = {
+        let imageView = GIFOImageView(frame: .zero)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -46,13 +47,13 @@ class PickListCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ url: String) {
-        gifImageView.configure(url: url)
+        gifImageView.setupGIFImageWithUIImage(url: url, cacheKey: url)
         heartView.setupHeartViewImage(bool: true)
         setupCellGradient()
     }
     
     public func clear() {
-        gifImageView.clear()
+        gifImageView.clearWithUIImage()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
     }
