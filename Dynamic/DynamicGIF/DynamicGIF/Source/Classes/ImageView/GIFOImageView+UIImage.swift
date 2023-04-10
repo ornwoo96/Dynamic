@@ -6,8 +6,10 @@
 //
 
 import UIKit
+
 /// It displays a GIF animation using `UIImageView.image` and `UIImage.animatedImage`.
 extension GIFOImageView {
+    
     /**
      Set up GIF image with UIImage from the image URL. **Tip: Suitable for large amounts of GIF usage.**
      image URL으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**

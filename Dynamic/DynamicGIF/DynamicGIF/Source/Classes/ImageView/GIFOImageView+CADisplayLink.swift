@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 /// It displays high-quality GIF images using `CADisplayLink`.
 public class GIFOImageView: UIImageView {
     

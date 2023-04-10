@@ -83,7 +83,8 @@ internal class GIFOFrameFactory {
         let frames = convertCGImageSourceToUIImageArray(imageSource)
         let levelFrames = getLevelFrameWithUIImage(level: level, frames: frames)
         
-        guard let animatedImage = UIImage.animatedImage(with: levelFrames, duration: self.animationTotalDuration) else { return }
+        guard let animatedImage = UIImage.animatedImage(with: levelFrames,
+                                                        duration: self.animationTotalDuration) else { return }
         
         GIFOImageCacheManager.shared.addGIFUIImage(image: animatedImage,
                                                    forKey: cacheKey)

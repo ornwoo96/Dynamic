@@ -214,7 +214,9 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
-        imageView.setupGIFImageWithDisplayLink(url: url, cacheKey: url, isCache: false) {
+        imageView.setupGIFImageWithDisplayLink(url: url,
+                                               cacheKey: url,
+                                               isCache: false) {
             self.viewModel.event.send(.hideLoading)
         }
     }

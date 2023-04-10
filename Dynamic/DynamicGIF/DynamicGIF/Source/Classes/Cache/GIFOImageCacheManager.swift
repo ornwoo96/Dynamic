@@ -11,7 +11,7 @@ internal class GIFOImageCacheManager: NSObject {
     internal static let shared = GIFOImageCacheManager()
 
     private let GIFOFrameCache = NSCache<NSString, GIFOImageCacheItem>()
-    private let UIImageCache = NSCache<NSString, UIImageCacheItem>()
+    private let UIImageCache = NSCache<NSString, UIImage>()
     
     override init() {
         super.init()
@@ -32,8 +32,7 @@ internal class GIFOImageCacheManager: NSObject {
     
     internal func addGIFUIImage(image: UIImage,
                                 forKey key: String) {
-        let item = UIImageCacheItem(frame: image)
-        UIImageCache.setObject(item, forKey: key as NSString)
+        UIImageCache.setObject(image, forKey: key as NSString)
     }
     
     internal func getGIFImages(forKey key: String) -> [GIFOFrame]? {
@@ -48,7 +47,7 @@ internal class GIFOImageCacheManager: NSObject {
             return nil
         }
         
-        return item.frame
+        return item
     }
     
     internal func checkCachedImage(_ type: CacheType,
