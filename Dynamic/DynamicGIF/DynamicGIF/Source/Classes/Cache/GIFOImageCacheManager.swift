@@ -8,7 +8,7 @@
 import UIKit
 
 /// `GIFOImageCacheManager` is responsible for managing the caching of GIF images and UIImages.
-internal class GIFOImageCacheManager: NSObject {
+internal class GIFOImageCacheManager {
     
     /// The singleton instance of the cache manager.
     internal static let shared = GIFOImageCacheManager()
