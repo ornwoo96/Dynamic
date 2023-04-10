@@ -10,7 +10,7 @@ import UIKit
 extension GIFOImageView {
     /**
      Set up GIF image with UIImage from the image URL. **Tip: Suitable for large amounts of GIF usage.**
-        image URL으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
+     image URL으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
      
      - Parameters:
         - url: The URL of the GIF image.
@@ -45,7 +45,7 @@ extension GIFOImageView {
     
     /**
      Set up GIF image with UIImage from the image data. **Tip: Suitable for large amounts of GIF usage.**
-        image Data로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
+     image Data로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
      
      - Parameters:
         - imageData: The data of the GIF image.
@@ -72,7 +72,7 @@ extension GIFOImageView {
     
     /**
      Set up GIF image with UIImage from the image name. **Tip: Suitable for large amounts of GIF usage.**
-        image name으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
+     image name으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
      
      - Parameters:
         - imageName: The name of the GIF image.
@@ -108,7 +108,7 @@ extension GIFOImageView {
     
     /**
      This function initializes and frees the memory of the GIF image frames stored in the frameFactory, as well as initializes and releases the memory of the image in the UIImageView.
-        이 함수는 frameFactory가 가지고 있는 GIF Image Frame, UIImageView 내부 image 초기화 및 메모리 해제 해주는 함수 입니다.
+     이 함수는 frameFactory가 가지고 있는 GIF Image Frame, UIImageView 내부 image 초기화 및 메모리 해제 해주는 함수 입니다.
     */
     public func clearWithUIImage() {
         frameFactory?.clearFactoryWithUIImage {
@@ -119,7 +119,7 @@ extension GIFOImageView {
     }
     
     
-    ///This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
+    /// This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
     /// 이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
     ///
     /// - Parameters:
