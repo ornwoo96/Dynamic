@@ -189,7 +189,7 @@ internal class GIFOAnimator {
             self?.isPaused = true
             displayLink.isPaused = true
             displayLink.invalidate()
-            self?.frameFactory?.clearFactory(completion: completion)
+            self?.frameFactory?.clearFactoryWithGIFOFrame(completion: completion)
         }
     }
     

@@ -7,6 +7,7 @@
 
 import UIKit
 
+///
 enum GIFODownLoaderError: Error {
     case invalidResponse
     case noData
@@ -14,7 +15,10 @@ enum GIFODownLoaderError: Error {
     case failedRequest
 }
 
+///
 internal class GIFODownloader {
+    
+    ///
     static func fetchImageData(_ url: String,
                                completion: @escaping (Result<Data, GIFODownLoaderError>) -> Void) {
         guard let stringToURL = URL(string: url) else {
@@ -44,6 +48,7 @@ internal class GIFODownloader {
         }.resume()
     }
     
+    ///
     static func getDataFromAsset(named fileName: String) throws -> Data? {
         guard let asset = NSDataAsset(name: fileName) else {
             throw GIFODownLoaderError.noData
@@ -51,5 +56,4 @@ internal class GIFODownloader {
         
         return asset.data
     }
-    
 }
