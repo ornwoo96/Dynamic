@@ -6,22 +6,28 @@
 //
 
 import UIKit
-/// GIFOAnimator
+/// It displays high-quality GIF images using `CADisplayLink`.
 public class GIFOImageView: UIImageView {
+    
+    /// An object that holds a CADisplayLink.
     private var animator: GIFOAnimator?
-    private var animationLayer: CALayer?
+    
+    /// An object that creates the required GIF frames.
     internal var frameFactory: GIFOFrameFactory?
     
     /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
+     Set up GIF image with  `CADisplayLink` from the image URL.  **Tip: It is suitable for displaying high-quality images.**
+        이미지 URL,  `CADisplayLink` 와 함께 GIF 이미지를 설정합니다.  **Tip: 고품질의 GIF 이미지를 표시할 때 적합합니다.**
+     
      - Parameters:
-        - imageData: The Data of the GIF image.
+        - url: The URL of the GIF image.
         - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
+        - isCache: A Boolean value that indicates whether to cache the image data. The default value is true.
+        - size: A CGSize object to resize the image. The default value is CGSize().
+        - loopCount: The number of times the animation should be repeated. 0 means infinite. The default value is 0.
         - level: The level to reduce the number of frames.
         - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
+        - animationOnReady: A block to be called when the animation is ready. The default value is nil.
     */
     public func setupGIFImageWithDisplayLink(url: String,
                                              cacheKey: String,
@@ -55,15 +61,18 @@ public class GIFOImageView: UIImageView {
     }
     
     /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
+     Set up GIF image with `CADisplayLink` from the image Data. **Tip: It is suitable for displaying high-quality images.**
+        이미지 Data, `CADisplayLink` 와 함께 GIF 이미지를 설정합니다. **Tip: 고품질의 GIF 이미지를 표시할 때 적합합니다.**
+     
      - Parameters:
-        - imageData: The Data of the GIF image.
+        - data: The Data of the GIF image.
         - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
+        - isCache: A Boolean value that indicates whether to cache the image data. The default value is true.
+        - size: A CGSize object to resize the image. The default value is CGSize().
+        - loopCount: The number of times the animation should be repeated. 0 means infinite. The default value is 0.
         - level: The level to reduce the number of frames.
         - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
+        - animationOnReady: A block to be called when the animation is ready. The default value is nil.
     */
     public func setupGIFImageWithDisplayLink(imageData: Data,
                                              cacheKey: String,
@@ -90,15 +99,18 @@ public class GIFOImageView: UIImageView {
     }
     
     /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
+     Set up GIF image with `CADisplayLink` from the image Name. **Tip: It is suitable for displaying high-quality images.**
+        이미지 name, `CADisplayLink` 와 함께 GIF 이미지를 설정합니다. **Tip: 고품질의 GIF 이미지를 표시할 때 적합합니다.**
+
      - Parameters:
-        - imageData: The Data of the GIF image.
+        - imageName: The Name of the GIF image.
         - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
+        - isCache: A Boolean value that indicates whether to cache the image data. The default value is true.
+        - size: A CGSize object to resize the image. The default value is CGSize().
+        - loopCount: The number of times the animation should be repeated. 0 means infinite. The default value is 0.
         - level: The level to reduce the number of frames.
         - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
+        - animationOnReady: A block to be called when the animation is ready. The default value is nil.
     */
     public func setupGIFImageWithDisplayLink(imageName: String,
                                              cacheKey: String,
@@ -133,15 +145,7 @@ public class GIFOImageView: UIImageView {
     }
     
     /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
+    This function is used to create a FrameFactory object and inject an AnimatedImage into the image property of a UIImageView.
     */
     public func startAnimationWithDisplayLink() {
         animator?.startAnimation()
@@ -150,13 +154,6 @@ public class GIFOImageView: UIImageView {
     /**
      This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
         이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
     */
     public func stopAnimationWithDisplayLink() {
         animator?.stopAnimation()
@@ -165,13 +162,6 @@ public class GIFOImageView: UIImageView {
     /**
      This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
         이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
     */
     public func clearWithDisplayLink() {
         animator?.clear { [weak self] in
@@ -179,17 +169,8 @@ public class GIFOImageView: UIImageView {
         }
     }
     
-    /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
-    */
+    /// This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
+    ///    이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
     private func createAnimator() {
         clearWithDisplayLink()
         animator = GIFOAnimator()
@@ -230,13 +211,6 @@ public class GIFOImageView: UIImageView {
     /**
      This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
         이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
     */
     private func clearAnimationLayer() {
         DispatchQueue.main.async { [weak self] in
@@ -245,17 +219,13 @@ public class GIFOImageView: UIImageView {
         }
     }
     
-    /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
-    */
+    /// This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
+    ///    이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
+    ///
+    /// - Parameters:
+    ///    - imageData: The Data of the GIF image.
+    ///    - key: The key to cache the image data.
+    ///    - animationOnReady: A block to be called when the animation is ready.
     private func checkCachedImages(_ type: GIFOImageCacheManager.CacheType,
                                    _ key: String,
                                    animationOnReady: (() -> Void)? = nil) {
@@ -269,17 +239,9 @@ public class GIFOImageView: UIImageView {
 }
 
 extension GIFOImageView: GIFOAnimatorImageUpdateDelegate {
-    /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
-    */
+    /// This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
+    ///
+    /// - Parameter image: The delegated Image
     func animationImageUpdate(image: UIImage) {
         self.layer.setNeedsDisplay()
         self.layer.contents = image.cgImage

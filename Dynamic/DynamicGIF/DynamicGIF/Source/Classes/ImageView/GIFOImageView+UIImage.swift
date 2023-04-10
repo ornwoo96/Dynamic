@@ -6,11 +6,12 @@
 //
 
 import UIKit
-/// It displays a GIF animation using UIImageView.image and UIImage.animatedImage.
+/// It displays a GIF animation using `UIImageView.image` and `UIImage.animatedImage`.
 extension GIFOImageView {
     /**
-     Set up GIF image with UIImage from the image URL. Tip: Suitable for large amounts of GIF usage.
-        image URL으로 GIF Image 생성 Tip.많은 양의 GIF 사용 시 적합
+     Set up GIF image with UIImage from the image URL. **Tip: Suitable for large amounts of GIF usage.**
+        image URL으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
+     
      - Parameters:
         - url: The URL of the GIF image.
         - cacheKey: The key to cache the image data.
@@ -43,8 +44,9 @@ extension GIFOImageView {
     }
     
     /**
-     Set up GIF image with UIImage from the image data. Tip: Suitable for large amounts of GIF usage.
-        image Data로 GIF Image 생성 Tip.많은 양의 GIF 사용 시 적합
+     Set up GIF image with UIImage from the image data. **Tip: Suitable for large amounts of GIF usage.**
+        image Data로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
+     
      - Parameters:
         - imageData: The data of the GIF image.
         - cacheKey: The key to cache the image data.
@@ -69,8 +71,9 @@ extension GIFOImageView {
     }
     
     /**
-     Set up GIF image with UIImage from the image name. Tip: Suitable for large amounts of GIF usage.
-        image name으로 GIF Image 생성 Tip.많은 양의 GIF 사용 시 적합
+     Set up GIF image with UIImage from the image name. **Tip: Suitable for large amounts of GIF usage.**
+        image name으로 GIF Image 생성 **Tip.많은 양의 GIF 사용 시 적합**
+     
      - Parameters:
         - imageName: The name of the GIF image.
         - cacheKey: The key to cache the image data.
@@ -115,17 +118,17 @@ extension GIFOImageView {
         }
     }
     
-    /**
-     This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
-        이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
-     - Parameters:
-        - imageData: The Data of the GIF image.
-        - cacheKey: The key to cache the image data.
-        - size: The size to resize the image.
-        - level: The level to reduce the number of frames.
-        - isResizing: A Boolean value that indicates whether to resize the image.
-        - animationOnReady: A block to be called when the animation is ready.
-    */
+    
+    ///This function creates a FrameFactory object and injects an AnimatedImage into the image property of a UIImageView.
+    /// 이 함수는 FrameFactory 생성, AnimatedImage 를 UIImageView 내부의 image에 주입시키는 작업을 하는 함수입니다.
+    ///
+    /// - Parameters:
+    ///    - imageData: The Data of the GIF image.
+    ///    - cacheKey: The key to cache the image data.
+    ///    - size: The size to resize the image.
+    ///    - level: The level to reduce the number of frames.
+    ///    - isResizing: A Boolean value that indicates whether to resize the image.
+    ///    - animationOnReady: A block to be called when the animation is ready.
     private func setupForAnimationWithUIImage(imageData: Data,
                                               cacheKey: String,
                                               size: CGSize,
@@ -146,13 +149,13 @@ extension GIFOImageView {
         }
     }
     
-    /**
-     This function checks if a cached image exists, and if a cached GIF image exists, injects it into the image property of a UIImageView.
-     이 함수는 캐시 GIF 이미지가 있는지 확인하고 캐시 GIF 이미지가 존재하면 UIImageView에 주입시키는 함수 입니다.
-     - Parameters:
-        - cacheKey: The key to cache the image data.
-        - animationOnReady: A block to be called when the animation is ready.
-    */
+    
+    /// This function checks if a cached image exists, and if a cached GIF image exists, injects it into the image property of a UIImageView.
+    /// 이 함수는 캐시 GIF 이미지가 있는지 확인하고 캐시 GIF 이미지가 존재하면 UIImageView에 주입시키는 함수 입니다.
+    /// 
+    /// - Parameters:
+    ///    - cacheKey: The key to cache the image data.
+    ///    - animationOnReady: A block to be called when the animation is ready.
     private func checkCachedImageWithUIImage(forKey cacheKey: String,
                                              animationOnReady: (() -> Void)? = nil) {
         if let image = GIFOImageCacheManager.shared.getGIFUIImage(forKey: cacheKey) {
