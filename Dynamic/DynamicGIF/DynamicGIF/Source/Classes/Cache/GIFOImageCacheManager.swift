@@ -20,8 +20,7 @@ internal class GIFOImageCacheManager {
     private let UIImageCache = NSCache<NSString, UIImage>()
     
     /// Initializes the cache manager by setting the count limits for the two caches.
-    override init() {
-        super.init()
+    init() {
         self.UIImageCache.countLimit = 40
         self.GIFOFrameCache.countLimit = 3
     }
