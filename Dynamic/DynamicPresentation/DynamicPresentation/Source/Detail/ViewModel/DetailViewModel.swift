@@ -34,9 +34,8 @@ public class DetailViewModel: DetailViewModelProtocol {
     
     public func action(_ action: Action) {
         switch action {
-        case .viewDidLoad(let url):
+        case .viewWillAppear:
             event.send(.showLoading)
-            retrieveOriginalImage(url)
         }
     }
     
@@ -56,17 +55,5 @@ public class DetailViewModel: DetailViewModelProtocol {
     
     func retrieveDetailWidthData() -> CGFloat {
         return detailWidth
-    }
-    
-    private func retrieveOriginalImage(_ url: String) {
-        Task { [weak self] in
-            do {
-                let imageData = try await ImageCacheManager.shared.imageLoad(url)
-                self?.imageDataSubject.send(imageData)
-                event.send(.hideLoading)
-            } catch {
-                print("OriginalImage Retrieve - 실패")
-            }
-        }
     }
 }

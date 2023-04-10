@@ -10,6 +10,7 @@ import Combine
 
 import Photos
 import AVFoundation
+import DynamicGIF
 
 class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
@@ -17,8 +18,8 @@ class DetailViewController: UIViewController, HasCoordinatable {
     private var cancellables: Set<AnyCancellable> = .init()
     private let viewModel: DetailViewModelProtocol
     
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var imageView: GIFOImageView = {
+        let imageView = GIFOImageView()
         imageView.contentMode = .scaleToFill
         return imageView
     }()
@@ -65,6 +66,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.action(.viewWillAppear)
         imageView.image = nil
         setupDetailSize()
     }
@@ -79,7 +81,7 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        imageView.image = nil
+        imageView.clearWithDisplayLink()
         castedCoordinator?.detailData = nil
         saveImageFrontView.isHidden = true
         saveImageLabel.alpha = 0
@@ -118,19 +120,27 @@ class DetailViewController: UIViewController, HasCoordinatable {
     }
     
     private func setupResizeImageView() {
-        imageViewHeightConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
-                                                                   width: viewModel.retrieveDetailWidthData())
-        imageViewWidthConstraint?.constant = CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
-                                                                 width: viewModel.retrieveDetailWidthData())
+        imageViewHeightConstraint?.constant = CGFloat.resizeHeight(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
+        imageViewWidthConstraint?.constant = CGFloat.resizeWidth(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
         
         self.view.layoutIfNeeded()
     }
     
     private func setupResizeImageFrontView() {
-        saveImageFrontViewWidthConstraint?.constant = CGFloat.resizeWidth(height: viewModel.retrieveDetailHeightData(),
-                                                                          width: viewModel.retrieveDetailWidthData())
-        saveImageFrontViewCenterYConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
-                                                                             width:viewModel.retrieveDetailWidthData())/2
+        saveImageFrontViewWidthConstraint?.constant = CGFloat.resizeWidth(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
+        saveImageFrontViewCenterYConstraint?.constant = CGFloat.resizeHeight(
+            height: viewModel.retrieveDetailHeightData(),
+            width:viewModel.retrieveDetailWidthData()
+        )/2
         saveImageFrontViewHeightConstraint?.constant = 0
     }
     
@@ -173,18 +183,9 @@ class DetailViewController: UIViewController, HasCoordinatable {
     }
     
     private func bind() {
-        bindImageData()
         bindEvent()
     }
     
-    private func bindImageData() {
-        viewModel.imageDataSubject
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] in
-                self?.imageView.image = UIImage.gifImageWithData($0)
-            })
-            .store(in: &cancellables)
-    }
     
     private func bindEvent() {
         viewModel.event
@@ -213,7 +214,11 @@ class DetailViewController: UIViewController, HasCoordinatable {
     
     private func setupImageData() {
         guard let url = castedCoordinator?.detailData?.url else { return }
-        viewModel.action(.viewDidLoad(url))
+        imageView.setupGIFImageWithDisplayLink(url: url,
+                                               cacheKey: url,
+                                               isCache: false) {
+            self.viewModel.event.send(.hideLoading)
+        }
     }
     
     private func dismissViewController() {
@@ -260,8 +265,10 @@ extension DetailViewController: UIGestureRecognizerDelegate {
     
     private func animateSaveImage() {
         saveImageFrontViewCenterYConstraint?.constant = 0
-        saveImageFrontViewHeightConstraint?.constant = CGFloat.resizeHeight(height: viewModel.retrieveDetailHeightData(),
-                                                                            width: viewModel.retrieveDetailWidthData())
+        saveImageFrontViewHeightConstraint?.constant = CGFloat.resizeHeight(
+            height: viewModel.retrieveDetailHeightData(),
+            width: viewModel.retrieveDetailWidthData()
+        )
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn) {
             self.imageView.layoutIfNeeded()

@@ -9,6 +9,6 @@ import Foundation
 
 extension DetailViewModel {
     public enum Action {
-        case viewDidLoad(_ url: String)
+        case viewWillAppear
     }
 }

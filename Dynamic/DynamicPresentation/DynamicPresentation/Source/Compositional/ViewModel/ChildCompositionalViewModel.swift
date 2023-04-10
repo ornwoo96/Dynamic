@@ -123,7 +123,6 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         previewContents = []
         originalContents = []
         offset = 20
-        ImageCacheManager.shared.removeCacheData()
     }
     
     private func retrieveGIPHYData() {

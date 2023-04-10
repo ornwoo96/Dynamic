@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DynamicGIF
 
 public class HeartView: UIView {
     private lazy var blackBackgroundLayerView: UIView = {
@@ -14,8 +15,8 @@ public class HeartView: UIView {
         return view
     }()
     
-    private lazy var heartImageView: GIFImageView = {
-        let view = GIFImageView(frame: .zero)
+    private lazy var heartImageView: GIFOImageView = {
+        let view = GIFOImageView(frame: .zero)
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         return view
@@ -73,13 +74,14 @@ public class HeartView: UIView {
         DispatchQueue.main.async { [weak self] in
             self?.isHidden = false
         }
-        heartImageView.configureWithFileName(name: "heart")
+        heartImageView.setupGIFImageWithUIImage(imageName: "heart",
+                                                cacheKey: "heart")
     }
     
     private func hideHeartView() {
         DispatchQueue.main.async { [weak self] in
             self?.isHidden = true
         }
-        self.heartImageView.clear()
+        self.heartImageView.clearWithUIImage()
     }
 }

@@ -25,8 +25,6 @@
 		0BFE5968298CBE2F00A4509E /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5967298CBE2F00A4509E /* Coordinatable.swift */; };
 		0BFE596A298CBE3A00A4509E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5969298CBE3A00A4509E /* Coordinator.swift */; };
 		0BFE596C298CBE4700A4509E /* HasCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE596B298CBE4700A4509E /* HasCoordinatable.swift */; };
-		0BFE5971298CBFA600A4509E /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5970298CBFA600A4509E /* ImageCacheManager.swift */; };
-		0BFE5973298CBFC700A4509E /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5972298CBFC700A4509E /* GIFImageView.swift */; };
 		0BFE5975298CBFE400A4509E /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5974298CBFE400A4509E /* CustomNavigationBar.swift */; };
 		0BFE5977298CBFF200A4509E /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5976298CBFF200A4509E /* MainNavigationBar.swift */; };
 		0BFE5979298CBFFF00A4509E /* FavoritesNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5978298CBFFF00A4509E /* FavoritesNavigationBar.swift */; };
@@ -137,8 +135,6 @@
 		0BFE5967298CBE2F00A4509E /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		0BFE5969298CBE3A00A4509E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0BFE596B298CBE4700A4509E /* HasCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCoordinatable.swift; sourceTree = "<group>"; };
-		0BFE5970298CBFA600A4509E /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
-		0BFE5972298CBFC700A4509E /* GIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
 		0BFE5974298CBFE400A4509E /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		0BFE5976298CBFF200A4509E /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
 		0BFE5978298CBFFF00A4509E /* FavoritesNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNavigationBar.swift; sourceTree = "<group>"; };
@@ -397,7 +393,6 @@
 		0BFE594C298C182000A4509E /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0BFE596D298CBF7800A4509E /* Cache */,
 				0BFE596E298CBF8400A4509E /* View */,
 			);
 			path = Common;
@@ -465,19 +460,10 @@
 			path = CustomFlow;
 			sourceTree = "<group>";
 		};
-		0BFE596D298CBF7800A4509E /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-				0BFE5970298CBFA600A4509E /* ImageCacheManager.swift */,
-			);
-			path = Cache;
-			sourceTree = "<group>";
-		};
 		0BFE596E298CBF8400A4509E /* View */ = {
 			isa = PBXGroup;
 			children = (
 				0BFE596F298CBF8C00A4509E /* CustomNavigationBar */,
-				0BFE5972298CBFC700A4509E /* GIFImageView.swift */,
 				0BFE597C298CC05400A4509E /* HeartView.swift */,
 				0BFE597E298CC05D00A4509E /* PickListButton.swift */,
 				0BFE5980298CC06D00A4509E /* CategoryView.swift */,
@@ -884,7 +870,6 @@
 				0BFE59F2298CDF3400A4509E /* DetailViewModel.swift in Sources */,
 				0BFE5A04298CDFCF00A4509E /* PickListCoordinator.swift in Sources */,
 				0BFE5996298CDB8000A4509E /* ParentCompositionalViewModel + Action.swift in Sources */,
-				0BFE5971298CBFA600A4509E /* ImageCacheManager.swift in Sources */,
 				0BFE59E1298CDE7B00A4509E /* CustomViewController.swift in Sources */,
 				0BFE5985298CC08600A4509E /* ReloadingView.swift in Sources */,
 				0BFE5959298CBCE800A4509E /* PresentationDIContainer.swift in Sources */,
@@ -938,7 +923,6 @@
 				0BFE59E9298CDEF300A4509E /* DetailModel.swift in Sources */,
 				0BFE5994298CDB6300A4509E /* ParentCompositionalViewModel.swift in Sources */,
 				0BFE59AE298CDC9900A4509E /* ChildCompositionalViewModelProtocol.swift in Sources */,
-				0BFE5973298CBFC700A4509E /* GIFImageView.swift in Sources */,
 				0BFE59A6298CDC5A00A4509E /* ChildCompositionalViewModel+Action.swift in Sources */,
 				0BFE5992298CDB4400A4509E /* ParentCompositionalCoordinator.swift in Sources */,
 				0BFE597B298CC00700A4509E /* BackButton.swift in Sources */,

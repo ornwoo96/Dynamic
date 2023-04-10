@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235266298CF666003D1336 /* UIImage+GIF.swift */; };
-		0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235268298CF7BE003D1336 /* GIFFrame.swift */; };
-		0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526A298CF7E5003D1336 /* GIFImageView.swift */; };
-		0B23526D298CF7FE003D1336 /* GIFAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */; };
+		0B2196B429E1A81400414C14 /* GIFOImageView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2196B329E1A81400414C14 /* GIFOImageView+UIImage.swift */; };
+		0B2196B829E47D5400414C14 /* GIFOErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2196B729E47D5400414C14 /* GIFOErrors.swift */; };
+		0B235269298CF7BE003D1336 /* GIFOFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B235268298CF7BE003D1336 /* GIFOFrame.swift */; };
+		0B23526B298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B23526A298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift */; };
+		0BBDCC642991084B0014CA94 /* GIFOFrameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */; };
+		0BBDCC662997D4110014CA94 /* GIFOAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */; };
+		0BE7769F29B723B4004FFB75 /* GIFOImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE7769E29B723B4004FFB75 /* GIFOImageCacheManager.swift */; };
+		0BE776A129B723BF004FFB75 /* GIFOImageCacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */; };
+		0BE776A329B723CA004FFB75 /* GIFODownLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */; };
 		0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A28298CE42000A4509E /* DynamicGIF.docc */; };
 		0BFE5A2F298CE42000A4509E /* DynamicGIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE5A24298CE42000A4509E /* DynamicGIF.framework */; };
 		0BFE5A34298CE42000A4509E /* DynamicGIFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5A33298CE42000A4509E /* DynamicGIFTests.swift */; };
@@ -28,10 +33,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B235266298CF666003D1336 /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
-		0B235268298CF7BE003D1336 /* GIFFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFFrame.swift; sourceTree = "<group>"; };
-		0B23526A298CF7E5003D1336 /* GIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
-		0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFAnimatable.swift; sourceTree = "<group>"; };
+		0B2196B329E1A81400414C14 /* GIFOImageView+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFOImageView+UIImage.swift"; sourceTree = "<group>"; };
+		0B2196B729E47D5400414C14 /* GIFOErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOErrors.swift; sourceTree = "<group>"; };
+		0B235268298CF7BE003D1336 /* GIFOFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOFrame.swift; sourceTree = "<group>"; };
+		0B23526A298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GIFOImageView+CADisplayLink.swift"; sourceTree = "<group>"; };
+		0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOFrameFactory.swift; sourceTree = "<group>"; };
+		0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOAnimator.swift; sourceTree = "<group>"; };
+		0BE7769E29B723B4004FFB75 /* GIFOImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOImageCacheManager.swift; sourceTree = "<group>"; };
+		0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFOImageCacheItem.swift; sourceTree = "<group>"; };
+		0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFODownLoader.swift; sourceTree = "<group>"; };
 		0BFE5A24298CE42000A4509E /* DynamicGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DynamicGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFE5A27298CE42000A4509E /* DynamicGIF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicGIF.h; sourceTree = "<group>"; };
 		0BFE5A28298CE42000A4509E /* DynamicGIF.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DynamicGIF.docc; sourceTree = "<group>"; };
@@ -58,20 +68,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B235264298CF621003D1336 /* Extensions */ = {
+		0B2196AF29DED62900414C14 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				0B235266298CF666003D1336 /* UIImage+GIF.swift */,
+				0BE7769E29B723B4004FFB75 /* GIFOImageCacheManager.swift */,
+				0BE776A029B723BF004FFB75 /* GIFOImageCacheItem.swift */,
 			);
-			path = Extensions;
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		0B2196B029DED65100414C14 /* FrameFactory */ = {
+			isa = PBXGroup;
+			children = (
+				0B235268298CF7BE003D1336 /* GIFOFrame.swift */,
+				0BBDCC632991084B0014CA94 /* GIFOFrameFactory.swift */,
+			);
+			path = FrameFactory;
+			sourceTree = "<group>";
+		};
+		0B2196B129DED67000414C14 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0BE776A229B723CA004FFB75 /* GIFODownLoader.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0B2196B229DED68100414C14 /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				0BBDCC652997D4110014CA94 /* GIFOAnimator.swift */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
+		0B2196B529E2731B00414C14 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0B2196B329E1A81400414C14 /* GIFOImageView+UIImage.swift */,
+				0B23526A298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		0B2196B629E47D4100414C14 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				0B2196B729E47D5400414C14 /* GIFOErrors.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		0B235265298CF634003D1336 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0B235268298CF7BE003D1336 /* GIFFrame.swift */,
-				0B23526A298CF7E5003D1336 /* GIFImageView.swift */,
-				0B23526C298CF7FE003D1336 /* GIFAnimatable.swift */,
+				0B2196B629E47D4100414C14 /* Errors */,
+				0B2196B129DED67000414C14 /* Network */,
+				0B2196B529E2731B00414C14 /* ImageView */,
+				0B2196B229DED68100414C14 /* Animator */,
+				0B2196B029DED65100414C14 /* FrameFactory */,
+				0B2196AF29DED62900414C14 /* Cache */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -123,7 +179,6 @@
 		0BFE5A5F298CF24900A4509E /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				0B235264298CF621003D1336 /* Extensions */,
 				0B235265298CF634003D1336 /* Classes */,
 			);
 			path = Source;
@@ -238,11 +293,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B235267298CF666003D1336 /* UIImage+GIF.swift in Sources */,
-				0B23526B298CF7E5003D1336 /* GIFImageView.swift in Sources */,
-				0B23526D298CF7FE003D1336 /* GIFAnimatable.swift in Sources */,
+				0B2196B429E1A81400414C14 /* GIFOImageView+UIImage.swift in Sources */,
+				0B2196B829E47D5400414C14 /* GIFOErrors.swift in Sources */,
+				0B23526B298CF7E5003D1336 /* GIFOImageView+CADisplayLink.swift in Sources */,
+				0BE776A329B723CA004FFB75 /* GIFODownLoader.swift in Sources */,
 				0BFE5A29298CE42000A4509E /* DynamicGIF.docc in Sources */,
-				0B235269298CF7BE003D1336 /* GIFFrame.swift in Sources */,
+				0BE7769F29B723B4004FFB75 /* GIFOImageCacheManager.swift in Sources */,
+				0BBDCC662997D4110014CA94 /* GIFOAnimator.swift in Sources */,
+				0BBDCC642991084B0014CA94 /* GIFOFrameFactory.swift in Sources */,
+				0BE776A129B723BF004FFB75 /* GIFOImageCacheItem.swift in Sources */,
+				0B235269298CF7BE003D1336 /* GIFOFrame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
