@@ -1,8 +1,8 @@
 //
 //  GIFOImageView+UIImage.swift
-//  DynamicGIF
+//  GIFO
 //
-//  Created by 김동우 on 2023/04/08.
+//  Created by BMO on 2023/04/08.
 //
 
 import UIKit
@@ -94,6 +94,7 @@ extension GIFOImageView {
         
         do {
             guard let imageData = try GIFODownloader.getDataFromAsset(named: imageName) else {
+                print(GIFOImageViewError.ImageFileNotFoundError)
                 return
             }
             
@@ -104,7 +105,7 @@ extension GIFOImageView {
                                          isResizing: isResizing,
                                          animationOnReady: animationOnReady)
         } catch {
-            
+            print(GIFOImageViewError.ImageFileNotFoundError)
         }
     }
     
@@ -160,12 +161,16 @@ extension GIFOImageView {
     ///    - animationOnReady: A block to be called when the animation is ready.
     private func checkCachedImageWithUIImage(forKey cacheKey: String,
                                              animationOnReady: (() -> Void)? = nil) {
-        if let image = GIFOImageCacheManager.shared.getGIFUIImage(forKey: cacheKey) {
-            DispatchQueue.main.async { [weak self] in
-                self?.image = nil
-                self?.image = image
+        do {
+            if let image = try GIFOImageCacheManager.shared.getGIFUIImage(forKey: cacheKey) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.image = nil
+                    self?.image = image
+                }
+                animationOnReady?()
             }
-            animationOnReady?()
+        } catch {
+            print("Error: Image not found")
         }
     }
 }

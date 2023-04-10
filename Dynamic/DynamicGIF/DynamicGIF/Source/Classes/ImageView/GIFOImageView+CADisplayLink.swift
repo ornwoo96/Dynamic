@@ -1,8 +1,8 @@
 //
-//  GIFImageView.swift
-//  DynamicGIF
+//  GIFOImageView+CADisplayLink.swift
+//  GIFO
 //
-//  Created by 김동우 on 2023/02/03.
+//  Created by BMO on 2023/02/03.
 //
 
 import UIKit
@@ -128,7 +128,7 @@ public class GIFOImageView: UIImageView {
                           animationOnReady: animationOnReady)
         do {
             guard let imageData = try GIFODownloader.getDataFromAsset(named: imageName) else {
-                print("이미지를 찾을 수 없어요")
+                print(GIFOImageViewError.ImageFileNotFoundError)
                 return
             }
             
@@ -141,7 +141,7 @@ public class GIFOImageView: UIImageView {
                                              isResizing: isResizing,
                                              animationOnReady: animationOnReady)
         } catch {
-            print("이미지 불러오기 실패")
+            print(GIFOImageViewError.ImageFileNotFoundError)
         }
     }
     

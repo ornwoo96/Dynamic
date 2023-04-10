@@ -148,13 +148,17 @@ internal class GIFOFrameFactory {
     internal func setupCachedImageFramesWithGIFOFrame(cacheKey: String,
                                                       level: GIFFrameReduceLevel = .highLevel,
                                                       animationOnReady: @escaping () -> Void) {
-        guard let cgImages = GIFOImageCacheManager.shared.getGIFImages(forKey: cacheKey) else {
-            print("get cachedImages - failure")
-            return
+        do {
+            guard let cgImages = try GIFOImageCacheManager.shared.getGIFImages(forKey: cacheKey) else {
+                print("Error: Image Not Found")
+                return
+            }
+            animationGIFOFrames = cgImages
+            totalFrameCount = cgImages.count
+            animationOnReady()
+        } catch {
+            print("Error: Image Not Found")
         }
-        animationGIFOFrames = cgImages
-        totalFrameCount = cgImages.count
-        animationOnReady()
     }
     
     /// This function retrieves the GIF Frame.

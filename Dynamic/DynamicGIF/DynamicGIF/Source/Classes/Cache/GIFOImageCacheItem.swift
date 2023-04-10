@@ -1,8 +1,8 @@
 //
 //  GIfImageCacheItem.swift
-//  BMOGIF
+//  GIFO
 //
-//  Created by 김동우 on 2023/02/28.
+//  Created by BMO on 2023/02/28.
 //
 
 import UIKit

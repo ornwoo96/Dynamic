@@ -1,8 +1,8 @@
 //
-//  GIFOImageCache.swift
-//  DynamicGIF
+//  GIFOImageCacheManager.swift
+//  GIFO
 //
-//  Created by 김동우 on 2023/03/07.
+//  Created by BMO on 2023/03/07.
 //
 
 import UIKit
@@ -55,24 +55,25 @@ internal class GIFOImageCacheManager: NSObject {
     
     /// Returns an array of GIFOFrame objects from the GIFOFrameCache for the given key.
     ///
-    /// - Parameter key: The key to identify the cached images.
+    /// - Parameters:
+    ///    - key: The key to identify the cached image.
     /// - Returns: An array of GIFOFrame objects if the cache exists for the given key, nil otherwise.
-    internal func getGIFImages(forKey key: String) -> [GIFOFrame]? {
+    internal func getGIFImages(forKey key: String) throws -> [GIFOFrame]? {
         guard let item = GIFOFrameCache.object(forKey: key as NSString) else {
-            return nil
+            throw GIFOImageCacheError.missingCacheObject(key: key)
         }
         return item.frames
     }
     
     /// Returns a UIImage object from the UIImageCache for the given key.
     ///
-    /// - Parameter key: The key to identify the cached image.
+    /// - Parameters:
+    ///    - key: The key to identify the cached image.
     /// - Returns: A UIImage object if the cache exists for the given key, nil otherwise.
-    internal func getGIFUIImage(forKey key: String) -> UIImage? {
+    internal func getGIFUIImage(forKey key: String) throws -> UIImage? {
         guard let item = UIImageCache.object(forKey: key as NSString) else {
-            return nil
+            throw GIFOImageCacheError.missingCacheObject(key: key)
         }
-        
         return item
     }
     

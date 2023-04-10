@@ -1,19 +1,11 @@
 //
 //  GIFODownLoader.swift
-//  DynamicGIF
+//  GIFO
 //
-//  Created by 김동우 on 2023/03/07.
+//  Created by BMO on 2023/03/07.
 //
 
 import UIKit
-
-/// Enum that represents possible errors that can occur while fetching GIF images.
-enum GIFODownLoaderError: Error {
-    case invalidResponse
-    case noData
-    case invalidURL
-    case failedRequest
-}
 
 /// `GIFODownloader` provides functionality to download GIF images.
 internal class GIFODownloader {

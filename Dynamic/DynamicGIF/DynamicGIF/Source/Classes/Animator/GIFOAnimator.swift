@@ -1,8 +1,8 @@
 //
-//  GIFAnimator.swift
-//  DynamicGIF
+//  GIFOAnimator.swift
+//  GIFO
 //
-//  Created by 김동우 on 2023/02/11.
+//  Created by BMO on 2023/02/11.
 //
 
 import UIKit

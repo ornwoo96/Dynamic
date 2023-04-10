@@ -1,8 +1,8 @@
 //
-//  GIFFrame.swift
-//  DynamicGIF
+//  GIFOFrame.swift
+//  GIFO
 //
-//  Created by 김동우 on 2023/02/03.
+//  Created by BMO on 2023/02/03.
 //
 
 import UIKit
