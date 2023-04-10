@@ -7,7 +7,7 @@
 
 import UIKit
 
-///
+/// Enum that represents possible errors that can occur while fetching GIF images.
 enum GIFODownLoaderError: Error {
     case invalidResponse
     case noData
@@ -15,10 +15,14 @@ enum GIFODownLoaderError: Error {
     case failedRequest
 }
 
-///
+/// `GIFODownloader` provides functionality to download GIF images.
 internal class GIFODownloader {
     
+    /// This function fetches image data through the given URL.
     ///
+    /// - Parameters:
+    ///    - url: The URL string for the image data.
+    ///    - completion:The closure to be called once the image data is fetched.
     static func fetchImageData(_ url: String,
                                completion: @escaping (Result<Data, GIFODownLoaderError>) -> Void) {
         guard let stringToURL = URL(string: url) else {
@@ -48,7 +52,11 @@ internal class GIFODownloader {
         }.resume()
     }
     
+    /// This function fetches image data from an asset file with the given file name.
     ///
+    /// - Parameters:
+    ///    - fileName:The name of the asset file to fetch the data from.
+    /// - returns : The data object containing the image data from the asset file.
     static func getDataFromAsset(named fileName: String) throws -> Data? {
         guard let asset = NSDataAsset(name: fileName) else {
             throw GIFODownLoaderError.noData
