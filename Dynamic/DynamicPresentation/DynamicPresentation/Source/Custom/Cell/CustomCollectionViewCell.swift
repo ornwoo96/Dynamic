@@ -61,11 +61,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     private func configure(url: String,
                            index: Int) {
         DispatchQueue.global(qos: .background).async {
-            
             self.imageView.setupGIFImageWithUIImage(url: url,
-                                                    cacheKey: url,
-                                                    level: .highLevel,
-                                                    isResizing: false)
+                                                    cacheKey: url)
         }
     }
     

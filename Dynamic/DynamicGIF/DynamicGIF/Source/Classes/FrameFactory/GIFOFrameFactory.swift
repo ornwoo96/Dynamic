@@ -25,25 +25,22 @@ internal class GIFOFrameFactory {
     private var imageSource: CGImageSource?
     
     /// The size of the image.
-    private var imageSize: CGSize
-    
-    /// The image is currently being resized.
-    private var isResizing: Bool = false
+    private var imageSize: CGSize?
     
     /// The cache key for the animation frames.
     private var cacheKey: String?
     
     /// The duration of each frame in the animation.
-    private var frameDurations: [Double]?
+    private var frameDurations: [Double] = []
     
     /// The animation frames should be cached or not.
     private var isCache = true
     
     /// An array of GIFOFrame objects that hold the frames of the animation in GIFO format.
-    internal var animationGIFOFrames: [GIFOFrame]?
+    internal var animationGIFOFrames: [GIFOFrame] = []
     
     /// An array of UIImage objects that hold the frames of the animation in UIImage format.
-    internal var animationUIImageFrames: [UIImage]?
+    internal var animationUIImageFrames: [UIImage] = []
     
     /// The total number of frames in the animation.
     internal var totalFrameCount: Int?
@@ -59,13 +56,11 @@ internal class GIFOFrameFactory {
     ///    - isResizing: A Boolean value indicating whether to resize the GIF image.
     ///    - isCache: A Boolean value indicating whether to cache the GIF image data.
     init(data: Data,
-         size: CGSize,
-         isResizing: Bool = false,
+         size: CGSize?,
          isCache: Bool = true) {
         let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
         self.imageSource = CGImageSourceCreateWithData(data as CFData, options) ?? CGImageSourceCreateIncremental(options)
         self.imageSize = size
-        self.isResizing = isResizing
         self.isCache = isCache
     }
     
@@ -74,7 +69,6 @@ internal class GIFOFrameFactory {
         self.animationGIFOFrames = []
         self.imageSource = nil
         self.totalFrameCount = 0
-        self.isResizing = false
         self.cacheKey = nil
         self.isCache = true
         completion()
@@ -85,7 +79,6 @@ internal class GIFOFrameFactory {
         self.animationUIImageFrames = []
         self.imageSource = nil
         self.totalFrameCount = 0
-        self.isResizing = false
         self.animationTotalDuration = 0
         self.cacheKey = nil
         self.frameDurations = []
@@ -110,6 +103,7 @@ internal class GIFOFrameFactory {
             GIFOImageCacheManager.shared.addGIFImages(images: levelFrames,
                                                       forKey: cacheKey)
         }
+        
         animationOnReady()
     }
     
@@ -215,7 +209,7 @@ internal class GIFOFrameFactory {
                 return []
             }
             
-            if isResizing {
+            if self.imageSize != nil {
                 guard let resizeImage = resize(source,i,image) else { return [] }
                 
                 frameProperties.append(
@@ -251,14 +245,14 @@ internal class GIFOFrameFactory {
                 return []
             }
             
-            if isResizing {
+            if self.imageSize != nil {
                 guard let resizeImage = resize(source,i,image) else { return [] }
                 frameProperties.append(UIImage(cgImage: resizeImage))
             } else {
                 frameProperties.append(UIImage(cgImage: image))
             }
             
-            frameDurations?.append(applyMinimumDelayTime(properties))
+            frameDurations.append(applyMinimumDelayTime(properties))
             animationTotalDuration += applyMinimumDelayTime(properties)
         }
         
@@ -271,13 +265,13 @@ internal class GIFOFrameFactory {
     ///    - properties: This is a dictionary-formatted data for a single frame extracted from CGImageSource.
     /// - returns : This is the minimum value for a frame extracted from CGImageSource.
     private func applyMinimumDelayTime(_ properties: [String: Any]) -> Double {
-        var duration = 0.1
+        var duration = 0.0
         
         if let gifProperties = properties[kCGImagePropertyGIFDictionary as String] as? [String: Any] {
             duration = gifProperties[kCGImagePropertyGIFDelayTime as String] as? Double ?? 0.1
         }
         
-        if duration < 0.1 {
+        if duration <= 0 {
             return 0.1
         }
         
@@ -328,12 +322,8 @@ internal class GIFOFrameFactory {
         var reducedFrameDurations: [Double] = []
         
         for i in 0..<reducedFrameCount {
-            
             let originalFrameIndex = i * level
-            
-            guard let frameDuration = self.frameDurations?[originalFrameIndex] else {
-                return []
-            }
+            let frameDuration = self.frameDurations[originalFrameIndex]
 
             reducedFrameDurations.append(frameDuration * Double(level))
             reducedFrames.append(GIFFrames[originalFrameIndex])
@@ -358,7 +348,8 @@ internal class GIFOFrameFactory {
         let options: [CFString: Any] = [
             kCGImageSourceCreateThumbnailWithTransform: true,
             kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceThumbnailMaxPixelSize: max(Int(self.imageSize.width), Int(self.imageSize.height))
+            kCGImageSourceThumbnailMaxPixelSize: max(Int((self.imageSize?.width)!),
+                                                     Int((self.imageSize?.height)!))
         ]
         
         guard let thumbnailImage = CGImageSourceCreateThumbnailAtIndex(source, index, options as CFDictionary) else {

@@ -20,7 +20,7 @@ internal class GIFOAnimator {
     private var currentFrameIndex = 0
     
     /// The time at which the last frame was displayed, in seconds.
-    private var lastFrameTime: Double = 0.0
+    private var lastFrameTime: TimeInterval = 0.0
     
     /// The number of times the animation should loop. A value of 0 means to loop indefinitely.
     private var loopCount: Int = 0
@@ -33,6 +33,9 @@ internal class GIFOAnimator {
     
     /// An instance of GIFOFrameFactory that creates frames for the animation.
     private var frameFactory: GIFOFrameFactory?
+    
+    /// Maximum duration to increment the frame timer with.
+    private let maxFrameDuration = 1.0
     
     /// A Boolean value that indicates whether the animation is currently paused.
     internal var isPaused = false
@@ -52,32 +55,21 @@ internal class GIFOAnimator {
     ///    - isCache: A Boolean value indicating whether to cache the GIF image data.
     ///    - animationOnReady: A block to be called when the animation is ready to be played.
     internal func setupForAnimation(data: Data,
-                                    size: CGSize,
+                                    size: CGSize?,
                                     loopCount: Int,
                                     level: GIFFrameReduceLevel,
-                                    isResizing: Bool,
                                     cacheKey: String,
                                     isCache: Bool,
                                     animationOnReady: @escaping () -> Void) {
         frameFactory = nil
         frameFactory = GIFOFrameFactory(data: data,
                                         size: size,
-                                        isResizing: isResizing,
                                         isCache: isCache)
         setupDisplayLink()
         self.loopCount = loopCount
         frameFactory?.setupGIFImageFramesWithGIFOFrame(cacheKey: cacheKey,
                                                        level: level,
                                                        animationOnReady: animationOnReady)
-    }
-    
-    /// This function creates a `CADisplayLink` object.
-    public func setupDisplayLink() {
-        let gifDisplay = CADisplayLink(target: self, selector: #selector(updateFrame))
-        gifDisplay.preferredFramesPerSecond = 10
-        gifDisplay.isPaused = true
-        gifDisplay.add(to: .main, forMode: .common)
-        displayLink = gifDisplay
     }
     
     /// This function sets up the cached image frames with the provided cache key and calls the given block when the animation is ready to be displayed.
@@ -93,80 +85,6 @@ internal class GIFOAnimator {
             animationOnReady()
         }
     }
-    
-    /// This is a method that updates each frame of an animation using a display link object.
-    @objc private func updateFrame() {
-        checkIsPaused()
-        updateLoopCount()
-        checkElapsedTime()
-        checkLoopCount()
-        updateCurrentImageToDelegate()
-        updateCurrentFrameIndex()
-    }
-    
-    /// This is a function that checks whether the animation is paused or not.
-    private func checkIsPaused() {
-        guard !isPaused else {
-            return
-        }
-    }
-    
-    /// This is a function that updates the current loop count.
-    private func updateLoopCount() {
-        guard let frameCount = frameFactory?.animationGIFOFrames?.count else {
-            return
-        }
-        
-        if currentFrameIndex >= frameCount {
-            currentFrameIndex = 0
-            currentLoop += 1
-        }
-    }
-    
-    /// This function checks if the elapsed time since the last frame update has exceeded the duration of the current frame.
-    private func checkElapsedTime() {
-        guard let frames = frameFactory?.animationGIFOFrames else {
-            return
-        }
-        
-        guard let elapsedTime = displayLink?.timestamp else {
-            return
-        }
-        
-        let elapsed = elapsedTime - lastFrameTime
-        
-        guard elapsed >= frames[currentFrameIndex].duration else {
-            return
-        }
-    }
-    
-    /// This function is responsible for stopping the animation when the current loop count reaches the specified loop count.
-    private func checkLoopCount() {
-        if loopCount != 0 && currentLoop >= loopCount {
-            currentFrameIndex = 0
-            stopAnimation()
-            return
-        }
-    }
-    
-    /// This function updates the current image to the delegate by getting the image from the frame at the current frame index.
-    private func updateCurrentImageToDelegate() {
-        guard let currentImage = frameFactory?.animationGIFOFrames?[currentFrameIndex].image else {
-            return
-        }
-        
-        delegate?.animationImageUpdate(image: currentImage)
-    }
-    
-    /// This function updates the current frame index using the timestamp of the display link.
-    private func updateCurrentFrameIndex() {
-        guard let displayLinkLastFrameTime = displayLink?.timestamp else {
-            return
-        }
-        currentFrameIndex += 1
-        lastFrameTime = displayLinkLastFrameTime
-    }
-    
     
     /// This function starts the animation by setting the isPaused property to false and unpausing the displayLink.
     internal func startAnimation() {
@@ -202,5 +120,107 @@ internal class GIFOAnimator {
             self?.isPaused = true
             displayLink.isPaused = true
         }
+    }
+    
+    /// This function creates a `CADisplayLink` object.
+    private func setupDisplayLink() {
+        let gifDisplay = CADisplayLink(target: self, selector: #selector(updateFrame))
+        gifDisplay.preferredFramesPerSecond = 60
+        gifDisplay.isPaused = true
+        gifDisplay.add(to: .main, forMode: .common)
+        displayLink = gifDisplay
+    }
+    
+    /// This is a method that updates each frame of an animation using a display link object.
+    @objc private func updateFrame() {
+        checkIsPaused()
+    }
+    
+    /// This is a function that checks whether the animation is paused or not.
+    private func checkIsPaused() {
+        if !isPaused {
+            updateLoopCount()
+            updateImageWithElapsedTime()
+            checkLoopCount()
+        }
+    }
+    
+    /// This is a function that updates the current loop count.
+    private func updateLoopCount() {
+        if currentFrameIndex >= frameTotalCount() {
+            currentFrameIndex = 0
+            currentLoop += 1
+        }
+    }
+    
+    /// This function compares the time of the current frame with the time when the last update was performed, and checks whether to update the current image
+    private func updateImageWithElapsedTime() {
+        incrementTimeSinceLastFrameChange()
+
+        if currentFrameDuration() <= lastFrameTime {
+            updateCurrentImageToDelegate()
+            resetLastFrameTime()
+            updateCurrentFrameIndex()
+        }
+    }
+    
+    /// This function is responsible for stopping the animation when the current loop count reaches the specified loop count.
+    private func checkLoopCount() {
+        if loopCount != 0 && currentLoop >= loopCount {
+            currentFrameIndex = 0
+            stopAnimation()
+        }
+    }
+    
+    /// This function updates the current image to the delegate by getting the image from the frame at the current frame index.
+    private func updateCurrentImageToDelegate() {
+        delegate?.animationImageUpdate(image: currentImage())
+    }
+    
+    /// This function updates the current frame index using the timestamp of the display link.
+    private func updateCurrentFrameIndex() {
+        currentFrameIndex += 1
+    }
+    
+    /// Adds the minimum value between maxFrameDuration and displayLinkDuration to lastFrameTime
+    private func incrementTimeSinceLastFrameChange() {
+        lastFrameTime += min(maxFrameDuration, displayLinkDuration())
+    }
+    
+    /// Subtracts currentFrameDuration from lastFrameTime
+    private func resetLastFrameTime() {
+        lastFrameTime -= currentFrameDuration()
+    }
+    
+    /// Returns the duration of the current frame, or 0 if the duration cannot be retrieved
+    private func currentFrameDuration() -> TimeInterval {
+        if let duration = frameFactory?.animationGIFOFrames[currentFrameIndex].duration {
+            return duration
+        }
+        return 0.0
+    }
+    
+    /// Returns the duration of the display link, or 0 if the duration cannot be retrieved
+    private func displayLinkDuration() -> TimeInterval {
+        if let duration = self.displayLink?.duration as? Double {
+            return duration
+        }
+        return 0.0
+    }
+    
+    /// Returns the total number of frames in the animationGIFOFrames array, or 0 if the array is empty
+    private func frameTotalCount() -> Int {
+        if let frameCount = frameFactory?.animationGIFOFrames.count {
+            return frameCount
+        }
+        return 0
+    }
+    
+    /// Returns the image of the current frame, or an empty UIImage if the image cannot be retrieved
+    private func currentImage() -> UIImage {
+        if let currentImage = frameFactory?.animationGIFOFrames[currentFrameIndex].image  {
+            return currentImage
+        }
+        return UIImage()
     }
 }
