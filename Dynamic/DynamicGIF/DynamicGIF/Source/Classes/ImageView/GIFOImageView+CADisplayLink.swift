@@ -33,10 +33,9 @@ public class GIFOImageView: UIImageView {
     public func setupGIFImageWithDisplayLink(url: String,
                                              cacheKey: String,
                                              isCache: Bool = true,
-                                             size: CGSize = CGSize(),
+                                             resize: CGSize? = nil,
                                              loopCount: Int = 0,
                                              level: GIFFrameReduceLevel = .highLevel,
-                                             isResizing: Bool = false,
                                              animationOnReady: (() -> Void)? = nil) {
         createAnimator()
 
@@ -50,10 +49,9 @@ public class GIFOImageView: UIImageView {
                 self.setupForAnimationWithDisplayLink(imageData: imageData,
                                                       cacheKey: cacheKey,
                                                       isCache: isCache,
-                                                      size: size,
+                                                      resize: resize,
                                                       loopCount: loopCount,
                                                       level: level,
-                                                      isResizing: isResizing,
                                                       animationOnReady: animationOnReady)
             case .failure(let error):
                 print(error.localizedDescription)
@@ -78,10 +76,9 @@ public class GIFOImageView: UIImageView {
     public func setupGIFImageWithDisplayLink(imageData: Data,
                                              cacheKey: String,
                                              isCache: Bool = true,
-                                             size: CGSize = CGSize(),
+                                             resize: CGSize? = nil,
                                              loopCount: Int = 0,
                                              level: GIFFrameReduceLevel = .highLevel,
-                                             isResizing: Bool = false,
                                              animationOnReady: (() -> Void)? = nil) {
         createAnimator()
         
@@ -92,10 +89,9 @@ public class GIFOImageView: UIImageView {
         setupForAnimationWithDisplayLink(imageData: imageData,
                                          cacheKey: cacheKey,
                                          isCache: isCache,
-                                         size: size,
+                                         resize: resize,
                                          loopCount: loopCount,
                                          level: level,
-                                         isResizing: isResizing,
                                          animationOnReady: animationOnReady)
     }
     
@@ -116,10 +112,9 @@ public class GIFOImageView: UIImageView {
     public func setupGIFImageWithDisplayLink(imageName: String,
                                              cacheKey: String,
                                              isCache: Bool = true,
-                                             size: CGSize = CGSize(),
+                                             resize: CGSize? = nil,
                                              loopCount: Int = 0,
                                              level: GIFFrameReduceLevel = .highLevel,
-                                             isResizing: Bool = false,
                                              animationOnReady: (() -> Void)? = nil) {
         createAnimator()
 
@@ -135,10 +130,9 @@ public class GIFOImageView: UIImageView {
             setupForAnimationWithDisplayLink(imageData: imageData,
                                              cacheKey: cacheKey,
                                              isCache: isCache,
-                                             size: size,
+                                             resize: resize,
                                              loopCount: loopCount,
                                              level: level,
-                                             isResizing: isResizing,
                                              animationOnReady: animationOnReady)
         } catch {
             print(GIFOImageViewError.ImageFileNotFoundError)
@@ -191,16 +185,14 @@ public class GIFOImageView: UIImageView {
     private func setupForAnimationWithDisplayLink(imageData: Data,
                                                   cacheKey: String,
                                                   isCache: Bool,
-                                                  size: CGSize = CGSize(),
-                                                  loopCount: Int = 0,
-                                                  level: GIFFrameReduceLevel = .highLevel,
-                                                  isResizing: Bool = false,
+                                                  resize: CGSize?,
+                                                  loopCount: Int,
+                                                  level: GIFFrameReduceLevel,
                                                   animationOnReady: (() -> Void)? = nil) {
         animator?.setupForAnimation(data: imageData,
-                                    size: size,
+                                    size: resize,
                                     loopCount: loopCount,
                                     level: level,
-                                    isResizing: isResizing,
                                     cacheKey: cacheKey,
                                     isCache: isCache) {
             self.animator?.startAnimation()

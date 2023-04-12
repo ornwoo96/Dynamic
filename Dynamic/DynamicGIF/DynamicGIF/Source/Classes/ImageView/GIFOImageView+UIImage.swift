@@ -24,9 +24,8 @@ extension GIFOImageView {
     */
     public func setupGIFImageWithUIImage(url: String,
                                          cacheKey: String,
-                                         size: CGSize = CGSize(),
+                                         resize: CGSize? = nil,
                                          level: GIFFrameReduceLevel = .highLevel,
-                                         isResizing: Bool = false,
                                          animationOnReady: (() -> Void)? = nil) {
         clearWithUIImage()
         checkCachedImageWithUIImage(forKey: cacheKey, animationOnReady: animationOnReady)
@@ -35,9 +34,8 @@ extension GIFOImageView {
             case .success(let imageData):
                 self?.setupForAnimationWithUIImage(imageData: imageData,
                                                    cacheKey: cacheKey,
-                                                   size: size,
+                                                   resize: resize,
                                                    level: level,
-                                                   isResizing: isResizing,
                                                    animationOnReady: animationOnReady)
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -59,16 +57,14 @@ extension GIFOImageView {
     */
     public func setupGIFImageWithUIImage(imageData: Data,
                                          cacheKey: String,
-                                         size: CGSize = CGSize(),
+                                         resize: CGSize? = nil,
                                          level: GIFFrameReduceLevel = .highLevel,
-                                         isResizing: Bool = false,
                                          animationOnReady: (() -> Void)? = nil) {
         checkCachedImageWithUIImage(forKey: cacheKey, animationOnReady: animationOnReady)
         setupForAnimationWithUIImage(imageData: imageData,
                                      cacheKey: cacheKey,
-                                     size: size,
+                                     resize: resize,
                                      level: level,
-                                     isResizing: isResizing,
                                      animationOnReady: animationOnReady)
     }
     
@@ -86,9 +82,8 @@ extension GIFOImageView {
     */
     public func setupGIFImageWithUIImage(imageName: String,
                                          cacheKey: String,
-                                         size: CGSize = CGSize(),
+                                         resize: CGSize? = nil,
                                          level: GIFFrameReduceLevel = .highLevel,
-                                         isResizing: Bool = false,
                                          animationOnReady: (() -> Void)? = nil) {
         checkCachedImageWithUIImage(forKey: cacheKey, animationOnReady: animationOnReady)
         
@@ -100,9 +95,8 @@ extension GIFOImageView {
             
             setupForAnimationWithUIImage(imageData: imageData,
                                          cacheKey: cacheKey,
-                                         size: size,
+                                         resize: resize,
                                          level: level,
-                                         isResizing: isResizing,
                                          animationOnReady: animationOnReady)
         } catch {
             print(GIFOImageViewError.ImageFileNotFoundError)
@@ -134,13 +128,11 @@ extension GIFOImageView {
     ///    - animationOnReady: A block to be called when the animation is ready.
     private func setupForAnimationWithUIImage(imageData: Data,
                                               cacheKey: String,
-                                              size: CGSize,
+                                              resize: CGSize?,
                                               level: GIFFrameReduceLevel,
-                                              isResizing: Bool,
                                               animationOnReady: (() -> Void)? = nil) {
         frameFactory = GIFOFrameFactory(data: imageData,
-                                        size: size,
-                                        isResizing: isResizing)
+                                        size: resize)
         
         frameFactory?.getGIFImageWithUIImage(cacheKey: cacheKey,
                                              level: level) { image in
@@ -155,7 +147,7 @@ extension GIFOImageView {
     
     /// This function checks if a cached image exists, and if a cached GIF image exists, injects it into the image property of a UIImageView.
     /// 이 함수는 캐시 GIF 이미지가 있는지 확인하고 캐시 GIF 이미지가 존재하면 UIImageView에 주입시키는 함수 입니다.
-    /// 
+    ///
     /// - Parameters:
     ///    - cacheKey: The key to cache the image data.
     ///    - animationOnReady: A block to be called when the animation is ready.
@@ -170,7 +162,7 @@ extension GIFOImageView {
                 animationOnReady?()
             }
         } catch {
-            print("Error: Image not found")
+            
         }
     }
 }

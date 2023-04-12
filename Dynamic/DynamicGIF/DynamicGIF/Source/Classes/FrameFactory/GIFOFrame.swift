@@ -11,25 +11,25 @@ import UIKit
 internal struct GIFOFrame {
     
     /// Empty GIFOFrame instance for convenience
-    static let empty: Self = .init(image: UIImage().cgImage!,
+    static let empty: Self = .init(image: UIImage(),
                                    duration: 0.0)
     
     /// The image of the frame
-    var image: UIImage
+    var image: UIImage?
     
     /// The duration of the frame in seconds
-    var duration: Double
+    var duration: TimeInterval
     
     /// Initializes a GIFOFrame instance with a CGImage
     init(image: CGImage,
-         duration: Double) {
+         duration: TimeInterval) {
         self.image = UIImage(cgImage: image)
         self.duration = duration
     }
     
     /// Initializes a GIFOFrame instance with a UIImage
     init(image: UIImage,
-         duration: Double) {
+         duration: TimeInterval) {
         self.image = image
         self.duration = duration
     }
