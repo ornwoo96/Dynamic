@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import DynamicGIF
+import GIFO
 
 public struct CustomCellItem {
     let favorite: Bool

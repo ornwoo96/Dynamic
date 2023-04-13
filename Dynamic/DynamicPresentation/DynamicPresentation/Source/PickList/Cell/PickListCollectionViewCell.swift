@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import DynamicGIF
+import GIFO
 
 class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
@@ -43,7 +43,7 @@ class PickListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        clear()
+        gifImageView.image = nil
     }
     
     public func configure(_ url: String) {

@@ -5,7 +5,7 @@
 //  Created by BMO on 2023/02/28.
 //
 
-import UIKit
+import Foundation
 
 /// This class represents a cache item for GIF frames.
 internal class GIFOImageCacheItem {

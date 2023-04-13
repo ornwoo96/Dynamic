@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B23526F298CF911003D1336 /* DynamicGIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B23526E298CF911003D1336 /* DynamicGIF.framework */; };
 		0B235270298CF911003D1336 /* DynamicGIF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B23526E298CF911003D1336 /* DynamicGIF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0B2D993729E7EC2000A63C7E /* GIFO in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2D993629E7EC2000A63C7E /* GIFO */; };
 		0BFE5922298C168C00A4509E /* DynamicPresentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE5921298C168C00A4509E /* DynamicPresentation.docc */; };
 		0BFE5928298C168C00A4509E /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE591D298C168C00A4509E /* DynamicPresentation.framework */; };
 		0BFE592D298C168C00A4509E /* DynamicPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFE592C298C168C00A4509E /* DynamicPresentationTests.swift */; };
@@ -208,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BFE5955298C186700A4509E /* DynamicDomain.framework in Frameworks */,
+				0B2D993729E7EC2000A63C7E /* GIFO in Frameworks */,
 				0BFE5953298C186600A4509E /* DynamicCore.framework in Frameworks */,
 				0B23526F298CF911003D1336 /* DynamicGIF.framework in Frameworks */,
 			);
@@ -772,6 +774,9 @@
 			dependencies = (
 			);
 			name = DynamicPresentation;
+			packageProductDependencies = (
+				0B2D993629E7EC2000A63C7E /* GIFO */,
+			);
 			productName = DynamicPresentation;
 			productReference = 0BFE591D298C168C00A4509E /* DynamicPresentation.framework */;
 			productType = "com.apple.product-type.framework";
@@ -821,6 +826,9 @@
 				Base,
 			);
 			mainGroup = 0BFE5913298C168B00A4509E;
+			packageReferences = (
+				0B2D993529E7EC2000A63C7E /* XCRemoteSwiftPackageReference "GIFO" */,
+			);
 			productRefGroup = 0BFE591E298C168C00A4509E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1198,6 +1206,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0B2D993529E7EC2000A63C7E /* XCRemoteSwiftPackageReference "GIFO" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ornwoo96/GIFO.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0B2D993629E7EC2000A63C7E /* GIFO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B2D993529E7EC2000A63C7E /* XCRemoteSwiftPackageReference "GIFO" */;
+			productName = GIFO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0BFE5914298C168B00A4509E /* Project object */;
 }

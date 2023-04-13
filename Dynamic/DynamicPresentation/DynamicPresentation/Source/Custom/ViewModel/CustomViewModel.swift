@@ -150,15 +150,15 @@ public class CustomViewModel: CustomViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, offset)
-                let presentationModel = convertCustomPresentationModel(model)
-                self?.previewContents.append(contentsOf: presentationModel.previewImageData)
-                self?.originalContents.append(contentsOf: presentationModel.originalImageData)
-                isRetrieveSuccess = true
-                event.send(.invalidateLayout)
-                event.send(.hideBottomLoading)
-                event.send(.hidePageLoading)
-                offset += limit
+                let model = try await self?.imageSearchUseCase.retrieveGIPHYDatas(self?.category.rawValue ?? <#default value#>, self?.offset ?? <#default value#>)
+                let presentationModel = self?.convertCustomPresentationModel(model ?? GIPHYDomainModel.empty)
+                self?.previewContents.append(contentsOf: presentationModel?.previewImageData ?? [])
+                self?.originalContents.append(contentsOf: presentationModel?.originalImageData ?? [])
+                self?.isRetrieveSuccess = true
+                self?.event.send(.invalidateLayout)
+                self?.event.send(.hideBottomLoading)
+                self?.event.send(.hidePageLoading)
+                self?.offset += self?.limit ?? 20
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }

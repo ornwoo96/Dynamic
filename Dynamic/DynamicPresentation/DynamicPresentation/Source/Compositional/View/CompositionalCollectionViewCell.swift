@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import DynamicGIF
+import GIFO
 
 public class CompositionalCellItem: BaseCellItem {
     let url: String

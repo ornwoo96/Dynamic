@@ -10,7 +10,7 @@ import Combine
 
 import Photos
 import AVFoundation
-import DynamicGIF
+import GIFO
 
 class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?

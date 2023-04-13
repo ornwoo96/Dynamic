@@ -15,8 +15,8 @@ public class HeartView: UIView {
         return view
     }()
     
-    private lazy var heartImageView: GIFOImageView = {
-        let view = GIFOImageView(frame: .zero)
+    private lazy var heartImageView: UIImageView = {
+        let view = UIImageView(frame: .zero)
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         return view
@@ -72,16 +72,16 @@ public class HeartView: UIView {
     
     private func showHeartView() {
         DispatchQueue.main.async { [weak self] in
+            let image = UIImage(named: "heart")
             self?.isHidden = false
+            self?.heartImageView.image = image
         }
-        heartImageView.setupGIFImageWithUIImage(imageName: "heart",
-                                                cacheKey: "heart")
     }
     
     private func hideHeartView() {
         DispatchQueue.main.async { [weak self] in
             self?.isHidden = true
+            self?.heartImageView.image = nil
         }
-        self.heartImageView.clearWithUIImage()
     }
 }

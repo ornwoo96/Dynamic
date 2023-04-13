@@ -111,9 +111,7 @@ class PickListViewController: UIViewController, HasCoordinatable {
             .store(in: &cancellable)
     }
     
-    private func collectionViewReloadData() {
-        pickListCollectionView.reloadData()
-    }
+    private func collectionViewReloadData() {}
 }
 
 extension PickListViewController: BackButtonProtocol {
@@ -131,6 +129,7 @@ extension PickListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PickListCollectionViewCell.identifier, for: indexPath) as? PickListCollectionViewCell else { return UICollectionViewCell() }
+        
         cell.configure(viewModel.contents[indexPath.item].url)
         
         return cell

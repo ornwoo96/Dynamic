@@ -14,6 +14,7 @@
 		0B19C796294232AA00909F8D /* DynamicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C795294232AA00909F8D /* DynamicTests.swift */; };
 		0B19C7A0294232AA00909F8D /* DynamicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C79F294232AA00909F8D /* DynamicUITests.swift */; };
 		0B19C7A2294232AA00909F8D /* DynamicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B19C7A1294232AA00909F8D /* DynamicUITestsLaunchTests.swift */; };
+		0B2D992A29E7EB7800A63C7E /* GIFO in Frameworks */ = {isa = PBXBuildFile; productRef = 0B2D992929E7EB7800A63C7E /* GIFO */; };
 		0B7A57FF29600B25008BCF05 /* DynamicDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9229460354005FC30F /* DynamicDomain.framework */; };
 		0B7A580029600B25008BCF05 /* DynamicDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B9229460354005FC30F /* DynamicDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B202945B509005FC30F /* DynamicCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -97,20 +98,6 @@
 			remoteGlobalIDString = 0BFE5927298C168C00A4509E;
 			remoteInfo = DynamicPresentationTests;
 		};
-		0BFE5A43298CE42200A4509E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0BFE5A3E298CE42000A4509E /* DynamicGIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0BFE5A24298CE42000A4509E;
-			remoteInfo = DynamicGIF;
-		};
-		0BFE5A45298CE42200A4509E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0BFE5A3E298CE42000A4509E /* DynamicGIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0BFE5A2E298CE42000A4509E;
-			remoteInfo = DynamicGIFTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -151,7 +138,6 @@
 		0BBE4B1D295C3EC200774CE0 /* DynamicDomain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamicDomain.framework; path = "../../../Library/Developer/Xcode/DerivedData/Dynamic-dkjsrdmczcpsajbnkxjzrovohiva/Build/Products/Debug-iphoneos/DynamicDomain.framework"; sourceTree = "<group>"; };
 		0BFE58F7298C0E6400A4509E /* DynamicCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicCore.xcodeproj; path = Dynamic/DynamicCore/DynamicCore.xcodeproj; sourceTree = "<group>"; };
 		0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicPresentation.xcodeproj; path = Dynamic/DynamicPresentation/DynamicPresentation.xcodeproj; sourceTree = "<group>"; };
-		0BFE5A3E298CE42000A4509E /* DynamicGIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DynamicGIF.xcodeproj; path = Dynamic/DynamicGIF/DynamicGIF.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B7A57FF29600B25008BCF05 /* DynamicDomain.framework in Frameworks */,
+				0B2D992A29E7EB7800A63C7E /* GIFO in Frameworks */,
 				0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */,
 				0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */,
 				0BFE5900298C0ECF00A4509E /* DynamicCore.framework in Frameworks */,
@@ -196,7 +183,6 @@
 				0BB52BB929460367005FC30F /* DynamicData.xcodeproj */,
 				0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */,
 				0BFE5937298C168C00A4509E /* DynamicPresentation.xcodeproj */,
-				0BFE5A3E298CE42000A4509E /* DynamicGIF.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,15 +296,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0BFE5A3F298CE42000A4509E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0BFE5A44298CE42200A4509E /* DynamicGIF.framework */,
-				0BFE5A46298CE42200A4509E /* DynamicGIFTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -336,6 +313,9 @@
 			dependencies = (
 			);
 			name = Dynamic;
+			packageProductDependencies = (
+				0B2D992929E7EB7800A63C7E /* GIFO */,
+			);
 			productName = Dynamic;
 			productReference = 0B19C778294232A700909F8D /* Dynamic.app */;
 			productType = "com.apple.product-type.application";
@@ -408,6 +388,9 @@
 				Base,
 			);
 			mainGroup = 0B19C76F294232A700909F8D;
+			packageReferences = (
+				0B2D992829E7EB7800A63C7E /* XCRemoteSwiftPackageReference "GIFO" */,
+			);
 			productRefGroup = 0B19C779294232A700909F8D /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -422,10 +405,6 @@
 				{
 					ProductGroup = 0BB52B8D29460354005FC30F /* Products */;
 					ProjectRef = 0BB52B8C29460354005FC30F /* DynamicDomain.xcodeproj */;
-				},
-				{
-					ProductGroup = 0BFE5A3F298CE42000A4509E /* Products */;
-					ProjectRef = 0BFE5A3E298CE42000A4509E /* DynamicGIF.xcodeproj */;
 				},
 				{
 					ProductGroup = 0BFE5938298C168C00A4509E /* Products */;
@@ -496,20 +475,6 @@
 			fileType = wrapper.cfbundle;
 			path = DynamicPresentationTests.xctest;
 			remoteRef = 0BFE593E298C168D00A4509E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0BFE5A44298CE42200A4509E /* DynamicGIF.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DynamicGIF.framework;
-			remoteRef = 0BFE5A43298CE42200A4509E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0BFE5A46298CE42200A4509E /* DynamicGIFTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DynamicGIFTests.xctest;
-			remoteRef = 0BFE5A45298CE42200A4509E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -892,6 +857,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0B2D992829E7EB7800A63C7E /* XCRemoteSwiftPackageReference "GIFO" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ornwoo96/GIFO.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0B2D992929E7EB7800A63C7E /* GIFO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B2D992829E7EB7800A63C7E /* XCRemoteSwiftPackageReference "GIFO" */;
+			productName = GIFO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0B19C770294232A700909F8D /* Project object */;
 }
