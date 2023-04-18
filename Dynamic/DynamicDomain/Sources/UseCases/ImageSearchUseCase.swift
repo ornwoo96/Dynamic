@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class ImageSearchUseCase: ImageSearchUseCaseProtocol {
+internal final class ImageSearchUseCase: ImageSearchUseCaseProtocol {
     private let dynamicRepository: DynamicRepository
     private let coreDataManager: CoreDataManagerRepository
     

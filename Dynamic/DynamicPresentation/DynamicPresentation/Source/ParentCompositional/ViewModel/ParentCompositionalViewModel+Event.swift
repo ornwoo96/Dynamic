@@ -35,7 +35,7 @@ extension ParentCompositionalViewModel {
         case none
     }
     
-    public enum NavigationBarState {
+    internal enum NavigationBarState {
         case hide
         case show
     }

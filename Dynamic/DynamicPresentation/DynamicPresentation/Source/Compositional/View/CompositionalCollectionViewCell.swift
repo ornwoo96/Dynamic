@@ -8,7 +8,7 @@
 import UIKit
 import GIFO
 
-public class CompositionalCellItem: BaseCellItem {
+internal class CompositionalCellItem: BaseCellItem {
     let url: String
     let favorite: Bool
     let width: CGFloat
@@ -25,11 +25,11 @@ public class CompositionalCellItem: BaseCellItem {
     }
 }
 
-class CompositionalCollectionViewCell: UICollectionViewCell {
-    static let identifier = "CompositionalCollectionViewCell"
+internal class CompositionalCollectionViewCell: UICollectionViewCell {
+    internal static let identifier = "CompositionalCollectionViewCell"
     private var cellGradientLayer = CAGradientLayer()
     
-    public lazy var gifImageView: GIFOImageView = {
+    internal lazy var gifImageView: GIFOImageView = {
         let imageView = GIFOImageView(frame: .zero)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -62,13 +62,13 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
         clear()
     }
     
-    public func configure(_ item: CompositionalCellItem) {
+    internal func configure(_ item: CompositionalCellItem) {
         gifImageView.setupGIFImageWithUIImage(url: item.url, cacheKey: item.url)
         heartView.setupHeartViewImage(bool: item.favorite)
         setupCellGradient()
     }
     
-    public func clear() {
+    internal func clear() {
         gifImageView.clearWithUIImage()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
@@ -120,7 +120,7 @@ class CompositionalCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    public func checkHeartViewIsHidden() -> Bool {
+    internal func checkHeartViewIsHidden() -> Bool {
         if heartView.isHidden == true {
             heartView.setupHeartViewImage(bool: true)
             return true

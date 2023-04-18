@@ -11,7 +11,7 @@ final class CustomNavigationBar: UIView {
     internal var mainNavigationBar = MainNavigationBar()
     internal var favoritesNavigationBar = FavoritesNavigationBar()
     
-    public enum CustomNavigationBarType {
+    internal enum CustomNavigationBarType {
         case main
         case favorites
     }

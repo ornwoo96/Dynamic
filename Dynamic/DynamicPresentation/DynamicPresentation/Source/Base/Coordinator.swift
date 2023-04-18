@@ -9,17 +9,17 @@ import UIKit
 
 public class Coordinator: NSObject, Coordinatable {
     public var navigationController: UINavigationController? = nil
-    var childCoordinators: [Coordinatable] = []
-    weak var parentCoordinator: Coordinatable? = nil
+    public var childCoordinators: [Coordinatable] = []
+    public weak var parentCoordinator: Coordinatable? = nil
     public var viewController: (HasCoordinatable & UIViewController)?
     
-    override init() {
+    public override init() {
         super.init()
         navigationController?.delegate = self
     }
     
-    init(parentCoordinator: Coordinatable?,
-         viewController: HasCoordinatable & UIViewController) {
+    public init(parentCoordinator: Coordinatable?,
+                viewController: HasCoordinatable & UIViewController) {
         super.init()
         self.parentCoordinator = parentCoordinator
         self.parentCoordinator?.childCoordinators.append(self)
@@ -28,9 +28,9 @@ public class Coordinator: NSObject, Coordinatable {
         self.viewController?.coordinator = self
     }
     
-    func start() { }
+    public func start() { }
     
-    func childDidFinish(_ child: Coordinatable?, root: Coordinatable?) {
+    public func childDidFinish(_ child: Coordinatable?, root: Coordinatable?) {
         guard let root = root,
               root.childCoordinators.isEmpty == false else {
             return
@@ -49,8 +49,8 @@ public class Coordinator: NSObject, Coordinatable {
 
 extension Coordinator: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController,
-                                     didShow viewController: UIViewController,
-                                     animated: Bool) {
+                                       didShow viewController: UIViewController,
+                                       animated: Bool) {
         
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
             return

@@ -12,7 +12,7 @@ import Photos
 import AVFoundation
 import GIFO
 
-class DetailViewController: UIViewController, HasCoordinatable {
+internal class DetailViewController: UIViewController, HasCoordinatable {
     weak var coordinator: Coordinator?
     private var castedCoordinator: DetailCoordinator? { coordinator as? DetailCoordinator }
     private var cancellables: Set<AnyCancellable> = .init()
@@ -277,7 +277,7 @@ extension DetailViewController: UIGestureRecognizerDelegate {
         animateTextAlpha()
     }
     
-    func animateTextAlpha() {
+    internal func animateTextAlpha() {
         UIView.animateKeyframes(withDuration: 1.0,
                                 delay: 0.5) {
             UIView.addKeyframe(withRelativeStartTime: 0,

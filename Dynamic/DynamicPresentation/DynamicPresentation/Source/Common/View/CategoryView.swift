@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol CategoryViewProtocol {
+internal protocol CategoryViewProtocol {
     func buttonDidTap(_ tag: Int)
 }
 
-class CategoryView: UIView {
-    var delegate: CategoryViewProtocol?
-    var backgroundView = UIView()
+internal class CategoryView: UIView {
+    internal var delegate: CategoryViewProtocol?
+    internal var backgroundView = UIView()
     private var scrollView = UIScrollView()
     private var stackView = UIStackView()
-    var selectedView = UIView()
+    internal var selectedView = UIView()
     private var selectedViewLeadingConstraint: NSLayoutConstraint?
     private var selectedViewWidthConstraint: NSLayoutConstraint?
     private var selectedViewGradientLayer = CAGradientLayer()
@@ -150,7 +150,7 @@ class CategoryView: UIView {
         self.branchButtonTag(sender.tag)
     }
     
-    public func branchButtonTag(_ tag: Int) {
+    internal func branchButtonTag(_ tag: Int) {
         switch tag {
         case 0:
             self.buttonTapAnimations(6, 90, 0, 0)
@@ -208,12 +208,12 @@ class CategoryView: UIView {
         selectedViewGradientLayer.add(animation2, forKey: "colors")
     }
     
-    public func setupBackGroundViewWhenHideBar() {
+    internal func setupBackGroundViewWhenHideBar() {
         self.backgroundView.backgroundColor = .black
 
     }
     
-    public func setupBackGroundViewWhenShowBar() {
+    internal func setupBackGroundViewWhenShowBar() {
         self.backgroundView.backgroundColor = .clear
     }
 }

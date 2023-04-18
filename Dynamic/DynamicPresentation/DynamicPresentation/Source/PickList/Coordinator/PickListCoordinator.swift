@@ -8,7 +8,7 @@
 import UIKit
 import DynamicCore
 
-class PickListCoordinator: Coordinator {
+internal class PickListCoordinator: Coordinator {
     override func start() {
         guard let viewController = viewController else { return }
         

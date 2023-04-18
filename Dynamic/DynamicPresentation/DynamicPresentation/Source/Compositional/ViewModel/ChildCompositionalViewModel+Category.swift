@@ -8,7 +8,7 @@
 import Foundation
 
 extension ChildCompositionalViewModel {
-    public enum Category: String {
+    internal enum Category: String {
         case Coding = "Coding"
         case Memes = "Memes"
         case Cats = "Cat"
@@ -19,7 +19,7 @@ extension ChildCompositionalViewModel {
         case Emoji = "Emoji"
     }
     
-    static var categorys: [Category] = {
+    internal static var categorys: [Category] = {
         var array = [Category.Coding,
                      Category.Memes,
                      Category.Cats,

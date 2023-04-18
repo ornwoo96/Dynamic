@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import DynamicGIF
 
-public class HeartView: UIView {
+internal class HeartView: UIView {
     private lazy var blackBackgroundLayerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.heartViewBackgroundBlackColor
@@ -60,7 +59,7 @@ public class HeartView: UIView {
         ])
     }
     
-    public func setupHeartViewImage(bool: Bool) {
+    internal func setupHeartViewImage(bool: Bool) {
         isFavorite = bool
         
         if isFavorite {

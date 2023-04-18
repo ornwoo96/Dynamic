@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class ChildCompositionalViewController: UIViewController, HasCoordinatable {
+internal class ChildCompositionalViewController: UIViewController, HasCoordinatable {
     private let viewModel: ChildCompositionalViewModelProtocol
     var coordinator: Coordinator?
     private var castedCoordinator: ChildCompositionalCoordinator? { coordinator as? ChildCompositionalCoordinator }

@@ -9,11 +9,11 @@ import Foundation
 import DynamicDomain
 import CoreData
 
-public enum CoreDataEntityName: String {
+internal enum CoreDataEntityName: String {
     case favorites = "Favorites"
 }
 
-public enum CoreDataError: Error {
+internal enum CoreDataError: Error {
     case requestError
     case saveError
     case deleteError
@@ -21,12 +21,12 @@ public enum CoreDataError: Error {
     case loadPersistentStoresError
 }
 
-public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
+internal class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
     public static let shared = DefaultCoreDataManagerRepository()
     private let identifier: String = "dongdong.DynamicData"
     private let model: String = "DynamicCoreData"
     
-    public init() {}
+    internal init() {}
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let bundle = Bundle(identifier: self.identifier)
@@ -51,7 +51,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         return container
     }()
     
-    public func createGIFImageData(_ height: String,
+    internal func createGIFImageData(_ height: String,
                                    _ width: String,
                                    _ id: String,
                                    _ url: String) {
@@ -71,7 +71,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
-    public func removeGIFImageData(_ id: String) {
+    internal func removeGIFImageData(_ id: String) {
         let request = Favorites.fetchRequest()
         let context = persistentContainer.viewContext
         request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
@@ -94,7 +94,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
-    public func checkGIFImageArrayDataIsExist(_ array: [String]) async throws -> [Bool] {
+    internal func checkGIFImageArrayDataIsExist(_ array: [String]) async throws -> [Bool] {
         let request = Favorites.fetchRequest()
         let context = persistentContainer.viewContext
         
@@ -120,7 +120,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         return boolArray
     }
     
-    public func checkGIFImageDataIsExist(_ id: String) async throws -> Bool {
+    internal func checkGIFImageDataIsExist(_ id: String) async throws -> Bool {
         let request = Favorites.fetchRequest()
         let context = persistentContainer.viewContext
 
@@ -141,7 +141,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
-    public func requestFavoriteData(_ id: String) async throws -> FavoriteDomainModel {
+    internal func requestFavoriteData(_ id: String) async throws -> FavoriteDomainModel {
         let request = Favorites.fetchRequest()
         let context = persistentContainer.viewContext
         
@@ -165,7 +165,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
-    public func requestFavoritesDatas() async throws -> [FavoriteDomainModel] {
+    internal func requestFavoritesDatas() async throws -> [FavoriteDomainModel] {
         let request = Favorites.fetchRequest()
         let context = persistentContainer.viewContext
 
@@ -184,7 +184,7 @@ public class DefaultCoreDataManagerRepository: CoreDataManagerRepository {
         }
     }
     
-    private func convertFavoritesToDomainModel(_ data: [Favorites]) -> [FavoriteDomainModel] {
+    internal func convertFavoritesToDomainModel(_ data: [Favorites]) -> [FavoriteDomainModel] {
         var dataArray: [FavoriteDomainModel] = []
         for i in data {
             let domainModel: FavoriteDomainModel = .init(url: i.url ?? "",

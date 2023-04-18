@@ -8,14 +8,14 @@
 import Foundation
 import DynamicDomain
 
-public final class DefaultDynamicRepository: DynamicRepository {
+internal final class DefaultDynamicRepository: DynamicRepository {
     private let GIPHYAPI: GIPHYAPI
     
-    public init(GIPHYAPI: GIPHYAPI) {
+    internal init(GIPHYAPI: GIPHYAPI) {
         self.GIPHYAPI = GIPHYAPI
     }
     
-    public func retrieveGIFImageData(searchWord: String,
+    internal func retrieveGIFImageData(searchWord: String,
                                      offset: Int) async throws -> GIPHYDomainModel {
         let model = try await GIPHYAPI.retrieveGIFImageData(searchWord: searchWord,
                                                             offset: offset)

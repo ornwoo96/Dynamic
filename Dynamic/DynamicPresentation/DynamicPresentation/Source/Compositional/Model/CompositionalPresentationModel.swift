@@ -8,8 +8,8 @@
 import Foundation
 import DynamicDomain
 
-public struct CompositionalPresentationModel {
-    public static let empty: Self = .init(previewModel: [],
+internal struct CompositionalPresentationModel {
+    internal static let empty: Self = .init(previewModel: [],
                                           originalModel: [])
     
     var previewModel: [PreviewModel]
@@ -21,7 +21,7 @@ public struct CompositionalPresentationModel {
         self.originalModel = originalModel
     }
     
-    public struct PreviewModel {
+    internal struct PreviewModel {
         public static let empty: Self = .init(height: 0,
                                               width: 0,
                                               url: "",

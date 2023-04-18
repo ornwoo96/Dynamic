@@ -9,10 +9,10 @@ import UIKit
 
 import DynamicCore
 
-public class ParentCompositionalCoordinator: Coordinator {
+internal class ParentCompositionalCoordinator: Coordinator {
     var childViewControllers: [ChildCompositionalViewController] = []
     
-    override func start() {
+    public override func start() {
         guard let viewController = viewController,
               let tabBarCoordinator: TabBarCoordinator = DIContainer.shared.resolveValue(CodiKeys.tabBar.rawValue) else { return }
         parentCoordinator = tabBarCoordinator
@@ -20,18 +20,18 @@ public class ParentCompositionalCoordinator: Coordinator {
         navigationController?.pushViewController(viewController, animated: false)
     }
     
-    public func pushPickListView() {
+    internal func pushPickListView() {
         guard let coordinator: PickListCoordinator = DIContainer.shared.resolveValue(CodiKeys.pickList.rawValue) else { return }
         coordinator.navigationController = parentCoordinator?.navigationController
         coordinator.start()
     }
     
-    public func setupCompositionalNavigationBarState(state: ParentCompositionalViewModel.NavigationBarState) {
+    internal func setupCompositionalNavigationBarState(state: ParentCompositionalViewModel.NavigationBarState) {
         guard let viewController = viewController as? ParentCompositionalViewController else { return }
         viewController.animateNavigationBar(state: state)
     }
     
-    public func receiveFavoritesCountData(_ count: Int) {
+    internal func receiveFavoritesCountData(_ count: Int) {
         guard let viewController = viewController as? ParentCompositionalViewController else { return }
         viewController.setupFavoritesCountData(count)
     }

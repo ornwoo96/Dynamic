@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BackButton: UIButton {
+internal class BackButton: UIButton {
     private lazy var backImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.backward")

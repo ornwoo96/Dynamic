@@ -8,7 +8,7 @@
 import UIKit
 import GIFO
 
-class PickListCollectionViewCell: UICollectionViewCell {
+internal class PickListCollectionViewCell: UICollectionViewCell {
     static let identifier = "PickListCollectionViewCell"
     private var cellGradientLayer = CAGradientLayer()
 
@@ -46,13 +46,13 @@ class PickListCollectionViewCell: UICollectionViewCell {
         gifImageView.image = nil
     }
     
-    public func configure(_ url: String) {
+    internal func configure(_ url: String) {
         gifImageView.setupGIFImageWithUIImage(url: url, cacheKey: url)
         heartView.setupHeartViewImage(bool: true)
         setupCellGradient()
     }
     
-    public func clear() {
+    internal func clear() {
         gifImageView.clearWithUIImage()
         heartView.isHidden = true
         heartView.setupHeartViewImage(bool: false)
@@ -104,7 +104,7 @@ class PickListCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    public func checkHeartViewIsHidden() -> Bool {
+    internal func checkHeartViewIsHidden() -> Bool {
         if heartView.isHidden == true {
             heartView.setupHeartViewImage(bool: true)
             return true

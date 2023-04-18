@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol CustomNavigationBarDelegate {
+internal protocol CustomNavigationBarDelegate {
     func favoritesButtonTapped()
 }
 
-class MainNavigationBar: UIView {
+internal class MainNavigationBar: UIView {
     var delegate: CustomNavigationBarDelegate?
     private lazy var backgroundView: UIView = {
         let view = UIView()
@@ -95,12 +95,12 @@ class MainNavigationBar: UIView {
 }
 
 extension MainNavigationBar {
-    public enum FavoritesAction {
+    internal enum FavoritesAction {
         case none
         case number
     }
     
-    public func checkNumber(_ count: Int) {
+    internal func checkNumber(_ count: Int) {
         if count == 0 {
             self.animateNonePickListButton()
         } else {

@@ -8,8 +8,8 @@
 import Foundation
 
 extension ChildCompositionalViewModel {
-    public enum Event: Equatable {
-        public static func == (lhs: ChildCompositionalViewModel.Event, rhs: ChildCompositionalViewModel.Event) -> Bool {
+    internal enum Event: Equatable {
+        internal static func == (lhs: ChildCompositionalViewModel.Event, rhs: ChildCompositionalViewModel.Event) -> Bool {
             switch (lhs, rhs) {
                 
             case (.none, .none):

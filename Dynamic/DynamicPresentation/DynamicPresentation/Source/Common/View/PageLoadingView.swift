@@ -94,7 +94,7 @@ class PageLoadingView: UIView {
 }
 
 extension PageLoadingView {
-    func bounceAnimation() {
+    internal func bounceAnimation() {
         UIView.animateKeyframes(withDuration: 1,
                                 delay: 0,
                                 options: .repeat,

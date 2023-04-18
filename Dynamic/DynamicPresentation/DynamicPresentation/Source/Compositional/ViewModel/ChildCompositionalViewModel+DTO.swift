@@ -9,13 +9,13 @@ import Foundation
 import DynamicDomain
 
 extension ChildCompositionalViewModel {
-    public func convert(_ data: CompositionalPresentationModel.OriginalModel) -> DetailModel {
+    internal func convert(_ data: CompositionalPresentationModel.OriginalModel) -> DetailModel {
         return DetailModel(url: data.url,
                            width: String(Int(data.width)),
                            height: String(Int(data.height)))
     }
     
-    public func convertOriginalDomain(_ data: CompositionalPresentationModel.PreviewModel) -> PreviewDomainModel {
+    internal func convertOriginalDomain(_ data: CompositionalPresentationModel.PreviewModel) -> PreviewDomainModel {
         return PreviewDomainModel.init(id: data.id,
                                         height: String(Int(data.height)),
                                         width: String(Int(data.width)),
@@ -23,7 +23,7 @@ extension ChildCompositionalViewModel {
                                         favorite: data.favorite)
     }
     
-    public func convertCellModel(_ compositionalPresentationModel: [CompositionalPresentationModel.PreviewModel]) -> [CompositionalCellItem] {
+    internal func convertCellModel(_ compositionalPresentationModel: [CompositionalPresentationModel.PreviewModel]) -> [CompositionalCellItem] {
         return compositionalPresentationModel.map {
             CompositionalCellItem.init(url: $0.url,
                                        favorite: $0.favorite,
@@ -32,7 +32,7 @@ extension ChildCompositionalViewModel {
         }
     }
     
-    public func convertPresentationModel(_ GIPHYDomainModel: GIPHYDomainModel) -> CompositionalPresentationModel {
+    internal func convertPresentationModel(_ GIPHYDomainModel: GIPHYDomainModel) -> CompositionalPresentationModel {
         return CompositionalPresentationModel(
             previewModel: GIPHYDomainModel.previewImages.map { convert($0) },
             originalModel: GIPHYDomainModel.originalImages.map { convert($0) }

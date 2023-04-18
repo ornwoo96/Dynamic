@@ -8,10 +8,10 @@
 import UIKit
 import DynamicCore
 
-class DetailCoordinator: Coordinator {
+public class DetailCoordinator: Coordinator {
     var detailData: DetailModel?
     
-    override func start() {
+    public override func start() {
         guard let viewController: DetailViewController = viewController as? DetailViewController else {
             return
         }

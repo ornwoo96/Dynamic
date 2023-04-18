@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class ParentCompositionalViewController: UIViewController, HasCoordinatable {
+internal final class ParentCompositionalViewController: UIViewController, HasCoordinatable {
     private var viewModel: ParentCompositionalViewModelProtocol
     weak var coordinator: Coordinator?
     private var cancellable: Set<AnyCancellable> = .init()
@@ -122,11 +122,11 @@ final class ParentCompositionalViewController: UIViewController, HasCoordinatabl
 }
 
 extension ParentCompositionalViewController {
-    func animateNavigationBar(state: ParentCompositionalViewModel.NavigationBarState) {
+    internal func animateNavigationBar(state: ParentCompositionalViewModel.NavigationBarState) {
         viewModel.action(.navigationBarState(state: state))
     }
     
-    func animateHideNavigationBar() {
+    private func animateHideNavigationBar() {
         customNavigationBarTopConstraint?.constant = -yValueRatio(100)
         categoryViewTopConstraint?.constant = yValueRatio(70)
         UIView.animate(withDuration: 0.2) {
@@ -135,7 +135,7 @@ extension ParentCompositionalViewController {
         }
     }
     
-    func animateShowNavigationBar() {
+    private func animateShowNavigationBar() {
         customNavigationBarTopConstraint?.constant = 0
         categoryViewTopConstraint?.constant = 0
         UIView.animate(withDuration: 0.2) {
@@ -144,7 +144,7 @@ extension ParentCompositionalViewController {
         }
     }
     
-    public func setupFavoritesCountData(_ count: Int) {
+    internal func setupFavoritesCountData(_ count: Int) {
         viewModel.action(.receiveFavoritesCountData(count))
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PickListButton: UIView {
+internal class PickListButton: UIView {
     internal var backgroundView = UIButton()
     private(set) lazy var pickListLabel: UILabel = {
         let label = UILabel()
@@ -86,7 +86,7 @@ final class PickListButton: UIView {
         backgroundView.layer.addSublayer(gradient)
     }
     
-    public func setupLabels(_ action: MainNavigationBar.FavoritesAction) {
+    internal func setupLabels(_ action: MainNavigationBar.FavoritesAction) {
         switch action {
         case .none:
             numberLabel.isHidden = true

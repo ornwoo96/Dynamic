@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemoveFavoritesUseCase: RemoveFavoritesUseCaseProtocol {
+internal final class RemoveFavoritesUseCase: RemoveFavoritesUseCaseProtocol {
     private var coreDataManager: CoreDataManagerRepository
     
     init(coreDataManager: CoreDataManagerRepository) {

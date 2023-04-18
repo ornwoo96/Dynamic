@@ -9,15 +9,12 @@ import UIKit
 import DynamicCore
 
 public class TabBarCoordinator: Coordinator {
-    
     override public func start() {
         guard let viewController = viewController,
-              let parentCustomCoordinator: ParentCustomCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCustom.rawValue),
-              let parentCompositionalCoordinator: ParentCompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCompo.rawValue),
-              let swiftCoordinator: SwiftUICoordinator = DIContainer.shared.resolveValue(CodiKeys.swift.rawValue) else { return }
-        parentCustomCoordinator.start()
+              let parentCompositionalCoordinator: ParentCompositionalCoordinator = DIContainer.shared.resolveValue(CodiKeys.parentCompo.rawValue) else {
+                  return
+              }
         parentCompositionalCoordinator.start()
-        swiftCoordinator.start()
 
         navigationController?.pushViewController(viewController, animated: false)
     }

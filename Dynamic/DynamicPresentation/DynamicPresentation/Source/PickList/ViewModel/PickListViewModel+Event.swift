@@ -8,7 +8,7 @@
 import Foundation
 
 extension PickListViewModel {
-    public enum Event: Equatable {
+    internal enum Event: Equatable {
         public static func == (lhs: PickListViewModel.Event, rhs: PickListViewModel.Event) -> Bool {
             switch (lhs, rhs) {
                 

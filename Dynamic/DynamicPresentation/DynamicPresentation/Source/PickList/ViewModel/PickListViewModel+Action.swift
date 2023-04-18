@@ -8,7 +8,7 @@
 import Foundation
 
 extension PickListViewModel {
-    public enum Action {
+    internal enum Action {
         case viewDidLoad
         case viewNeededCalculateLayout
         case didSelectedItemAtLongPressed(indexPath: IndexPath)

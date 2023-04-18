@@ -8,8 +8,8 @@
 import UIKit
 import Combine
 
-class PickListViewController: UIViewController, HasCoordinatable {
-    let viewModel: PickListViewModel
+internal class PickListViewController: UIViewController, HasCoordinatable {
+    private let viewModel: PickListViewModel
     weak var coordinator: Coordinator?
     private var castedCoordinator: PickListCoordinator? { coordinator as? PickListCoordinator }
     private var cancellable = Set<AnyCancellable>()

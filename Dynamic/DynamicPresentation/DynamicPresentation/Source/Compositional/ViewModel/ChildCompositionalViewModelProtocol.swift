@@ -8,18 +8,18 @@
 import Foundation
 import Combine
 
-public protocol ChildCompositionalViewModelInputProtocol: AnyObject {
+internal protocol ChildCompositionalViewModelInputProtocol: AnyObject {
     func action(_ action: ChildCompositionalViewModel.Action)
     func checkFavoriteButtonTapped(_ bool: Bool, _ indexPath: Int)
     func setupCategory(_ category: ChildCompositionalViewModel.Category)
     func scrollViewDidScroll(yValue: CGFloat)
 }
 
-public protocol ChildCompositionalViewModelOutputProtocol: AnyObject {
+internal protocol ChildCompositionalViewModelOutputProtocol: AnyObject {
     var event: CurrentValueSubject<ChildCompositionalViewModel.Event, Never> { get }
     func getSectionItem(_ sectionIndex: Int) -> ChildCompositionalViewModel.Section
 }
 
-public protocol ChildCompositionalViewModelProtocol: ChildCompositionalViewModelInputProtocol, ChildCompositionalViewModelOutputProtocol {
+internal protocol ChildCompositionalViewModelProtocol: ChildCompositionalViewModelInputProtocol, ChildCompositionalViewModelOutputProtocol {
     var favoritesCount: CurrentValueSubject<Int, Never> { get set }
 }

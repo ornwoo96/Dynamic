@@ -8,8 +8,8 @@
 import Foundation
 
 extension DetailViewModel {
-    public enum Event: Equatable {
-        public static func == (lhs: DetailViewModel.Event, rhs: DetailViewModel.Event) -> Bool {
+    internal enum Event: Equatable {
+        internal static func == (lhs: DetailViewModel.Event, rhs: DetailViewModel.Event) -> Bool {
             switch (lhs, rhs) {
             case (.none, .none):
                 return true

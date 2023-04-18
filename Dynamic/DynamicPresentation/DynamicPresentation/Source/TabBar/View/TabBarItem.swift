@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabBarItem: UIButton {
+internal final class TabBarItem: UIButton {
     private(set) lazy var textLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: xValueRatio(45), weight: .bold)

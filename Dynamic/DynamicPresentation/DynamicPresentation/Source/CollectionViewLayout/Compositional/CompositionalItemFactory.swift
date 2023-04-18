@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct FactoryItems {
+internal struct FactoryItems {
     static let empty: Self = .init(columnCount: 0,
                                    itemPadding: 0,
                                    contentWidth: 0)
@@ -26,7 +26,7 @@ public struct FactoryItems {
 }
 
 
-public class CompositionalItemFactory {
+internal class CompositionalItemFactory {
     private var columnHeights: [CGFloat] = []
     private let columnCount: CGFloat
     private let itemPadding: CGFloat
@@ -39,18 +39,18 @@ public class CompositionalItemFactory {
         self.itemPadding = factoryItems.itemPadding
     }
     
-    public func setItemSize(_ itemSize: CGSize) {
+    internal func setItemSize(_ itemSize: CGSize) {
         self.itemSize = itemSize
     }
     
-    public func getItem() -> NSCollectionLayoutGroupCustomItem {
+    internal func getItem() -> NSCollectionLayoutGroupCustomItem {
         let frame = itemFrame()
         setupColumnHeights(frame)
         
         return NSCollectionLayoutGroupCustomItem(frame: frame)
     }
     
-    public func getTotalHeight() -> CGFloat {
+    internal func getTotalHeight() -> CGFloat {
         return columnHeights[columnIndex()]
     }
     

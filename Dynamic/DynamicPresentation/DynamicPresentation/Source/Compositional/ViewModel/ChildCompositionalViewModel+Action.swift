@@ -8,7 +8,7 @@
 import Foundation
 
 extension ChildCompositionalViewModel {
-    public enum Action {
+    internal enum Action {
         case viewDidLoad
         case viewWillAppear
         case didSelectItemAt(_ indexPath: IndexPath)

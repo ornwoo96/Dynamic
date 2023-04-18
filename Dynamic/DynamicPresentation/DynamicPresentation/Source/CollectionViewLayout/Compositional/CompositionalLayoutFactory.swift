@@ -8,8 +8,8 @@
 
 import UIKit
 
-public class CompositionalLayoutFactory {
-    public func getDynamicLayoutSection(columnCount: Int = 2,
+internal class CompositionalLayoutFactory {
+    internal func getDynamicLayoutSection(columnCount: Int = 2,
                                         itemPadding: CGFloat,
                                         contentWidth: CGFloat,
                                         numberOfItems: Int,
@@ -45,7 +45,7 @@ public class CompositionalLayoutFactory {
         return section
     }
     
-    public func getEmptySection() -> NSCollectionLayoutSection {
+    internal func getEmptySection() -> NSCollectionLayoutSection {
         let item: NSCollectionLayoutItem = .init(
             layoutSize: .init(widthDimension: .absolute(0),
                               heightDimension: .absolute(0))

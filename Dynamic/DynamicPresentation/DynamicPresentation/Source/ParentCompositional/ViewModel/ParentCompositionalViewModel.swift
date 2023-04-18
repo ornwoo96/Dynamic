@@ -9,21 +9,21 @@ import Foundation
 import Combine
 import DynamicDomain
 
-protocol ParentCompositionalViewModelInputProtocol: AnyObject {
+internal protocol ParentCompositionalViewModelInputProtocol: AnyObject {
     func changeIndex(_ tag: Int)
     func action(_ action: ParentCompositionalViewModel.Action)
 }
 
-protocol ParentCompositionalViewModelOutputProtocol: AnyObject {
+internal protocol ParentCompositionalViewModelOutputProtocol: AnyObject {
     func readIndex() -> Int
 }
 
-protocol ParentCompositionalViewModelProtocol: ParentCompositionalViewModelInputProtocol, ParentCompositionalViewModelOutputProtocol {
+internal protocol ParentCompositionalViewModelProtocol: ParentCompositionalViewModelInputProtocol, ParentCompositionalViewModelOutputProtocol {
     var pageViewControllerPreviousIndex: Int { get set }
     var event: CurrentValueSubject<ParentCompositionalViewModel.Event, Never> { get set }
 }
 
-public class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
+internal class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol {
     internal var pageViewControllerPreviousIndex = 0
     internal var event = CurrentValueSubject<Event, Never>(.none)
     private let fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol
@@ -34,7 +34,7 @@ public class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol 
         self.fetchFavoritesUseCase = fetchFavoritesUseCase
     }
     
-    func action(_ action: Action) {
+    internal func action(_ action: Action) {
         switch action {
         case .viewDidLoad:
             retrieveSavingDataCountFromCoreData()
@@ -50,13 +50,13 @@ public class ParentCompositionalViewModel: ParentCompositionalViewModelProtocol 
         }
     }
     
-    func changeIndex(_ tag: Int) {
+    internal func changeIndex(_ tag: Int) {
         currentNavigationBarState = .show
         self.pageViewControllerPreviousIndex = tag
         event.send(.animateShowNavigationBar)
     }
     
-    func readIndex() -> Int {
+    internal func readIndex() -> Int {
         return pageViewControllerPreviousIndex
     }
     

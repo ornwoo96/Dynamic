@@ -7,14 +7,14 @@
 
 import Foundation
 
-public class BaseCellItem: Hashable {
+internal class BaseCellItem: Hashable {
     var id: String = ""
     
-    public func hash(into hasher: inout Hasher) {
+    internal func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
-    public static func == (lhs: BaseCellItem, rhs: BaseCellItem) -> Bool {
+    internal static func == (lhs: BaseCellItem, rhs: BaseCellItem) -> Bool {
         lhs.id == rhs.id
     }
 }

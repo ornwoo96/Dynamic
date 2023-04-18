@@ -7,8 +7,8 @@
 
 import Foundation
 
-public final class AddFavoritesUseCase: AddFavoritesUseCaseProtocol {
-    public var coreDataManager: CoreDataManagerRepository
+internal final class AddFavoritesUseCase: AddFavoritesUseCaseProtocol {
+    internal var coreDataManager: CoreDataManagerRepository
 
     init(coreDataManager: CoreDataManagerRepository) {
         self.coreDataManager = coreDataManager

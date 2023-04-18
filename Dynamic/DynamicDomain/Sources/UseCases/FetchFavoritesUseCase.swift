@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class FetchFavoritesUseCase: FetchFavoritesUseCaseProtocol {
+internal final class FetchFavoritesUseCase: FetchFavoritesUseCaseProtocol {
     private var coreDataManager: CoreDataManagerRepository
     
     init(coreDataManager: CoreDataManagerRepository) {

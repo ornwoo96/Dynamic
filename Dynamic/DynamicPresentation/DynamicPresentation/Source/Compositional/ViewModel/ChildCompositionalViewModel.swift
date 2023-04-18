@@ -10,7 +10,7 @@ import Combine
 import DynamicDomain
 import DynamicCore
 
-public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
+internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var addFavoritesUseCase: AddFavoritesUseCaseProtocol
     private var removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol
     private var imageSearchUseCase: ImageSearchUseCaseProtocol
@@ -21,8 +21,8 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private var limit = 20
     private var category: Category = .Coding
     private var isViewWillAppear = false
-    public var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
-    public var event: CurrentValueSubject<Event, Never> = .init(.none)
+    internal var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
+    internal var event: CurrentValueSubject<Event, Never> = .init(.none)
     
     init(addFavoritesUseCase: AddFavoritesUseCaseProtocol,
          removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol,
@@ -32,7 +32,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         self.imageSearchUseCase = imageSearchUseCase
     }
     
-    public func action(_ action: Action) {
+    internal func action(_ action: Action) {
         switch action {
         case .viewDidLoad:
             event.send(.showLoading)
@@ -52,15 +52,15 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
         }
     }
     
-    public func scrollViewDidScroll(yValue: CGFloat) {
+    internal func scrollViewDidScroll(yValue: CGFloat) {
         self.branchNavigationAnimationForHideORShow(yValue)
     }
     
-    public func setupCategory(_ category: ChildCompositionalViewModel.Category) {
+    internal func setupCategory(_ category: ChildCompositionalViewModel.Category) {
         self.category = category
     }
     
-    public func checkFavoriteButtonTapped(_ bool: Bool,
+    internal func checkFavoriteButtonTapped(_ bool: Bool,
                                           _ indexPath: Int) {
         if bool {
             requestCreateImageDataToCoreData(indexPath)
@@ -105,13 +105,16 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private func retrieveGIPHYDataForRefresh() {
         Task { [weak self] in
             do {
-                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, 0)
-                let presentationModel = convertPresentationModel(model)
+                guard let strongSelf = self,
+                      let model = try await self?.imageSearchUseCase.retrieveGIPHYDatas(strongSelf.category.rawValue, 0) else {
+                    return
+                }
+                let presentationModel = strongSelf.convertPresentationModel(model)
                 self?.resetFetchData()
                 self?.previewContents.append(contentsOf: presentationModel.previewModel)
                 self?.originalContents.append(contentsOf: presentationModel.originalModel)
-                setupSections(presentationModel.previewModel)
-                event.send(.hideLoading)
+                strongSelf.setupSections(presentationModel.previewModel)
+                self?.event.send(.hideLoading)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -128,12 +131,15 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
     private func retrieveGIPHYData() {
         Task { [weak self] in
             do {
-                let model = try await imageSearchUseCase.retrieveGIPHYDatas(category.rawValue, offset)
-                let presentationModel = convertPresentationModel(model)
+                guard let strongSelf = self,
+                      let model = try await self?.imageSearchUseCase.retrieveGIPHYDatas(strongSelf.category.rawValue, strongSelf.offset) else {
+                    return
+                }
+                let presentationModel = strongSelf.convertPresentationModel(model)
                 self?.previewContents.append(contentsOf: presentationModel.previewModel)
                 self?.originalContents.append(contentsOf: presentationModel.originalModel)
-                setupSections(presentationModel.previewModel)
-                offset += limit
+                strongSelf.setupSections(presentationModel.previewModel)
+                strongSelf.offset += strongSelf.limit
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -167,7 +173,7 @@ public class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol {
 }
 
 extension ChildCompositionalViewModel {
-    public func getSectionItem(_ sectionIndex: Int) -> Section {
+    internal func getSectionItem(_ sectionIndex: Int) -> Section {
         
         return sections[sectionIndex]
     }

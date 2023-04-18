@@ -8,7 +8,7 @@
 import Foundation
 
 extension DetailViewModel {
-    public enum Action {
+    internal enum Action {
         case viewWillAppear
     }
 }

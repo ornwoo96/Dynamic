@@ -9,12 +9,12 @@ import Foundation
 import Combine
 import DynamicDomain
 
-protocol DetailViewModelInputProtocol: AnyObject {
+internal protocol DetailViewModelInputProtocol: AnyObject {
     func setupDetailHeightData(_ data: String)
     func setupDetailWidthData(_ data: String)
 }
 
-protocol DetailViewModelOutputProtocol: AnyObject {
+internal protocol DetailViewModelOutputProtocol: AnyObject {
     var imageDataSubject: CurrentValueSubject<Data, Never> { get }
     var event: CurrentValueSubject<DetailViewModel.Event, Never> { get }
     
@@ -22,11 +22,11 @@ protocol DetailViewModelOutputProtocol: AnyObject {
     func retrieveDetailWidthData() -> CGFloat
 }
 
-protocol DetailViewModelProtocol: DetailViewModelInputProtocol, DetailViewModelOutputProtocol {
+internal protocol DetailViewModelProtocol: DetailViewModelInputProtocol, DetailViewModelOutputProtocol {
     func action(_ action: DetailViewModel.Action)
 }
 
-public class DetailViewModel: DetailViewModelProtocol {
+internal class DetailViewModel: DetailViewModelProtocol {
     private var detailHeight: CGFloat = 0
     private var detailWidth: CGFloat = 0
     internal var imageDataSubject = CurrentValueSubject<Data, Never>(Data())
@@ -39,21 +39,21 @@ public class DetailViewModel: DetailViewModelProtocol {
         }
     }
     
-    func setupDetailHeightData(_ data: String) {
+    internal func setupDetailHeightData(_ data: String) {
         let data = CGFloat(Int(data) ?? 0)
         detailHeight = data
     }
     
-    func setupDetailWidthData(_ data: String) {
+    internal func setupDetailWidthData(_ data: String) {
         let data = CGFloat(Int(data) ?? 0)
         detailWidth = data
     }
     
-    func retrieveDetailHeightData() -> CGFloat {
+    internal func retrieveDetailHeightData() -> CGFloat {
         return detailHeight
     }
     
-    func retrieveDetailWidthData() -> CGFloat {
+    internal func retrieveDetailWidthData() -> CGFloat {
         return detailWidth
     }
 }

@@ -7,12 +7,12 @@
 
 import Foundation
 
-public struct DetailModel {
-    public let url: String
-    public let width: String
-    public let height: String
+internal struct DetailModel {
+    let url: String
+    let width: String
+    let height: String
     
-    public init(url: String,
+    init(url: String,
                 width: String,
                 height: String) {
         self.url = url

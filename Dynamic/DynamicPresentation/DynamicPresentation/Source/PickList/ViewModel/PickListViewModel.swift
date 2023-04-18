@@ -9,22 +9,22 @@ import Foundation
 import DynamicDomain
 import Combine
 
-protocol PickListViewModelInputProtocol: AnyObject {
+internal protocol PickListViewModelInputProtocol: AnyObject {
     
 }
 
-protocol PickListViewModelOutputProtocol: AnyObject {
+internal protocol PickListViewModelOutputProtocol: AnyObject {
     
 }
 
-protocol PickListViewModelProtocol: PickListViewModelInputProtocol, PickListViewModelOutputProtocol {
+internal protocol PickListViewModelProtocol: PickListViewModelInputProtocol, PickListViewModelOutputProtocol {
     var event: CurrentValueSubject<PickListViewModel.Event, Never> { get set }
     var contents: [FavoriteDomainModel] { get }
 
     func action(_ action: PickListViewModel.Action)
 }
 
-class PickListViewModel: PickListViewModelProtocol {
+internal class PickListViewModel: PickListViewModelProtocol {
     private var removeFavoritesUseCase: RemoveFavoritesUseCaseProtocol
     private var fetchFavoritesUseCase: FetchFavoritesUseCaseProtocol
     var event: CurrentValueSubject<Event, Never> = .init(.none)

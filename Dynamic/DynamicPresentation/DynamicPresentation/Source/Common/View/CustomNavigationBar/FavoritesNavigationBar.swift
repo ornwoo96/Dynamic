@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol BackButtonProtocol {
+internal protocol BackButtonProtocol {
     func backButtonDidTap()
 }
 
-class FavoritesNavigationBar: UIView {
+internal class FavoritesNavigationBar: UIView {
     internal var delegate: BackButtonProtocol?
     private lazy var titleLabel: UILabel = {
         let label = UILabel()

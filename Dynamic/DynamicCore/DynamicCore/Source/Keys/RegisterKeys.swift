@@ -10,20 +10,14 @@ import Foundation
 public enum VMKeys: String {
     case mainVM = "MainViewModel"
     case compoVM = "CompositionalViewModel"
-    case customVM = "CustomViewModel"
-    case swiftUIVM = "SwiftUIViewModel"
     case detail = "DetailViewModel"
     case pickList = "PickListViewModel"
     case parentCompo = "ParentCompositionalViewModel"
-    case parentCustom = "ParentCustomViewModel"
 }
 
 public enum VCKeys: String {
     case mainVC = "MainViewController"
     case compoVC = "CompositionalViewController"
-    case customVC = "CustomViewController"
-    case parentCustom = "ParentCustomViewController"
-    case swiftUI = "SwiftUIViewController"
     case tabBar = "TabBarController"
     case detail = "DetailViewController"
     case pickList = "PickListViewController"
@@ -47,12 +41,9 @@ public enum RepoKeys: String {
 
 public enum CodiKeys: String {
     case tabBar = "TabBarCoordinator"
-    case custom = "CustomCoordinator"
-    case swift = "SwiftUICoordinator"
     case compo = "CompositionalCoordinator"
     case parentCompo = "ParentCompositionalCoordinator"
     case mainCodi = "MainCoordinator"
     case detail = "DetailCoordinator"
     case pickList = "PickListCoordinator"
-    case parentCustom = "ParentCustomCoordinator"
 }
