@@ -22,7 +22,6 @@
 		0BB52B252945B509005FC30F /* DynamicData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B212945B509005FC30F /* DynamicData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0BB52B2A2945B50F005FC30F /* DynamicPresentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB52B282945B50F005FC30F /* DynamicPresentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0BFE5900298C0ECF00A4509E /* DynamicCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE58FD298C0E6500A4509E /* DynamicCore.framework */; };
 		0BFE5901298C0ECF00A4509E /* DynamicCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE58FD298C0E6500A4509E /* DynamicCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -147,7 +146,6 @@
 				0B7A57FF29600B25008BCF05 /* DynamicDomain.framework in Frameworks */,
 				0BB52B242945B509005FC30F /* DynamicData.framework in Frameworks */,
 				0BB52B222945B509005FC30F /* DynamicCore.framework in Frameworks */,
-				0BFE5900298C0ECF00A4509E /* DynamicCore.framework in Frameworks */,
 				0BB52B292945B50F005FC30F /* DynamicPresentation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

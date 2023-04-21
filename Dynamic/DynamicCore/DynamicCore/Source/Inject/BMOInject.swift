@@ -15,12 +15,8 @@ public enum BMOInjectError: String, Error {
 public final class BMOInject {
     private var storage: Dictionary<String, AnyObject> = [:]
     
-    public func registerValue<Service>(_ key: String,
+    public func registerValue<Service: AnyObject>(_ key: String,
                                        _ value: Service) {
-        guard let value = value as? AnyObject else {
-            print(BMOInjectError.registerError)
-            return
-        }
         storage.updateValue(value, forKey: key)
     }
     

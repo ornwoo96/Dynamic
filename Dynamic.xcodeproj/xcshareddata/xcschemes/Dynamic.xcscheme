@@ -72,9 +72,19 @@
             ReferencedContainer = "container:Dynamic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "nw_log(default, level: .info, message: &quot;Connection established.&quot;)"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "nw_log(default, level: .debug, message: &quot;Sending data to server.&quot;)"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "OS_ACTIBITY_MODE"
+            key = "OS_ACTIVITY_MODE"
             value = "disable"
             isEnabled = "YES">
          </EnvironmentVariable>
