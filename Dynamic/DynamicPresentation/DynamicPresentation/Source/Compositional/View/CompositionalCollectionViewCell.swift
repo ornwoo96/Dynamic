@@ -63,9 +63,9 @@ internal class CompositionalCollectionViewCell: UICollectionViewCell {
     }
     
     internal func configure(_ item: CompositionalCellItem) {
+        self.setupCellGradient()
         self.gifImageView.setupGIFImageWithUIImage(url: item.url, cacheKey: item.url)
         self.heartView.setupHeartViewImage(bool: item.favorite)
-        self.setupCellGradient()
     }
     
     internal func clear() {
