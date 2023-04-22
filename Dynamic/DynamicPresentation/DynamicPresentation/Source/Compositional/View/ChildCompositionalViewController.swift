@@ -193,7 +193,9 @@ internal class ChildCompositionalViewController: UIViewController, HasCoordinata
     }
     
     private func hideLoading() {
-        loadingView.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.loadingView.isHidden = true
+        }
     }
     
     @objc private func pullToRefresh(_ sender: UIRefreshControl) {

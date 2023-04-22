@@ -85,6 +85,7 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
             self?.event.send(.endRefreshing)
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            self?.event.send(.hideLoading)
             self?.retrieveGIPHYDataForRefresh()
         }
     }
