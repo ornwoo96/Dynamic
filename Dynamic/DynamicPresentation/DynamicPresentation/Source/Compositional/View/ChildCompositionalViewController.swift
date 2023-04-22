@@ -28,9 +28,9 @@ internal class ChildCompositionalViewController: UIViewController, HasCoordinata
         super.viewDidLoad()
         viewModel.action(.viewDidLoad)
         setupLongGestureRecognizerOnCollection()
+        setDataSource()
         setupUI()
         bind()
-        setDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {

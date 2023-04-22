@@ -85,9 +85,11 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
             self?.event.send(.endRefreshing)
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            self?.event.send(.showLoading)
             self?.retrieveGIPHYDataForRefresh()
         }
     }
+    
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
         addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(previewContents[indexPath]))
@@ -168,7 +170,6 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
 
 extension ChildCompositionalViewModel {
     internal func getSectionItem(_ sectionIndex: Int) -> Section {
-        
         return sections[sectionIndex]
     }
 }
