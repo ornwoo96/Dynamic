@@ -340,7 +340,6 @@
 			children = (
 				0BFE595E298CBD5E00A4509E /* CustomFlow */,
 				0BFE595D298CBD5000A4509E /* Compositional */,
-				0BFE595C298CBD4200A4509E /* SwiftUI */,
 			);
 			path = CollectionViewLayout;
 			sourceTree = "<group>";
@@ -361,13 +360,6 @@
 				0BFE5952298C186600A4509E /* DynamicDomain.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0BFE595C298CBD4200A4509E /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		0BFE595D298CBD5000A4509E /* Compositional */ = {

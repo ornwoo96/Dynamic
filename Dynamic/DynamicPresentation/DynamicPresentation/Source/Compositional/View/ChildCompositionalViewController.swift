@@ -262,15 +262,6 @@ extension ChildCompositionalViewController: UICollectionViewDelegate {
                         forItemAt indexPath: IndexPath) {
         viewModel.action(.willDisplay(indexPath))
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        didEndDisplaying cell: UICollectionViewCell,
-                        forItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier, for: indexPath) as? CompositionalCollectionViewCell else {
-            return
-        }
-        cell.clear()
-    }
 }
 
 extension ChildCompositionalViewController: UIGestureRecognizerDelegate {
