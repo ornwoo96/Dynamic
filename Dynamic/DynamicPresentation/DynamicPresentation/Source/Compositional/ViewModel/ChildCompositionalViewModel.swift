@@ -20,7 +20,6 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
     private var offset = 0
     private var limit = 20
     private var category: Category = .Coding
-    private var isViewWillAppear = false
     internal var favoritesCount: CurrentValueSubject<Int, Never> = .init(0)
     internal var event: CurrentValueSubject<Event, Never> = .init(.none)
     
@@ -35,10 +34,8 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
     internal func action(_ action: Action) {
         switch action {
         case .viewDidLoad:
-            event.send(.showLoading)
-            self.retrieveGIPHYData()
-        case .viewWillAppear:
-            branchOutViewWillAppear()
+            viewDidLoad()
+        case .viewWillAppear: break
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(content: convert(originalContents[indexPath.item])))
         case .willDisplay(let indexPath):
@@ -71,12 +68,21 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
         }
     }
     
-    private func branchOutViewWillAppear() {
+    private func viewDidLoad() {
         event.send(.showLoading)
-        if isViewWillAppear {
-            retrieveGIPHYDataForRefresh()
-        }
-        isViewWillAppear = true
+        retrieveGIPHYData()
+        setupNotificationObserver()
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshCollectionView),
+                                               name: Notification.Name("PickListViewDidDisappear"),
+                                               object: nil)
+    }
+    
+    @objc private func refreshCollectionView() {
+        retrieveGIPHYDataForRefresh()
     }
     
     private func branchScrollPanGestureAction(yValue: Double) {
@@ -90,9 +96,11 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
             self?.event.send(.endRefreshing)
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            self?.event.send(.showLoading)
             self?.retrieveGIPHYDataForRefresh()
         }
     }
+    
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
         addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(previewContents[indexPath]))
@@ -114,7 +122,6 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
                 self?.previewContents.append(contentsOf: presentationModel.previewModel)
                 self?.originalContents.append(contentsOf: presentationModel.originalModel)
                 strongSelf.setupSections(presentationModel.previewModel)
-                self?.event.send(.hideLoading)
             } catch {
                 print("viewModel PreviewImage - 가져오기 실패")
             }
@@ -174,7 +181,6 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
 
 extension ChildCompositionalViewModel {
     internal func getSectionItem(_ sectionIndex: Int) -> Section {
-        
         return sections[sectionIndex]
     }
 }

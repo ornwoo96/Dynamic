@@ -45,7 +45,8 @@ internal class PickListViewModel: PickListViewModelProtocol {
         case .didSelectedItemAtLongPressed(indexPath: let indexPath):
             removeFavoriteData(indexPath)
         case .viewDidDisappear:
-            break
+            NotificationCenter.default.post(name: NSNotification.Name("PickListViewDidDisappear"),
+                                            object: nil)
         }
     }
     

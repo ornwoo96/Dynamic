@@ -28,14 +28,9 @@ internal class ChildCompositionalViewController: UIViewController, HasCoordinata
         super.viewDidLoad()
         viewModel.action(.viewDidLoad)
         setupLongGestureRecognizerOnCollection()
+        setDataSource()
         setupUI()
         bind()
-        setDataSource()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.action(.viewWillAppear)
     }
     
     init(viewModel: ChildCompositionalViewModelProtocol,
@@ -151,6 +146,7 @@ internal class ChildCompositionalViewController: UIViewController, HasCoordinata
             snapShot.appendSections([$0])
             snapShot.appendItems($0.items, toSection: $0)
         }
+        
         dataSource?.apply(snapShot)
     }
     
@@ -261,15 +257,6 @@ extension ChildCompositionalViewController: UICollectionViewDelegate {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         viewModel.action(.willDisplay(indexPath))
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        didEndDisplaying cell: UICollectionViewCell,
-                        forItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompositionalCollectionViewCell.identifier, for: indexPath) as? CompositionalCollectionViewCell else {
-            return
-        }
-        cell.clear()
     }
 }
 
