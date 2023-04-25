@@ -34,9 +34,8 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
     internal func action(_ action: Action) {
         switch action {
         case .viewDidLoad:
-            event.send(.showLoading)
-        case .viewWillAppear:
-            branchOutViewWillAppear()
+            viewDidLoad()
+        case .viewWillAppear: break
         case .didSelectItemAt(let indexPath):
             event.send(.showDetailView(content: convert(originalContents[indexPath.item])))
         case .willDisplay(let indexPath):
@@ -69,8 +68,20 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
         }
     }
     
-    private func branchOutViewWillAppear() {
+    private func viewDidLoad() {
         event.send(.showLoading)
+        retrieveGIPHYData()
+        setupNotificationObserver()
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshCollectionView),
+                                               name: Notification.Name("PickListViewDidDisappear"),
+                                               object: nil)
+    }
+    
+    @objc private func refreshCollectionView() {
         retrieveGIPHYDataForRefresh()
     }
     
@@ -85,10 +96,11 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
             self?.event.send(.endRefreshing)
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
-            self?.event.send(.hideLoading)
+            self?.event.send(.showLoading)
             self?.retrieveGIPHYDataForRefresh()
         }
     }
+    
     
     private func requestCreateImageDataToCoreData(_ indexPath: Int) {
         addFavoritesUseCase.requestCoreDataCreateImageData(convertOriginalDomain(previewContents[indexPath]))
@@ -169,7 +181,6 @@ internal class ChildCompositionalViewModel: ChildCompositionalViewModelProtocol 
 
 extension ChildCompositionalViewModel {
     internal func getSectionItem(_ sectionIndex: Int) -> Section {
-        
         return sections[sectionIndex]
     }
 }
