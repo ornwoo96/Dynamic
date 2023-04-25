@@ -33,11 +33,6 @@ internal class ChildCompositionalViewController: UIViewController, HasCoordinata
         bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.action(.viewWillAppear)
-    }
-    
     init(viewModel: ChildCompositionalViewModelProtocol,
          category: ChildCompositionalViewModel.Category) {
         self.viewModel = viewModel
@@ -151,6 +146,7 @@ internal class ChildCompositionalViewController: UIViewController, HasCoordinata
             snapShot.appendSections([$0])
             snapShot.appendItems($0.items, toSection: $0)
         }
+        
         dataSource?.apply(snapShot)
     }
     

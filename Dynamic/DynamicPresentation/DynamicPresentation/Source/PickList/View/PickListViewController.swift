@@ -111,7 +111,9 @@ internal class PickListViewController: UIViewController, HasCoordinatable {
             .store(in: &cancellable)
     }
     
-    private func collectionViewReloadData() {}
+    private func collectionViewReloadData() {
+        pickListCollectionView.reloadData()
+    }
 }
 
 extension PickListViewController: BackButtonProtocol {
