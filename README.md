@@ -2,7 +2,7 @@
 <img src = "https://user-images.githubusercontent.com/73861795/211793956-31f8a570-c6dc-4a13-bf4a-beff41d8ffce.png" width="300" height="300"/>
 
 >## 다이나믹 프로젝트
->#### 🗓 개발 기간: 2022.12.21 - 2022.01.11
+>#### 🗓 개발 기간: 2022.12.21 - 2023.01.11
 >#### 👥 개발 인원: iOS 1명
 <br/>
 <br/>
